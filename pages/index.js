@@ -1,11 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-
+import MyApp from './_app'
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <button type="button" className="btn btn-primary">Primary</button>
-    </div>
+    <MyApp>
+      <div className={styles.container}>
+        <button type="button" className="btn btn-primary">Primary</button>
+      </div>
+    </MyApp>
   )
 }
