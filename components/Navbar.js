@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Logo from '../resources/imgs/logo_chatpang_02_Edited.png'
 
 const Navbar = () => {
+
   return (
     <nav className={`navbar navbar-expand-lg navbar-light ${style.navbarCus}`}>
         <div className="container-fluid ms-4">
