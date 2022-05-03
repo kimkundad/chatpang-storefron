@@ -1,7 +1,7 @@
 import { Card } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 
-const Payment = () => {
+const Packages = () => {
   const router = useRouter()
 
   return (
@@ -32,7 +32,7 @@ const Payment = () => {
                             </ul>
                         </Card.Text>
                         <div className='text-center'>
-                            <button className='btn btn-primary'>ซื้อ</button>
+                            <button onClick={()=> router.push('/bankacc')} className='btn btn-primary'>ซื้อ</button>
                         </div>
                     </Card.Body>
                 </Card>
@@ -51,7 +51,7 @@ const Payment = () => {
                             </ul>
                         </Card.Text>
                         <div className='text-center'>
-                            <button className='btn btn-primary'>ซื้อ</button>
+                            <button onClick={()=> router.push('/bankacc')} className='btn btn-primary'>ซื้อ</button>
                         </div>
                     </Card.Body>
                 </Card>
@@ -70,7 +70,7 @@ const Payment = () => {
                             </ul>
                         </Card.Text>
                         <div className='text-center'>
-                            <button className='btn btn-primary'>ซื้อ</button>
+                            <button onClick={()=> router.push('/bankacc')} className='btn btn-primary'>ซื้อ</button>
                         </div>
                     </Card.Body>
                 </Card>
@@ -85,4 +85,4 @@ const Payment = () => {
   )
 }
 
-export default Payment
+export default Packages

@@ -3,7 +3,12 @@ import bbl from '../resources/imgs/bbl.png'
 import kbank from '../resources/imgs/kbank.png'
 import ktb from '../resources/imgs/ktb.png'
 import scb from '../resources/imgs/scb.png'
+
+import { useRouter } from 'next/router'
+
 const Bankacc = () => {
+  const router = useRouter()
+
   return (
     <div className='page-wrapper' >
         <div className='row' >
@@ -67,7 +72,7 @@ const Bankacc = () => {
         </div>
         <div className='row justify-content-center'>
             <div className='col-12 d-flex justify-content-end w-50 mt-3'>
-                <span className='btn text-secondary'>ย้อนกลับ</span>
+                <span onClick={()=> router.push('/packages')} className='btn text-secondary'>ย้อนกลับ</span>
                 <button className='customBTN'>อัพโหลดสลิป</button>
             </div>
         </div>

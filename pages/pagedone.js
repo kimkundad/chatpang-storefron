@@ -15,7 +15,7 @@ const Pagedone = () => {
     </div>
     <div className="row justify-content-center mt-5">
       <div className="col-lg-12 d-flex w-100 justify-content-center">
-            <button onClick={()=> router.push('/payment')} className='btn btn-primary w-50'>ตกลง</button>
+            <button onClick={()=> router.push('/packages')} className='btn btn-primary w-50'>ตกลง</button>
       </div>
     </div>
 </div>
