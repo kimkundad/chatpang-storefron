@@ -1,6 +1,9 @@
 import { Card } from 'react-bootstrap'
+import { useRouter } from 'next/router'
 
-const payment = () => {
+const Payment = () => {
+  const router = useRouter()
+
   return (
     <div className='page-wrapper' >
         <div className='row' >
@@ -75,11 +78,11 @@ const payment = () => {
         </div>
         <div className='row justify-content-center'>
             <div className='col-12 d-flex justify-content-end w-50 mt-3'>
-                <button className='customBTN'>ต่อไป</button>
+                <button onClick={()=> router.push('/bankacc')} className='customBTN'>ต่อไป</button>
             </div>
         </div>
     </div>
   )
 }
 
-export default payment
+export default Payment
