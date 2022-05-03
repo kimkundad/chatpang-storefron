@@ -1,13 +1,19 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
+
 import styles from '../styles/Home.module.css'
-import MyApp from './_app'
+// import Login from './login'
 export default function Home() {
+  const router = useRouter()
+
   return (
-    <MyApp>
-      <div className={styles.container}>
-        <button type="button" className="btn btn-primary">Primary</button>
+      <div className={`page-wrapper`}>
+        <h4 className='text-center fs-1'>เข้าสู่ระบบ</h4>
+        <div className='text-center mt-5'>
+          <button onClick={()=> router.push('/pagelist')} className='btn btn-primary btn-lg my-4 rounded-pill'>เข้าสู่ระบบด้วย FACEBOOK</button>
+          <div>
+            <span>คุณจะถูกขอสิทธิในการเข้าถึงเพจต่างๆ เพื่อใช้ในการตอบคอมเม้นต์ และคอมเม้นต์เข้า inbox</span>
+          </div>
+        </div>
       </div>
-    </MyApp>
   )
 }
