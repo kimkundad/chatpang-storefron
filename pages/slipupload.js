@@ -2,40 +2,50 @@
 import { useRouter } from 'next/router'
 import React, { useState } from "react";
 import Stepper from '../components/Stepper'
-import { DatePicker, TimePicker,Upload,message  } from 'antd';
+import { DatePicker, TimePicker,Upload,Modal  } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 const Slipupload = () => {
   const router = useRouter()
-  const { Dragger } = Upload;
   const [transferDate, setTransferDate] = useState("")
   const [transferTime, setTransferTime] = useState("")
+  const [fileList, setFileList] = useState([])
+  const [preview, setPreview] = useState({
+    previewVisible: false,
+    previewImage: '',
+  })
 
-  const props = {
-    name: 'file',
-    multiple: true,
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
-    },
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
   };
 
-  function onChange(date, dateString) {
-    console.log(date, dateString);
-  }
+  const onPreview = async file => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    setPreview({
+      previewVisible: true,
+      previewImage: src,
+    })
+  };
 
+  function onChangeDate(date, dateString) {
+    console.log(date, dateString);
+    setTransferDate(dateString)
+  }
+  function onChangeTime(date, timeString) {
+    console.log(date, timeString);
+    setTransferTime(timeString)
+  }
+  function handleCancel () {
+    setPreview({previewVisible: false})
+  }
   return (
     <div className='page-wrapper' >
     <div className='row' >
@@ -52,25 +62,34 @@ const Slipupload = () => {
         <div className='col-lg-12 d-flex justify-content-center' >
             <div className='d-flex flex-column mx-3'>
                 <span>กรุณาระบุวันที่ทำการโอนเงิน</span>
-                <DatePicker onChange={onChange} />
+                <DatePicker onChange={onChangeDate} />
             </div>
             <div className='d-flex flex-column mx-3'>
                 <span>กรุณาระบุเวลาการโอนเงิน</span>
-                <TimePicker onChange={onChange}/>
+                <TimePicker onChange={onChangeTime}/>
             </div>
         </div>
     </div>
     <div className='row m-auto w-75 mt-4' >
         <div className='col-lg-12 d-flex justify-content-center' >
             <div className='d-flex flex-column mx-3'>
-                <Dragger {...props}>
-                    <p className="ant-upload-drag-icon">
-                    <FontAwesomeIcon className='uploadicon' icon={faCloudArrowUp} />
-                    </p>
-                    <p className="ant-upload-text">คลิก หรือ ลาก และ วางไฟล์เพื่ออัพโหลด</p>
-                    <p className="ant-upload-hint">
-                    </p>
-                </Dragger>
+            <Upload
+              // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={onPreview}
+              >
+              {fileList.length < 5 && '+ Upload'}
+            </Upload>
+            <Modal
+            visible={preview.previewVisible}
+            title="หลักฐานการโอนของคุณ"
+            footer={null}
+            onCancel={handleCancel}
+            >
+              <img alt="example" style={{ width: '100%' }} src={preview.previewImage} />
+            </Modal>
             </div>
         </div>
     </div>

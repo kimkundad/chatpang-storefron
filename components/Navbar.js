@@ -1,10 +1,12 @@
 import style from '../styles/Navbar.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import Logo from '../resources/imgs/logo_chatpang_02_Edited.png'
 
 const Navbar = () => {
+  const router = useRouter()
 
   return (
     <nav className={`navbar navbar-expand-lg navbar-light ${style.navbarCus}`}>
@@ -18,7 +20,7 @@ const Navbar = () => {
                 className="d-inline-block align-text-top px-2" />
             </Link>
             <div className="d-flex me-4">
-                <span className='fw-bold fs-4'>ติดต่อเรา</span>
+                <span onClick={()=> router.push('/contactus')} style={{cursor:"pointer"}} className='fw-bold fs-4'>ติดต่อเรา</span>
             </div>
         </div>
     </nav>
