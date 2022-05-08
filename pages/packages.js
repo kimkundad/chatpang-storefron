@@ -46,19 +46,21 @@ const Packages = () => {
   ]
   return (
     <div className='page-wrapper' >
-        <div className='row' >
-            <div className='col-lg-12 d-flex justify-content-center'>
-                <Stepper step="0" />
+        <div className='content'>
+            <div className='row' >
+                <div className='col-lg-12 d-flex justify-content-center'>
+                    <Stepper step="0" />
+                </div>
             </div>
-        </div>
-        <div className='row justify-content-center mt-5' >
-            <div className='col-lg-12 d-flex justify-content-center' >
-            <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage}/>
+            <div className='row justify-content-center mt-5' >
+                <div className='col-lg-12 d-flex justify-content-center' >
+                <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage}/>
+                </div>
             </div>
-        </div>
-        <div className='row justify-content-center'>
-            <div className='col-12 d-flex justify-content-end w-50 mt-3'>
-                <button onClick={()=> router.push('/bankacc')} className='customBTN'>ต่อไป</button>
+            <div className='row justify-content-center'>
+                <div style={{width:"40%"}} className='col-12 d-flex justify-content-end mt-5'>
+                    <button onClick={()=> router.push('/bankacc')} className='customBTN'>ต่อไป</button>
+                </div>
             </div>
         </div>
     </div>

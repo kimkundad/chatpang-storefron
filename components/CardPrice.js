@@ -17,7 +17,7 @@ const CardPrice = ({data = [],selected, setSelectedPackage}) => {
               <Card.Title className='cardTitle fw-bold'>{item.title}</Card.Title>
               <Card.Text>
                   <div className='text-center mb-3'>
-                      <h1 className='mb-0 fw-bold'>{item.price}</h1>
+                      <strong className='mb-0 fw-bold fs-3'>{item.price}</strong>
                       <p>บาท/เดือน</p>
                   </div>
                   <ul className='m-0 p-0'>

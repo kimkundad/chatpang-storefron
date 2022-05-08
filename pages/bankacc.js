@@ -13,6 +13,8 @@ const Bankacc = () => {
 
   return (
     <div className='page-wrapper' >
+    <div className='content'>
+
         <div className='row' >
             <div className='col-lg-12 d-flex justify-content-center'>
                 <Stepper step="1"/>
@@ -74,6 +76,7 @@ const Bankacc = () => {
                 <button onClick={()=> router.push('/slipupload')} className='customBTN'>อัพโหลดสลิป</button>
             </div>
         </div>
+    </div>
     </div>
   )
 }

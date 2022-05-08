@@ -1,10 +1,15 @@
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import useUser from '../Hooks/useUser'
 
 import styles from '../styles/Home.module.css'
 // import Login from './login'
 export default function Home() {
   const router = useRouter()
-
+  const { setUserData } = useUser()
+  useEffect(()=>{
+    setUserData({isLogin:false})
+  },[])
   return (
       <div className={`page-wrapper`}>
         <h4 className='text-center fs-1'>เข้าสู่ระบบ</h4>

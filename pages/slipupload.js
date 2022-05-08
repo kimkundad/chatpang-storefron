@@ -3,8 +3,6 @@ import { useRouter } from 'next/router'
 import React, { useState } from "react";
 import Stepper from '../components/Stepper'
 import { DatePicker, TimePicker,Upload,Modal  } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 const Slipupload = () => {
   const router = useRouter()
@@ -48,56 +46,58 @@ const Slipupload = () => {
   }
   return (
     <div className='page-wrapper' >
-    <div className='row' >
-        <div className='col-lg-12 d-flex justify-content-center'>
-            <Stepper step="1"/>
-        </div>
-    </div>
-    <div className="row m-auto w-75">
-        <div className="col-lg-12 d-flex justify-content-center">
-            <h1>กรุณาอัพโหลดสลิป</h1>
-        </div>
-    </div>
-    <div className='row m-auto w-75' >
-        <div className='col-lg-12 d-flex justify-content-center' >
-            <div className='d-flex flex-column mx-3'>
-                <span>กรุณาระบุวันที่ทำการโอนเงิน</span>
-                <DatePicker onChange={onChangeDate} />
-            </div>
-            <div className='d-flex flex-column mx-3'>
-                <span>กรุณาระบุเวลาการโอนเงิน</span>
-                <TimePicker onChange={onChangeTime}/>
-            </div>
-        </div>
-    </div>
-    <div className='row m-auto w-75 mt-4' >
-        <div className='col-lg-12 d-flex justify-content-center' >
-            <div className='d-flex flex-column mx-3'>
-            <Upload
-              // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={onChange}
-              onPreview={onPreview}
+    <div className='content'>
+      <div className='row' >
+          <div className='col-lg-12 d-flex justify-content-center'>
+              <Stepper step="1"/>
+          </div>
+      </div>
+      <div className="row m-auto w-75">
+          <div className="col-lg-12 d-flex justify-content-center">
+              <h1>กรุณาอัพโหลดสลิป</h1>
+          </div>
+      </div>
+      <div className='row m-auto w-75' >
+          <div className='col-lg-12 d-flex justify-content-center' >
+              <div className='d-flex flex-column mx-3'>
+                  <span>กรุณาระบุวันที่ทำการโอนเงิน</span>
+                  <DatePicker onChange={onChangeDate} />
+              </div>
+              <div className='d-flex flex-column mx-3'>
+                  <span>กรุณาระบุเวลาการโอนเงิน</span>
+                  <TimePicker onChange={onChangeTime}/>
+              </div>
+          </div>
+      </div>
+      <div className='row m-auto w-75 mt-4' >
+          <div className='col-lg-12 d-flex justify-content-center' >
+              <div className='d-flex flex-column mx-3'>
+              <Upload
+                // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={onPreview}
+                >
+                {fileList.length < 5 && '+ Upload'}
+              </Upload>
+              <Modal
+              visible={preview.previewVisible}
+              title="หลักฐานการโอนของคุณ"
+              footer={null}
+              onCancel={handleCancel}
               >
-              {fileList.length < 5 && '+ Upload'}
-            </Upload>
-            <Modal
-            visible={preview.previewVisible}
-            title="หลักฐานการโอนของคุณ"
-            footer={null}
-            onCancel={handleCancel}
-            >
-              <img alt="example" style={{ width: '100%' }} src={preview.previewImage} />
-            </Modal>
-            </div>
-        </div>
-    </div>
-    <div className='row justify-content-center'>
-        <div className='col-12 d-flex justify-content-end w-50 mt-3'>
-            <span onClick={()=> router.back()} className='btn text-secondary'>ย้อนกลับ</span>
-            <button onClick={()=> router.push('/confirmorder')} className='customBTN'>ต่อไป</button>
-        </div>
+                <img alt="example" style={{ width: '100%' }} src={preview.previewImage} />
+              </Modal>
+              </div>
+          </div>
+      </div>
+      <div className='row justify-content-center'>
+          <div style={{width:"35%"}} className='col-12 d-flex justify-content-end mt-3'>
+              <span onClick={()=> router.back()} className='btn text-secondary'>ย้อนกลับ</span>
+              <button onClick={()=> router.push('/confirmorder')} className='customBTN'>ต่อไป</button>
+          </div>
+      </div>
     </div>
 </div>
   )

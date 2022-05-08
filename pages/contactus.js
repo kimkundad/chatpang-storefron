@@ -11,12 +11,13 @@ const Contactus = () => {
             <div className='col-lg-6 d-flex justify-content-center' >
                 <div>
                     <h2>ติดต่อสอบถามเพิ่มเติม</h2>
-                    <div className='d-flex'>
+                    <div className='d-flex mb-3'>
                         <FontAwesomeIcon style={{color:"red"}} className='me-3' icon={faLocationDot} />
                         <div>
-                        <p className='mb-0' >บริษัท บีทีวาย มาเก็ตติ้ง จำกัด</p>
-                        <p className='mb-0'>169/93 หมู่บ้านอรินสิริ@ข้าวหลาม</p>
-                        <p>ต.ห้วยกะปิ อ.เมือง จ.ชลบุรี 20000</p>
+                        <p>บริษัท บีทีวาย มาเก็ตติ้ง จำกัด<br/>
+                           169/93 หมู่บ้านอรินสิริ@ข้าวหลาม<br/>
+                           ต.ห้วยกะปิ อ.เมือง จ.ชลบุรี 20000
+                        </p>
                         </div>
                     </div>
                     <p><FontAwesomeIcon style={{color:"#0AA1DD"}} className='me-2' icon={faPhone} /> 087 135 2410 (คุณต๊อป)</p>
