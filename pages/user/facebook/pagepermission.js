@@ -73,13 +73,13 @@ const Pagepermission = () => {
           </table>
           <div className='d-flex justify-content-between mt-3' >
             <div className='d-flex flex-column'>
-              <button onClick={()=> router.push('/')} className='btn btn-secondary w-50'>ยกเลิก</button>
+              <button onClick={()=> router.push('/user/')} className='btn btn-secondary w-50'>ยกเลิก</button>
               <span><span className='text-primary' >นโยบายความเป็นส่วนตัว</span><span>และ</span><span className='text-primary' >ข้อกำหนดของเรา</span></span>
             </div>
             <div className='d-flex flex-column'>
               <div className='d-flex' >
-                  <button onClick={()=> router.push('/pagelist')} className='btn btn-secondary mx-2' >ย้อนกลับ</button>
-                  <button onClick={()=> router.push('/pagedone')} className='btn btn-primary' >ถัดไป</button>
+                  <button onClick={()=> router.push('/user/facebook/pagelist')} className='btn btn-secondary mx-2' >ย้อนกลับ</button>
+                  <button onClick={()=> router.push('/user/facebook/pagedone')} className='btn btn-primary' >ถัดไป</button>
               </div>
               <span className='text-primary text-end'>ศูนย์ช่วยเหลือ</span>
             </div>

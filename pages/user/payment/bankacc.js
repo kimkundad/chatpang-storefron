@@ -1,12 +1,12 @@
 import Image  from 'next/image'
-import bbl from '../resources/imgs/bbl.png'
-import kbank from '../resources/imgs/kbank.png'
-import ktb from '../resources/imgs/ktb.png'
-import scb from '../resources/imgs/scb.png'
+import bbl from '../../../resources/imgs/bbl.png'
+import kbank from '../../../resources/imgs/kbank.png'
+import ktb from '../../../resources/imgs/ktb.png'
+import scb from '../../../resources/imgs/scb.png'
 
 import { useRouter } from 'next/router'
 
-import Stepper from '../components/Stepper'
+import Stepper from '../../../components/Stepper'
 
 const Bankacc = () => {
   const router = useRouter()
@@ -73,7 +73,7 @@ const Bankacc = () => {
         <div className='row justify-content-center'>
             <div className='col-12 d-flex justify-content-end w-50 mt-3'>
                 <span onClick={()=> router.back()} className='btn text-secondary'>ย้อนกลับ</span>
-                <button onClick={()=> router.push('/slipupload')} className='customBTN'>อัพโหลดสลิป</button>
+                <button onClick={()=> router.push('/user/payment/slipupload')} className='customBTN'>อัพโหลดสลิป</button>
             </div>
         </div>
     </div>

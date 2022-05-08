@@ -1,7 +1,7 @@
 
 import { useRouter } from 'next/router'
 import React, { useState } from "react";
-import Stepper from '../components/Stepper'
+import Stepper from '../../../components/Stepper'
 import { DatePicker, TimePicker,Upload,Modal  } from 'antd';
 
 const Slipupload = () => {
@@ -95,7 +95,7 @@ const Slipupload = () => {
       <div className='row justify-content-center'>
           <div style={{width:"35%"}} className='col-12 d-flex justify-content-end mt-3'>
               <span onClick={()=> router.back()} className='btn text-secondary'>ย้อนกลับ</span>
-              <button onClick={()=> router.push('/confirmorder')} className='customBTN'>ต่อไป</button>
+              <button onClick={()=> router.push('/user/payment/confirmorder')} className='customBTN'>ต่อไป</button>
           </div>
       </div>
     </div>

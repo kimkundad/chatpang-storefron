@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react';
 //component
-import Stepper from '../components/Stepper'
-import CardPrice from '../components/CardPrice';
+import Stepper from '../../components/Stepper'
+import CardPrice from '../../components/CardPrice';
 
 const Packages = () => {
   const router = useRouter()
@@ -59,7 +59,7 @@ const Packages = () => {
             </div>
             <div className='row justify-content-center'>
                 <div style={{width:"40%"}} className='col-12 d-flex justify-content-end mt-5'>
-                    <button onClick={()=> router.push('/bankacc')} className='customBTN'>ต่อไป</button>
+                    <button onClick={()=> router.push('/user/payment/bankacc')} className='customBTN'>ต่อไป</button>
                 </div>
             </div>
         </div>

@@ -1,11 +1,11 @@
 
 import { useRouter } from 'next/router'
-import Stepper from '../components/Stepper'
+import Stepper from '../../../components/Stepper'
 import { Checkbox, Modal, Divider  } from 'antd'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
-import sampleSlip from '../resources/imgs/slip.jpg'
+import sampleSlip from '../../../resources/imgs/slip.jpg'
 
 const Confirmorder = () => {
   const router = useRouter()

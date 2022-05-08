@@ -1,6 +1,7 @@
 import style from '../styles/Navbar.module.css'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 import Logo from '../resources/imgs/logo_chatpang_02_Edited.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,6 +14,26 @@ const Navbar = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
 
+  console.log(router.pathname.includes('user'));
+  const isLandingPage = router.pathname.includes('user')
+  const landingNavMenu = () =>{
+    if (!isLandingPage) {
+      return (
+        <>
+        <Link href='#about'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>เกี่ยวกับ</span></Link>
+        <Link href='#functions'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ฟังก์ชั่น</span></Link>
+        <Link href='#review'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>รีวิวจากลูกค้า</span></Link>
+        <Link href='#question'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>คำถามที่พบบ่อย</span></Link>
+        <Link href='#package'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>แพ็คเกจ</span></Link>
+        <Link href='#contact'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</span></Link>
+      </>
+    )
+    }else{
+      return (
+        <span onClick={()=> router.push('/contactus')} style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</span>
+      )
+    }
+  }
   const userDropDown = () => {
     if (user.isLogin) {
       return (
@@ -31,7 +52,7 @@ const Navbar = () => {
     }
   }
   const onLogOut = () => {
-    router.push("/")
+    router.push("/user/")
     setUserData({isLogin:false})
   }
 
@@ -39,11 +60,11 @@ const Navbar = () => {
     <Menu 
       items={[
         {
-          label:<span onClick={()=> router.push('/pagemanagement')}>จัดการเพจ</span>,
+          label:<span onClick={()=> router.push('/user/manage/pagemanagement')}>จัดการเพจ</span>,
           key:0
         },
         {
-          label:<span onClick={()=> router.push('/accountmanagement')}>จัดการบัญชีและสมาชิก</span>,
+          label:<span onClick={()=> router.push('/user/manage/accountmanagement')}>จัดการบัญชีและสมาชิก</span>,
           key:1
         },
         {
@@ -70,7 +91,7 @@ const Navbar = () => {
                 className="d-inline-block align-text-top px-2" />
             {/* </Link> */}
             <div className="d-flex me-4">
-                <span onClick={()=> router.push('/contactus')} style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</span>
+                {landingNavMenu()}
                 {userDropDown()}
             </div>
         </div>

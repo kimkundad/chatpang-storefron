@@ -1,3 +1,6 @@
 .navbarCus{
     background: #FCED20;
+    position: fixed;
+    width: 100%;
+    z-index: 60;
 }

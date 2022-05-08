@@ -41,7 +41,7 @@ const MemberDetails = () => {
                 </div>
                 <div className='col-lg-6 text-end' >
                         <div className='ps-3'>
-                            <p onClick={()=> router.push('/packages')} style={{cursor:"pointer"}} className='text-primary mb-0 fs-5'>เปลี่ยนแพ็คเกจ</p>
+                            <p onClick={()=> router.push('/user/packages')} style={{cursor:"pointer"}} className='text-primary mb-0 fs-5'>เปลี่ยนแพ็คเกจ</p>
                         </div>
                 </div>
             </div>

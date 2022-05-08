@@ -178,9 +178,58 @@ p:last-child{
     font-size: .875em;
     color: #dc3545;
 }
+/*-------------------
+Landing
+--------------------*/
+.landingSection{
+	height: 90vh;
+	padding-top:90px;
+}
+.mainLanding h2{
+	font-size: 6rem;
+}
+.mainLanding h4{
+	font-size: 4rem;
+}
+.mainLanding button{
+	background: #000000;
+	color: #fff;
+	width: fit-content;
+	height: fit-content;
+	padding: 1rem 1.5rem;
+	border-radius: 50px;
+	font-size: 2rem;
+}
+.fnContainer{
+	height: 225px;
+	width: 385px;
+	border-radius: 20px;
+	border: 1px solid #C4C4C4;
+	position: relative;
+	padding: 80px 16px 0 16px;
+	font-size: 2rem;
+	margin:1rem;
+}
+.fnContainer span{
+	font-size: 1.5rem;
+}
+.fnContainerIcon{
+	height: 119px;
+	width: 119px;
+	display: grid;
+	place-items: center;
+	left: 133px;/*R - containerWidth*/
+	top: -59.5px;
+	border-radius: 50%;
+	border: 1px solid #C4C4C4;
+	position: absolute;
+	z-index: 10;
+	background: #fff;
+}
 /*-----------------
 	2. Modal
 -----------------------*/
+
 .modal {
 	-webkit-overflow-scrolling: touch;
 }
@@ -212,7 +261,7 @@ box-shadow: unset;
 }
 .page-wrapper {
 	/* margin-left: 240px; */
-	padding-top: 10px;
+	padding-top:90px;
 	position: relative;
 	transition: all 0.4s ease;
 }

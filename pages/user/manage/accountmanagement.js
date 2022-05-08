@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs } from 'antd';
-import MemberDetails from '../components/subUser/MemberDetails';
-import PaymentDetails from '../components/subUser/PaymentDetails';
+import MemberDetails from '../../../components/subUser/MemberDetails';
+import PaymentDetails from '../../../components/subUser/PaymentDetails';
 const Accountmanagement = () => {
   const { TabPane } = Tabs;
   return (

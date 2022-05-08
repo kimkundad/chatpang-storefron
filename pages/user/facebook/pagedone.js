@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
-import useUser from '../Hooks/useUser'
+import useUser from '../../../Hooks/useUser'
 const Pagedone = () => {
   const router = useRouter()
   const { setUserData } = useUser()
   const onSubmit = () => {
-    router.push('/packages')
+    router.push('/user/packages')
     setUserData({isLogin:true})
   }
   return (
