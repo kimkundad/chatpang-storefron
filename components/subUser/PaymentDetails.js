@@ -30,31 +30,31 @@ const PaymentDetails = () => {
             title:<strong className='fs-4'>วันที่</strong>,
             dataIndex:'date',
             key:'date',
-            render: text => <p className='fs-5'>{text}</p>
+            render: text => <span className='fs-5'>{text}</span>
         },
         {
             title:<strong className='fs-4'>แพ็คเกจ</strong>,
             dataIndex:'package',
             key:'package',
-            render: text => <p className='fs-5'>{text}</p>
+            render: text => <span className='fs-5'>{text}</span>
         },
         {
             title:<strong className='fs-4'>ระยะเวลาของการใช้งาน</strong>,
             dataIndex:'start',
             key:'start',
-            render: text => <p className='fs-5'>{text}</p>
+            render: text => <span className='fs-5'>{text}</span>
         },
         {
             title:<strong className='fs-4'>วิธีชำระเงิน</strong>,
             dataIndex:'paymentMethod',
             key:'paymentMethod',
-            render: text => <p className='fs-5'>{text}</p>
+            render: text => <span className='fs-5'>{text}</span>
         },
         {
             title:<strong className='fs-4'>จำนวนเงิน</strong>,
             dataIndex:'amount',
             key:'amount',
-            render: text => <p className='fs-5'>{text}</p>
+            render: text => <span className='fs-5'>{text}</span>
         },
     ]
   return (

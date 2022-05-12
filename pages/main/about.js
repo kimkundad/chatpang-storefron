@@ -13,9 +13,9 @@ const About = () => {
             <span style={{fontSize:"5rem"}}>ไม่พลาดทุกแชทของลูกค้าด้วยข้อความอัตโนมัติ!</span>
             </div>
             <div style={{marginLeft:"12rem"}} >
-            <p className='text-secondary d-flex align-items-center'><Image width={50} height={50} src={Icon_list} alt="icon"/><span style={{fontSize:"3rem"}} className='mx-3'>ตอบคอมเม้นต์อัตโนมัติ</span></p>
-            <p className='text-secondary d-flex align-items-center'><Image width={50} height={50} src={Icon_list} alt="icon"/><span style={{fontSize:"3rem"}} className='mx-3'>ดึงคอมเม้นต์เข้า Inbox</span></p>
-            <p className='text-secondary d-flex align-items-center'><Image width={50} height={50} src={Icon_list} alt="icon"/><span style={{fontSize:"3rem"}} className='mx-3'>แจ้งเตือนแชทจาก LINE</span></p>
+            <span className='text-secondary d-flex align-items-center'><Image width={50} height={50} src={Icon_list} alt="icon"/><span style={{fontSize:"3rem"}} className='mx-3'>ตอบคอมเม้นต์อัตโนมัติ</span></span>
+            <span className='text-secondary d-flex align-items-center'><Image width={50} height={50} src={Icon_list} alt="icon"/><span style={{fontSize:"3rem"}} className='mx-3'>ดึงคอมเม้นต์เข้า Inbox</span></span>
+            <span className='text-secondary d-flex align-items-center'><Image width={50} height={50} src={Icon_list} alt="icon"/><span style={{fontSize:"3rem"}} className='mx-3'>แจ้งเตือนแชทจาก LINE</span></span>
             </div>
         </div>
         <div className='col-lg-6 d-flex justify-content-center align-items-center'>

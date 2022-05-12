@@ -20,7 +20,7 @@ const Function = () => {
             <div style={{width:"80%"}} className='col-lg-12 flex-wrap d-flex justify-content-center align-items-center'>
               <div className='fnContainer d-flex flex-column text-center'>
                 <div className='fnContainerIcon'>
-                <Image src={Icon_1} alt="icon"/>
+                <Image className='imgIcon' src={Icon_1} alt="icon"/>
                 </div>
                 <strong>ดึงคอมเม้นต์เข้า INBOX</strong>
                 <span>ไม่พลาดทุกคอมเม้นต์ ที่ลูกค้าสนใจสินค้าสามารถดึงไปคุยต่อในแชทได้ทันที!</span>
@@ -34,7 +34,7 @@ const Function = () => {
               </div>
               <div className='fnContainer d-flex flex-column text-center'>
                 <div className='fnContainerIcon'>
-                <Image src={KeyBoard} alt="icon"/>
+                <Image className='imgIcon' src={KeyBoard} alt="icon"/>
                 </div>
                 <strong>ตอบโพสต์อัตโนมัติ</strong>
                 <span>ตอบทุกคอมเม้นต์ใต้โพส ตามข้อความที่คุณตั้งไว้ แม้คุณไม่ว่างตอบ</span>

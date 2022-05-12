@@ -182,7 +182,7 @@ p:last-child{
 Landing
 --------------------*/
 .landingSection{
-	height: 90vh;
+	min-height: 90vh;
 	padding-top:90px;
 }
 .mainLanding h2{
@@ -200,6 +200,9 @@ Landing
 	border-radius: 50px;
 	font-size: 2rem;
 }
+/*------
+function section
+------*/
 .fnContainer{
 	height: 225px;
 	width: 385px;
@@ -208,14 +211,14 @@ Landing
 	position: relative;
 	padding: 80px 16px 0 16px;
 	font-size: 2rem;
-	margin:1rem;
+	margin:4rem 1rem 1rem 1rem;
 }
 .fnContainer span{
 	font-size: 1.5rem;
 }
 .fnContainerIcon{
-	height: 119px;
-	width: 119px;
+	height: 100px;
+	width: 100px;
 	display: grid;
 	place-items: center;
 	left: 133px;/*R - containerWidth*/
@@ -227,9 +230,48 @@ Landing
 	background: #fff;
 }
 /*-----------------
+	review card
+-----------------------*/
+.reviewContainer{
+	overflow-x: hidden;
+	/* max-width: 75% !important; */
+	max-width: 1060px !important;
+	margin: 0 auto;
+	padding: 0 100px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.reviewCard{
+	/* background: #377dff; */
+	height: 100%;
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	padding: 0 25px;
+	left: 0px;
+	top: 0;
+	transition: left 0.5s ease-in-out;
+}
+.card{
+	margin: 25px;
+}
+.iconCard{
+	position: relative;
+	z-index: 30;
+	margin: 0 500px;
+	cursor: pointer;
+	font-size: 2rem;
+}
+.cardActive{
+	left: -350px;
+}
+
+/*-----------------
 	2. Modal
 -----------------------*/
-
 .modal {
 	-webkit-overflow-scrolling: touch;
 }
@@ -465,6 +507,20 @@ table.table td h2 span {
 .table-responsive {
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
+  }
+  /*------------
+  	QuestionBox
+  --------------*/
+  .questionBox{
+	  max-width: 60%;
+	  font-size: 1.25rem;
+	  position: relative;
+	  margin: 16px auto ;
+  }
+
+  .questionBox .accordion-button{
+	font-size: 1.7rem;
+	color: #000000;
   }
 /*-----------------
 	Breadcrumb

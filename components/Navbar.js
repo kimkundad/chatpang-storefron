@@ -14,7 +14,6 @@ const Navbar = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
 
-  console.log(router.pathname.includes('user'));
   const isLandingPage = router.pathname.includes('user')
   const landingNavMenu = () =>{
     if (!isLandingPage) {

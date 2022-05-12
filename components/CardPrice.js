@@ -18,7 +18,7 @@ const CardPrice = ({data = [],selected, setSelectedPackage}) => {
               <Card.Text>
                   <div className='text-center mb-3'>
                       <strong className='mb-0 fw-bold fs-3'>{item.price}</strong>
-                      <p>บาท/เดือน</p>
+                      <span>บาท/เดือน</span>
                   </div>
                   <ul className='m-0 p-0'>
                   {item.options.map((op, index)=>(
