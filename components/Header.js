@@ -2,11 +2,11 @@ import React from "react";
 
 const Header = () => {
   return (
-    <header>
+    <header className=" position-fixed w-100 top-0" style={{ zIndex: "1000" }}>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div className="container-xl">
           <a className="navbar-brand" href="#">
-            <img src="/images/header-logo.svg" />
+            <img src="/images/header-logo.svg" style={{ maxWidth: "209px" }} />
           </a>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
