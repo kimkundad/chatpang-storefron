@@ -1,0 +1,22 @@
+$theme-colors: (
+  "primary": #f5f24f,
+  "secondary": #c7c41f,
+  "success": #1ce1ac,
+  "info": #ff7d50,
+  "warning": #ffbe0b,
+  "danger": #ff007f,
+  "light": #c0ccda,
+  "dark": #001738,
+  "grey100": #c4c4c4,
+);
+
+$display-font-sizes: (
+  1: 84px,
+  2: 72px,
+  3: 64px,
+  4: 48px,
+  5: 3rem,
+  6: 2.5rem,
+);
+
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
