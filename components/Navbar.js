@@ -4,13 +4,14 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 import Logo from '../resources/imgs/logo_chatpang_02_Edited.png'
+import SmallLogo from '../resources/imgs/chat_pang_icon.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { Dropdown, Menu } from 'antd'
-
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import useUser from '../Hooks/useUser'
 
-const Navbar = () => {
+const Navbars = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
 
@@ -18,14 +19,14 @@ const Navbar = () => {
   const landingNavMenu = () =>{
     if (!isLandingPage) {
       return (
-        <>
-        <Link href='#about'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>เกี่ยวกับ</span></Link>
-        <Link href='#functions'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ฟังก์ชั่น</span></Link>
-        <Link href='#review'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>รีวิวจากลูกค้า</span></Link>
-        <Link href='#question'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>คำถามที่พบบ่อย</span></Link>
-        <Link href='#package'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>แพ็คเกจ</span></Link>
-        <Link href='#contact'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</span></Link>
-      </>
+        <Nav className='ms-auto'>
+        <Nav.Link href='#about'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>เกี่ยวกับ</span></Nav.Link>
+        <Nav.Link href='#functions'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ฟังก์ชั่น</span></Nav.Link>
+        <Nav.Link href='#review'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>รีวิวจากลูกค้า</span></Nav.Link>
+        <Nav.Link href='#question'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>คำถามที่พบบ่อย</span></Nav.Link>
+        <Nav.Link href='#package'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>แพ็คเกจ</span></Nav.Link>
+        <Nav.Link href='#contact'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</span></Nav.Link>
+      </Nav>
     )
     }else{
       return (
@@ -77,9 +78,10 @@ const Navbar = () => {
     />
   )
   return (
-    <nav className={`navbar navbar-expand-lg navbar-light ${style.navbarCus}`}>
+    <Navbar bg='light' expand="lg" className={`${style.navbarCus}`}>
         <div className="container-fluid ms-4">
             {/* <Link className="navbar-brand" href="/" passHref={true}> */}
+            <Navbar.Brand>
                 <Image 
                 onClick={()=> router.push('/')}
                 src={Logo}
@@ -87,15 +89,26 @@ const Navbar = () => {
                 width="230" 
                 height="70" 
                 style={{cursor:"pointer"}}
-                className="d-inline-block align-text-top px-2" />
+                className={`align-text-top px-2 ${style.logo}`} />
+                {/* <Image 
+                onClick={()=> router.push('/')}
+                src={SmallLogo}
+                alt='logo' 
+                width="80" 
+                height="80"
+                className={`align-text-top px-2${style.smallLogo}`} /> */}
+            </Navbar.Brand>
             {/* </Link> */}
-            <div className="d-flex me-4">
+            {/* <div className="d-flex me-4"> */}
+            <Navbar.Toggle />
+            <Navbar.Collapse>
                 {landingNavMenu()}
                 {userDropDown()}
-            </div>
+            </Navbar.Collapse>
+            {/* </div> */}
         </div>
-    </nav>
+    </Navbar>
   )
 }
 
-export default Navbar
+export default Navbars

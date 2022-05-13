@@ -1,6 +1,21 @@
 .navbarCus{
-    background: #FCED20;
+    background: #FCED20 !important;
     position: fixed;
     width: 100%;
     z-index: 60;
+}
+.navbarCus img.logo{
+    display: inline-block !important;
+}
+.navbarCus.smallLogo{
+	display: none !important;
+	cursor: pointer;
+}
+@media (max-width: 767.98px) {
+    /* .navbarCus img.logo{
+        display: none !important;
+    } */
+    .smallLogo{
+        display: block !important;
+    }
 }

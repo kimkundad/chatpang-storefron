@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import Image from 'next/image'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -45,6 +45,21 @@ const Review = () => {
       setLeft(left - 338)
     }
   } 
+
+  const autoSlide = () => {
+      setInterval(()=>{
+        const limit = (data.length-1) * 338
+        if (left < limit) {
+          setLeft(left + 338)
+        }else{
+          setLeft(0)
+        }
+      },2000)
+  }
+
+  // useEffect(()=>{
+  //   autoSlide()
+  // },[autoSlide])
   return (
     <>
     <div className='row'>

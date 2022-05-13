@@ -52,7 +52,7 @@ const Package = () => {
                 <strong style={{fontSize:"3rem"}}>แพ็คเกจสุดคุ้ม!</strong>
             </div>
         </div>
-        <div style={{height:"250px"}} className='col-lg-12 d-flex justify-content-center flex-wrap' >
+        <div className='col-lg-12 d-flex justify-content-center flex-wrap' >
             <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage}/>
         </div>
         <div className='text-center'>

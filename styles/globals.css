@@ -178,12 +178,24 @@ p:last-child{
     font-size: .875em;
     color: #dc3545;
 }
+/*-----------------
+	about
+-----------------------*/
+.aboutTopicContainer:last-child{
+	margin-left: 12rem;
+}
+.aboutHaed{
+	font-size: 5rem;
+}
+.aboutTopic{
+	font-size: 3rem;
+}
 /*-------------------
 Landing
 --------------------*/
 .landingSection{
 	min-height: 90vh;
-	padding-top:90px;
+	padding-top:110px;
 }
 .mainLanding h2{
 	font-size: 6rem;
@@ -203,6 +215,12 @@ Landing
 /*------
 function section
 ------*/
+.fnSection strong{
+	font-size: 3rem;
+}
+.fnSection span{
+	font-size: 2rem;
+}
 .fnContainer{
 	height: 225px;
 	width: 385px;
@@ -211,23 +229,34 @@ function section
 	position: relative;
 	padding: 80px 16px 0 16px;
 	font-size: 2rem;
-	margin:4rem 1rem 1rem 1rem;
+	margin:60px 1rem 1rem 1rem;
 }
 .fnContainer span{
 	font-size: 1.5rem;
 }
+.Iconcenter{
+	position: absolute;
+	top: -50px;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
 .fnContainerIcon{
 	height: 100px;
 	width: 100px;
+	margin: auto;
 	display: grid;
 	place-items: center;
-	left: 133px;/*R - containerWidth*/
-	top: -59.5px;
 	border-radius: 50%;
 	border: 1px solid #C4C4C4;
-	position: absolute;
-	z-index: 10;
 	background: #fff;
+}
+.fninfo{
+	display: flex;
+	flex-direction: column;
+}
+.fninfo strong{
+	font-size: 2rem;
 }
 /*-----------------
 	review card
@@ -265,9 +294,6 @@ function section
 	cursor: pointer;
 	font-size: 2rem;
 }
-.cardActive{
-	left: -350px;
-}
 
 /*-----------------
 	2. Modal
@@ -303,7 +329,7 @@ box-shadow: unset;
 }
 .page-wrapper {
 	/* margin-left: 240px; */
-	padding-top:90px;
+	padding-top:0px;
 	position: relative;
 	transition: all 0.4s ease;
 }
@@ -328,6 +354,7 @@ box-shadow: unset;
 	color: #333;
 	margin-bottom: 5px;
 }
+
 /*-----------------
 	4. Table
 -----------------------*/
@@ -604,6 +631,16 @@ li.breadcrumb-item:not(:first-child){
 	margin: 0 auto;
 	font-weight: 700;
 }
+.showDetaile{
+	display: none;
+	margin: 0 auto;
+	text-align: center;
+	cursor: pointer;
+}
+.details{
+	display: block;
+	transition: height 0.5s ease-in-out;
+}
 /*-------------
 custom button
 --------------*/
@@ -697,6 +734,51 @@ custom button
 	h6,
 	.h6 {
 		font-size: 0.875rem;
+	}
+	.aboutTopicContainer:last-child{
+		margin-left: 4rem;
+	}
+	.aboutHaed{
+		font-size: 2rem;
+	}
+	.aboutTopic{
+		font-size: 1.5rem;
+		margin: 1rem 0;
+	}
+	.aboutImg{
+		display: none !important;
+	}
+	.reviewContainer{
+		overflow-x: scroll;
+	}
+	.iconCard{
+		display: none;
+	}
+	.questionBox{
+		max-width: 90%;
+		font-size: 1rem;
+	}
+	.questionBox .accordion-button{
+		font-size: 1.25rem;
+	  }
+	  .showDetaile{
+		display: block;
+	}
+	.details{
+		height: 0;
+		overflow: hidden;
+	}
+	.fninfo strong{
+		font-size: 1.5rem;
+	}
+	.fninfo span{
+		font-size: 1.3rem;
+	}
+	.fnSection strong{
+		font-size: 1.5rem;
+	}
+	.fnSection span{
+		font-size: 1.4rem;
 	}
 }
 @media (max-width: 575.98px) {

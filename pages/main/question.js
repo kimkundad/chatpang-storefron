@@ -26,7 +26,7 @@ const Question = () => {
   ]
   return (
     <>
-        <div className='col-lg-12 mainLanding mt-3 text-center'>
+        <div className='col-lg-12 mt-3 text-center'>
             <div className='d-flex justify-content-center align-items-center'>
             <Image width={110} height={110} src={Icon} alt='icon'/>
             <strong style={{fontSize:"3rem"}}>คำถามที่พบบ่อย</strong>
