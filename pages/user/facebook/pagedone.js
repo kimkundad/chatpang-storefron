@@ -2,10 +2,18 @@ import { useRouter } from 'next/router'
 import useUser from '../../../Hooks/useUser'
 const Pagedone = () => {
   const router = useRouter()
-  const { setUserData } = useUser()
+  const { user,setUserData } = useUser()
   const onSubmit = () => {
     router.push('/user/packages')
-    setUserData({isLogin:true})
+    setUserData({
+      isLogin:true,
+      package:{
+          name:'VIP',
+          price:'590',
+          periodOfUse:'3',
+          exp:'30/12/2021'
+      }
+  })
   }
   return (
     <div className='page-wrapper'>

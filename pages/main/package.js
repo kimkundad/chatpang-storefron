@@ -18,6 +18,7 @@ const Package = () => {
         {
             "title":"Basic",
             "price":"290",
+            "isBestSell":false,
             "options":[
                 "ตอบคอมเม้นต์อัตโนมัติ",
                 "ดึงคอมเม้นต์เข้า Inbox",
@@ -27,6 +28,7 @@ const Package = () => {
         {
             "title":"VIP",
             "price":"590",
+            "isBestSell":false,
             "options":[
                 "ตอบคอมเม้นต์อัตโนมัติ",
                 "ดึงคอมเม้นต์เข้า Inbox",
@@ -36,6 +38,7 @@ const Package = () => {
         {
             "title":"Business",
             "price":"990",
+            "isBestSell":true,
             "options":[
                 "ตอบคอมเม้นต์อัตโนมัติ",
                 "ดึงคอมเม้นต์เข้า Inbox",

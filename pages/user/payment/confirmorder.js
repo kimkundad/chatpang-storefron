@@ -103,7 +103,7 @@ const Confirmorder = () => {
         <div className='row justify-content-center'>
             <div style={{width:"30%"}} className='col-12 d-flex justify-content-end mt-3'>
                 <span onClick={()=> router.back()} className='btn text-secondary'>ย้อนกลับ</span>
-                <button onClick={()=> router.push('/confirmorder')} className='customBTN'>ยืนยัน</button>
+                <button onClick={()=> router.push('/user/manage/')} className='customBTN'>ยืนยัน</button>
             </div>
         </div>
     </div>

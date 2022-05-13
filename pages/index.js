@@ -24,7 +24,7 @@ import Package from './main/package'
 const Landingpage = () => {
   const router = useRouter()
   return (
-    <div className='page-wrapper'>
+    <div>
       <div className='content'>
          <div className='row landingSection'>
            <div className='col-lg-6 d-flex justify-content-center align-items-center'>

@@ -30,7 +30,9 @@ const Navbars = () => {
     )
     }else{
       return (
-        <span onClick={()=> router.push('/contactus')} style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</span>
+        <Nav className='ms-auto'>
+          <Nav.Link onClick={()=> router.push('/user/contactus')} style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</Nav.Link>
+        </Nav>
       )
     }
   }
@@ -60,11 +62,11 @@ const Navbars = () => {
     <Menu 
       items={[
         {
-          label:<span onClick={()=> router.push('/user/manage/pagemanagement')}>จัดการเพจ</span>,
+          label:<span onClick={()=> router.push('/user/info/pagemanagement')}>จัดการเพจ</span>,
           key:0
         },
         {
-          label:<span onClick={()=> router.push('/user/manage/accountmanagement')}>จัดการบัญชีและสมาชิก</span>,
+          label:<span onClick={()=> router.push('/user/info/accountmanagement')}>จัดการบัญชีและสมาชิก</span>,
           key:1
         },
         {

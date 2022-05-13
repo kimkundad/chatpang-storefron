@@ -1,5 +1,5 @@
 
-import QRCode from '../resources/imgs/QR_CODE.png'
+import QRCode from '../../resources/imgs/QR_CODE.png'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faPhone, faEnvelope, faStopwatch } from '@fortawesome/free-solid-svg-icons'

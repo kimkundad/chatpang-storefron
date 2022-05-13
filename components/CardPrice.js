@@ -22,6 +22,7 @@ const CardPrice = ({data = [],selected, setSelectedPackage}) => {
       return (
         <Card key={index} className='mx-3 cardContainer' onClick={()=>onSelected(index)}>
           <Card.Body className='justify-content-center'>
+              <span style={{display:`${item.isBestSell ? "block":"none"}`}} className='bestSellTag'>ขายดี</span>
               <Card.Title className='cardTitle fw-bold'>{item.title}</Card.Title>
               <Card.Text>
                   <div className='d-flex flex-column text-center mb-3'>

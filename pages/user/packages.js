@@ -19,6 +19,7 @@ const Packages = () => {
       {
           "title":"Basic",
           "price":"290",
+          "isBestSell":false,
           "options":[
               "ตอบคอมเม้นต์อัตโนมัติ",
               "ดึงคอมเม้นต์เข้า Inbox",
@@ -28,6 +29,7 @@ const Packages = () => {
       {
           "title":"VIP",
           "price":"590",
+          "isBestSell":false,
           "options":[
               "ตอบคอมเม้นต์อัตโนมัติ",
               "ดึงคอมเม้นต์เข้า Inbox",
@@ -37,6 +39,7 @@ const Packages = () => {
       {
           "title":"Business",
           "price":"990",
+          "isBestSell":true,
           "options":[
               "ตอบคอมเม้นต์อัตโนมัติ",
               "ดึงคอมเม้นต์เข้า Inbox",
@@ -53,7 +56,7 @@ const Packages = () => {
                 </div>
             </div>
             <div className='row justify-content-center mt-5' >
-                <div className='col-lg-12 d-flex justify-content-center' >
+                <div style={{minHeight:"300px"}} className='col-lg-12 d-flex justify-content-center' >
                 <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage}/>
                 </div>
             </div>
