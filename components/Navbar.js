@@ -16,22 +16,26 @@ const Navbars = () => {
   const { user, setUserData } = useUser()
 
   const isLandingPage = router.pathname.includes('user')
+
+  const setActive = (path) => {
+    return router.pathname.includes(path)
+  }
   const landingNavMenu = () =>{
     if (!isLandingPage) {
       return (
-        <Nav className='ms-auto'>
-        <Nav.Link href='#about'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>เกี่ยวกับ</span></Nav.Link>
-        <Nav.Link href='#functions'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ฟังก์ชั่น</span></Nav.Link>
-        <Nav.Link href='#review'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>รีวิวจากลูกค้า</span></Nav.Link>
-        <Nav.Link href='#question'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>คำถามที่พบบ่อย</span></Nav.Link>
-        <Nav.Link href='#package'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>แพ็คเกจ</span></Nav.Link>
-        <Nav.Link href='#contact'><span style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</span></Nav.Link>
+        <Nav className='navContainer ms-auto'>
+        <Nav.Link href='#about'><span id='about' style={{cursor:"pointer"}} className={`${setActive('about') ? "navActive" : ""} fw-bold fs-4 mx-3`}>เกี่ยวกับ</span></Nav.Link>
+        <Nav.Link href='#functions'><span style={{cursor:"pointer"}} className={`${setActive('functions') ? "navActive" : ""} fw-bold fs-4 mx-3`}>ฟังก์ชั่น</span></Nav.Link>
+        <Nav.Link href='#review'><span style={{cursor:"pointer"}} className={`${setActive('review') ? "navActive" : ""} fw-bold fs-4 mx-3`}>รีวิวจากลูกค้า</span></Nav.Link>
+        <Nav.Link href='#question'><span style={{cursor:"pointer"}} className={`${setActive('question') ? "navActive" : ""} fw-bold fs-4 mx-3`}>คำถามที่พบบ่อย</span></Nav.Link>
+        <Nav.Link href='#package'><span style={{cursor:"pointer"}} className={`${setActive('package') ? "navActive" : ""} fw-bold fs-4 mx-3`}>แพ็คเกจ</span></Nav.Link>
+        <Nav.Link href='#contact'><span style={{cursor:"pointer"}} className={`${setActive('contact') ? "navActive" : ""} fw-bold fs-4 mx-3`}>ติดต่อเรา</span></Nav.Link>
       </Nav>
     )
     }else{
       return (
-        <Nav className='ms-auto'>
-          <Nav.Link onClick={()=> router.push('/user/contactus')} style={{cursor:"pointer"}} className='fw-bold fs-4 mx-3'>ติดต่อเรา</Nav.Link>
+        <Nav className='navContainer ms-auto'>
+          <Nav.Link onClick={()=> router.push('/user/contactus')} style={{cursor:"pointer"}} className={`${setActive('about') ? "navActive" : ""} fw-bold fs-4 mx-3`}>ติดต่อเรา</Nav.Link>
         </Nav>
       )
     }

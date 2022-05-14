@@ -12,8 +12,6 @@ const Sidebar = () => {
 
     let pathName = router.pathname 
 
-    console.log(pathName);
-
     const isActive = (path) =>{
         const n = '/user/manage'.length
             return pathName.slice(n) === path
@@ -48,6 +46,7 @@ const Sidebar = () => {
                         <li className={`menu-title ${isActive('/replykeyword') ? "active":""}`}><Link href='/user/manage/replykeyword' >ตอบกลับตาม keyword</Link></li>
                         <li className={`menu-title ${isActive('/linenoti') ? "active":""}`}><Link href='/user/manage/linenoti' >Line เเจ้งเตือน</Link></li>
                         <li className={`menu-title ${isActive('/manuel') ? "active":""}`}><Link href='/user/manage/manuel' >วิธีการใช้งาน</Link></li>
+                        <li className={`menu-title ${isActive('/package') ? "active":""}`}><Link href='/user/manage/package' >แพ็คเกจ</Link></li>
                         <li className={`menu-title ${isActive('/ad') ? "active":""}`}><Link href='/user/manage/ad' >ระบบเพิ่มยอดขาย</Link></li>
                     </ul>
                 </div>

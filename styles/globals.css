@@ -138,12 +138,26 @@ textarea.form-control {
 .input-group .form-control {
 	height: 40px;
 }
-.nav .open > a,
+.navContainer{
+	display: flex;
+	align-items: center;
+}
+.navActive{
+	background: #000000;
+	width: fit-content;
+	height: fit-content;
+	padding: 5px 32px;
+	color: #fff;
+	border-radius: 50px;
+	display: flex;
+	align-items: center;
+}
+/* .nav .open > a,
 .nav .open > a:focus,
 .nav .open > a:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 	border-color: rgba(0, 0, 0, 0.1);
-}
+} */
 .material-icons {
 	font-family: 'Material Icons';
 	font-weight: normal;
@@ -269,14 +283,14 @@ p:last-child{
 .aboutContainer{
 	display: flex;
 	flex-direction: column;
-	align-items: end;
+	/* align-items: end; */
 	justify-content: center;
 }
 .aboutTopicContainer:last-child{
 	margin-left: 12rem;
 }
 .aboutHaed{
-	font-size: 5rem;
+	font-size: 3.5rem;
 }
 .aboutTopic{
 	font-size: 3rem;
@@ -415,12 +429,14 @@ box-shadow: unset;
 
 .main-wrapper {
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	min-height: 100vh;
+	position: relative;
 }
 .page-wrapper {
 	/* margin-left: 240px; */
-	padding-top:140px;
+	min-height: 85.2vh;
+	padding:140px 0;
 	position: relative;
 	transition: all 0.4s ease;
 }
@@ -451,7 +467,10 @@ box-shadow: unset;
 	color: #333;
 	margin-bottom: 5px;
 }
-
+.packageHeader{
+	font-size: 2rem;
+	letter-spacing: 2px;
+}
 /*-----------------
 	Table
 -----------------------*/
@@ -632,6 +651,132 @@ table.table td h2 span {
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
   }
+  /*-----------------
+	chatbot-section
+-----------------------*/
+.userDropdown{
+	display: flex;
+	align-items: center;
+	font-size: 1.5rem;
+	border: 1.5px solid #000;
+	border-radius: 25px;
+	width: fit-content;
+	height: fit-content;
+	padding: 10px 24px;
+
+}
+.userButton{
+	display: flex;
+	align-items: center;
+	font-size: 1.5rem;
+	background: #C4C4C4;
+	width: fit-content;
+	height: fit-content;
+	padding: 10px 24px;
+	border-radius: 10px;
+	margin: 0 8px;
+}
+.userEditButton{
+	 width: fit-content;
+	 height: fit-content;
+	 display: grid;
+	 place-items: center;
+	 margin: 0 auto;
+	 border-radius: 25px;
+	 background: black;
+	 padding: 5px 26px;
+	 color: #F5F24F;
+}
+.userEditButton:hover{
+	background: rgb(63, 63, 63);
+}
+.lineDetail{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.lineDetail strong{
+	font-size: 1.5rem;
+}
+.lineDetail  span{
+	font-size: 1.2rem;
+}
+.lineButtonContainer{
+	position: absolute;
+	top: 0;
+	right: -15%;
+}
+.lineButtonContainer  button:first-child{
+	background-color: #F5F24F;
+}
+.lineCustomBtn{
+	border: 1px solid #000000;
+	border-radius: 25px;
+	margin: 0 10px;
+	padding: 0 16px;
+	font-size: 1.2rem;
+}
+.lineTokenContainer{
+	width: 60%;
+	max-width: 60%;
+}
+.lineTokenHeader{
+	text-align: left;
+	font-size: 1.5rem;
+	letter-spacing: 1.5px;
+}
+.lineTokenHeader span:last-child{
+	font-size: 1rem;
+	margin-left: 4rem;
+	cursor: pointer;
+}
+.lineTokenInput{
+	display: flex;
+	align-items: center;
+}
+.lineTokenInput input{
+	border: 1px solid #000000;
+	border-radius: 10px;
+	min-width: 60%;
+}
+.lineTokenInput button{
+	background-color: #F5F24F;
+	min-width: 20%;
+}
+.lineTiming{
+	width: 60%;
+	max-width: 60%;
+	text-align: left;
+}
+.lineTimingHeader{
+	font-size: 1.5rem;
+	letter-spacing: 1.5px;
+}
+.lineTimingInput .ant-input-number-input{
+	border-radius: 25px;
+}
+    /*------------
+  	manuel-section
+  --------------*/
+  .manuelOpContainer{
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  font-size: 3rem;
+  }
+  .manuelButton{
+	background-color: #F5F24F;
+	font-size: 1.5rem;
+	width: 250px;
+	text-align: center;
+	min-width: fit-content;
+	height: fit-content;
+	padding: 5px 32px;
+	border-radius: 10px;
+	margin:5px auto ;
+  }
   /*------------
   	QuestionBox
   --------------*/
@@ -802,6 +947,27 @@ custom button
 	font-size: 2rem;
 	font-weight: 700;
 	border-radius: 10px;
+}
+/*------------
+FOOTER
+------------*/
+.footer{
+	display: flex;
+	justify-content: space-between;
+	background: #FCED20 !important;
+    position: relative;
+    width: 100%;
+	height: fit-content;
+	padding: 16px 15%;
+	z-index: 1200;
+	/* bottom: 0; */
+}
+.leftFooter{
+	display: flex;
+	flex-direction: column;
+}
+.rightFooter{
+	display: flex;
 }
 /*-----------------
 	Responsive

@@ -3,17 +3,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Logo from '../resources/imgs/logo_chatpang_03.png'
 
-import Logo_1 from '../resources/imgs/landing_logo_1.png'
-import Icon_list from '../resources/imgs/Icon-10.png'
-import Icon from '../resources/imgs/chat_pang_icon.png'
-
 import Player from 'react-player'
-
-import Icon_1 from '../resources/icons/arrowdown_1.png'
-import Wechat from '../resources/icons/wechat.png'
-import KeyBoard from '../resources/icons/Vector.png'
-import Chat from '../resources/icons/chat.png'
-import Bell from '../resources/icons/bell.png'
 
 import Contact from './contactus'
 import About from './main/about'
@@ -21,6 +11,7 @@ import Function from './main/function'
 import Review from './main/review'
 import Question from './main/question'
 import Package from './main/package'
+
 const Landingpage = () => {
   const router = useRouter()
   return (

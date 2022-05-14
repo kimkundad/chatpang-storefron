@@ -7,7 +7,7 @@ import Logo_1 from '../../resources/imgs/landing_logo_1.png'
 const About = () => {
   return (
       <>
-        <div className='col-lg-6 aboutContainer'>
+        <div className='col-lg-6 aboutContainer align-items-end'>
             <div className='w-75 d-flex justify-content-end align-items-start'>
             <Image width={150} height={150} src={Icon} alt='icon'/>
             <span className='aboutHaed'>ไม่พลาดทุกแชทของลูกค้าด้วยข้อความอัตโนมัติ!</span>
