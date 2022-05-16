@@ -8,6 +8,7 @@ const Packages = () => {
   const router = useRouter()
   const [selected, setSelected] = useState(null)
 
+  console.log(router.query.data);
   function setSelectedPackage(id) {
       if (selected === id) {
         setSelected(null)

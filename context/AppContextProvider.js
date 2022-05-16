@@ -5,6 +5,7 @@ const AppContext = createContext({})
 export const AppContextProvider = ({children}) => {
     const [user, setUserData] = useState({
         isLogin:false,
+        user:{},
         package:{
             name:'VIP',
             price:'590',

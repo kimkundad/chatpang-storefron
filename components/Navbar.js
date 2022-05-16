@@ -7,7 +7,7 @@ import Logo from '../resources/imgs/logo_chatpang_02_Edited.png'
 import SmallLogo from '../resources/imgs/chat_pang_icon.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser, faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import { Dropdown, Menu } from 'antd'
+import { Dropdown, Menu, Avatar } from 'antd'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import useUser from '../Hooks/useUser'
 
@@ -49,7 +49,7 @@ const Navbars = () => {
           className='fw-bold fs-4 d-flex align-items-center'
           >
           <a style={{textDecoration:"none", color:"Black"}} onClick={(e) => e.preventDefault()}>
-          <FontAwesomeIcon icon={faCircleUser} />
+          {user.image ? <Avatar src={<Image src={user.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />}
           <span className='mx-2'>UserInfo</span>
           <FontAwesomeIcon icon={faAngleDown} />
           </a>
