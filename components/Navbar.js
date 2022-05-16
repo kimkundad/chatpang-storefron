@@ -14,7 +14,7 @@ import useUser from '../Hooks/useUser'
 const Navbars = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-
+  const userData = user.user
   const isLandingPage = router.pathname.includes('user')
 
   const setActive = (path) => {
@@ -49,8 +49,8 @@ const Navbars = () => {
           className='fw-bold fs-4 d-flex align-items-center'
           >
           <a style={{textDecoration:"none", color:"Black"}} onClick={(e) => e.preventDefault()}>
-          {user.user.image ? <Avatar src={<Image src={user.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />}
-          <span className='mx-2'>{user.user.name ? user.user : 'User'}</span>
+          {userData.image ? <Avatar src={<Image src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />}
+          <span className='mx-2'>{userData.name ? userData.name : 'User'}</span>
           <FontAwesomeIcon icon={faAngleDown} />
           </a>
         </Dropdown>
