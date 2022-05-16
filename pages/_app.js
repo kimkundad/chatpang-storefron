@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
+import 'react-bootstrap-tagsinput/dist/index.css'
+
 import Layout from './Layout'
 import { AppContextProvider } from '../context/AppContextProvider';
 

@@ -1,11 +1,14 @@
 import React,{useState} from 'react'
+import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrashCan, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
+import { Avatar } from 'antd';
 import Sidebar from '../../../../components/Sidebar'
 import { Table } from 'react-bootstrap'
-import { Avatar } from 'antd';
 
 const Chatbot = () => {
+const router = useRouter()
+const [ checkAll, setCheckAll] = useState(false)
 
   const data = [
     {
@@ -31,6 +34,10 @@ const Chatbot = () => {
       hiddenWord:[]
     },
   ]
+
+  const onCheckAll = () => {
+    setCheckAll(!checkAll)
+  }
 
   const onEdit = (id) => {
     console.log(id);
@@ -68,7 +75,7 @@ const Chatbot = () => {
               
               <div className='row'>
                 <div className='col d-flex justify-content-center my-2'>
-                  <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPlus} />สร้างแคมเปญ</span>
+                  <span onClick={() => router.push(`${router.pathname}/create-bot`)} className='userButton'><FontAwesomeIcon className='me-2' icon={faPlus} />สร้างแคมเปญ</span>
                   <span className='userButton'><FontAwesomeIcon className='me-2' icon={faCopy} />สร้างซ้ำ</span>
                   {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
                   <span className='userButton'><FontAwesomeIcon className='me-2' icon={faTrashCan} />ลบ</span>
@@ -78,7 +85,7 @@ const Chatbot = () => {
                 <div className='col d-flex justify-content-center mt-3'>
                     <Table bordered style={{width:"70%"}}>
                       <thead style={{background:"black", color:"#FFFF", fontSize:"1.5rem"}}>
-                        <th><input type='checkbox' /></th>
+                        <th><input onChange={onCheckAll} type='checkbox' name='checkAll'/></th>
                         <th>แคมเปญ</th>
                         <th></th>
                       </thead>

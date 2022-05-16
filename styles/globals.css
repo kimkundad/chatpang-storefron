@@ -652,7 +652,7 @@ table.table td h2 span {
 	-webkit-overflow-scrolling: touch;
   }
   /*-----------------
-	chatbot-section
+	chatbot-section, line-noti
 -----------------------*/
 .userDropdown{
 	display: flex;
@@ -675,6 +675,11 @@ table.table td h2 span {
 	padding: 10px 24px;
 	border-radius: 10px;
 	margin: 0 8px;
+	cursor: pointer;
+}
+.userButton:hover{
+	background: #5a5a5a;
+	color: #ffff;
 }
 .userEditButton{
 	 width: fit-content;
@@ -686,9 +691,24 @@ table.table td h2 span {
 	 background: black;
 	 padding: 5px 26px;
 	 color: #F5F24F;
+	cursor: pointer;
 }
-.userEditButton:hover{
+.userBackButton:hover,.userEditButton:hover{
 	background: rgb(63, 63, 63);
+}
+.userBackButton{
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+	border-radius: 10px;
+	background: black;
+	padding: 10px 26px;
+	color: #F5F24F;
+	cursor: pointer;
+	position: absolute;
+	left: 0;
 }
 .lineDetail{
 	position: relative;
@@ -707,15 +727,34 @@ table.table td h2 span {
 	top: 0;
 	right: -15%;
 }
-.lineButtonContainer  button:first-child{
+.chatButtonContainer{
+	display: flex;
+}
+.lineButtonContainer  button:first-child, .chatButtonContainer button:first-child{
 	background-color: #F5F24F;
 }
-.lineCustomBtn{
+.chatCustomBtn,.lineCustomBtn{
 	border: 1px solid #000000;
 	border-radius: 25px;
 	margin: 0 10px;
 	padding: 0 16px;
 	font-size: 1.2rem;
+}
+.chatWording{
+	/* background: red; */
+	min-width: 60%;
+}
+.chatWording div strong{
+	min-width: 120px;
+	text-align: end;
+}
+.chatWordInput{
+	min-width: 60%;
+}
+.chatWordInput input{
+	border: 1px solid #000000;
+	border-radius: 10px;
+	width: 100%;
 }
 .lineTokenContainer{
 	width: 60%;
@@ -731,11 +770,11 @@ table.table td h2 span {
 	margin-left: 4rem;
 	cursor: pointer;
 }
-.lineTokenInput{
+.lineTokenInput ,.chatNameInput{
 	display: flex;
 	align-items: center;
 }
-.lineTokenInput input{
+.lineTokenInput input, .chatNameInput input{
 	border: 1px solid #000000;
 	border-radius: 10px;
 	min-width: 60%;

@@ -73,14 +73,14 @@ const Linenoti = () => {
                 </div>
               </div>
               <Divider />
-              <div className='row lineTokenContainer mx-auto'>
-                <div className='col '>
+              <div className='row lineTokenContainer mx-auto flex-wrap'>
+                <div className='col'>
                   <div className='lineTokenHeader'>
                     <strong>ใส่ Line Token</strong>
                     <span className='text-secondary' ><FontAwesomeIcon icon={faExclamationCircle} /> <i>คลิกเพื่อดูวิดีโอการขอ Token</i> </span>
                   </div>
                   <div className='lineTokenInput'>
-                    <input type='text' id='token' />
+                      <input type='text' id='token' />
                     <button className='lineCustomBtn'>บันทึก Token</button>
                   </div>
                 </div>
