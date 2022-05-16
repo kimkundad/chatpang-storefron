@@ -1,12 +1,22 @@
 import React from 'react'
 import FacebookLoginBTN from 'react-facebook-login';
 
+import axios
+ from 'axios';
 const FacebookLogin = () => {
     const componentClicked = () => {
         console.log('click')
     }
     const responseFacebook = (response) => {
+        
         console.log(response);
+        const fields = 'id,name,email,picture'
+        const token = response.accessToken
+        axios.get(`https://graph.facebook.com/me?fields=${fields}&access_token=${token}`).then(response=>{
+            console.log(response.data);
+        }).catch(error=>{
+            console.log(error);
+        })
     }
   return (
     <div>
