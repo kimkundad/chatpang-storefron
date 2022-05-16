@@ -49,8 +49,8 @@ const Navbars = () => {
           className='fw-bold fs-4 d-flex align-items-center'
           >
           <a style={{textDecoration:"none", color:"Black"}} onClick={(e) => e.preventDefault()}>
-          {user.image ? <Avatar src={<Image src={user.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />}
-          <span className='mx-2'>UserInfo</span>
+          {user.user.image ? <Avatar src={<Image src={user.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />}
+          <span className='mx-2'>{user.user.name ? user.user : 'User'}</span>
           <FontAwesomeIcon icon={faAngleDown} />
           </a>
         </Dropdown>
