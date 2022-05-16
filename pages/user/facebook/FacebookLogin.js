@@ -13,7 +13,7 @@ const FacebookLogin = () => {
         <FacebookLoginBTN
         appId="994698817844987"
         autoLoad={true}
-        fields="name,email,picture"
+        fields="name,email,userID,accessToken"
         onClick={componentClicked}
         callback={responseFacebook} 
      />
