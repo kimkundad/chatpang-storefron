@@ -13,7 +13,7 @@ const FacebookLogin = () => {
         <FacebookLoginBTN
         appId="994698817844987"
         autoLoad={true}
-        fields="name,email,userID,accessToken"
+        fields="name,email,userID,picture,accessToken"
         cssClass='btn btn-primary btn-lg my-4 rounded-pill'
         onClick={componentClicked}
         callback={responseFacebook}
