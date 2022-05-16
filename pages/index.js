@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { useRef } from 'react'
 import { Accordion, Card, Col, Container, Row, Button } from 'react-bootstrap'
 
 import Carousel from 'react-multi-carousel'
@@ -109,9 +110,8 @@ const packageData = [
   },
 ]
 
-console.log('packageData', packageData)
-
 export default function Home() {
+  const myRef = useRef()
   return (
     <>
       <div className="container-md">
@@ -119,6 +119,7 @@ export default function Home() {
         <div
           className="d-flex flex-column-reverse flex-md-row row-cols-2 p-2 p-md-0 h-100"
           style={{ minHeight: 'calc(100vh - 104px)' }}
+          id="home"
         >
           <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
             <iframe
@@ -141,7 +142,10 @@ export default function Home() {
         </div>
 
         {/* Section 2 */}
-        <div className="d-flex flex-column flex-md-row h-auto align-items-center h-100 py-5 py-md-0 min-vh-100">
+        <div
+          className="d-flex flex-column flex-md-row h-auto align-items-center h-100 py-5 py-md-0 min-vh-100"
+          id="about"
+        >
           <div className="col-12 col-md-8 d-flex py-5 py-md-0 flex-column align-items-center justify-content-center ">
             <div className="d-flex">
               <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '131px' }} />
@@ -182,13 +186,13 @@ export default function Home() {
           </div>
           <div
             className="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center"
-            style={{ marginTop: '56px' }}
+            style={{ marginTop: '56px', gridAutoRows: '1fr' }}
           >
             {featureData.map((val, index) => (
-              <div className="px-3 mt-5" key={index}>
+              <div className="px-3 mt-5 h-100" key={index}>
                 <div
-                  className="w-100 px-2 pb-3 position-relative border-grey100 border rounded-3 d-flex flex-column align-items-center"
-                  style={{ paddingTop: '56px' }}
+                  className="px-2 pb-3 position-relative border-grey100 border rounded-3 d-flex flex-column align-items-center"
+                  style={{ paddingTop: '56px', height: '180px' }}
                 >
                   <img
                     src={val.img}
@@ -366,10 +370,10 @@ export default function Home() {
           <div className="col-12 col-md-6 py-5 py-md-0 d-flex flex-column align-items-center justify-content-center">
             <img src="/images/landing-page/qr-code.svg" style={{ width: '200px' }} />
             <div className="d-flex mt-4 gap-3">
-              <img src='/images/landing-page/facebook-round.svg' style={{width: '42px'}}/>
-              <img src='/images/landing-page/line-round.svg' style={{width: '42px'}}/>
-              <img src='/images/landing-page/ig-round.svg' style={{width: '42px'}}/>
-              <img src='/images/landing-page/youtube-round.svg' style={{width: '42px'}}/>
+              <img src="/images/landing-page/facebook-round.svg" style={{ width: '42px' }} />
+              <img src="/images/landing-page/line-round.svg" style={{ width: '42px' }} />
+              <img src="/images/landing-page/ig-round.svg" style={{ width: '42px' }} />
+              <img src="/images/landing-page/youtube-round.svg" style={{ width: '42px' }} />
             </div>
           </div>
         </div>
