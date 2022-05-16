@@ -17,7 +17,7 @@ const FacebookLogin = () => {
         cssClass='btn btn-primary btn-lg my-4 rounded-pill'
         onClick={componentClicked}
         callback={responseFacebook}
-        redirectUri='http://openstrategynetwork.com/_oauth/facebook'
+        // redirectUri='http://openstrategynetwork.com/_oauth/facebook'
      />
     </div>
   )
