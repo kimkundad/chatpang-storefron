@@ -132,7 +132,7 @@ export default function Home() {
             />
           </div>
           <div className="col-12 col-md-6 py-5 py-md-0 flex-column align-items-center justify-content-center d-flex">
-            <img src="/images/landing-page/home-section-logo.svg" style={{ width: '100%', maxWidth: '376px' }} />
+            <img src="/images/landing-page/home-section-logo.svg" style={{ width: '100%', maxWidth: '376px' }}/>
             <div className="display-4 display-sm-2">ผู้ช่วยตอบแชทเก่ง!</div>
             <h2 className="fst-italic fw-normal">ของแม่ค้าออนไลน์</h2>
             <Button variant="dark" className="rounded-pill">
@@ -176,10 +176,10 @@ export default function Home() {
         </div>
 
         {/* Section 3 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 min-vh-100">
+        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0">
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
-            <div className=" display-6 fw-bolder">Chatpang ทำอะไรได้บ้าง ?</div>
+            <div className=" display-6 fw-bolder" id="benefit">Chatpang ทำอะไรได้บ้าง ?</div>
           </div>
           <div className="text-center">
             รวม 5 ฟังก์ชั่นของ <span className="text-secondary">Chatpang</span> ที่จะช่วยให้คุณตอบแชทกับลูกค้าได้ในทันที
@@ -215,7 +215,7 @@ export default function Home() {
         </div>
 
         {/* Section 4 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 min-vh-100">
+        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5" id="review">
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
             <div className=" display-6 fw-bolder">รีวิวจากลูกค้า</div>
@@ -259,7 +259,7 @@ export default function Home() {
         </div>
 
         {/* Section 5 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 min-vh-100">
+        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5" id="questions">
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
             <div className=" display-6 fw-bolder">คำถามที่พบบ่อย</div>
@@ -288,13 +288,13 @@ export default function Home() {
         </div>
 
         {/* Section 6 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 min-vh-100">
+        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 py-5 my-5" id="packages">
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
             <div className=" display-6 fw-bolder">แพ็คเกจสุดคุ้ม!</div>
           </div>
 
-          <div className="row w-100 overflow-hidden" style={{ marginTop: '64px' }}>
+          <div className="row w-100 overflow-hidden" style={{ marginTop: '2em' }}>
             {packageData.map((val, index) => (
               <div key={index} className="col-12 col-md-4 p-3">
                 <div className="position-relative shadow rounded-2 d-flex flex-column justify-content-between align-items-center p-4 h-100">
@@ -336,7 +336,8 @@ export default function Home() {
         {/* Section 7 */}
         <div
           className="d-flex flex-column flex-md-row row-cols-2 p-2 p-md-0 h-100 align-items-center"
-          style={{ minHeight: 'calc(100vh - 104px)' }}
+          style={{ minHeight: 'calc(80vh)' }}
+          id="contract"
         >
           <div className="col-12 col-md-6 d-flex flex-column ms-md-5">
             <u className="display-5">ติดต่อสอบถามเพิ่มเติม</u>
