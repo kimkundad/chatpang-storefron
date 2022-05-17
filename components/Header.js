@@ -29,22 +29,34 @@ const Header = () => {
           <div className="collapse navbar-collapse align-content-end" id="navbarNavAltMarkup">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <button className="btn btn-primary">เกี่ยวกับ</button>
+                <Link to="about" offset={-40}>
+                  <button className="btn btn-primary">เกี่ยวกับ</button>
+                </Link>
               </li>
               <li className="nav-item">
-                <button className="btn btn-primary">ฟังก์ชั่น</button>
+                <Link to="benefit" offset={-220}>
+                  <button className="btn btn-primary">ฟังก์ชั่น</button>
+                </Link>
               </li>
               <li className="nav-item">
-                <button className="btn btn-primary">รีวิวจากลูกค้า</button>
+                <Link to="review" offset={-140}>
+                  <button className="btn btn-primary">รีวิวจากลูกค้า</button>
+                </Link>
               </li>
               <li className="nav-item">
-                <button className="btn btn-primary">คำถามที่พบบ่อย</button>
+                <Link to="questions" offset={-140}>
+                  <button className="btn btn-primary">คำถามที่พบบ่อย</button>
+                </Link>
               </li>
               <li className="nav-item">
-                <button className="btn btn-primary">แพ็คเกจ</button>
+                <Link to="packages" offset={-120}>
+                  <button className="btn btn-primary">แพ็คเกจ</button>
+                </Link>
               </li>
               <li className="nav-item">
-                <button className="btn btn-primary">ติดต่อเรา</button>
+                <Link to="contract" offset={-150}>
+                  <button className="btn btn-primary">ติดต่อเรา</button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -55,22 +67,46 @@ const Header = () => {
         <div className="position-absolute bg-white vw-100 shadow">
           <ul className="navbar-nav px-4 py-3">
             <li className="nav-item">
-              <button className="btn">เกี่ยวกับ</button>
+              <Link activeClass="active" to="about" offset={-110}>
+                <button className="btn" onClick={() => setModalMobile(false)}>
+                  เกี่ยวกับ
+                </button>
+              </Link>
             </li>
             <li className="nav-item">
-              <button className="btn">ฟังก์ชั่น</button>
+              <Link to="benefit" offset={-200}>
+                <button className="btn" onClick={() => setModalMobile(false)}>
+                  ฟังก์ชั่น
+                </button>
+              </Link>
             </li>
             <li className="nav-item">
-              <button className="btn">รีวิวจากลูกค้า</button>
+              <Link to="review" offset={-120}>
+                <button className="btn" onClick={() => setModalMobile(false)}>
+                  รีวิวจากลูกค้า
+                </button>
+              </Link>
             </li>
             <li className="nav-item">
-              <button className="btn">คำถามที่พบบ่อย</button>
+              <Link to="questions" offset={-140}>
+                <button className="btn" onClick={() => setModalMobile(false)}>
+                  คำถามที่พบบ่อย
+                </button>
+              </Link>
             </li>
             <li className="nav-item">
-              <button className="btn">แพ็คเกจ</button>
+              <Link to="packages" offset={-100}>
+                <button className="btn" onClick={() => setModalMobile(false)}>
+                  แพ็คเกจ
+                </button>
+              </Link>
             </li>
             <li className="nav-item">
-              <button className="btn">ติดต่อเรา</button>
+              <Link to="contract" offset={-180}>
+                <button className="btn" onClick={() => setModalMobile(false)}>
+                  ติดต่อเรา
+                </button>
+              </Link>
             </li>
           </ul>
         </div>
