@@ -34,7 +34,7 @@ const FacebookLogin = () => {
                     exp:'30/12/2021'
                 }
             })
-            router.push({pathname:`${router.pathname}/packages`})
+            router.push({pathname:`${router.pathname}/register`,query:{userData:userFacebookData}})
         }).catch(error=>{
             console.log(error);
         })

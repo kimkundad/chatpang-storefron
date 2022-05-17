@@ -318,6 +318,59 @@ Landing
 	font-size: 2rem;
 }
 /*------
+register section
+------*/
+.registerBtnContainer{
+	max-width: 350px;
+}
+.registerBtnContainer button:last-child{
+	background: #F5F24F;
+}
+.custonRegisterImput{
+	border-radius: 10px;
+	border: 1px solid;
+	padding:0 16px 0 16px;
+}
+.customeRegisterBtn{
+	border: 1px solid #000000;
+	border-radius: 10px;
+	font-weight: bold;
+	width: fit-content;
+	margin: 0 10px;
+	padding: 0 16px;
+	font-size: 1.2rem;
+}
+/*------
+chatbot section
+------*/
+.chatComment{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.commentHeader{
+	display: flex;
+	flex-direction: column;
+}
+.commentInput{
+	min-width: 450px;
+}
+.toggleCommentOptions{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 32px;
+}
+.toggleCommentOptions div{
+	display: flex;
+	align-items: center;
+}
+.uploadComment{
+	width: 100px;
+	height: 100px;
+	border: 1px solid #000;
+	border-radius: 10px;
+}
+/*------
 function section
 ------*/
 .fnSection strong{

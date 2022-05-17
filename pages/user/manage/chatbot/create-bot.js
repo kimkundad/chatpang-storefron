@@ -46,8 +46,12 @@ const [ hiddenWords, setHiddenWords ] = useState([])
           </div>
           <Divider />
           <div className='row' >
-              <div className='col-md-6 mx-auto chatComment'>
-                <div>
+              <div className='col-md-8 mx-auto chatComment'>
+                <div className='commentHeader'>
+                  <Switch size='small' />
+                  <strong className='ms-3' >คอมเม้นต์ใต้โพสต์</strong>
+                </div>
+                <div className='commentInput'>
                   <TextArea
                   showCount
                   maxLength={200}
@@ -68,9 +72,9 @@ const [ hiddenWords, setHiddenWords ] = useState([])
                       <strong className='ms-3' >ซ่อนคอมเม้นต์</strong>
                     </div>
                   </div>
-                  <div className='uploadComment'>
-                    
-                  </div>
+                </div>
+                <div className='uploadComment'>
+                    <span>Upload</span>
                 </div>
               </div>
           </div>
