@@ -30,6 +30,7 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
         }
        await setUserData({...user,user:data})
         console.log(user);
+        router.push('/user/manage')
     }
     const onUploadImage = async ({ file, fileList }) => {
         setImageObj(file)
@@ -72,12 +73,11 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
             <div className="col-lg-12 d-flex flex-column w-100">
                 <label htmlFor='name' >ชื่อ - นามสกุล <span className='text-danger'>*</span> </label>
                 <input 
-                // value={name} 
+                value={name} 
                 onChange={(e)=> setName(e.target.value)} 
                 className='custonRegisterImput' 
                 id='name' 
                 type='text'  
-                defaultValue={userData.name}
                 />
             </div>
         </div>
@@ -85,12 +85,11 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
             <div className="col-lg-12 d-flex flex-column w-100">
                 <label htmlFor='email' >E-mail<span className='text-danger'>*</span> </label>
                 <input 
-                // value={email} 
+                value={email} 
                 onChange={(e)=> setEmail(e.target.value)} 
                 className='custonRegisterImput' 
                 id='email' 
-                type='email'  
-                defaultValue={userData.email}    
+                type='email'   
                 />
             </div>
         </div>
@@ -98,12 +97,11 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
             <div className="col-lg-12 d-flex flex-column w-100">
                 <label htmlFor='tel' >เบอร์โทรศัพท์<span className='text-danger'>*</span> </label>
                 <input 
-                // value={phoneno} 
+                value={phoneno} 
                 onChange={(e)=> setPhoneno(e.target.value)} 
                 className='custonRegisterImput' 
                 id='tel' 
                 type='tel'
-                defaultValue={userData.phoneno}
                   />
             </div>
         </div>
