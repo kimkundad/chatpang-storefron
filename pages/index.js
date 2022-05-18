@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useRef } from 'react'
 import { Accordion, Card, Col, Container, Row, Button } from 'react-bootstrap'
-
+import { useRouter } from 'next/router'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
@@ -111,6 +111,7 @@ const packageData = [
 ]
 
 export default function Home() {
+  const router = useRouter()
   const myRef = useRef()
   return (
     <>
@@ -135,7 +136,7 @@ export default function Home() {
             <img src="/images/landing-page/home-section-logo.svg" style={{ width: '100%', maxWidth: '376px' }}/>
             <div className="display-4 display-sm-2">ผู้ช่วยตอบแชทเก่ง!</div>
             <h2 className="fst-italic fw-normal">ของแม่ค้าออนไลน์</h2>
-            <Button variant="dark" className="rounded-pill">
+            <Button onClick={()=> router.push('/user')} variant="dark" className="rounded-pill">
               สนใจเริ่มใช้งาน
             </Button>
           </div>
