@@ -14,11 +14,11 @@ const  userData  = {
     phoneno:'0123456789',
     image:undefined
 }
-const [ name, setName ] = useState(userData.name)
-const [ email, setEmail ] = useState(userData.email)
-const [ phoneno, setPhoneno ] = useState(userData.phoneno)
+const [ name, setName ] = useState(user.name)
+const [ email, setEmail ] = useState(user.email)
+const [ phoneno, setPhoneno ] = useState(user.phoneno)
 const [ imageObj, setImageObj ] =useState(null)
-const [ imageURL, setImageURL ] =useState(userData.image=== undefined ? undefined : userData.image)
+const [ imageURL, setImageURL ] =useState(user.image=== undefined ? undefined : user.image)
 
     const onSubmit = async (e) => {
         e.preventDefault()
