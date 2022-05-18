@@ -47,7 +47,7 @@ const Header = () => {
   )
 
   const userDropDown = () => {
-    if (!user.isLogin) {
+    if (user.isLogin) {
       return (
         <Dropdown
           overlay={menu} 
