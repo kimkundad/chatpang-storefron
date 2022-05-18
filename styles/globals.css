@@ -225,6 +225,9 @@ p:last-child{
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 }
+.sideBarToggle{
+	font-size: 1.5rem;
+}
 .sidebar-inner {
 	height: 100%;
 	min-height: 100%;
@@ -365,7 +368,7 @@ chatbot section
 }
 .commentHeader{
 	display: flex;
-	height: 100px;
+	/* height: 100px; */
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -388,6 +391,15 @@ chatbot section
 	height: 100px;
 	border: 1px solid #000;
 	border-radius: 10px;
+}
+
+/*------
+reply keyword section
+------*/
+.replyKeywordBtn{
+	font-size: 1.5rem;
+}
+.replyDeleteBTN{
 }
 /*------
 function section
@@ -806,10 +818,17 @@ table.table td h2 span {
 .lineButtonContainer  button:first-child, .chatButtonContainer button:first-child{
 	background-color: #F5F24F;
 }
+.replyButtonContainer button{
+	background-color: #F5F24F;
+}
+.replyCustomBtn{
+	/* display: flex; */
+	align-items: center;
+}
 .lineCustomBtn{
 	background-color: #F5F24F;
 }
-.chatCustomBtn,.lineCustomBtn{
+.chatCustomBtn,.lineCustomBtn,.replyCustomBtn{
 	border: 1px solid #000000;
 	border-radius: 25px;
 	margin: 0 10px;

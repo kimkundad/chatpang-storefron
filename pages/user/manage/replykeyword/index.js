@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '../../../../components/Sidebar'
@@ -6,8 +7,9 @@ import { Table } from 'react-bootstrap'
 import { Avatar } from 'antd';
 
 const Replykeyword = () => {
-
-const [selectedItem, setSelectedItem] =useState()
+  const router = useRouter()
+  const [ checkAll, setCheckAll] = useState(false)
+  const [selectedItem, setSelectedItem] =useState()
 
   const data = [
     {
@@ -73,7 +75,7 @@ const [selectedItem, setSelectedItem] =useState()
               
               <div className='row'>
                 <div className='col d-flex justify-content-center my-2'>
-                  <span onClick={() => router.push(`${router.pathname}/create-bot`)} className='userButton'><FontAwesomeIcon className='me-2' icon={faPlus} />สร้างแคมเปญ</span>
+                  <span onClick={() => router.push(`${router.pathname}/create-replykeyword`)} className='userButton'><FontAwesomeIcon className='me-2' icon={faPlus} />สร้างแคมเปญ</span>
                   <span className='userButton'><FontAwesomeIcon className='me-2' icon={faCopy} />สร้างซ้ำ</span>
                   {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
                   <span className='userButton'><FontAwesomeIcon className='me-2' icon={faTrashCan} />ลบ</span>
