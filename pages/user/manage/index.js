@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { Table } from 'react-bootstrap'
 import { Checkbox } from 'antd'
 import Sidebar from '../../../components/Sidebar'
+
 const Index = () => {
   const [checkAll, setCheckAll] = useState(false)
   const [checkList, setCheckList] = useState([])
@@ -44,19 +45,19 @@ const Index = () => {
             <Sidebar />
             <div className='userpage-wrapper text-center'>
               <div className="page-header">
-                <div className="row mx-auto" style={{maxWidth:"70%"}}>
-                  <div className="col-6">
+                <div className="row">
+                  <div className="col-md-12" >
                     <h3 className="page-title">กรุณาเลือกเพจ เพื่อทำการตั้งค่า Chatbot</h3>
                   </div>
-                  <div className="col-6">
+                  {/* <div className="col-md-6">
                     <h5 onClick={()=>onCheckAll()} className="text-info">เลือกทั้งหมด</h5>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className='row'>
-                <div className='col d-flex justify-content-center'>  
+                <div className='col-xs-12 col-md-8 mx-auto d-flex'>  
                         {/* <Checkbox.Group  onChange={onCheck} > */}
-                  <Table bordered hover style={{maxWidth:"60%"}}>
+                  <Table bordered hover style={{minWidth:"60%"}}>
                       <tbody>
                         {renderData()}
                       </tbody>

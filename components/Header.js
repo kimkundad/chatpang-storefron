@@ -4,6 +4,9 @@ import { Link } from 'react-scroll'
 const Header = () => {
   const [modalMobile, setModalMobile] = useState(false)
 
+  const onShowSideBarMenu = () => {
+    document.querySelector('.sidebar').classList.toggle('open')  
+  }
   return (
     <header className="position-fixed w-100 top-0" style={{ zIndex: '1000' }}>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
@@ -11,6 +14,7 @@ const Header = () => {
           <a className="navbar-brand" href="#">
             <img src="/images/header-logo.svg" style={{ maxWidth: '209px' }} />
           </a>
+          <div style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >SHOW SIDE BAR</div>
           <button
             className="navbar-toggler"
             type="button"

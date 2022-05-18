@@ -60,7 +60,7 @@ const Package = () => {
                 </div>
               </div>
               <div className="row">
-                <div style={{minHeight:"300px"}} className='col-lg-12 d-flex justify-content-center' >
+                <div style={{minHeight:"300px"}} className='col-md-12 w-xs-25 d-md-flex justify-content-center' >
                     <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage}/>
                 </div>
              </div>

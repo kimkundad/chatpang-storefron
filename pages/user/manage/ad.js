@@ -17,12 +17,12 @@ const ad = () => {
                   </div>
                 </div>
                 <div className='row'>
-                  <div className='col'>
+                  <div className='col-md-8 col-xs-12 mx-auto'>
                   <Player 
                   url='https://www.youtube.com/watch?v=1F9_V0ub2H8' 
                   controls={true}
                   muted={true}
-                  className='mx-auto my-4'
+                  className='w-auto my-4'
                   />
                   </div>
                 </div>

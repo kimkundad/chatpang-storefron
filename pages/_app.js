@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'react-bootstrap-tagsinput/dist/index.css'
 
-import Layout from './Layout'
+import Layout from '../components/Layout'
 import { AppContextProvider } from '../context/AppContextProvider';
 
 function MyApp({ Component, pageProps }) {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '../../../../components/Sidebar'
@@ -6,6 +6,8 @@ import { Table } from 'react-bootstrap'
 import { Avatar } from 'antd';
 
 const Welcometext = () => {
+
+const [selectedItem, setSelectedItem] =useState()
 
   const data = [
     {
@@ -35,7 +37,9 @@ const Welcometext = () => {
   const onEdit = (id) => {
     console.log(id);
   }
-
+  const onCheckAll = () => {
+    setCheckAll(!checkAll)
+  }
   const renderTable = () => {
     return data.map((item, index) => {
       return (
@@ -59,7 +63,7 @@ const Welcometext = () => {
             <div className='userpage-wrapper text-center'>
               <div className="page-header">
                 <div className="row">
-                  <div className="col d-flex justify-content-center">
+                  <div className="col-md-12 d-flex justify-content-center">
                     <span className='text-uppercase userDropdown' ><Avatar className='me-2' icon={<FontAwesomeIcon icon={faUser} />} />Board pang</span>
                   </div>
                 </div>
@@ -68,17 +72,17 @@ const Welcometext = () => {
               
               <div className='row'>
                 <div className='col d-flex justify-content-center my-2'>
-                  <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPlus} />สร้างแคมเปญ</span>
+                  <span onClick={() => router.push(`${router.pathname}/create-bot`)} className='userButton'><FontAwesomeIcon className='me-2' icon={faPlus} />สร้างแคมเปญ</span>
                   <span className='userButton'><FontAwesomeIcon className='me-2' icon={faCopy} />สร้างซ้ำ</span>
                   {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
                   <span className='userButton'><FontAwesomeIcon className='me-2' icon={faTrashCan} />ลบ</span>
                 </div>
               </div>
               <div className='row'>
-                <div className='col d-flex justify-content-center mt-3'>
-                    <Table bordered style={{width:"70%"}}>
+                <div className='col-md-8 mx-auto d-flex mt-3'>
+                    <Table bordered >
                       <thead style={{background:"black", color:"#FFFF", fontSize:"1.5rem"}}>
-                        <th><input type='checkbox' /></th>
+                        <th><input onChange={onCheckAll} type='checkbox' name='checkAll'/></th>
                         <th>แคมเปญ</th>
                         <th></th>
                       </thead>

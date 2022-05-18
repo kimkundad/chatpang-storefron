@@ -59,35 +59,37 @@ const Linenoti = () => {
                     <span className='text-uppercase userDropdown' ><Avatar className='me-2' icon={<FontAwesomeIcon icon={faUser} />} />Board pang</span>
                   </div>
                 </div>
-                <div style={{width:"35%"}} className="row mx-auto">
-                  <div className="lineDetail col mt-3">
-                    <div style={{width:"60%"}} className='d-flex flex-column'>
+                <div className="row mx-auto position-relative g-3 mt-2">
+                  {/* <div className="lineDetail col-12 mt-3"> */}
+                    <div className='col-xs-12 d-flex flex-column'>
                       <strong className='text-uppercase' >แจ้งเตือนผ่าน Line Notify</strong>
                       <span className='text-secondary' >แจ้งเตือนข้อความที่ยังไม่มีคนอ่าน ผ่านทางไลน์กลุ่มรู้จำนวนข้อความที่ค้างไว้ ลูกค้าไม่ต้องรอนาน</span>
                     </div>
-                    <div className="d-flex lineButtonContainer">
+                    <div className="w-auto d-flex mx-auto lineButtonContainer">
                       <button className='lineCustomBtn'>บันทึก</button>
                       <button className='lineCustomBtn'>ยกเลิก</button>
                     </div>
-                  </div>
+                  {/* </div> */}
                 </div>
               </div>
               <Divider />
-              <div className='row lineTokenContainer mx-auto flex-wrap'>
-                <div className='col'>
-                  <div className='lineTokenHeader'>
-                    <strong>ใส่ Line Token</strong>
+              <div className='row '>
+                <div className='col-md-3 flex-column flex-md-row ms-md-auto lineTokenHeader'> 
+                    <strong className='d-inline-block'>ใส่ Line Token</strong>
+                </div>
+                  <div className='col-md-6 d-flex flex-xs-column lineTokenHeader'>
                     <span className='text-secondary' ><FontAwesomeIcon icon={faExclamationCircle} /> <i>คลิกเพื่อดูวิดีโอการขอ Token</i> </span>
                   </div>
-                  <div className='lineTokenInput'>
-                      <input type='text' id='token' />
-                    <button className='lineCustomBtn'>บันทึก Token</button>
+              </div>
+              <div className='row'>
+                  <div className='col-md-6 lineTokenInput  mx-md-auto flex-column flex-md-row'>
+                    <input className='mt-2' type='text' id='token' />
+                    <button className='lineCustomBtn mt-2'>บันทึก Token</button>
                   </div>
-                </div>
               </div>
               <Divider />
-              <div className='row lineTiming mx-auto'>
-                <div className='col'>
+              <div className='row'>
+                <div className='col-md-6 col-xs-12 mx-md-auto'>
                       <div className='lineTimingHeader'>
                         <strong>แจ้งเข้าไลน์กลุ่ม เมื่อยังไม่มีใครตอบลูกค้านานเกิน...</strong>
                       </div>
@@ -98,9 +100,9 @@ const Linenoti = () => {
               </div>
               <Divider />
               <div className='row'>
-                <div className='col d-flex justify-content-center mt-3'>
-                    <Table bordered style={{width:"70%"}}>
-                      <thead style={{background:"black", color:"#F5F24F", fontSize:"1.5rem"}}>
+                <div className='col-md-8 mx-md-auto mt-3'>
+                    <Table bordered>
+                      <thead style={{background:"black", color:"#F5F24F"}}>
                         <th>ชื่อกลุ่มไลน์</th>
                         <th>จำนวนเพจที่แจ้งเตือน</th>
                       </thead>

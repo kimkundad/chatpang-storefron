@@ -9,10 +9,34 @@ import { Table } from 'react-bootstrap'
 const Chatbot = () => {
 const router = useRouter()
 const [ checkAll, setCheckAll] = useState(false)
-
+const [selectedItem, setSelectedItem] =useState()
   const data = [
-    {
+    { 
+      id: 1,
       name:'test_1',
+      isActive:false,
+      msgInbox:{
+        active:false,
+        msg:'',
+        image:''
+      },
+      comment:{
+        active:false,
+        msg:'',
+        image:'',
+        option:{
+          like:false,
+          repeat:false,
+          hideComment:false
+        }
+      },
+      words:[],
+      tag:[],
+      hiddenWord:[]
+    },
+    {
+      id:2,
+      name:'test_2',
       isActive:false,
       msgInbox:{
         active:false,
@@ -40,7 +64,9 @@ const [ checkAll, setCheckAll] = useState(false)
   }
 
   const onEdit = (id) => {
-    console.log(id);
+    const item = data.filter(obj => obj.id === id)[0]
+      setSelectedItem(item)
+      router.push({pathname:`${router.pathname}/edit/${id}`, query:{id:id}})
   }
 
   const renderTable = () => {
@@ -51,7 +77,7 @@ const [ checkAll, setCheckAll] = useState(false)
           <td>{item.name}</td>
           <td>
           <div>
-          <span onClick={()=> onEdit(index)} className='userEditButton' >แก้ไข</span>
+          <span onClick={()=> onEdit(item.id)} className='userEditButton' >แก้ไข</span>
           </div>
           </td>
         </tr>
@@ -66,7 +92,7 @@ const [ checkAll, setCheckAll] = useState(false)
             <div className='userpage-wrapper text-center'>
               <div className="page-header">
                 <div className="row">
-                  <div className="col d-flex justify-content-center">
+                  <div className="col-md-12 d-flex justify-content-center">
                     <span className='text-uppercase userDropdown' ><Avatar className='me-2' icon={<FontAwesomeIcon icon={faUser} />} />Board pang</span>
                   </div>
                 </div>
@@ -82,8 +108,8 @@ const [ checkAll, setCheckAll] = useState(false)
                 </div>
               </div>
               <div className='row'>
-                <div className='col d-flex justify-content-center mt-3'>
-                    <Table bordered style={{width:"70%"}}>
+                <div className='col-md-8 mx-auto d-flex mt-3'>
+                    <Table bordered >
                       <thead style={{background:"black", color:"#FFFF", fontSize:"1.5rem"}}>
                         <th><input onChange={onCheckAll} type='checkbox' name='checkAll'/></th>
                         <th>แคมเปญ</th>

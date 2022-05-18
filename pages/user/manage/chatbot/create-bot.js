@@ -17,41 +17,61 @@ const [ hiddenWords, setHiddenWords ] = useState([])
 
 
   return (
-    <div className='page-wrapper'>
-    <div className='content container-fluid'>
+    <div className='page-wrapper' >
+    <div className='content container-fluid' >
         <Sidebar />
         <div className='userpage-wrapper text-center'>
           <div className="page-header">
-            <div className="row">
-              <div className="col d-flex justify-content-center">
-                <span onClick={()=> router.back()} className='userBackButton' ><FontAwesomeIcon className='me-2' icon={faChevronLeft} />ย้อนกลับ</span>
+            <div className="row" >
+              <div className="col-md-12 d-flex justify-content-center">
+                <span onClick={()=> router.back()} className='userBackButton' ><FontAwesomeIcon className='me-2-md' icon={faChevronLeft} /><span className='textBTN'>ย้อนกลับ</span></span>
                 <span className='text-uppercase userDropdown' ><Avatar className='me-2' icon={<FontAwesomeIcon icon={faUser} />} />Board pang</span>
               </div>
             </div>
           </div>
           {/* content */}
-          <div className='row'>
-              <div className='col-md-6 mx-auto chatNameInput'>
-                  <strong className='me-3' >ชื่อแคมเปญ</strong>
-                  <input type='text' name="name"  />
-                <div className='chatButtonContainer'>
-                    <button className='chatCustomBtn'>บันทึก</button>
-                    <button className='chatCustomBtn'>ยกเลิก</button>
+          <div className='row g-3'>
+              {/* <div className='mx-auto chatNameInput'> */}
+                  <div className='col-md-4 text-md-end text-start'>
+                    <strong className='me-3' >ชื่อแคมเปญ</strong>
+                  </div>
+                  <div className='col-md-4 mx-auto chatNameInput'>
+                    <input type='text' name="name" autoFocus={true} />
+                  </div>
+                  <div className='col-md-4 text-center chatButtonContainer'>
+                      <button className='chatCustomBtn'>บันทึก</button>
+                      <button className='chatCustomBtn'>ยกเลิก</button>
+                  </div>
+              {/* </div> */}
+          </div>
+          <Divider />
+          <div className='row g-3' >
+              {/* <div className='col-md-8 mx-auto chatComment'> */}
+              <div className='col-md-3 commentHeader'>
+                  <strong className='ms-3' >ข้อความตอบเข้าอินบ็อกซ์</strong>
+                  <Switch style={{width:"fit-content"}} size='small' />
                 </div>
-              </div>
+                <div className='col-md-6 commentInput'>
+                  <TextArea
+                  showCount
+                  maxLength={200}
+                  placeholder='พิมพ์ข้อความที่นี้...'
+                  autoSize={{ minRows: 4, maxRows: 6 }}
+                  />
+                </div>
+                <div className='col-md-2 uploadComment'>
+                    <span>Upload</span>
+                </div>
+              {/* </div> */}
           </div>
           <Divider />
-          <div className='row' >
-              <div className='col-md-6 mx-auto'></div>
-          </div>
-          <Divider />
-          <div className='row' >
-              <div className='col-md-8 mx-auto chatComment'>
-                <div className='commentHeader'>
-                  <Switch size='small' />
+          <div className='row text-center g-3' >
+              {/* <div className='col-md-8 mx-auto chatComment'> */}
+                <div className='col-md-3 commentHeader'>
                   <strong className='ms-3' >คอมเม้นต์ใต้โพสต์</strong>
+                  <Switch style={{width:"fit-content"}} size='small' />
                 </div>
-                <div className='commentInput'>
+                <div className='col-md-6 commentInput'>
                   <TextArea
                   showCount
                   maxLength={200}
@@ -73,10 +93,10 @@ const [ hiddenWords, setHiddenWords ] = useState([])
                     </div>
                   </div>
                 </div>
-                <div className='uploadComment'>
+                <div className='col-md-2 uploadComment'>
                     <span>Upload</span>
                 </div>
-              </div>
+              {/* </div> */}
           </div>
           <Divider />
           <div className='row' >

@@ -10,7 +10,7 @@ const Sidebar = () => {
     const { user } =useUser()
     const packageInfo = user.package
 
-    let pathName = router.pathname 
+    let pathName = router.pathname
 
     const isActive = (path) =>{
         const n = '/user/manage'.length
@@ -41,7 +41,7 @@ const Sidebar = () => {
                     </div>
                     <ul>
                         <li className={`menu-title ${isActive('') ? "active":""}`}><Link href='/user/manage' >หน้าหลัก</Link></li>
-                        <li className={`menu-title ${isActive('/chatbot') ? "active":""}`}><Link href='/user/manage/chatbot' >สร้าง chatbot</Link></li>
+                        <li className={`menu-title ${isActive('/chatbot') || isActive('/chatbot/edit/:id') || isActive('/chatbot/create-bot')? "active":""}`}><Link href='/user/manage/chatbot' >สร้าง chatbot</Link></li>
                         <li className={`menu-title ${isActive('/welcometext') ? "active":""}`}><Link href='/user/manage/welcometext' >ข้อความต้อนรับ</Link></li>
                         <li className={`menu-title ${isActive('/replykeyword') ? "active":""}`}><Link href='/user/manage/replykeyword' >ตอบกลับตาม keyword</Link></li>
                         <li className={`menu-title ${isActive('/linenoti') ? "active":""}`}><Link href='/user/manage/linenoti' >Line เเจ้งเตือน</Link></li>
