@@ -55,7 +55,7 @@ const Header = () => {
           className='fw-bold fs-4 d-flex align-items-center ms-3'
           >
           <a style={{textDecoration:"none", color:"Black"}} onClick={(e) => e.preventDefault()}>
-          {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />}
+          {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
           <span className='mx-2'>{userData.name ? userData.name : 'User'}</span>
           <FontAwesomeIcon icon={faAngleDown} />
           </a>
@@ -102,9 +102,10 @@ const Header = () => {
           </ul>
         </div>
       )
-    }else{
+    }
+    else{
       return (
-        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-none d-sm-block">
           <li className="nav-item">
               <Link to="/" offset={-40}>
                 <button onClick={()=> router.push('/user/contactus')} className="btn btn-primary">ติดต่อเรา</button>
@@ -117,7 +118,7 @@ const Header = () => {
   }
 
   const renderBTNNavbar = () => {
-    if (!pathName.includes('user')) {
+    if (!pathName.includes('user/manage')) {
       return(
         <button
             className="navbar-toggler"
@@ -136,7 +137,11 @@ const Header = () => {
         </button>
       )
     }else{
-      return <></>
+      return (
+        <div className='sideBarToggle d-md-none d-sm-block' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >
+            <FontAwesomeIcon icon={faBars} /> 
+        </div>
+      )
     }
   }
   return (
@@ -146,9 +151,9 @@ const Header = () => {
           <a className="navbar-brand" href="#">
             <img src="/images/header-logo.svg" style={{ maxWidth: '209px' }} alt='logo' />
           </a>
-          <div className='sideBarToggle d-md-none d-sm-block me-3' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >
+          {/* <div className='sideBarToggle d-md-none d-sm-block me-3' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >
             <FontAwesomeIcon icon={faBars} /> 
-          </div>
+          </div> */}
           {/* <button
             className="navbar-toggler"
             type="button"

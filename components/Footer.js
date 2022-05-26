@@ -13,7 +13,7 @@ const Footer = () => {
                 <span>เงื่อนไขการใช้งาน</span>
                 <span className='d-flex align-items-center' ><FontAwesomeIcon className='me-2' icon={faFacebook} />chatpang</span>
             </div>
-            <div className='col-md-6 rightFooter flex-md-row flex-column'>
+            <div className='col-md-6 rightFooter '>
                 <div className='me-3'>
                 <strong>ติดต่อสอบถามเพิ่มเติม</strong>
                 <div className='d-flex mb-3'>
