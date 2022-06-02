@@ -1134,6 +1134,7 @@ custom button
 	margin: 0 auto;
 	background: var(--mainCBlue_2);
 	color:var(--mainCWhite);
+	border-radius: 10px;
 }
 .uploadicon{
 	font-size: 2rem;

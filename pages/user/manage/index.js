@@ -56,7 +56,7 @@ const Index = () => {
               </div>
               <div className='row'>
               <div className='col-10 col-md-6 mx-auto my-3 d-flex'>
-                    <span onClick={()=>onCheckAll()} className="text-info  ms-auto">เลือกทั้งหมด</span>
+                    <span style={{cursor:"pointer"}} onClick={()=>onCheckAll()} className="text-info  ms-auto">เลือกทั้งหมด</span>
               </div>
               </div>
               <div className='row'>
