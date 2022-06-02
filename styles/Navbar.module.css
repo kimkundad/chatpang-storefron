@@ -1,3 +1,17 @@
+:root{
+	--mainCRed_1 : #ff7157;
+	--mainCRed_2 : #ff3f33;
+	--mainCRed_3 : #ec0015;
+	--mainCRed_4 : #cb3436;
+	--mainCBlue_1: #0074fb;
+	--mainCBlue_2 : #003b69;
+	--mainCBlack: #000;
+	--mainCWhite: #fff;
+	--subCYellow: #fced20;
+	--subCRed : #ed1b24;
+	--subCGray_1 : #dadada;
+	--subCGray_2 : #4c4c4d;
+}
 .navbarCus{
     background: #FCED20 !important;
     position: fixed;

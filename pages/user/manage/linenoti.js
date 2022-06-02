@@ -102,7 +102,7 @@ const Linenoti = () => {
               <div className='row'>
                 <div className='col-md-8 mx-md-auto mt-3'>
                     <Table bordered>
-                      <thead style={{background:"black", color:"#F5F24F"}}>
+                      <thead>
                         <th>ชื่อกลุ่มไลน์</th>
                         <th>จำนวนเพจที่แจ้งเตือน</th>
                       </thead>

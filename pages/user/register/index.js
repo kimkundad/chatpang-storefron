@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import { Upload, Button, Avatar } from 'antd';
 
 import useUser from '../../../Hooks/useUser';
+import Image from 'next/image';
 
 const Register = () => {
 const router = useRouter()
@@ -51,15 +52,15 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
         });
       }
   return (
-    <div className='page-wrapper'>
+    <div className='nosidebar-wrapper'>
         <div className='text-center'>
             <h1 className='font-weight-bold'>ลงทะเบียนด้วย Facebook</h1>
         </div>
-        <div className='content'>
+        <div className='container container-fluid'>
         <div className="row justify-content-center mt-5">
-            <div className="col-lg-12 text-center d-flex w-75 flex-column">
+            <div className="col-lg-12 text-center d-flex w-25 flex-column">
                 {imageURL !== undefined ?
-                <img src={imageURL} className='mx-auto mb-3' style={{width:'250px'}} alt="profile"/>
+                <Image src={imageURL} className='mx-auto mb-3' alt="profile"/>
                 : 
                 <Avatar style={{display:'grid', placeItem:'center'}}  className='p-5 mx-auto mb-3' shape='square' size='large' />
                 }
@@ -107,7 +108,7 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
         </div>
         <div className="registerBtnContainer row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex w-75 justify-content-center">
-                <button onClick={()=> router.replace('/')} className='customeRegisterBtn w-50 me-3'>ยกเลิก</button>
+                <button onClick={()=> router.push('/user/')} className='customeRegisterBtn w-50 me-3'>ยกเลิก</button>
                 <button type='submit' className='customeRegisterBtn w-50'>เข้าระบบ</button>
             </div>
         </div>
