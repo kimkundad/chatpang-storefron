@@ -47,11 +47,11 @@ const FacebookLogin = () => {
       <FacebookLoginBTN
         appId="994698817844987"
         autoLoad={false}
-        fields="name,email,userID,picture,accessToken"
+        fields="name,email,picture,accessToken"
         cssClass="btn btn-primary btn-lg my-4 rounded-pill"
         onClick={componentClicked}
         callback={responseFacebook}
-        // redirectUri='http://openstrategynetwork.com/_oauth/facebook'
+        redirectUri='http://openstrategynetwork.com/_oauth/facebook'
       />
     </div>
   )
