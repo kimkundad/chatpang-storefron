@@ -16,7 +16,7 @@ const  userData  = {
     image:undefined
 }
 const [ name, setName ] = useState(user.user.name)
-// const [ email, setEmail ] = useState(user.user.email)
+const [ email, setEmail ] = useState(user.user.email)
 const [ phoneno, setPhoneno ] = useState(user.user.phoneno)
 const [ imageObj, setImageObj ] =useState(null)
 const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefined : user.user.image)
