@@ -4,7 +4,7 @@ const Pagelist = () => {
   const router = useRouter()
 
   return (
-    <div className='page-wrapper'>
+    <div className='nosidebar-wrapper'>
         <div className='text-center'>
             <h2>เลือกเพจที่ต้องการเชื่อมต่อ</h2>
         </div>
@@ -25,7 +25,7 @@ const Pagelist = () => {
                 <tbody>
                   <tr>
                     <td>
-                        <span>ปังไม่หยุด</span>
+                        <span>ปังไม่หยุด 1</span>
                     </td>
                     <td className='text-end' >
                       <input type="checkbox" />
@@ -33,7 +33,7 @@ const Pagelist = () => {
                   </tr>
                   <tr>
                     <td>
-                        <span>ปังไม่หยุด</span>
+                        <span>ปังไม่หยุด 2</span>
                     </td>
                     <td className='text-end' >
                       <input type="checkbox" />
@@ -41,7 +41,7 @@ const Pagelist = () => {
                   </tr>
                   <tr>
                     <td>
-                        <span>ปังไม่หยุด</span>
+                        <span>ปังไม่หยุด 3</span>
                     </td>
                     <td className='text-end' >
                       <input type="checkbox" />
@@ -49,7 +49,7 @@ const Pagelist = () => {
                   </tr>
                   <tr>
                     <td>
-                        <span>ปังไม่หยุด</span>
+                        <span>ปังไม่หยุด 4</span>
                     </td>
                     <td className='text-end' >
                       <input type="checkbox" />

@@ -1,22 +1,36 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import useUser from '../../../Hooks/useUser'
+
 const Pagedone = () => {
   const router = useRouter()
   const { user,setUserData } = useUser()
+  const [ name, setName ] = useState(user.user.name)
+// const [ email, setEmail ] = useState(user.user.email)
+const [ phoneno, setPhoneno ] = useState(user.user.phoneno)
+const [ imageObj, setImageObj ] =useState(null)
+const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefined : user.user.image)
   const onSubmit = () => {
-    router.push('/user/packages')
-    setUserData({
-      isLogin:true,
-      package:{
-          name:'VIP',
-          price:'590',
-          periodOfUse:'3',
-          exp:'30/12/2021'
-      }
-  })
+    const data ={
+      name:name,
+      // email:email,
+      phoneno:phoneno,
+      image:imageObj === null ? imageURL : imageObj
+  }
+ setUserData({...user,user:data})
+    router.push('/user/manage')
+  //   setUserData({
+  //     isLogin:true,
+  //     package:{
+  //         name:'VIP',
+  //         price:'590',
+  //         periodOfUse:'3',
+  //         exp:'30/12/2021'
+  //     }
+  // })
   }
   return (
-    <div className='page-wrapper'>
+    <div className='nosidebar-wrapper'>
     <div className='text-center'>
         <h2 className='font-weight-bold'>คุณได้เชื่อมต่อกับ Facebook เรียบร้อยเเล้ว</h2>
         <p>คุณสามารถอัพเดตสิ่งที่เราสามารถทำได้ใน<br/>

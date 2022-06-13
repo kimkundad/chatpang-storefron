@@ -5,12 +5,12 @@ const Pagepermission = () => {
   const router = useRouter()
 
   return (
-    <div className='page-wrapper'>
+    <div className='nosidebar-wrapper'>
       <div className='text-center'>
           <h2 className='font-weight-bold'>ได้รับอนุญาตให้ดำเนินการอะไรได้บ้าง</h2>
           <h5>Chatpang อาจไม่ทำงานอย่างเหมาะสมหากคุณปิดตัวเลือกเหล่านี้</h5>
       </div>
-    <div className='content'>
+    <div className='container container-fluid'>
       <div className="row justify-content-center">
         <div style={{width:"40%"}} className="col-lg-12 d-flex flex-column">
           <table className="table mb-0">

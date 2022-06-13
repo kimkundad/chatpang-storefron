@@ -16,7 +16,7 @@ const  userData  = {
     image:undefined
 }
 const [ name, setName ] = useState(user.user.name)
-const [ email, setEmail ] = useState(user.user.email)
+// const [ email, setEmail ] = useState(user.user.email)
 const [ phoneno, setPhoneno ] = useState(user.user.phoneno)
 const [ imageObj, setImageObj ] =useState(null)
 const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefined : user.user.image)
@@ -25,13 +25,13 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
         e.preventDefault()
         const data ={
             name:name,
-            email:email,
+            // email:email,
             phoneno:phoneno,
             image:imageObj === null ? imageURL : imageObj
         }
        await setUserData({...user,user:data})
         console.log(user);
-        router.push('/user/manage')
+        router.push('/user/facebook/pagelist')
     }
     const onUploadImage = async ({ file, fileList }) => {
         setImageObj(file)
