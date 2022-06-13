@@ -387,7 +387,7 @@ export default function Home() {
                   <div>
                     <button className="px-3 py-1 rounded border-0 bg-primary">สนใจสั่งซื้อ</button>
                   </div>
-                  {val.item.name === 'Bussiness' ? (
+                  {val.item.isBestSeller ? (
                     <img
                       src="/images/landing-page/baged-best-seller.svg"
                       className=" position-absolute"
