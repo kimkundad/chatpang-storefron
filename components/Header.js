@@ -146,6 +146,7 @@ const Header = () => {
             src="/images/hamburger-menu.svg"
             onClick={() => setModalMobile(!modalMobile)}
             style={{ width: '24px' }}
+            alt="menu"
           />
         </button>
       )

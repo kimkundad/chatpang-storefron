@@ -56,7 +56,7 @@ const Package = () => {
             </div>
         </div>
         <div className='col-lg-12 d-flex justify-content-center flex-wrap' >
-            <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage}/>
+            {/* <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage}/> */}
         </div>
         <div className='text-center'>
         <strong className='text-danger'>***สำหรับแพ็คเกจ Basic / VIP ถ้าต้องการใช้ระบบ Line แจ้งเตือน มีค่าบริการเพิ่มเติมเดือนละ 200 บาท***</strong>
