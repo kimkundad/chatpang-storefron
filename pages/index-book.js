@@ -45,7 +45,7 @@ const Landingpage = () => {
             <Question />
           </div>
           <div id='package' className='row landingSection'>
-            <Package />
+            {/* <Package /> */}
           </div>
           <div id='contact' className='row landingSection my-5'>
             <Contact />
