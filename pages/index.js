@@ -1,10 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Accordion, Card, Col, Container, Row, Button } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import axios from './api/axios'
+import CardPrice from '../components/CardPrice'
+import Player from 'react-player'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 const featureData = [
   {
     img: '/images/landing-page/feature-1.svg',
@@ -113,6 +118,62 @@ const packageData = [
 export default function Home() {
   const router = useRouter()
   const myRef = useRef()
+  const [packages, setPackages] = useState([])
+  const [selectedPackage, setPackage] = useState(null)
+
+  const [reviews, setReviews] = useState([])
+
+ async function getPackages() {
+    try {
+      const res = await axios('/packages')
+      setPackages(res.data.packages)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  function setSelectedPackage(id) {
+    if (selected === id) {
+      setPackage(null)
+    } else {
+      setPackage(id)
+    }
+  }
+
+ async function getReviews() {
+  try {
+    const res = await axios('/reviews')
+    setReviews(res.data.reviews)
+  } catch (error) {
+    console.log(error);
+  }
+  }
+
+  function renderRating(num) {
+    let star = []
+    for (let i = 1; i <= num; i++) {
+      star.push(i)
+    }
+    return (
+        <div>
+          {star.map((obj)=>{
+            return(
+              <FontAwesomeIcon key={obj} icon={faStar} />
+            )
+          })}
+        </div>
+      )
+  }
+  function renderReviewDetail(text) {
+      if (text.length > 30) {
+        return text.substring(0,31)+"..."
+      }else{
+        return text
+      }
+  }
+  useEffect(()=>{
+    getPackages()
+    getReviews()
+  },[])
   return (
     <>
       <div className="container-md">
@@ -224,33 +285,43 @@ export default function Home() {
 
           <div className="h-100 w-100 px-0 px-md-5">
             <Carousel responsive={responsive}>
-              {clientFeedbackData.map((val, index) => (
+              {reviews.map((val, index) => (
                 <div key={index} className="flex flex-column p-3">
-                  <img src="/images/landing-page/placeholder-video.svg" className="w-100" />
+                  {/* <img src="/images/landing-page/placeholder-video.svg" className="w-100" /> */}
+                  <Player
+                  url={val.item.linkUrl} 
+                  controls={true}
+                  muted={true}
+                  width="280px"
+                  height="280px"
+                   />
                   <div
                     className="bg-grey50 shadow px-5 pt-4 pb-3 border rounded-3 position-relative"
                     style={{ marginTop: '4em' }}
                   >
                     <img
-                      src="/images/landing-page/mockup-client-img.png"
+                      src={val.item.imgURL}
                       className="position-absolute m-auto"
                       style={{
                         maxWidth: '60px',
+                        maxHeight:"60px",
                         left: 0,
                         right: 0,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         top: '-40px',
+                        borderRadius:"50px"
                       }}
                     />
                     <div className=" d-flex flex-column align-items-center">
-                      <div>Steve Aioki</div>
-                      <div>
-                        {star.map((val, index) => (
+                      <div>{val.item.name}</div>
+                      {/* <div> */}
+                        {/* {star.map((val, index) => (
                           <img src="/images/landing-page/star-icon.svg" key={index} />
-                        ))}
-                      </div>
-                      <div className="text-center">จากเมื่อก่อนตอบแชทไม่ทัน ทำเงินหายไปเยอะ ตอนนี้...</div>
+                        ))} */}
+                        {renderRating(val.item.rating)}
+                      {/* </div> */}
+                      <div style={{minHeight:"50px"}} className="text-center">{renderReviewDetail(val.item.detail)}</div>
                     </div>
                   </div>
                 </div>
@@ -296,18 +367,19 @@ export default function Home() {
           </div>
 
           <div className="row w-100 overflow-hidden" style={{ marginTop: '2em' }}>
-            {packageData.map((val, index) => (
+          {/* <CardPrice data={packages} selected={selectedPackage} setSelectedPackage={setSelectedPackage}/> */}
+            {packages.map((val, index) => (
               <div key={index} className="col-12 col-md-4 p-3">
                 <div className="position-relative shadow rounded-2 d-flex flex-column justify-content-between align-items-center p-4 h-100">
                   <div className="d-flex flex-column align-items-center mb-5">
-                    <div className="bg-primary rounded px-5 py-1">{val.plane}</div>
-                    <div className=" display-3 text-bold">{val.price}</div>
+                    <div className="bg-primary rounded px-5 py-1">{val.item.name}</div>
+                    <div className=" display-3 text-bold">{val.item.price}</div>
                     <div className="text-grey200">บาท/เดือน</div>
                     <div className="flex-column" style={{ marginTop: '24px' }}>
-                      {val.features.map((data, index) => (
+                      {val.item.detail.map((data, index) => (
                         <div key={index} className="d-flex align-items-center">
                           <img src="/images/landing-page/bullet-check.svg" style={{ height: '18px' }} />
-                          <div className="ms-1 text-grey200">{data.feature}</div>
+                          <div className="ms-1 text-grey200">{data}</div>
                         </div>
                       ))}
                     </div>
@@ -315,7 +387,7 @@ export default function Home() {
                   <div>
                     <button className="px-3 py-1 rounded border-0 bg-primary">สนใจสั่งซื้อ</button>
                   </div>
-                  {val.plane === 'Bussiness' ? (
+                  {val.item.name === 'Bussiness' ? (
                     <img
                       src="/images/landing-page/baged-best-seller.svg"
                       className=" position-absolute"

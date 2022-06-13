@@ -18,7 +18,7 @@ const FacebookLogin = () => {
     axios
       .get(`https://graph.facebook.com/me?fields=${fields}&access_token=${token}`)
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         const data = response.data
         const userFacebookData = {
           id: data.id,
