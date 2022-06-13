@@ -8,6 +8,11 @@ import 'react-bootstrap-tagsinput/dist/index.css'
 import Layout from '../components/Layout'
 import { AppContextProvider } from '../context/AppContextProvider';
 
+import { initFacebookSdk } from '../_helper/init-facebook-sdk'
+
+
+initFacebookSdk().then(MyApp);
+
 function MyApp({ Component, pageProps }) {
   return (
     <AppContextProvider>
