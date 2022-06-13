@@ -7,14 +7,13 @@ import { useRouter } from 'next/router'
 const FacebookLogin = () => {
   const router = useRouter()
   const { setUserData } = useUser()
-  const componentClicked = () => {
-    console.log('click')
-
-  }
-  const responseFacebook = (response) => {
+  // const componentClicked = () => {
+  //   console.log('click')
+  // }
+  const responseFacebook = async (response) => {
     console.log(response)
     const fields = 'id,name,email,picture'
-    const token = response.accessToken
+    const token = accessToken
     axios
       .get(`https://graph.facebook.com/me?fields=${fields}&access_token=${token}`)
       .then((response) => {
@@ -42,18 +41,27 @@ const FacebookLogin = () => {
         console.log(error)
       })
   }
+
+  const onLogin = async () => {
+    const { authResponse } = await new Promise(window.FB.login);
+    if (!authResponse) return;
+    await responseFacebook(authResponse.accessToken);
+
+  }
   return (
     <div>
-      <FacebookLoginBTN
+      {/* <FacebookLoginBTN
         appId="994698817844987"
         autoLoad={false}
         fields="name,email,picture,accessToken"
         cssClass="btn btn-primary btn-lg my-4 rounded-pill"
         onClick={componentClicked}
         callback={responseFacebook}
-        // redirectUri='http://openstrategynetwork.com/_oauth/facebook'
-        redirectUri='https://testing-chatpang-landing.herokuapp.com/user'
-      />
+      /> */}
+      <button className="btn btn-facebook" onClick={onLogin}>
+        <i className="fa fa-facebook mr-1"></i>
+        Login with Facebook
+      </button>
     </div>
   )
 }
