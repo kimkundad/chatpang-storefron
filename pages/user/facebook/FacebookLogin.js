@@ -45,12 +45,12 @@ const FacebookLogin = () => {
   return (
     <div>
       <FacebookLoginBTN
-        // appId="994698817844987"
+        appId="994698817844987"
         autoLoad={false}
         fields="name,email,userID,picture,accessToken"
         cssClass="btn btn-primary btn-lg my-4 rounded-pill"
         onClick={componentClicked}
-        // callback={responseFacebook}
+        callback={responseFacebook}
         // redirectUri='http://openstrategynetwork.com/_oauth/facebook'
       />
     </div>

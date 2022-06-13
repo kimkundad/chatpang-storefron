@@ -11,6 +11,7 @@ export default function Home() {
   //   setUserData({isLogin:false})
   // },[])
   const onLogin =() => {
+    
     const userFacebookData = {
       id: 1,
       name: "Chatpang",
@@ -33,8 +34,8 @@ export default function Home() {
       <div className={`nosidebar-wrapper`}>
         <h4 className='text-center fs-1'>เข้าสู่ระบบ</h4>
         <div className='text-center mt-5'>
-          {/* <FacebookLogin /> */}
-          <button onClick={()=> onLogin()} className='btn btn-primary btn-lg my-4 rounded-pill'>เข้าสู่ระบบด้วย FACEBOOK</button>
+          <FacebookLogin />
+          {/* <button onClick={()=> onLogin()} className='btn btn-primary btn-lg my-4 rounded-pill'>เข้าสู่ระบบด้วย FACEBOOK</button> */}
           <div>
             <span>คุณจะถูกขอสิทธิในการเข้าถึงเพจต่างๆ เพื่อใช้ในการตอบคอมเม้นต์ และคอมเม้นต์เข้า inbox</span>
           </div>
