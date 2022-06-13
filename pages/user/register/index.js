@@ -72,7 +72,7 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
         <form onSubmit={(e)=> onSubmit(e)} >
         <div style={{ maxWidth:"300px"}} className="row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
-                <label htmlFor='name' >ชื่อ - นามสกุล <span className='text-danger'>*</span> </label>
+                <label htmlFor='name' >Username <span className='text-danger'>*</span> </label>
                 <input 
                 value={name} 
                 onChange={(e)=> setName(e.target.value)} 
@@ -94,7 +94,7 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
                 />
             </div>
         </div>
-        <div style={{ maxWidth:"300px"}} className="row justify-content-center mt-5 mx-auto">
+        {/* <div style={{ maxWidth:"300px"}} className="row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
                 <label htmlFor='tel' >เบอร์โทรศัพท์<span className='text-danger'>*</span> </label>
                 <input 
@@ -105,7 +105,7 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
                 type='tel'
                   />
             </div>
-        </div>
+        </div> */}
         <div className="registerBtnContainer row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex w-75 justify-content-center">
                 <button onClick={()=> router.push('/user/')} className='customeRegisterBtn w-50 me-3'>ยกเลิก</button>
