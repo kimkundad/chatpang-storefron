@@ -60,7 +60,7 @@ const [ imageURL, setImageURL ] =useState(user.user.image=== undefined ? undefin
         <div className="row justify-content-center mt-5">
             <div className="col-lg-12 text-center d-flex w-25 flex-column">
                 {imageURL !== undefined ?
-                <Image src={imageURL} className='mx-auto mb-3' alt="profile"/>
+                <img src={imageURL} width="100px" height="100px" className='mx-auto mb-3' alt="profile"/>
                 : 
                 <Avatar style={{display:'grid', placeItem:'center'}}  className='p-5 mx-auto mb-3' shape='square' size='large' />
                 }

@@ -32,11 +32,11 @@ const Sidebar = () => {
             <div className="sidebar-inner">
                 <div className="sidebar-menu">
                     <div className='sidePackageInfo'>
-                        <div style={{color:'black'}} className='cardTitle'>{packageInfo.name}</div>
+                        <div style={{color:'black'}} className='cardTitle'>{packageInfo?.name}</div>
                         <div className='packInfo'>
-                                <span>{packageInfo.price} บาท/เดือน</span>
-                                <span>ใช้งานได้ {packageInfo.periodOfUse} เดือน</span>
-                                <span>หมดอายุ {packageInfo.exp}</span>
+                                <span>{packageInfo?.price} บาท/เดือน</span>
+                                <span>ใช้งานได้ {packageInfo?.periodOfUse} เดือน</span>
+                                <span>หมดอายุ {packageInfo?.exp}</span>
                         </div>
                     </div>
                     <ul>

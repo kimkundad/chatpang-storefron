@@ -11,13 +11,13 @@ const FacebookLogin = () => {
     console.log('click')
   }
   const responseFacebook = async (response) => {
-    console.log(response)
+    // console.log(response)
     const fields = 'id,name,email,picture'
-    const token = accessToken
+    const token = response.accessToken
     axios
       .get(`https://graph.facebook.com/me?fields=${fields}&access_token=${token}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         const data = response.data
         const userFacebookData = {
           id: data.id,

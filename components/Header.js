@@ -26,7 +26,7 @@ const Header = () => {
   }
 
   const onLogOut = () => {
-    router.push('/user/')
+    router.push('/')
     setUserData({ isLogin: false })
   }
 
