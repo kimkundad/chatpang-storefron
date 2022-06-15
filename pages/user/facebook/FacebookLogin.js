@@ -11,19 +11,20 @@ const FacebookLogin = () => {
     console.log('click')
   }
   const responseFacebook = async (response) => {
-    // console.log(response)
+    console.log(response)
     const fields = 'id,name,email,picture'
     const token = response.accessToken
     axios
       .get(`https://graph.facebook.com/me?fields=${fields}&access_token=${token}`)
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         const data = response.data
         const userFacebookData = {
           id: data.id,
           name: data.name,
           email: data.email,
           image: data.picture.data.url,
+          userId:data.userID
         }
         setUserData({
           isLogin: true,
@@ -47,6 +48,7 @@ const FacebookLogin = () => {
         appId="994698817844987"
         autoLoad={false}
         fields="name,email,picture,accessToken"
+        scope="public_profile,email,pages_manage_engagement,pages_read_engagement,pages_show_list,pages_manage_metadata,pages_messaging"
         cssClass="btn btn-primary btn-lg my-4 rounded-pill"
         onClick={componentClicked}
         callback={responseFacebook}
