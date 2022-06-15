@@ -31,7 +31,7 @@ const [ imageURL, setImageURL ] =useState(user?.user.image=== undefined ? undefi
         }
        await setUserData({...user,user:data})
         console.log(user);
-        router.push('/user/facebook/pagelist')
+        router.push('/user/manage')
     }
     const onUploadImage = async ({ file, fileList }) => {
         setImageObj(file)
