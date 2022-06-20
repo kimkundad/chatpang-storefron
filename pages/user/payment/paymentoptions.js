@@ -9,11 +9,13 @@ import { useRouter } from 'next/router'
 import Stepper from '../../../components/Stepper'
 import Credit from './credit'
 import QRcode from './QRcode'
+import useUser from '../../../Hooks/useUser'
 
 const Paymentoptions = () => {
   const router = useRouter()
+  const {user} = useUser()
   const [method, setMethod] = useState(false) //false = credit, true= qrcode
-
+  console.log(user);
   const onChangeMethod = () => {
     setMethod(!method)
   }

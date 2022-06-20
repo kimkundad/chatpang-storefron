@@ -17,6 +17,12 @@ const Credit = () => {
         </div> */}
       <div className="row justify-content-center">
         <div className="creditInput col-md-3 d-flex flex-column">
+          <label>Cardholder name</label>
+          <input className="my-2" type="text" name="cardHolderName" />
+        </div>
+      </div>
+      <div className="row justify-content-center">
+        <div className="creditInput col-md-3 d-flex flex-column">
           <label>Card Number</label>
           <input className="my-2" type="text" name="cardNo" />
         </div>
@@ -37,7 +43,7 @@ const Credit = () => {
       </div>
       <div className="row justify-content-center">
         <div className="creditInput col-md-3 text-end">
-          <button className='btn btn-outline-secondary' onClick={()=> router.back}>ย้อนกลับ</button>
+          <button className='btn btn-outline-secondary' onClick={()=> router.back()}>ย้อนกลับ</button>
           <button onClick={()=> router.push(`/user/payment/confirmorder`)} className="ms-3">ต่อไป</button>
         </div>
       </div>

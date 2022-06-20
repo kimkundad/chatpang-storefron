@@ -4,6 +4,7 @@ import { Upload, Button, Avatar } from 'antd';
 
 import useUser from '../../../Hooks/useUser';
 import Image from 'next/image';
+import  axios from '../../api/axios';
 
 const Register = () => {
 const router = useRouter()
@@ -13,25 +14,40 @@ const  userData  = {
     name:'test',
     email:'test@gmail.com',
     phoneno:'0123456789',
-    image:undefined
+    imgProfile:undefined
 }
 const [ name, setName ] = useState(user?.user.name)
 const [ email, setEmail ] = useState(user?.user.email)
 const [ phoneno, setPhoneno ] = useState(user?.user.phoneno)
 const [ imageObj, setImageObj ] =useState(null)
-const [ imageURL, setImageURL ] =useState(user?.user.image=== undefined ? undefined : user.user.image)
+const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? undefined : user.user.imgProfile)
 
     const onSubmit = async (e) => {
         e.preventDefault()
         const data ={
             name:name,
-            // email:email,
+            email:email,
             phoneno:phoneno,
-            image:imageObj === null ? imageURL : imageObj
+            imgProfile:imageObj === null ? imageURL : imageObj
         }
        await setUserData({...user,user:data})
         console.log(user);
-        router.push('/user/manage')
+        const reqData = {
+            name:name,
+            email:email,
+            facebookToken:user?.user.facebookToken,
+            imgProfile:imageObj === null ? imageURL : imageObj,
+        }
+        try {
+            // const res = await axios.post('/user/signup',reqData)
+            // console.log(res);
+            user.phoneNo = phoneNo
+            console.log(user);
+            await setUserData({...user,user:user})
+            router.push('/user/package')
+        } catch (error) {
+            console.log(error);
+        }
     }
     const onUploadImage = async ({ file, fileList }) => {
         setImageObj(file)
@@ -79,6 +95,7 @@ const [ imageURL, setImageURL ] =useState(user?.user.image=== undefined ? undefi
                 className='custonRegisterImput' 
                 id='name' 
                 type='text'  
+                disabled
                 />
             </div>
         </div>
@@ -91,10 +108,11 @@ const [ imageURL, setImageURL ] =useState(user?.user.image=== undefined ? undefi
                 className='custonRegisterImput' 
                 id='email' 
                 type='email'   
+                disabled
                 />
             </div>
         </div>
-        {/* <div style={{ maxWidth:"300px"}} className="row justify-content-center mt-5 mx-auto">
+        <div style={{ maxWidth:"300px"}} className="row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
                 <label htmlFor='tel' >เบอร์โทรศัพท์<span className='text-danger'>*</span> </label>
                 <input 
@@ -105,7 +123,7 @@ const [ imageURL, setImageURL ] =useState(user?.user.image=== undefined ? undefi
                 type='tel'
                   />
             </div>
-        </div> */}
+        </div>
         <div className="registerBtnContainer row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex w-75 justify-content-center">
                 <button onClick={()=> router.push('/user/')} className='customeRegisterBtn w-50 me-3'>ยกเลิก</button>
