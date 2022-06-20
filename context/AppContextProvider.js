@@ -11,7 +11,8 @@ export const AppContextProvider = ({children}) => {
             price:'590',
             periodOfUse:'3',
             exp:'30/12/2021'
-        }
+        },
+        payment:{}
     })
     return (
         <AppContext.Provider value={{user,setUserData}}>

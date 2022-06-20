@@ -1,30 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'antd'
 import { SettingOutlined } from '@ant-design/icons';
+import axios from '../../api/axios';
+import useUser from '../../../Hooks/useUser';
 
 const Pagemanagement = () => {
-    const data = [
-        {
-            pageName:'pagePang',
-            comments:'0',
-            conditions:'1',
-        },
-        {
-            pageName:'pagePang-2',
-            comments:'5',
-            conditions:'20',
-        },
-        {
-            pageName:'pagePang-3',
-            comments:'10',
-            conditions:'15',
-        },
-        {
-            pageName:'pagePang-4',
-            comments:'4',
-            conditions:'11',
-        },
-    ]
+    const [data, setData] = useState([])
+    const {user} = useUser()
+    // const data = [
+    //     {
+    //         pageName:'pagePang',
+    //         comments:'0',
+    //         conditions:'1',
+    //     },
+    //     {
+    //         pageName:'pagePang-2',
+    //         comments:'5',
+    //         conditions:'20',
+    //     },
+    //     {
+    //         pageName:'pagePang-3',
+    //         comments:'10',
+    //         conditions:'15',
+    //     },
+    //     {
+    //         pageName:'pagePang-4',
+    //         comments:'4',
+    //         conditions:'11',
+    //     },
+    // ]
+    const getPageList = async () => {
+        try {
+            const res = await axios.get('pages',{headers:{'Authorization': 'Bearer ' + user?.user?.accessToken}})
+            setData(res.data)
+        } catch (error) {
+            console.log(error);
+        } 
+    }
     const column = [
         {
             title:<strong className='fs-4'>เพจของคุณ ({data.length})</strong>,
@@ -45,6 +57,10 @@ const Pagemanagement = () => {
             render: text => <p className='fs-5'>{text}</p>
         },
     ]
+
+    useEffect(()=>{
+        getPageList()
+    },[])
   return (
     <div className='page-wrapper'>
         <div className='content' style={{margin:"0 150px"}}>

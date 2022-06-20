@@ -7,31 +7,6 @@ import { Modal } from 'react-bootstrap'
 // import Login from './login'
 export default function Home() {
   const [isShow, setIsShow] = useState(false)
-  // const router = useRouter()
-  // const { setUserData } = useUser()
-  // useEffect(()=>{
-  //   setUserData({isLogin:false})
-  // },[])
-  // const onLogin =() => {
-    
-  //   const userFacebookData = {
-  //     id: 1,
-  //     name: "Chatpang",
-  //     email: "Chatpang@mail.com",
-  //     image: userimg,
-  //   }
-  //   setUserData({
-  //     isLogin: true,
-  //     user: userFacebookData,
-  //     package: {
-  //       name: 'VIP',
-  //       price: '590',
-  //       periodOfUse: '3',
-  //       exp: '30/12/2021',
-  //     },
-  //   })
-  //   router.push({ pathname: `${router.pathname}/register`, query: { userData: userFacebookData } })
-  // }
   const onShowWarning = () => {
     setIsShow(!isShow)
   }

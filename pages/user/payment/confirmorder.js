@@ -5,15 +5,54 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 
 import sampleSlip from '../../../resources/imgs/slip.jpg'
+import useUser from '../../../Hooks/useUser'
+import axios from '../../api/axios'
 
 const Confirmorder = () => {
   const router = useRouter()
+  const { user } = useUser()
   const [previewSlip, setPreviewSlip] = useState(false)
+
   function onChecked(e) {
     console.log(`check = ${e.target.checked}`)
   }
   function handleCancel() {
     setPreviewSlip(false)
+  }
+
+  const onsubmit = async () => {
+    const sigupData = {
+      name: user?.name,
+      email: user?.email,
+      imgProfile: user?.imgProfile,
+      facebookToken: user?.facebookToken,
+      paymentData: [
+        {
+          id: user?.payment?._id,
+        },
+      ],
+      packageData: [
+        {
+          id: user?.package?._id,
+        },
+      ],
+    }
+    const createPageData = {
+      pageId: user?.pages?.id,
+      userId: 'string',
+      pageName: user?.pages?.name,
+      pageAccessToken: user?.pages?.access_token,
+      pageImageUrl: user?.pages?.picture?.data?.url,
+    }
+    // try {
+      // const sigupinfo = await axios.post('/user/signup',sigupData)
+      // const creatPageinfo = await axios.post('/pages',createPageData)
+      console.log(sigupData);
+      console.log(createPageData);
+      router.push('/user/info/pagemanagement')
+    // } catch (error) {
+      // console.log(error)
+    // }
   }
   return (
     <div className="page-wrapper">
@@ -36,7 +75,7 @@ const Confirmorder = () => {
               <strong className="text-secondary">รายละเอียดการชำระเงิน</strong>
               <div className="ps-3">
                 <p className="mb-0">ชำระด้วยบัตรเครดิต</p>
-                <span>หมายเลข:</span>
+                <span>หมายเลข:{`${user?.payment.number}`}</span>
               </div>
             </div>
             {/* <div className="col-lg-6 text-end">
@@ -70,11 +109,11 @@ const Confirmorder = () => {
               <tbody>
                 <tr>
                   <td>
-                    Basic ราคา 290 บาท / เดือน
+                    {`${user?.package?.name} ราคา ${user?.package?.price} บาท / เดือน`}
                     <br />
-                    ใช้งานได้ 1 เพจ
+                    {`ใช้งานได้ ${user?.pages?.length !== null ? user?.pages?.length : 0} เพจ`}
                   </td>
-                  <td className="text-end">290 บาท</td>
+                  <td className="text-end">{`${user?.package?.price} บาท`}</td>
                 </tr>
               </tbody>
             </table>
@@ -87,15 +126,15 @@ const Confirmorder = () => {
                 <tbody>
                   <tr>
                     <th>ราคารวม:</th>
-                    <td className="text-end p-0">290 บาท</td>
+                    <td className="text-end p-0">{`${user?.package?.price} บาท`}</td>
                   </tr>
                   <tr>
                     <th>ภาษี (7%)</th>
-                    <td className="text-end p-0">20.3 บาท</td>
+                    <td className="text-end p-0">{`${(user?.package?.price * 7) / 100} บาท`}</td>
                   </tr>
                   <tr>
                     <th>ราคาสุทธิ:</th>
-                    <td className="text-end p-0">310.3 บาท</td>
+                    <td className="text-end p-0">{`${user?.package?.price + (user?.package?.price * 7) / 100} บาท`}</td>
                   </tr>
                 </tbody>
               </table>
@@ -107,7 +146,7 @@ const Confirmorder = () => {
             <span onClick={() => router.back()} className="btn text-secondary">
               ย้อนกลับ
             </span>
-            <button onClick={() => router.push('/user/manage/')} className="customBTN">
+            <button onClick={() => onsubmit()} className="customBTN">
               ยืนยัน
             </button>
           </div>

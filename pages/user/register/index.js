@@ -24,29 +24,30 @@ const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? u
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        const data ={
-            name:name,
-            email:email,
-            phoneno:phoneno,
-            imgProfile:imageObj === null ? imageURL : imageObj
-        }
-       await setUserData({...user,user:data})
-        console.log(user);
-        const reqData = {
-            name:name,
-            email:email,
-            facebookToken:user?.user.facebookToken,
-            imgProfile:imageObj === null ? imageURL : imageObj,
-        }
+    //     const data ={
+    //         name:name,
+    //         email:email,
+    //         phoneno:phoneno,
+    //         imgProfile:imageObj === null ? imageURL : imageObj
+    //     }
+    //    await setUserData({...user,user:data})
+        // console.log(user);
+        // const reqData = {
+        //     name:name,
+        //     email:email,
+        //     facebookToken:user?.user.facebookToken,
+        //     imgProfile:imageObj === null ? imageURL : imageObj,
+        // }
         try {
             // const res = await axios.post('/user/signup',reqData)
             // console.log(res);
-            user.phoneNo = phoneNo
+            user.phoneNo = phoneno
             console.log(user);
             await setUserData({...user,user:user})
             router.push('/user/package')
         } catch (error) {
             console.log(error);
+            router.push('/user')
         }
     }
     const onUploadImage = async ({ file, fileList }) => {
@@ -80,19 +81,19 @@ const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? u
                 : 
                 <Avatar style={{display:'grid', placeItem:'center'}}  className='p-5 mx-auto mb-3' shape='square' size='large' />
                 }
-                <Upload maxCount={1} className='w-25 mx-auto' onRemove={onRemove} onChange={onUploadImage}>
+                {/* <Upload maxCount={1} className='w-25 mx-auto' onRemove={onRemove} onChange={onUploadImage}>
                     <Button>เปลี่ยน</Button>
-                </Upload>
+                </Upload> */}
             </div>
         </div>
         <form onSubmit={(e)=> onSubmit(e)} >
         <div style={{ maxWidth:"300px"}} className="row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
-                <label htmlFor='name' >Username <span className='text-danger'>*</span> </label>
+                <label htmlFor='name' >Username </label>
                 <input 
                 value={name} 
                 onChange={(e)=> setName(e.target.value)} 
-                className='custonRegisterImput' 
+                className='custonRegisterImput text-secondary border-secondary' 
                 id='name' 
                 type='text'  
                 disabled
@@ -101,11 +102,11 @@ const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? u
         </div>
         <div style={{ maxWidth:"300px"}} className="row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
-                <label htmlFor='email' >E-mail<span className='text-danger'>*</span> </label>
+                <label htmlFor='email' >E-mail</label>
                 <input 
                 value={email} 
                 onChange={(e)=> setEmail(e.target.value)} 
-                className='custonRegisterImput' 
+                className='custonRegisterImput text-secondary border-secondary' 
                 id='email' 
                 type='email'   
                 disabled
@@ -121,6 +122,8 @@ const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? u
                 className='custonRegisterImput' 
                 id='tel' 
                 type='tel'
+                autoFocus
+                required
                   />
             </div>
         </div>

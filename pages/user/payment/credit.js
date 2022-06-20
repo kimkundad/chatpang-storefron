@@ -1,54 +1,77 @@
 import { Divider } from 'antd'
-import React from 'react'
+import React,{useState} from 'react'
 import { useRouter } from 'next/dist/client/router'
+import axios from '../../api/axios'
+import useUser from '../../../Hooks/useUser'
 const Credit = () => {
   const router = useRouter()
+  const {user, setUserData} = useUser()
+  const [cardName, setCardName] = useState('')
+  const [cardNO, setCardNO] = useState('')
+  const [mm, setMm] = useState('')
+  const [yy, setYy] = useState('')
+  const [cvv, setCvv] = useState('')
+
+  const onSubmit = async () => {
+    const data = {
+      number : cardNO,
+      mount: mm,
+      year:yy,
+      code: cvv,
+      name: cardName,
+      type:"card",
+      referenceNo:"20171128001",
+      amount:"290",
+      email:"gftherd.p@gmail.com",
+      phone:"0969964785",
+      detail:"Business Package"
+    }
+    console.log(data);
+    try {
+      const res = await axios('/payment',data)
+      const payment = res.data.createdPayment
+      await setUserData({...user,payment:payment})
+      // await setUserData({...user,payment:data})
+      router.push(`/user/payment/confirmorder`)
+    } catch (error) {
+      console.log(error);
+      router.push(`/user`)
+    }
+  }
   return (
     <>
-      {/* <div className="page-wrapper"> */}
-      {/* <div className="content">  */}
-      {/* <div className="row justify-content-center mb-3">
-          <div className="col-md-6 col-10 text-center qrcodeDetail mx-auto">
-            <p>รายละเอียดการชำระเงิน</p>
-            <Divider />
-            <p>Package : VIP</p>
-            <p>ราคา : 590 บาท</p>
-          </div>
-        </div> */}
       <div className="row justify-content-center">
         <div className="creditInput col-md-3 d-flex flex-column">
           <label>Cardholder name</label>
-          <input className="my-2" type="text" name="cardHolderName" />
+          <input className="my-2" type="text" name="cardHolderName" value={cardName} onChange={(e) => setCardName(e.target.value)}/>
         </div>
       </div>
       <div className="row justify-content-center">
         <div className="creditInput col-md-3 d-flex flex-column">
           <label>Card Number</label>
-          <input className="my-2" type="text" name="cardNo" />
+          <input className="my-2" type="text" name="cardNo" value={cardNO} onChange={(e)=> setCardNO(e.target.value)}/>
         </div>
       </div>
       <div className="row justify-content-center">
         <div className="creditInput col-md-1">
           <label>MM</label>
-          <input className="my-2" type="text" name="mm" />
+          <input className="my-2" type="text" maxLength="2" name="mm" value={mm} onChange={(e)=> setMm(e.target.value)}/>
         </div>
         <div className="creditInput col-md-1">
           <label>YY</label>
-          <input className="my-2" type="text" name="yy" />
+          <input className="my-2" type="text" maxLength="2" name="yy" value={yy} onChange={(e)=> setYy(e.target.value)} />
         </div>
         <div className="creditInput col-md-1">
           <label>CVV</label>
-          <input className="my-2" type="password" name="cvv" />
+          <input className="my-2" type="password" name="cvv" maxLength="3" value={cvv} onChange={(e) => setCvv(e.target.value)} />
         </div>
       </div>
       <div className="row justify-content-center">
         <div className="creditInput col-md-3 text-end">
           <button className='btn btn-outline-secondary' onClick={()=> router.back()}>ย้อนกลับ</button>
-          <button onClick={()=> router.push(`/user/payment/confirmorder`)} className="ms-3">ต่อไป</button>
+          <button onClick={()=> onSubmit()} className="ms-3">ต่อไป</button>
         </div>
       </div>
-      {/* </div> */}
-      {/* </div> */}
     </>
   )
 }
