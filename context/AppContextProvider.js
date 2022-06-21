@@ -6,12 +6,7 @@ export const AppContextProvider = ({children}) => {
     const [user, setUserData] = useState({
         isLogin:false,
         user:{},
-        package:{
-            name:'VIP',
-            price:'590',
-            periodOfUse:'3',
-            exp:'30/12/2021'
-        },
+        package:{},
         payment:{}
     })
     return (

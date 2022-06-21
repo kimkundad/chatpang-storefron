@@ -7,36 +7,39 @@ const Credit = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [cardName, setCardName] = useState('')
-  const [cardNO, setCardNO] = useState('')
-  const [mm, setMm] = useState('')
-  const [yy, setYy] = useState('')
-  const [cvv, setCvv] = useState('')
+  const [cardNO, setCardNO] = useState('4535017710535741')
+  const [mm, setMm] = useState('05')
+  const [yy, setYy] = useState('28')
+  const [cvv, setCvv] = useState('184')
 
   const onSubmit = async () => {
     const data = {
-      // number : cardNO,
-      // mount: mm,
-      // year:yy,
-      // code: cvv,
-      // name: cardName,
-      year: '28',
-      month: '05',
-      name: 'Gftherd Therdsak Paradeewirai',
-      number: '4535017710535741',
-      code: '184',
+      number : cardNO,
+      month: mm,
+      year:yy,
+      code: cvv,
+      name: cardName,
+      email: user?.user?.email,
+      //*fixed value 
+      // year: '28',
+      // month: '05',
+      // name: 'Gftherd Therdsak Paradeewirai',
+      // number: '4535017710535741',
+      // code: '184',
+      // email: 'gftherd.p@gmail.com',
+      //*fixed value 
+
       type: 'card',
       referenceNo: '20171128001',
-      amount: 290,
-      email: 'gftherd.p@gmail.com',
-      phone: '0969964785',
-      detail: 'Business Package',
+      amount: user?.package?.price,
+      phone: user?.user?.phoneNo,
+      detail: user?.package?.name,
     }
-    console.log(data)
+    // console.log(data)
     try {
       const res = await axios.post('/payments', data, { headers: { 'Content-Type': 'application/json' } })
       const payment = res.data.createdPayment
       await setUserData({ ...user, payment: payment })
-      // await setUserData({...user,payment:data})
       router.push(`/user/payment/confirmorder`)
     } catch (error) {
       console.log(error)
@@ -96,7 +99,7 @@ const Credit = () => {
           <label>CVV</label>
           <input
             className="my-2"
-            type="password"
+            type="tel"
             name="cvv"
             maxLength="3"
             value={cvv}

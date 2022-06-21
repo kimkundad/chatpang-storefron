@@ -8,45 +8,27 @@ const Pagemanagement = () => {
   const [data, setData] = useState([])
   const [isFreeTrail, setIsFreeTrial] = useState(true)
   const { user } = useUser()
-  // const data = [
-  //     {
-  //         pageName:'pagePang',
-  //         comments:'0',
-  //         conditions:'1',
-  //     },
-  //     {
-  //         pageName:'pagePang-2',
-  //         comments:'5',
-  //         conditions:'20',
-  //     },
-  //     {
-  //         pageName:'pagePang-3',
-  //         comments:'10',
-  //         conditions:'15',
-  //     },
-  //     {
-  //         pageName:'pagePang-4',
-  //         comments:'4',
-  //         conditions:'11',
-  //     },
-  // ]
+  console.log(user);
   const getPageList = async () => {
     try {
-      const res = await axios.get('pages', { headers: { Authorization: 'Bearer ' + user?.user?.accessToken } })
-      setData(res.data)
+      const res = await axios.get('/pages', { headers: { Authorization: 'Bearer ' + user?.accessToken } })
+      console.log(res.data);
+      const arr = res.data.pages.map(item => item.item)
+      setData(arr)
+      console.log(arr);
     } catch (error) {
       console.log(error)
     }
   }
 
+    //* check Free trail 15 days
   const checkFreeTrial = () => {
     if (user?.user !== undefined) {
       const createdDate = new Date(user?.user?.createAt)
       const expiredDate = new Date()
-      //*Free trail 15 days
       expiredDate.setDate(createdDate.getDate() + 15)
 
-      if (expiredDate > createdDate) {
+      if (expiredDate < createdDate) {
         setIsFreeTrial(false)
       } else {
         setIsFreeTrial(true)

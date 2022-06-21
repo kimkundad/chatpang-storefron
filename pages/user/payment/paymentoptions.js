@@ -1,8 +1,3 @@
-import Image from 'next/image'
-import bbl from '../../../resources/imgs/bbl.png'
-import kbank from '../../../resources/imgs/kbank.png'
-import ktb from '../../../resources/imgs/ktb.png'
-import scb from '../../../resources/imgs/scb.png'
 import React,{ useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -32,10 +27,11 @@ const Paymentoptions = () => {
             <input type="checkbox" id="method1" name="method" onClick={()=>onChangeMethod()} checked={!method}/>
             <label className='ms-2' htmlFor="method1">Credit card / Debit card</label>
           </div>
-          <div style={{fontSize:"1.5rem"}} className="col-md-3 col-12 text-center">
+          {/* //!hide qr code */}
+          {/* <div style={{fontSize:"1.5rem"}} className="col-md-3 col-12 text-center">
             <input type="checkbox" id="method2" name="method" onClick={()=>onChangeMethod()} checked={method}/>
             <label className='ms-2' htmlFor="method2">QR CODE</label>
-          </div>
+          </div> */}
         </div>
         {
           method ? 

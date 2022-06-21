@@ -10,37 +10,22 @@ const Register = () => {
 const router = useRouter()
 const { user, setUserData } =useUser()
 // const { userData } = router.query
-const  userData  = {
-    name:'test',
-    email:'test@gmail.com',
-    phoneno:'0123456789',
-    imgProfile:undefined
-}
+//! did not use
+// const  userData  = {
+//     name:'test',
+//     email:'test@gmail.com',
+//     phoneno:'0123456789',
+//     imgProfile:undefined
+// }
 const [ name, setName ] = useState(user?.user.name)
 const [ email, setEmail ] = useState(user?.user.email)
 const [ phoneno, setPhoneno ] = useState(user?.user.phoneno)
-const [ imageObj, setImageObj ] =useState(null)
+// const [ imageObj, setImageObj ] =useState(null)
 const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? undefined : user.user.imgProfile)
 
     const onSubmit = async (e) => {
         e.preventDefault()
-    //     const data ={
-    //         name:name,
-    //         email:email,
-    //         phoneno:phoneno,
-    //         imgProfile:imageObj === null ? imageURL : imageObj
-    //     }
-    //    await setUserData({...user,user:data})
-        // console.log(user);
-        // const reqData = {
-        //     name:name,
-        //     email:email,
-        //     facebookToken:user?.user.facebookToken,
-        //     imgProfile:imageObj === null ? imageURL : imageObj,
-        // }
         try {
-            // const res = await axios.post('/user/signup',reqData)
-            // console.log(res);
             user.user.phoneNo = phoneno
             console.log(user);
             await setUserData({...user,user:user.user})
@@ -50,15 +35,17 @@ const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? u
             router.push('/user')
         }
     }
-    const onUploadImage = async ({ file, fileList }) => {
-        setImageObj(file)
-        file.preview = await getBase64(file.originFileObj);
-        setImageURL(file.preview)
-    }
 
-    const onRemove = () => {
-        setImageURL(undefined)
-    }
+    //! did not use
+    // const onUploadImage = async ({ file, fileList }) => {
+    //     setImageObj(file)
+    //     file.preview = await getBase64(file.originFileObj);
+    //     setImageURL(file.preview)
+    // }
+    //! did not use
+    // const onRemove = () => {
+    //     setImageURL(undefined)
+    // }
 
     function getBase64(file) {
         return new Promise((resolve, reject) => {
@@ -81,6 +68,7 @@ const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? u
                 : 
                 <Avatar style={{display:'grid', placeItem:'center'}}  className='p-5 mx-auto mb-3' shape='square' size='large' />
                 }
+                {/* //! did not use */}
                 {/* <Upload maxCount={1} className='w-25 mx-auto' onRemove={onRemove} onChange={onUploadImage}>
                     <Button>เปลี่ยน</Button>
                 </Upload> */}

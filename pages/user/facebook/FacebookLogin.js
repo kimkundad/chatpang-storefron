@@ -33,7 +33,6 @@ const FacebookLogin = ({ onShowWarning }) => {
         console.log("not register");
       //*check if page selected more than 1 redirect to login
       //!move to error
-    //  await checkManyPage(pageList,resData)
       if (pageList.data?.count > 1) {
         onShowWarning()
         router.push({ pathname: `${router.pathname}` })
@@ -72,31 +71,6 @@ const FacebookLogin = ({ onShowWarning }) => {
     } catch (error) {
       console.log(error)
         router.push({ pathname: `${router.pathname}` })
-    }
-  }
-
-  const checkManyPage = async (pageList,response) => {
-    const data = response.data
-    if (pageList.data?.count > 1) {
-      onShowWarning()
-      router.push({ pathname: `${router.pathname}` })
-    } else {
-      const page = pageList.data?.data?.accounts?.data
-      // const data = response.data
-      const userFacebookData = {
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        imgProfile: data.picture.data.url,
-        userId: data.userID,
-        facebookToken: data.accessToken,
-      }
-     await setUserData({
-        isLogin: true,
-        user: userFacebookData,
-        pages: page,
-        package: {},
-      })
     }
   }
   return (

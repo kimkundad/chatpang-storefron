@@ -11,14 +11,16 @@ import paxios from 'axios'
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  const [previewSlip, setPreviewSlip] = useState(false)
+  //! did not use
+  // const [previewSlip, setPreviewSlip] = useState(false)
 
   function onChecked(e) {
     console.log(`check = ${e.target.checked}`)
   }
-  function handleCancel() {
-    setPreviewSlip(false)
-  }
+  //! did not use
+  // function handleCancel() {
+  //   setPreviewSlip(false)
+  // }
 
   const getEndDate = async () => {
     let date = new Date()
@@ -44,53 +46,26 @@ const Confirmorder = () => {
         },
       ],
     }
-    console.log(signupData)
-    // const createPageData = {
-    //   pageId: user?.pages[0]?.id,
-    //   userId: user?.user?.userId,
-    //   pageName: user?.pages[0]?.name,
-    //   pageAccessToken: user?.pages[0]?.access_token,
-    //   pageImageUrl: user?.pages[0]?.picture?.data?.url,
-    // }
-    // console.log(createPageData)
-
-    const samData = {
-      pageAccessToken:
-        'EAAOIrF2yNvsBAOICyeSiJJfZAakzKAT39ctgFf4WWyIaaIaDqQOnwrdKOhPOGo5Lzwoedd0PteZB1cyFtizTxoee3BuLcGZBSk054EYUvzLjoFoyhmaaZBbsMinRWfMeBrZChiTst66YSqWVLjq0KEcXseoAEzMSTwixpBTLTg3JCpg8Yq9HO',
-      pageId: '2213343928946928',
-      pageImageUrl:
-        'https://scontent-ort2-2.xx.fbcdn.net/v/t1.6435-1/37995380_2213350095612978_446792627325501440_n.jpg?stp=cp0_dst-jpg_p50x50&_nc_cat=111&ccb=1-7&_nc_sid=dbb9e7&_nc_eui2=AeEITtYEKJpfyVJj2doa-Yz1cYFYzD4AK65xgVjMPgArrtIUsffCRYjyF25MF5FOYpg&_nc_ohc=4X5bOb6iWCwAX_nmq21&_nc_ht=scontent-ort2-2.xx&edm=AP4hL3IEAAAA&oh=00_AT93Zc_6pGE8CCUvljtsOVOavYLdBfU5_st1JQwdpJFqPw&oe=62D7130B',
-      pageName: 'มากันสองคน',
-      userId: '10227348245350430',
+    // console.log(signupData)
+    const createPageData = {
+      pageId: user?.pages[0]?.id,
+      userId: user?.user?.userId,
+      pageName: user?.pages[0]?.name,
+      pageAccessToken: user?.pages[0]?.access_token,
+      pageImageUrl: user?.pages[0]?.picture?.data?.url,
     }
+    // console.log(createPageData)
     try {
-      // const signupinfo = await axios.post('/user/signup',signupData)
+      const signupinfo = await axios.post('/user/signup',signupData)
       // console.log(signupinfo);
-
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvY2tfMjIwMzNAaG90bWFpbC5jb20iLCJpYXQiOjE2NTU3OTg4MzQsImV4cCI6MTY1NTgwMjQzNH0.ix7L83HjbmORi7ye85lzaw6NYuvC49dlIsRIjCUZMW8'
-      // const creatPageinfo = await axios.post('/pages',createPageData,{headers:{'Authorization': 'Bearer '+ signupinfo?.data?.accessToken}})
-      // const creatPageinfo = await axios.post('/pages',samData,{headers:{'Authorization': 'Bearer '+token}})
-
-      var config = {
-        method: 'post',
-        url: 'https://chatpang-api.herokuapp.com/pages',
-        headers: { 
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvY2tfMjIwMzNAaG90bWFpbC5jb20iLCJpYXQiOjE2NTU3OTgzNjQsImV4cCI6MTY1NTgwMTk2NH0.Dxqp7rG5T6hMg5LFxwnU37-Q0GZnpcafs3Lmpwni9yI', 
-          'Content-Type': 'application/json'
-        },
-        data : samData
-      };
-      const creatPageinfo = await paxios(config)
-      // console.log(signupinfo);
-      console.log(creatPageinfo)
-
-      // setUserData({
-      //   ...user,
-      //   accessToken: sigupinfo.data?.accessToken,
-      //   user: sigupinfo.data?.data,
-      // })
-      // router.push('/user/info/pagemanagement')
+      const creatPageinfo = await axios.post('/pages',createPageData,{headers:{'Authorization': 'Bearer '+ signupinfo?.data?.accessToken}})
+      // console.log(creatPageinfo);
+      setUserData({
+        ...user,
+        accessToken: signupinfo.data?.accessToken,
+        user: signupinfo.data?.data,
+      })
+      router.push('/user/info/pagemanagement')
     } catch (error) {
       console.log(error)
     }
