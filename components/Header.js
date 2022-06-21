@@ -6,13 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faAngleDown, faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../Hooks/useUser'
 import { Dropdown, Menu, Avatar } from 'antd'
+import AppContext from '../context/AppContextProvider'
 
 const Header = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [current, setCurrent] = useState('')
-
-  const userData = user.user
 
   const pathName = router.pathname
   const [modalMobile, setModalMobile] = useState(false)
@@ -63,13 +62,15 @@ const Header = () => {
   const userDropDown = () => {
     if (user.isLogin) {
       return (
-        <Dropdown overlay={menu} trigger={['click']} className="fw-bold fs-4 d-flex align-items-center ms-3">
-          <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
-            {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
-            <span className="mx-2">{userData.name ? userData.name : 'User'}</span>
-            <FontAwesomeIcon icon={faAngleDown} />
-          </a>
-        </Dropdown>
+        // <AppContext.Consumer>
+          <Dropdown overlay={menu} trigger={['click']} className="fw-bold fs-4 d-flex align-items-center ms-3">
+            <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
+              {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
+              <span className="mx-2">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+              <FontAwesomeIcon icon={faAngleDown} />
+            </a>
+          </Dropdown>
+        // </AppContext.Consumer>
       )
     } else {
       return (

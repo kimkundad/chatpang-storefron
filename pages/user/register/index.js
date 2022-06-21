@@ -41,10 +41,10 @@ const [ imageURL, setImageURL ] =useState(user?.user.imgProfile=== undefined ? u
         try {
             // const res = await axios.post('/user/signup',reqData)
             // console.log(res);
-            user.phoneNo = phoneno
+            user.user.phoneNo = phoneno
             console.log(user);
-            await setUserData({...user,user:user})
-            router.push('/user/package')
+            await setUserData({...user,user:user.user})
+            router.push('/user/packages')
         } catch (error) {
             console.log(error);
             router.push('/user')
