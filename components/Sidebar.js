@@ -13,7 +13,6 @@ const Sidebar = () => {
   // const [packageInfo, setPackageInfo] = useState({})
 
   const packageInfo = user.package
-
   let pathName = router.pathname
 
   const isActive = (path) => {
@@ -33,9 +32,9 @@ const Sidebar = () => {
           ...user,
           package:data
         })
-        setPackageInfo(data)
+        // setPackageInfo(data)
       } else {
-        setPackageInfo({})
+        // setPackageInfo({})
       }
     } catch (error) {
         console.log(error);

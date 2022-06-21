@@ -5,7 +5,9 @@ import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/
 import Sidebar from '../../../../components/Sidebar'
 import { Table } from 'react-bootstrap'
 import { Avatar } from 'antd'
-
+import { Form } from 'react-bootstrap'
+import Image from 'next/image'
+import useUser from '../../../../Hooks/useUser'
 const initData = [
   {
     id: 1,
@@ -57,14 +59,14 @@ const initData = [
 
 const Replykeyword = () => {
   const router = useRouter()
-  const [selectedItem, setSelectedItem] = useState()
+  const { user, setUserData } = useUser()
+  const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
   const [itemList, setItemList] = useState([])
-  const [data, setData] = useState(initData)
+  const [data, setData] = useState([])
   const [isCheckAll, setIsCheckAll] = useState(false)
-
+  console.log(user)
   const onEdit = (id) => {
     const item = data.filter((obj) => obj.id === id)[0]
-    setSelectedItem(item)
     router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } })
   }
 
@@ -126,6 +128,23 @@ const Replykeyword = () => {
     })
   }
 
+  const onSelect = (id) => {
+    console.log(id);
+    setPageID(id)
+  }
+const renderPageOption = () => {
+  if (user?.selectedPage.length === 0) {
+    return <>ไม่ได้เลือกเพจ</>
+  } else {
+    return(
+      user?.selectedPage.map((item,index) => {
+        return(
+          <option key={index} value={item?.pageId}>{item?.pageName}</option>
+        )
+      })
+    )
+  } 
+}
   return (
     <div className="page-wrapper">
       <div className="content container-fluid">
@@ -135,8 +154,11 @@ const Replykeyword = () => {
             <div className="row">
               <div className="col-md-12 d-flex justify-content-center">
                 <span className="text-uppercase userDropdown">
-                  <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
-                  Board pang
+                  {/* <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} /> */}
+                  <Form.Select onChange={(e)=>onSelect(e.target.value)}>
+                      {/* <Image src={user?.selectedPage[0].pageImageUrl} alt="pageLogo" /> */}
+                      {renderPageOption()}
+                  </Form.Select>
                 </span>
               </div>
             </div>
@@ -145,7 +167,7 @@ const Replykeyword = () => {
 
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
-              <span onClick={() => router.push(`${router.pathname}/create-replykeyword`)} className="userButton">
+              <span onClick={() => router.push({pathname:`${router.pathname}/create-replykeyword`, query:{pageId:pageID}})} className="userButton">
                 <FontAwesomeIcon className="me-2" icon={faPlus} />
                 สร้างแคมเปญ
               </span>
@@ -164,11 +186,13 @@ const Replykeyword = () => {
             <div className="col-md-8 mx-auto d-flex mt-3">
               <Table bordered>
                 <thead>
+                <tr>
                   <th>
                     <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
                   </th>
                   <th>แคมเปญ</th>
                   <th></th>
+                </tr>
                 </thead>
                 <tbody>{renderTable()}</tbody>
               </Table>

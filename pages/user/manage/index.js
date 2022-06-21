@@ -5,33 +5,41 @@ import Sidebar from '../../../components/Sidebar'
 import axios from '../../api/axios'
 import useUser from '../../../Hooks/useUser'
 
-const initData = ['Board_1', 'Board_2', 'Board_3', 'Board_4', 'Board_5', 'Board_6', 'Board_7', 'Board_8']
-
 const Index = () => {
-  const { user } = useUser()
+  const { user, setUserData } = useUser()
   const [checkAll, setCheckAll] = useState(false)
-  const [checkList, setCheckList] = useState([])
-  const [data, setData] = useState([])
+  const [checkList, setCheckList] = useState(user?.selectedPage.length !== 0 ? user?.selectedPag?.map(item => item.pageId) : [])
+  // const [pagesList, setPagesList] = useState([])
   console.log(user);
-  const onCheckAll = () => {
-    setCheckList(!checkAll ? data : [])
+  const [data, setData] = useState([])
+  const onCheckAll = async () => {
+    setCheckList(!checkAll ? data?.map(item=> item.id) : [])
+    // setPagesList(!checkAll ? data : [])
     setCheckAll(!checkAll)
+   await setUserData({
+      ...user,
+      selectedPage:!checkAll ? [...data] : []
+    })
   }
 
   const onCheck = async (e) => {
-    const value = e.target.name
-    console.log(value)
-    if (checkList.indexOf(value) === -1) {
-      await setCheckList([...checkList, value])
+    const id = e.target.name
+    console.log(id)
+    if (checkList.indexOf(id) === -1) {
+      await setCheckList([...checkList, id])
+      const item = data?.filter(item => item.pageId === id)
+      console.log(item);
+      user.selectedPage.push(item[0])
     } else {
-      await setCheckList((prev) => prev.filter((v) => v !== value))
+      await setCheckList((prev) => prev.filter((v) => v !== id))
+      user.selectedPage.filter(item => item.pageId!== id)
     }
   }
 
   const getPageList = async () => {
     try {
       const res = await axios.get('/pages', { headers: { Authorization: 'Bearer ' + user?.accessToken } })
-      console.log(res.data)
+      // console.log(res.data)
       const arr = res.data.pages.map((item) => item.item)
       setData(arr)
       console.log(arr)
@@ -39,10 +47,9 @@ const Index = () => {
       console.log(error)
     }
   }
-
   const renderData = () => {
     if (data?.length === 0) {
-      return <div>ไม่มีข้อมูล</div>
+      return <p>ไม่มีข้อมูล</p>
     } else {
       return data.map((item, index) => {
         return (
@@ -56,6 +63,8 @@ const Index = () => {
       })
     }
   }
+
+
   useEffect(()=>{
     getPageList()
   },[])

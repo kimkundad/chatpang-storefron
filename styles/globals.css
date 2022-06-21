@@ -792,6 +792,10 @@ table.table td h2 span {
 	padding: 10px 24px;
 
 }
+
+.userDropdown>.form-select {
+	border: none;
+}
 .userButton{
 	display: flex;
 	align-items: center;

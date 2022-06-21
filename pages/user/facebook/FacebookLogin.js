@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 const FacebookLogin = ({ onShowWarning }) => {
   const router = useRouter()
   const [resData, setResData] = useState([])
-  const { setUserData } = useUser()
+  const { user,setUserData } = useUser()
   const componentClicked = () => {
     console.log('click')
   }
@@ -60,6 +60,7 @@ const FacebookLogin = ({ onShowWarning }) => {
       //*already register
       const page = pageList.data?.data?.accounts?.data
       await setUserData({
+        ...user,
         isLogin: true,
         accessToken: loginData.data?.accessToken,
         user: loginData.data?.data,

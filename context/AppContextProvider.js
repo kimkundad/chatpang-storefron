@@ -7,7 +7,8 @@ export const AppContextProvider = ({children}) => {
         isLogin:false,
         user:{},
         package:{},
-        payment:{}
+        payment:{},
+        selectedPage:[]
     })
     return (
         <AppContext.Provider value={{user,setUserData}}>

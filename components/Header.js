@@ -26,7 +26,7 @@ const Header = () => {
 
   const onLogOut = () => {
     router.push('/')
-    setUserData({ isLogin: false })
+    setUserData({ ...user,isLogin: false })
   }
 
   const menu = (
@@ -163,9 +163,9 @@ const Header = () => {
     <header className="position-fixed w-100 top-0" style={{ zIndex: '1000' }}>
       <nav className="customHeader navbar navbar-expand-lg navbar-dark shadow-sm">
         <div className="container-xl">
-          <a onClick={() => setCurrent('')} className="navbar-brand" href="#">
+          <Link to="/" onClick={() =>{ setCurrent(''); router.push('/')}} className="navbar-brand" >
             <img src="/images/header-logo.svg" style={{ maxWidth: '209px' }} alt="logo" />
-          </a>
+          </Link>
           {/* <div className='sideBarToggle d-md-none d-sm-block me-3' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >
             <FontAwesomeIcon icon={faBars} /> 
           </div> */}

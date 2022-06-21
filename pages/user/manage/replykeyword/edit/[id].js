@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPlus,
@@ -12,39 +12,16 @@ import { Avatar, Divider, Input, Switch } from 'antd'
 import { useRouter } from 'next/router'
 
 import Sidebar from '../../../../components/Sidebar'
-import axios from '../../../api/axios'
 
-const CreateReplyKeyword = () => {
+
+const Edit = () => {
   const router = useRouter()
-  const pageId = router.query.pageId
-  const [campaignName, setCampaignName] = useState('')
-  const [keywordName, setKeywordName] = useState('')
-  const [keywordDetail, setKeywordDetail] = useState('')
+  const id = router.query
   const { TextArea } = Input
+  const [words, setWords] = useState([])
+  const [tags, setTags] = useState([])
+  const [hiddenWords, setHiddenWords] = useState([])
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-    const data = {
-      pageId: pageId,
-      campaignName: campaignName,
-      keywordName: keywordName,
-      keywordDetail: keywordDetail
-    }
-    console.log(data);
-
-    try {
-      const res = await axios.post('/keywords',data)
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const onClear = () => {
-    setCampaignName('')
-    setKeywordName('')
-    setKeywordDetail('')
-  }
   return (
     <div className="page-wrapper">
       <div className="content container-fluid">
@@ -70,28 +47,17 @@ const CreateReplyKeyword = () => {
               <strong className="me-3">ชื่อแคมเปญ</strong>
             </div>
             <div className="col-md-4 mx-auto chatNameInput">
-              <input
-                type="text"
-                name="name"
-                value={campaignName}
-                onChange={(e) => setCampaignName(e.target.value)}
-                autoFocus={true}
-              />
+              <input type="text" name="name" autoFocus={true} />
             </div>
             <div className="col-md-4 text-center order-md-0 order-3 chatButtonContainer">
-              <button onClick={(e)=>onSubmit(e)} className="chatCustomBtn">บันทึก</button>
-              <button onClick={onClear} className="chatCustomBtn">ยกเลิก</button>
+              <button className="chatCustomBtn">บันทึก</button>
+              <button className="chatCustomBtn">ยกเลิก</button>
             </div>
             <div className="col-md-4 text-md-end text-start">
               <strong className="me-3">Keywords</strong>
             </div>
             <div className="col-md-4 chatNameInput">
-              <input
-                type="text"
-                name="name"
-                value={keywordName}
-                onChange={(e) => setKeywordName(e.target.value)}
-              />
+              <input type="text" name="name" autoFocus={true} />
             </div>
           </div>
           <Divider />
@@ -103,8 +69,6 @@ const CreateReplyKeyword = () => {
               <TextArea
                 showCount
                 maxLength={200}
-                value={keywordDetail}
-                onChange={(e) => setKeywordDetail(e.target.value)}
                 placeholder="พิมพ์ข้อความที่นี้..."
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
@@ -171,4 +135,4 @@ const CreateReplyKeyword = () => {
   )
 }
 
-export default CreateReplyKeyword
+export default Edit
