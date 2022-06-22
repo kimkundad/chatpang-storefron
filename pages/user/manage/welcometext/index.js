@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,7 +6,9 @@ import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/
 import Sidebar from '../../../../components/Sidebar'
 import { Table } from 'react-bootstrap'
 import { Avatar } from 'antd'
-
+import PageDropdown from '../../../../components/PageDropdown'
+import useUser from '../../../../Hooks/useUser'
+import axios from '../../../api/axios'
 const initData = [
   {
     id: 1,
@@ -58,14 +60,17 @@ const initData = [
 
 const Welcometext = () => {
   const router = useRouter()
+  const { user } = useUser()
+  const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
+
   const [selectedItem, setSelectedItem] = useState()
   const [itemList, setItemList] = useState([])
-  const [data, setData] = useState(initData)
+  const [data, setData] = useState([])
   const [isCheckAll, setIsCheckAll] = useState(false)
 
   const onEdit = (id) => {
-    const item = data.filter((obj) => obj.id === id)[0]
-    setSelectedItem(item)
+    // const item = data.filter((obj) => obj.id === id)[0]
+    // setSelectedItem(item)
     router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } })
   }
 
@@ -92,12 +97,12 @@ const Welcometext = () => {
   }
 
   const onDelete = () => {
-    const newData = data.filter((item) => itemList.indexOf(item.id) === -1)
+    const newData = data.filter((item) => itemList.indexOf(item.item._id) === -1)
     setData(newData)
   }
 
   const onCheckAll = () => {
-    const Ids = data.map((item) => item.id)
+    const Ids = data.map((item) => item.item._id)
     if (itemList.length !== 0) {
       setItemList([])
       setIsCheckAll(false)
@@ -106,18 +111,21 @@ const Welcometext = () => {
       setIsCheckAll(true)
     }
   }
-
+  const onSelect = (id) => {
+    console.log(id)
+    setPageID(id)
+  }
   const renderTable = () => {
     return data.map((item, index) => {
       return (
         <tr key={index}>
           <td>
-            <input type="checkbox" name={item.id} checked={itemList.includes(item.id)} onClick={(e) => onChecked(e)} />
+            <input type="checkbox" name={item.item._id} checked={itemList.includes(item.item._id)} onClick={(e) => onChecked(e)} />
           </td>
-          <td>{item.name}</td>
+          <td>{item.item.campaignName}</td>
           <td>
             <div>
-              <span onClick={() => onEdit(item.id)} className="userEditButton">
+              <span onClick={() => onEdit(item.item._id)} className="userEditButton">
                 แก้ไข
               </span>
             </div>
@@ -126,7 +134,22 @@ const Welcometext = () => {
       )
     })
   }
+  const getReceptionList = async () => {
+    //id from pageId
+    try {
+      const res = await axios.get(`/receptions/${pageID}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      console.log(res.data)
+      setData(res.data.receptions)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
+  useEffect(() => {
+    getReceptionList()
+  }, [])
   return (
     <div className="page-wrapper">
       <div className="content container-fluid">
@@ -136,8 +159,9 @@ const Welcometext = () => {
             <div className="row">
               <div className="col-md-12 d-flex justify-content-center">
                 <span className="text-uppercase userDropdown">
-                  <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
-                  Board pang
+                  {/* <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
+                  Board pang */}
+                  <PageDropdown onSelect={onSelect} />
                 </span>
               </div>
             </div>
@@ -146,7 +170,12 @@ const Welcometext = () => {
 
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
-              <span onClick={() => router.push(`${router.pathname}/create-welcome`)} className="userButton">
+              <span
+                onClick={() =>
+                  router.push({ pathname: `${router.pathname}/create-welcome`, query: { pageId: pageID } })
+                }
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faPlus} />
                 สร้างแคมเปญ
               </span>
@@ -163,16 +192,22 @@ const Welcometext = () => {
           </div>
           <div className="row">
             <div className="col-md-8 mx-auto d-flex mt-3">
-              <Table bordered>
-                <thead>
-                  <th>
-                    <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
-                  </th>
-                  <th>แคมเปญ</th>
-                  <th></th>
-                </thead>
-                <tbody>{renderTable()}</tbody>
-              </Table>
+              {data?.length === 0 ? (
+                <p className="mx-auto">ไม่มีข้อมูล กรุณาสร้าง แคมเปญ</p>
+              ) : (
+                <Table bordered>
+                  <thead>
+                    <tr>
+                      <th>
+                        <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
+                      </th>
+                      <th>แคมเปญ</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>{renderTable()}</tbody>
+                </Table>
+              )}
             </div>
           </div>
         </div>

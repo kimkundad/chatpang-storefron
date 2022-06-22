@@ -76,7 +76,7 @@ const Index = () => {
           <div className="page-header">
             <div className="row">
               <div className="col-md-12">
-                <h3 className="page-title">กรุณาเลือกเพจ เพื่อทำการตั้งค่า Chatbot</h3>
+                <h2 className="page-title">กรุณาเลือกเพจ เพื่อทำการตั้งค่า Chatbot</h2>
               </div>
             </div>
           </div>

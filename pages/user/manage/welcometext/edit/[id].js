@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPlus,
@@ -9,40 +10,30 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { Avatar, Divider, Input, Switch } from 'antd'
+import { InputTags } from 'react-bootstrap-tagsinput'
+
 import { useRouter } from 'next/router'
+import Sidebar from '../../../../../components/Sidebar'
+import axios from '../../../../api/axios'
+import useUser from '../../../../../Hooks/useUser'
 
-import Sidebar from '../../../../components/Sidebar'
-import axios from '../../../api/axios'
-import PageDropdown from '../../../../components/PageDropdown'
-import useUser from '../../../../Hooks/useUser'
-import { Button, Modal, Spinner } from 'react-bootstrap'
-
-const CreateReplyKeyword = () => {
+const Edit = () => {
   const router = useRouter()
   const { user } = useUser()
-  const [pageID, setPageID] = useState(router.query.pageId)
-  const [isLoad, setIsLoad] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [img, setImg] = useState('')
-  const [campaignName, setCampaignName] = useState('')
-  const [keywordName, setKeywordName] = useState('')
-
+  const id = router.query.id
   const { TextArea } = Input
 
+  const [img, setImg] = useState('')
+  const [campaignName, setCampaignName] = useState('')
   const [details, setDetails] = useState({
     name: '',
     type: '',
   })
   const onSubmit = async (e) => {
-    //*show modal
-    setIsLoad(!isLoad)
-    setIsSuccess(!isSuccess)
     e.preventDefault()
     const data = {
-      pageId: pageID,
       campaignName: campaignName,
-      keywordName: keywordName,
-      keywordDetail: [
+      receptionDetail: [
         {
           name: details.name,
           type: 'text',
@@ -53,46 +44,34 @@ const CreateReplyKeyword = () => {
         },
       ],
     }
+
     console.log(data)
 
     try {
-      const res = await axios.post('/keywords', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+      const res = await axios.post('/receptions', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
       console.log(res.data)
-      //*close modal
-    setIsLoad(!isLoad)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const getImagePath = async (file) => {
-    const formData = new FormData()
-    formData.append('image', file, file.name)
+  const getReceptionSetting = async () => {
     try {
-      const res = await axios.post('/configs/upload', formData)
+      const res = await axios.get(`/receptions/detail/${id}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
       console.log(res.data)
-      return res.data.data
+      const data = res.data
+      setCampaignName(data.campaignName)
+      setImg(data.receptionDetail[1].name)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const onClear = () => {
-    setCampaignName('')
-    setKeywordName('')
-    setKeywordDetail('')
-  }
-
-  const onSelect = (id) => {
-    console.log(id)
-    setPageID(id)
-  }
-
-  const onUpload = (file) => {
-    setImg(URL.createObjectURL(file))
-    setDetails({ ...details, type: file })
-  }
-
+  useEffect(() => {
+    getReceptionSetting()
+  }, [])
   return (
     <div className="page-wrapper">
       <div className="content container-fluid">
@@ -105,11 +84,10 @@ const CreateReplyKeyword = () => {
                   <FontAwesomeIcon className="me-2-md" icon={faChevronLeft} />
                   <span className="textBTN">ย้อนกลับ</span>
                 </span>
-                <span className="text-uppercase userDropdown">
-                  {/* <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
-                  Board pang */}
-                  <PageDropdown onSelect={onSelect} />
-                </span>
+                {/* <span className="text-uppercase userDropdown">
+                  <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
+                  Board pang
+                </span> */}
               </div>
             </div>
           </div>
@@ -127,19 +105,11 @@ const CreateReplyKeyword = () => {
                 autoFocus={true}
               />
             </div>
-            <div className="col-md-4 text-center order-md-0 order-3 chatButtonContainer">
+            <div className="col-md-4 text-center chatButtonContainer">
               <button onClick={(e) => onSubmit(e)} className="chatCustomBtn">
                 บันทึก
               </button>
-              <button onClick={onClear} className="chatCustomBtn">
-                ยกเลิก
-              </button>
-            </div>
-            <div className="col-md-4 text-md-end text-start">
-              <strong className="me-3">Keywords</strong>
-            </div>
-            <div className="col-md-4 chatNameInput">
-              <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} />
+              <button className="chatCustomBtn">ยกเลิก</button>
             </div>
           </div>
           <Divider />
@@ -150,9 +120,9 @@ const CreateReplyKeyword = () => {
             <div className="col-md-6 col-9 commentInput">
               <TextArea
                 showCount
-                maxLength={200}
                 value={details.name}
                 onChange={(e) => setDetails({ ...details, name: e.target.value })}
+                maxLength={200}
                 placeholder="พิมพ์ข้อความที่นี้..."
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
@@ -180,6 +150,7 @@ const CreateReplyKeyword = () => {
             </div>
             <div className="col-md-6 col-9 commentInput">
               {/* <TextArea
+                
                 showCount
                 maxLength={200}
                 placeholder="พิมพ์ข้อความที่นี้..."
@@ -229,29 +200,8 @@ const CreateReplyKeyword = () => {
           </div>
         </div>
       </div>
-      <Modal centered show={isSuccess} onHide={() => setIsSuccess(!isSuccess)}>
-        <Modal.Body className="text-center">
-          {
-            <h2 className={`${isLoad ? 'text-danger' : 'text-success'}`}>
-              {isLoad ? 'ระบบกำลังสร้างแคมเปญ' : 'สร้างแคมเปญสำเร็จ'}
-            </h2>
-          }
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            onClick={() => setIsSuccess(!isSuccess)}
-            variant={`${isLoad ? 'danger' : 'success'}`}
-            disabled={isLoad}
-          >
-            {isLoad && (
-              <Spinner className="me-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-            )}
-            {isLoad ? 'Creating...' : 'ตกลง'}
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   )
 }
 
-export default CreateReplyKeyword
+export default Edit

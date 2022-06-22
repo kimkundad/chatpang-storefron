@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
@@ -8,55 +8,8 @@ import { Avatar } from 'antd'
 import { Form } from 'react-bootstrap'
 import Image from 'next/image'
 import useUser from '../../../../Hooks/useUser'
-const initData = [
-  {
-    id: 1,
-    name: 'test_1',
-    isActive: false,
-    msgInbox: {
-      active: false,
-      msg: '',
-      image: '',
-    },
-    comment: {
-      active: false,
-      msg: '',
-      image: '',
-      option: {
-        like: false,
-        repeat: false,
-        hideComment: false,
-      },
-    },
-    words: [],
-    tag: [],
-    hiddenWord: [],
-  },
-  {
-    id: 2,
-    name: 'test_2',
-    isActive: false,
-    msgInbox: {
-      active: false,
-      msg: '',
-      image: '',
-    },
-    comment: {
-      active: false,
-      msg: '',
-      image: '',
-      option: {
-        like: false,
-        repeat: false,
-        hideComment: false,
-      },
-    },
-    words: [],
-    tag: [],
-    hiddenWord: [],
-  },
-]
-
+import PageDropdown from '../../../../components/PageDropdown'
+import axios from '../../../api/axios'
 const Replykeyword = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
@@ -66,8 +19,8 @@ const Replykeyword = () => {
   const [isCheckAll, setIsCheckAll] = useState(false)
   console.log(user)
   const onEdit = (id) => {
-    const item = data.filter((obj) => obj.id === id)[0]
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } })
+    // const item = data.filter((obj) => obj.id === id)[0]
+    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id } })
   }
 
   const onChecked = async (e) => {
@@ -113,12 +66,12 @@ const Replykeyword = () => {
       return (
         <tr key={index}>
           <td>
-            <input type="checkbox" name={item.id} checked={itemList.includes(item.id)} onClick={(e) => onChecked(e)} />
+            <input type="checkbox" name={item.item._id} checked={itemList.includes(item.item._id)} onClick={(e) => onChecked(e)} />
           </td>
-          <td>{item.name}</td>
+          <td>{item.item.campaignName}</td>
           <td>
             <div>
-              <span onClick={() => onEdit(item.id)} className="userEditButton">
+              <span onClick={() => onEdit(item.item._id)} className="userEditButton">
                 แก้ไข
               </span>
             </div>
@@ -129,22 +82,25 @@ const Replykeyword = () => {
   }
 
   const onSelect = (id) => {
-    console.log(id);
+    console.log(id)
     setPageID(id)
   }
-const renderPageOption = () => {
-  if (user?.selectedPage.length === 0) {
-    return <>ไม่ได้เลือกเพจ</>
-  } else {
-    return(
-      user?.selectedPage.map((item,index) => {
-        return(
-          <option key={index} value={item?.pageId}>{item?.pageName}</option>
-        )
+  const getKeywordsList = async () => {
+    //id from pageId
+    try {
+      const res = await axios.get(`/keywords/${pageID}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-    )
-  } 
-}
+      console.log(res.data)
+      setData(res.data.keywords)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getKeywordsList()
+  }, [])
   return (
     <div className="page-wrapper">
       <div className="content container-fluid">
@@ -154,20 +110,20 @@ const renderPageOption = () => {
             <div className="row">
               <div className="col-md-12 d-flex justify-content-center">
                 <span className="text-uppercase userDropdown">
-                  {/* <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} /> */}
-                  <Form.Select onChange={(e)=>onSelect(e.target.value)}>
-                      {/* <Image src={user?.selectedPage[0].pageImageUrl} alt="pageLogo" /> */}
-                      {renderPageOption()}
-                  </Form.Select>
+                  <PageDropdown onSelect={onSelect} />
                 </span>
               </div>
             </div>
           </div>
           {/* content */}
-
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
-              <span onClick={() => router.push({pathname:`${router.pathname}/create-replykeyword`, query:{pageId:pageID}})} className="userButton">
+              <span
+                onClick={() =>
+                  router.push({ pathname: `${router.pathname}/create-replykeyword`, query: { pageId: pageID } })
+                }
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faPlus} />
                 สร้างแคมเปญ
               </span>
@@ -184,18 +140,22 @@ const renderPageOption = () => {
           </div>
           <div className="row">
             <div className="col-md-8 mx-auto d-flex mt-3">
-              <Table bordered>
-                <thead>
-                <tr>
-                  <th>
-                    <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
-                  </th>
-                  <th>แคมเปญ</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>{renderTable()}</tbody>
-              </Table>
+              {data?.length === 0 ? (
+                <p className="mx-auto">ไม่มีข้อมูล กรุณาสร้าง แคมเปญ</p>
+              ) : (
+                <Table bordered>
+                  <thead>
+                    <tr>
+                      <th>
+                        <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
+                      </th>
+                      <th>แคมเปญ</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>{renderTable()}</tbody>
+                </Table>
+              )}
             </div>
           </div>
         </div>
