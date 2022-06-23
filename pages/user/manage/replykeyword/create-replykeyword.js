@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, createRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPlus,
-  faUser,
   faChevronLeft,
   faCircleChevronDown,
   faCircleChevronUp,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
-import { Avatar, Divider, Input, Switch } from 'antd'
+import { Divider, Input } from 'antd'
 import { useRouter } from 'next/router'
 
 import Sidebar from '../../../../components/Sidebar'
@@ -21,50 +20,51 @@ const CreateReplyKeyword = () => {
   const router = useRouter()
   const { user } = useUser()
   const [pageID, setPageID] = useState(router.query.pageId)
-  const [isLoad, setIsLoad] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [img, setImg] = useState('')
-  const [campaignName, setCampaignName] = useState('')
-  const [keywordName, setKeywordName] = useState('')
-
   const { TextArea } = Input
 
-  const [details, setDetails] = useState({
-    name: '',
-    type: '',
-  })
+  const [isLoad, setIsLoad] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [img, setImg] = useState({})
+  const [campaignName, setCampaignName] = useState('')
+  const [keywordName, setKeywordName] = useState('')
+  const [details, setDetails] = useState([
+    {
+      name: '',
+      type: 'text',
+    },
+    {
+      name: '',
+      type: 'image',
+    },
+  ])
   const onSubmit = async (e) => {
-    //*show modal
-    setIsLoad(!isLoad)
-    setIsSuccess(!isSuccess)
     e.preventDefault()
+    await convertToImagePath()
+
     const data = {
       pageId: pageID,
       campaignName: campaignName,
       keywordName: keywordName,
-      keywordDetail: [
-        {
-          name: details.name,
-          type: 'text',
-        },
-        {
-          name: details.type !== '' && (await getImagePath(details.type)),
-          type: 'image',
-        },
-      ],
+      keywordDetail: details,
     }
+
     console.log(data)
 
     try {
       const res = await axios.post('/keywords', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
       console.log(res.data)
-      //*close modal
-    setIsLoad(!isLoad)
     } catch (error) {
       console.log(error)
     }
   }
-
+  const convertToImagePath = async () => {
+    for (const item of details) {
+      if (item.type === 'image') {
+        item.name = await getImagePath(item.name)
+      }
+    }
+    setDetails(details)
+  }
   const getImagePath = async (file) => {
     const formData = new FormData()
     formData.append('image', file, file.name)
@@ -87,11 +87,147 @@ const CreateReplyKeyword = () => {
     console.log(id)
     setPageID(id)
   }
+  //* function handle text and image
 
-  const onUpload = (file) => {
-    setImg(URL.createObjectURL(file))
-    setDetails({ ...details, type: file })
+  const inputRef = details.reduce((acc, value, index) => {
+    acc[index] = createRef()
+    return acc
+  }, {})
+  const onUpload = async (index, file) => {
+    let temObj = { ...img }
+    temObj[index] = URL.createObjectURL(file)
+    setImg(temObj)
   }
+  const onDeleteImg = async (index) => {
+    let temObj = { ...img }
+    delete temObj[index]
+    setImg(temObj)
+  }
+
+  const onHandleChangeDetail = async (e, index) => {
+    let temArr = [...details]
+    if (temArr[index].type === 'text') {
+      temArr[index].name = e.target.value
+    } else {
+      const file = e.target.files[0]
+      console.log(file)
+      await onUpload(index, file)
+      temArr[index].name = file
+    }
+    setDetails(temArr)
+  }
+  const handleAddText = () => {
+    setDetails([...details, { name: '', type: 'text' }])
+  }
+  const handleAddImage = () => {
+    setDetails([...details, { name: '', type: 'image' }])
+  }
+  const onDeleteDetails = (index) => {
+    let tempArr = [...details]
+    tempArr.splice(index, 1)
+    setDetails(tempArr)
+    onDeleteImg(index)
+  }
+  const handleClickFileInput = (index) => {
+    console.log(inputRef[index])
+    inputRef[index].current.click()
+  }
+  const onClickNext = (index) => {
+    console.log(inputRef[index].current)
+    inputRef[index].current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'end',
+    })
+  }
+  const renderTextInput = () => {
+    return details.map((data, index) => {
+      if (data.type === 'text') {
+        return (
+          <div key={index} className="row g-md-3 createContainer">
+          {/* <> */}
+            <div className="col-md-3 col-xs-12 commentHeader">
+              <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
+            </div>
+            <div className="col-md-6 col-9 commentInput">
+              <TextArea
+                showCount
+                value={details.name}
+                onChange={(e) => onHandleChangeDetail(e, index)}
+                maxLength={200}
+                placeholder="พิมพ์ข้อความที่นี้..."
+                autoSize={{ minRows: 4, maxRows: 6 }}
+              />
+            </div>
+            <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+              <div className="h-auto d-flex flex-column me-4">
+                <span>
+                  <FontAwesomeIcon icon={faCircleChevronUp} />
+                </span>
+                <span>
+                  <FontAwesomeIcon onClick={() => onClickNext(index)} icon={faCircleChevronDown} />
+                </span>
+              </div>
+              <div className="replyDeleteBTN">
+                <span style={{ color: 'red' }}>
+                  <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+                </span>
+              </div>
+            </div>
+          {/* </> */}
+          </div>
+        )
+      }
+    })
+  }
+  const renderImageInput = () => {
+    return details.map((data, index) => {
+      if (data.type === 'image') {
+        return (
+          <div key={index} className="row g-md-3 createContainer">
+            <div className="col-md-3 col-xs-12 commentHeader">
+              <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
+            </div>
+            <div className="col-md-6 col-9 commentInput">
+              {img[index] !== undefined ? (
+                <div onClick={() => onDeleteImg(index)} className="uploadIMG">
+                  <img width={100} src={img[index]} alt="img" />
+                </div>
+              ) : (
+                <>
+                  <input
+                    type="file"
+                    ref={inputRef[index]}
+                    className="inputfile"
+                    onChange={(e) => onHandleChangeDetail(e, index)}
+                  />
+                  <label onClick={() => handleClickFileInput(index)} htmlFor="file">
+                    อัพโหลดรูป
+                  </label>
+                </>
+              )}
+            </div>
+            <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+              <div className="d-flex flex-column me-4">
+                <span>
+                  <FontAwesomeIcon icon={faCircleChevronUp} />
+                </span>
+                <span>
+                  <FontAwesomeIcon icon={faCircleChevronDown} />
+                </span>
+              </div>
+              <div className="replyDeleteBTN">
+                <span style={{ color: 'red' }}>
+                  <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+                </span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    })
+  }
+  //* function handle text and image
 
   return (
     <div className="page-wrapper">
@@ -106,8 +242,6 @@ const CreateReplyKeyword = () => {
                   <span className="textBTN">ย้อนกลับ</span>
                 </span>
                 <span className="text-uppercase userDropdown">
-                  {/* <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
-                  Board pang */}
                   <PageDropdown onSelect={onSelect} />
                 </span>
               </div>
@@ -143,113 +277,26 @@ const CreateReplyKeyword = () => {
             </div>
           </div>
           <Divider />
-          <div className="row g-md-3">
-            <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
-            </div>
-            <div className="col-md-6 col-9 commentInput">
-              <TextArea
-                showCount
-                maxLength={200}
-                value={details.name}
-                onChange={(e) => setDetails({ ...details, name: e.target.value })}
-                placeholder="พิมพ์ข้อความที่นี้..."
-                autoSize={{ minRows: 4, maxRows: 6 }}
-              />
-            </div>
-            <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
-              <div className="h-auto d-flex flex-column me-4">
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronUp} />
-                </span>
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronDown} />
-                </span>
-              </div>
-              <div className="replyDeleteBTN">
-                <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon icon={faTrashAlt} />
-                </span>
-              </div>
-            </div>
-          </div>
+          {renderTextInput()}
           <Divider />
-          <div className="row g-md-3">
-            <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">รูปภาพ</strong>
-            </div>
-            <div className="col-md-6 col-9 commentInput">
-              {/* <TextArea
-                showCount
-                maxLength={200}
-                placeholder="พิมพ์ข้อความที่นี้..."
-                autoSize={{ minRows: 4, maxRows: 6 }}
-              /> */}
-              {img ? (
-                <img width={50} src={img} alt="img" />
-              ) : (
-                <>
-                  <input type="file" onChange={(e) => onUpload(e.target.files[0])} />
-                  <label htmlFor="file">UPLOAD</label>
-                </>
-              )}
-            </div>
-            <div className="col-md-2 col-3 d-flex justify-content-center align-items-center replyKeywordBtn">
-              <div className="h-auto d-flex flex-column me-4">
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronUp} />
-                </span>
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronDown} />
-                </span>
-              </div>
-              <div className="replyDeleteBTN">
-                <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon
-                    onClick={() => {
-                      setImg('')
-                      setDetails({ ...details, type: '' })
-                    }}
-                    icon={faTrashAlt}
-                  />
-                </span>
-              </div>
-            </div>
-          </div>
+          {renderImageInput()}
           <Divider />
-          <div className="row g-3">
-            <div className="col-md-4 mx-auto text-center replyButtonContainer">
-              <button className="replyCustomBtn">
-                <FontAwesomeIcon icon={faPlus} /> เพิ่มข้อความ
+          <div className="row g-3 justify-content-center">
+            <div className="col-md-4 replyButtonContainer">
+              <button onClick={handleAddText} className="replyCustomBtn">
+                <FontAwesomeIcon icon={faPlus} />
+                <span>เพิ่มข้อความ</span>
               </button>
-              <button className="replyCustomBtn">
-                <FontAwesomeIcon icon={faPlus} /> เพิ่มรูปภาพ
+            </div>
+            <div className="col-md-4 text-center replyButtonContainer">
+              <button onClick={handleAddImage} className="replyCustomBtn">
+                <FontAwesomeIcon icon={faPlus} />
+                <span>เพิ่มรูปภาพ</span>
               </button>
             </div>
           </div>
         </div>
       </div>
-      <Modal centered show={isSuccess} onHide={() => setIsSuccess(!isSuccess)}>
-        <Modal.Body className="text-center">
-          {
-            <h2 className={`${isLoad ? 'text-danger' : 'text-success'}`}>
-              {isLoad ? 'ระบบกำลังสร้างแคมเปญ' : 'สร้างแคมเปญสำเร็จ'}
-            </h2>
-          }
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            onClick={() => setIsSuccess(!isSuccess)}
-            variant={`${isLoad ? 'danger' : 'success'}`}
-            disabled={isLoad}
-          >
-            {isLoad && (
-              <Spinner className="me-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-            )}
-            {isLoad ? 'Creating...' : 'ตกลง'}
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   )
 }

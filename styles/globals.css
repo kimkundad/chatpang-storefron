@@ -378,6 +378,16 @@ register section
 /*------
 chatbot section
 ------*/
+.createContainer{
+	font-size: min(2.5rem,3vw);
+	height: 250px;
+	overflow-y: scroll;
+}
+.ant-input{
+	font-size: min(2rem,3vw) !important;
+	min-height: 150px !important;
+	height:150px!important;
+}
 .chatComment{
 	display: flex;
 	justify-content: space-between;
@@ -385,13 +395,14 @@ chatbot section
 }
 .commentHeader{
 	display: flex;
-	/* height: 100px; */
+	height: 250px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 .commentInput{
 	max-width: 450px;
+	height: 250px;
 }
 .toggleCommentOptions{
 	display: flex;
@@ -415,6 +426,7 @@ reply keyword section
 ------*/
 .replyKeywordBtn{
 	font-size: 1.5rem;
+	height: 250px;
 }
 .replyDeleteBTN{
 }
@@ -786,6 +798,9 @@ table.table td h2 span {
   /*-----------------
 	chatbot-section, line-noti
 -----------------------*/
+.createHeader{
+	font-size: min(2rem,3vw);
+}
 .userDropdown{
 	display: flex;
 	align-items: center;
@@ -829,6 +844,20 @@ table.table td h2 span {
 	 color: var(--mainCRed_1);
 	cursor: pointer;
 }
+.textBTN{
+	font-size: min(2rem,3vw) !important;
+	margin-left: 16px;
+}
+.uploadIMG{
+	position: relative;
+	border-radius: 10px;
+	border: 1px solid #888;
+	margin: 16px 0;
+}
+.uploadIMG img{
+	width: 150px;
+	cursor: pointer;
+}
 .userBackButton:hover,.userEditButton:hover{
 	background: rgb(63, 63, 63);
 }
@@ -863,19 +892,26 @@ table.table td h2 span {
 	top: -30px;
 	left: 65%;
 } */
-/* .chatButtonContainer{
-	display: flex;
-	align-items: center;
-} */
+.chatButtonContainer button{
+	font-size: min(2.5rem, 3vw);
+}
 .lineButtonContainer  button:first-child, .chatButtonContainer button:first-child{
 	background-color: var(--mainCRed_1);
+}
+.replyButtonContainer{
+	display: flex;
+	justify-content: center;
 }
 .replyButtonContainer button{
 	background-color: var(--mainCRed_1);
 }
 .replyCustomBtn{
-	/* display: flex; */
+	display: flex;
 	align-items: center;
+	font-size: min(2rem, 3vw)!important;
+}
+.replyCustomBtn span{
+	margin-left:16px ;
 }
 .lineCustomBtn{
 	background-color: var(--mainCRed_1);

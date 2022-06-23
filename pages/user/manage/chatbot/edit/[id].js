@@ -35,37 +35,39 @@ const Edit = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
     const regExURL = /https?:\/\//
-    console.log(!regExURL.test(fileInboxComment))
-    console.log(!regExURL.test(fileComment))
     const pathInbox = regExURL.test(fileInboxComment) ? fileInboxComment : await getImagePath(fileInboxComment)
     const pathComment = regExURL.test(fileComment) ? fileComment : await getImagePath(fileComment)
-    console.log(pathInbox)
-    console.log(pathComment)
     const data = {
-      campaignName: campaignName,
-      txtInboxComment: txtInboxComment,
-      fileInboxComment: pathInbox,
-      isInboxComment: isInboxComment,
-      txtComment: txtComment,
-      fileComment: pathComment,
-      isComment: isComment,
-      isLikeComment: isLikeComment,
-      isDuplicateComment: isDuplicateComment,
-      isHideComment: isHideComment,
-      // txtData: [
-      //   {
-      //     txtSpecWord: words,
-      //     txtSpecHashTag: tags,
-      //     txtHideWord: hiddenWords,
-      //   },
-      // ],
-      // isDelete: true,
-      // updateAt: 'string',
-      // deleteAt: 'string',
+      // campaignName: campaignName,
+      // txtInboxComment: txtInboxComment,
+      // fileInboxComment: pathInbox,
+      // isInboxComment: isInboxComment,
+      // txtComment: txtComment,
+      // fileComment: pathComment,
+      // isComment: isComment,
+      // isLikeComment: isLikeComment,
+      // isDuplicateComment: isDuplicateComment,
+      // isHideComment: isHideComment,
+
+      campaignName: 'ทดสอบสร้าง 1(แก้ไข 2)',
+      fileComment: 'https://chatpang-api.herokuapp.com/uploads/1655880563834image2.jpg',
+      fileInboxComment: 'https://chatpang-api.herokuapp.com/uploads/1655880561050image1.jpg',
+      isComment: false,
+      isDuplicateComment: false,
+      isHideComment: true,
+      isInboxComment: true,
+      isLikeComment: false,
+      txtComment: 'ทดสอบ 21062022',
+      txtInboxComment: 'ทดสอบ 21062022',
     }
+    console.log(data)
     try {
-      const res = await axios.patch(`/chatbots/${id}`, data, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      const res = await axios.patch(`/chatbots/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user?.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        data:JSON.stringify(data)
       })
       console.log(res.data)
     } catch (error) {
