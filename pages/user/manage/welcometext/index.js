@@ -2,61 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrashCan, faCopy } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '../../../../components/Sidebar'
 import { Table } from 'react-bootstrap'
-import { Avatar } from 'antd'
 import PageDropdown from '../../../../components/PageDropdown'
 import useUser from '../../../../Hooks/useUser'
 import axios from '../../../api/axios'
-const initData = [
-  {
-    id: 1,
-    name: 'test_1',
-    isActive: false,
-    msgInbox: {
-      active: false,
-      msg: '',
-      image: '',
-    },
-    comment: {
-      active: false,
-      msg: '',
-      image: '',
-      option: {
-        like: false,
-        repeat: false,
-        hideComment: false,
-      },
-    },
-    words: [],
-    tag: [],
-    hiddenWord: [],
-  },
-  {
-    id: 2,
-    name: 'test_2',
-    isActive: false,
-    msgInbox: {
-      active: false,
-      msg: '',
-      image: '',
-    },
-    comment: {
-      active: false,
-      msg: '',
-      image: '',
-      option: {
-        like: false,
-        repeat: false,
-        hideComment: false,
-      },
-    },
-    words: [],
-    tag: [],
-    hiddenWord: [],
-  },
-]
 
 const Welcometext = () => {
   const router = useRouter()
@@ -71,7 +22,7 @@ const Welcometext = () => {
   const onEdit = (id) => {
     // const item = data.filter((obj) => obj.id === id)[0]
     // setSelectedItem(item)
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } })
+    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } },`${router.pathname}/edit/${id}`)
   }
 
   const onChecked = async (e) => {

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTrashCan, faPenToSquare, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrashCan, faCopy } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '../../../../components/Sidebar'
 import { Table } from 'react-bootstrap'
-import { Avatar } from 'antd'
-import { Form } from 'react-bootstrap'
-import Image from 'next/image'
 import useUser from '../../../../Hooks/useUser'
 import PageDropdown from '../../../../components/PageDropdown'
 import axios from '../../../api/axios'
+
 const Replykeyword = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
@@ -19,8 +17,7 @@ const Replykeyword = () => {
   const [isCheckAll, setIsCheckAll] = useState(false)
   console.log(user)
   const onEdit = (id) => {
-    // const item = data.filter((obj) => obj.id === id)[0]
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id } })
+    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id } },`${router.pathname}/edit/${id}`)
   }
 
   const onChecked = async (e) => {

@@ -9,55 +9,6 @@ import axios from '../../../api/axios'
 import useUser from '../../../../Hooks/useUser'
 import PageDropdown from '../../../../components/PageDropdown'
 
-const initData = [
-  {
-    id: 1,
-    name: 'test_1',
-    isActive: false,
-    msgInbox: {
-      active: false,
-      msg: '',
-      image: '',
-    },
-    comment: {
-      active: false,
-      msg: '',
-      image: '',
-      option: {
-        like: false,
-        repeat: false,
-        hideComment: false,
-      },
-    },
-    words: [],
-    tag: [],
-    hiddenWord: [],
-  },
-  {
-    id: 2,
-    name: 'test_2',
-    isActive: false,
-    msgInbox: {
-      active: false,
-      msg: '',
-      image: '',
-    },
-    comment: {
-      active: false,
-      msg: '',
-      image: '',
-      option: {
-        like: false,
-        repeat: false,
-        hideComment: false,
-      },
-    },
-    words: [],
-    tag: [],
-    hiddenWord: [],
-  },
-]
-
 const Chatbot = () => {
   const router = useRouter()
   const { user } = useUser()
@@ -72,7 +23,7 @@ const Chatbot = () => {
     // const item = data.filter((obj) => obj.item._id === id)[0]
     // setSelectedItem(item)
     console.log(id);
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id,pageId:pageID } })
+    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id,pageId:pageID } }, `${router.pathname}/edit/${id}`)
   }
 
   const onChecked = async (e) => {

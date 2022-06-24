@@ -8,7 +8,7 @@ import { Avatar, Divider, Input, Switch } from 'antd'
 import { InputTags } from 'react-bootstrap-tagsinput'
 import axios from '../../../../api/axios'
 import useUser from '../../../../../Hooks/useUser'
-
+import PAxios from 'axios'
 const Edit = () => {
   const router = useRouter()
   const { user } = useUser()
@@ -38,42 +38,38 @@ const Edit = () => {
     const pathInbox = regExURL.test(fileInboxComment) ? fileInboxComment : await getImagePath(fileInboxComment)
     const pathComment = regExURL.test(fileComment) ? fileComment : await getImagePath(fileComment)
     const data = {
-      // campaignName: campaignName,
-      // txtInboxComment: txtInboxComment,
-      // fileInboxComment: pathInbox,
-      // isInboxComment: isInboxComment,
-      // txtComment: txtComment,
-      // fileComment: pathComment,
-      // isComment: isComment,
-      // isLikeComment: isLikeComment,
-      // isDuplicateComment: isDuplicateComment,
-      // isHideComment: isHideComment,
-
-      campaignName: 'ทดสอบสร้าง 1(แก้ไข 2)',
-      fileComment: 'https://chatpang-api.herokuapp.com/uploads/1655880563834image2.jpg',
-      fileInboxComment: 'https://chatpang-api.herokuapp.com/uploads/1655880561050image1.jpg',
-      isComment: false,
-      isDuplicateComment: false,
-      isHideComment: true,
-      isInboxComment: true,
-      isLikeComment: false,
-      txtComment: 'ทดสอบ 21062022',
-      txtInboxComment: 'ทดสอบ 21062022',
+      campaignName: campaignName,
+      txtInboxComment: txtInboxComment,
+      fileInboxComment: pathInbox,
+      isInboxComment: isInboxComment,
+      txtComment: txtComment,
+      fileComment: pathComment,
+      isComment: isComment,
+      isLikeComment: isLikeComment,
+      isDuplicateComment: isDuplicateComment,
+      isHideComment: isHideComment,
+      txtData: [
+        {
+          txtSpecWord: words,
+          txtSpecHashTag: tags,
+          txtHideWord: hiddenWords,
+        },
+      ],
     }
     console.log(data)
     try {
-      const res = await axios.patch(`/chatbots/${id}`, {
+      const res = await axios.patch(`/chatbots/${id}`,data, {
         headers: {
-          Authorization: `Bearer ${user?.accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        data:JSON.stringify(data)
+          Authorization: `Bearer ${user?.accessToken}`
+        }
       })
       console.log(res.data)
     } catch (error) {
       console.log(error)
     }
+
   }
+
   const setImageInbox = (e) => {
     console.log(e.target.files[0])
     setFileInboxComment(e.target.files[0])
