@@ -139,7 +139,7 @@ const Edit = () => {
             <div className="col-md-6 col-9 commentInput">
               <TextArea
                 showCount
-                value={details.name}
+                value={data.name}
                 onChange={(e) => onHandleChangeDetail(e, index)}
                 maxLength={200}
                 placeholder="พิมพ์ข้อความที่นี้..."

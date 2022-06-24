@@ -19,6 +19,8 @@ const Createbot = () => {
   const { TextArea } = Input
   const hiddenfileInbox = useRef(null)
   const hiddenfileComment = useRef(null)
+  const [img1, setImg1] = useState('')
+  const [img2, setImg2] = useState('')
   const [campaignName, setCampaignName] = useState('')
   const [txtInboxComment, setTxtInboxComment] = useState('')
   const [fileInboxComment, setFileInboxComment] = useState('')
@@ -37,8 +39,6 @@ const Createbot = () => {
     e.preventDefault()
     const pathInbox = await getImagePath(fileInboxComment)
     const pathComment = await getImagePath(fileComment)
-    console.log(pathInbox)
-    console.log(pathComment)
     const data = {
       pageId: pageID,
       campaignName: campaignName,
@@ -59,22 +59,21 @@ const Createbot = () => {
         },
       ],
     }
-    console.log(data)
     try {
       const res = await axios.post('/chatbots', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      console.log(res.data)
+      // console.log(res.data)
     } catch (error) {
       console.log(error)
     }
   }
 
   const setImageInbox = (e) => {
-    console.log(e.target.files[0])
     setFileInboxComment(e.target.files[0])
+    setImg1(URL.createObjectURL(e.target.files[0]))
   }
   const setImageComment = (e) => {
-    console.log(e.target.files[0])
     setFileComment(e.target.files[0])
+    setImg2(URL.createObjectURL(e.target.files[0]))
   }
 
   const getImagePath = async (file) => {
@@ -159,6 +158,7 @@ const Createbot = () => {
               />
             </div>
             <div className="col-md-2 uploadComment">
+            
               <input ref={hiddenfileInbox} type="file" name="fileInbox" className='inputfile' accept="image/*" onChange={(e) => setImageInbox(e)} />
               <label onClick={()=>hiddenfileInbox.current.click()} htmlFor="file">UPLOAD</label>
             </div>

@@ -25,7 +25,7 @@ const CardPrice = ({ data = [], selected, setSelectedPackage }) => {
             <span style={{ display: `${item.item.isBestSeller ? 'block' : 'none'}` }} className="bestSellTag">
               ขายดี
             </span>
-            <Card.Title className="cardTitle fw-bold">{item.item.name}</Card.Title>
+            <Card.Title className="cardTitle mx-auto fw-bold">{item.item.name}</Card.Title>
             <Card.Text>
               <div className="d-flex flex-column text-center mb-3">
                 <strong className="mb-0 fw-bold fs-3">{item.item.price}</strong>

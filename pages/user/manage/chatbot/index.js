@@ -64,6 +64,7 @@ const Chatbot = () => {
       setIsCheckAll(true)
     }
   }
+  //* select page by id
   const onSelect = (id) => {
     console.log(id)
     setPageID(id)

@@ -380,7 +380,7 @@ chatbot section
 ------*/
 .createContainer{
 	font-size: min(2.5rem,3vw);
-	height: 250px;
+	height: 270px;
 	overflow-y: scroll;
 }
 .ant-input{

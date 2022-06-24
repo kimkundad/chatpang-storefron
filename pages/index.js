@@ -57,9 +57,9 @@ const responsive = {
   },
 }
 
-const star = [{}, {}, {}, {}, {}]
+// const star = [{}, {}, {}, {}, {}]
 
-const clientFeedbackData = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+// const clientFeedbackData = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
 
 const accordionData = [
   {
@@ -84,36 +84,36 @@ const accordionData = [
   },
 ]
 
-const packageData = [
-  {
-    plane: 'Basic',
-    price: '290',
-    features: [
-      { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
-      { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
-      { feature: 'ใช้งานได้ 1 เพจ' },
-    ],
-  },
-  {
-    plane: 'VIP',
-    price: '590',
-    features: [
-      { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
-      { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
-      { feature: 'ใช้งานได้ 3 เพจ' },
-    ],
-  },
-  {
-    plane: 'Bussiness',
-    price: '990',
-    features: [
-      { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
-      { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
-      { feature: 'ใช้งานได้ 1 เพจ' },
-      { feature: 'ระบบ Line แจ้งเตือน' },
-    ],
-  },
-]
+// const packageData = [
+//   {
+//     plane: 'Basic',
+//     price: '290',
+//     features: [
+//       { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
+//       { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
+//       { feature: 'ใช้งานได้ 1 เพจ' },
+//     ],
+//   },
+//   {
+//     plane: 'VIP',
+//     price: '590',
+//     features: [
+//       { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
+//       { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
+//       { feature: 'ใช้งานได้ 3 เพจ' },
+//     ],
+//   },
+//   {
+//     plane: 'Bussiness',
+//     price: '990',
+//     features: [
+//       { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
+//       { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
+//       { feature: 'ใช้งานได้ 1 เพจ' },
+//       { feature: 'ระบบ Line แจ้งเตือน' },
+//     ],
+//   },
+// ]
 
 export default function Home() {
   const router = useRouter()

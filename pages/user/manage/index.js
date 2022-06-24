@@ -10,7 +10,7 @@ const Index = () => {
   const [checkAll, setCheckAll] = useState(false)
   const [checkList, setCheckList] = useState(user?.selectedPage.length !== 0 ? user?.selectedPag?.map(item => item.pageId) : [])
   // const [pagesList, setPagesList] = useState([])
-  console.log(user);
+  console.log(checkList);
   const [data, setData] = useState([])
   const onCheckAll = async () => {
     setCheckList(!checkAll ? data?.map(item=> item.id) : [])
