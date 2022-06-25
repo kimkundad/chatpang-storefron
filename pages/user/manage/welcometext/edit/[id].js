@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import Sidebar from '../../../../../components/Sidebar'
 import axios from '../../../../api/axios'
 import useUser from '../../../../../Hooks/useUser'
+import { Alert } from 'react-bootstrap'
 
 const Edit = () => {
   const router = useRouter()
@@ -34,7 +35,12 @@ const Edit = () => {
       type: 'image',
     },
   ])
-
+  //*check status
+  const [isSuccess, setIsSuccess] = useState({
+    show: false,
+    isSuccess: false,
+    text: '',
+  })
   const onSubmit = async (e) => {
     e.preventDefault()
     await convertToImagePath()
@@ -43,17 +49,41 @@ const Edit = () => {
       receptionDetail: details,
     }
 
-    console.log(data)
+    // console.log(data)
 
     try {
-      const res = await axios.patch(`/receptions/${id}`, data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      console.log(res.data)
+      const res = await axios.patch(`/receptions/${id}`, data, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      // console.log(res.data)
+      setIsSuccess({
+        show: true,
+        isSuccess: true,
+        text: 'แก้ไขแคมเปญสำเร็จ',
+      })
+      handleNotify()
     } catch (error) {
       console.log(error)
+      setIsSuccess({
+        show: true,
+        isSuccess: false,
+        text: 'แก้ไขแคมเปญไม่สำเร็จ',
+      })
+      handleNotify()
     }
   }
+  const handleNotify = () => {
+    setTimeout(() => {
+      setIsSuccess({
+        show: false,
+        isSuccess: false,
+        text: '',
+      })
+      router.back()
+    }, 2000)
+  }
   const convertToImagePath = async () => {
-    //check already a img link by check https 
+    //check already a img link by check https
     const regExURL = /https?:\/\//
     for (const item of details) {
       if (item.type === 'image') {
@@ -67,7 +97,7 @@ const Edit = () => {
     formData.append('image', file, file.name)
     try {
       const res = await axios.post('/configs/upload', formData)
-      console.log(res.data)
+      // console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log(error)
@@ -96,7 +126,7 @@ const Edit = () => {
       temArr[index].name = e.target.value
     } else {
       const file = e.target.files[0]
-      console.log(file)
+      // console.log(file)
       await onUpload(index, file)
       temArr[index].name = file
     }
@@ -115,11 +145,11 @@ const Edit = () => {
     onDeleteImg(index)
   }
   const handleClickFileInput = (index) => {
-    console.log(inputRef[index])
+    // console.log(inputRef[index])
     inputRef[index].current.click()
   }
   const onClickNext = (index) => {
-    console.log(inputRef[index].current)
+    // console.log(inputRef[index].current)
     inputRef[index].current.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
@@ -217,19 +247,19 @@ const Edit = () => {
   const setImgFirstTime = async (arr) => {
     let temObj = {}
     for (let i = 0; i < arr.length; i++) {
-     if (arr[i].type === 'image') {
-      temObj[i] = arr[i].name
-     }
+      if (arr[i].type === 'image') {
+        temObj[i] = arr[i].name
+      }
     }
     setImg(temObj)
-    console.log(arr);
+    console.log(arr)
   }
   const getReceptionSetting = async () => {
     try {
       const res = await axios.get(`/receptions/detail/${id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data)
+      // console.log(res.data)
       const data = res.data
       setCampaignName(data.campaignName)
       setDetails(data.receptionDetail)
@@ -244,6 +274,11 @@ const Edit = () => {
   }, [])
   return (
     <div className="page-wrapper">
+      {isSuccess.show && (
+        <Alert className="text-center" variant={isSuccess.isSuccess ? 'success' : 'danger'}>
+          <span>{isSuccess.text}</span>
+        </Alert>
+      )}
       <div className="content container-fluid">
         <Sidebar />
         <div className="userpage-wrapper text-center">

@@ -4,6 +4,7 @@ import MemberDetails from '../../../components/subUser/MemberDetails';
 import PaymentDetails from '../../../components/subUser/PaymentDetails';
 import useUser from '../../../Hooks/useUser';
 import axios from '../../api/axios';
+import moment from 'moment';
 const Accountmanagement = () => {
   const { TabPane } = Tabs;
   const { user, setUserData } = useUser()
@@ -13,12 +14,15 @@ const Accountmanagement = () => {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data);
-     await getInfo(res.data.paymentData[0].id,res.data.packageData[0].id)
+      const latestPaymentId = res.data.paymentData[res.data.paymentData.length - 1].id
+      const latestPackageId = res.data.packageData[res.data.packageData.length - 1].id
+      const latestPackageEndAt = res.data.packageData[res.data.packageData.length - 1].endAt
+     await getInfo(latestPaymentId,latestPackageId,latestPackageEndAt)
     } catch (error) {
       console.log(error)
     }
   }
-  const getInfo = async (id,idPack) => {
+  const getInfo = async (id,idPack,latestPackageEndAt) => {
     try {
       const res = await axios.get(`/payments/${id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
@@ -26,8 +30,10 @@ const Accountmanagement = () => {
       const resPack = await axios.get(`/packages/${idPack}`, {
               headers: { Authorization: `Bearer ${user?.accessToken}` },
             })
-      // console.log(res.data);
+      // console.log(user);
       // console.log(resPack.data);
+      resPack.data.periodOfUse = moment(moment(latestPackageEndAt) - moment()).format('DD')
+      resPack.data.exp = moment(latestPackageEndAt).format('DD/MM/YYYY')
      await setUserData({
         ...user,
         payment:res.data,

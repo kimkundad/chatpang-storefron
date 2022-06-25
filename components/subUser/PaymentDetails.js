@@ -9,7 +9,6 @@ const PaymentDetails = () => {
     {
       title: <strong className="fs-4">วันที่</strong>,
       dataIndex: 'createAt',
-      defaultSortOrder: 'ascend',
       key: 'createAt',
       render: (text) => <span className="fs-5">{text !== undefined && moment(text).format('DD/MM/YYYY')}</span>,
     },
@@ -44,7 +43,7 @@ const PaymentDetails = () => {
 
   const renderExp = () => {
     if (user?.user?.paymentData) {
-      return moment(user?.user?.paymentData[0]?.endAt)?.format('DD/MM/YYYY')
+      return moment(user?.user?.paymentData[user?.user?.paymentData.length - 1]?.endAt)?.format('DD/MM/YYYY')
     } else {
       return 'N/A'
     }

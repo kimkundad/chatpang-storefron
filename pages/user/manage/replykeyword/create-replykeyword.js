@@ -1,20 +1,14 @@
 import React, { useState, createRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faPlus,
-  faChevronLeft,
-  faCircleChevronDown,
-  faCircleChevronUp,
-  faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons'
-import { Divider, Input } from 'antd'
+import { faCircleChevronDown, faCircleChevronUp, faTrashAlt,faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { Input, Divider } from 'antd'
 import { useRouter } from 'next/router'
 
 import Sidebar from '../../../../components/Sidebar'
 import axios from '../../../api/axios'
 import PageDropdown from '../../../../components/PageDropdown'
 import useUser from '../../../../Hooks/useUser'
-import { Button, Modal, Spinner } from 'react-bootstrap'
+import { Alert } from 'react-bootstrap'
 
 const CreateReplyKeyword = () => {
   const router = useRouter()
@@ -22,8 +16,6 @@ const CreateReplyKeyword = () => {
   const [pageID, setPageID] = useState(router.query.pageId)
   const { TextArea } = Input
 
-  const [isLoad, setIsLoad] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
   const [img, setImg] = useState({})
   const [campaignName, setCampaignName] = useState('')
   const [keywordName, setKeywordName] = useState('')
@@ -37,6 +29,12 @@ const CreateReplyKeyword = () => {
       type: 'image',
     },
   ])
+  //*check status
+  const [isSuccess, setIsSuccess] = useState({
+    show: false,
+    isSuccess: false,
+    text: '',
+  })
   const onSubmit = async (e) => {
     e.preventDefault()
     await convertToImagePath()
@@ -47,15 +45,46 @@ const CreateReplyKeyword = () => {
       keywordName: keywordName,
       keywordDetail: details,
     }
-
-    console.log(data)
-
     try {
       const res = await axios.post('/keywords', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      console.log(res.data)
+      // console.log(res.data)
+      setIsSuccess({
+        show: true,
+        isSuccess: true,
+        text: 'สร้างแคมเปญสำเร็จ',
+      })
+      handleNotify()
+      setCampaignName('')
+      setKeywordName('')
+      setDetails([
+        {
+          name: '',
+          type: 'text',
+        },
+        {
+          name: '',
+          type: 'image',
+        },
+      ])
     } catch (error) {
       console.log(error)
+      setIsSuccess({
+        show: true,
+        isSuccess: false,
+        text: 'สร้างแคมเปญไม่สำเร็จ',
+      })
+      handleNotify()
     }
+  }
+
+  const handleNotify = () => {
+    setTimeout(() => {
+      setIsSuccess({
+        show: false,
+        isSuccess: false,
+        text: '',
+      })
+    }, 2000)
   }
   const convertToImagePath = async () => {
     for (const item of details) {
@@ -70,7 +99,7 @@ const CreateReplyKeyword = () => {
     formData.append('image', file, file.name)
     try {
       const res = await axios.post('/configs/upload', formData)
-      console.log(res.data)
+      // console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log(error)
@@ -84,7 +113,7 @@ const CreateReplyKeyword = () => {
   }
 
   const onSelect = (id) => {
-    console.log(id)
+    // console.log(id)
     setPageID(id)
   }
   //* function handle text and image
@@ -110,7 +139,7 @@ const CreateReplyKeyword = () => {
       temArr[index].name = e.target.value
     } else {
       const file = e.target.files[0]
-      console.log(file)
+      // console.log(file)
       await onUpload(index, file)
       temArr[index].name = file
     }
@@ -129,11 +158,11 @@ const CreateReplyKeyword = () => {
     onDeleteImg(index)
   }
   const handleClickFileInput = (index) => {
-    console.log(inputRef[index])
+    // console.log(inputRef[index])
     inputRef[index].current.click()
   }
   const onClickNext = (index) => {
-    console.log(inputRef[index].current)
+    // console.log(inputRef[index].current)
     inputRef[index].current.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
@@ -145,7 +174,7 @@ const CreateReplyKeyword = () => {
       if (data.type === 'text') {
         return (
           <div key={index} className="row g-md-3 createContainer">
-          {/* <> */}
+            {/* <> */}
             <div className="col-md-3 col-xs-12 commentHeader">
               <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
             </div>
@@ -174,7 +203,7 @@ const CreateReplyKeyword = () => {
                 </span>
               </div>
             </div>
-          {/* </> */}
+            {/* </> */}
           </div>
         )
       }
@@ -231,6 +260,11 @@ const CreateReplyKeyword = () => {
 
   return (
     <div className="page-wrapper">
+      {isSuccess.show && (
+        <Alert className="text-center" variant={isSuccess.isSuccess ? 'success' : 'danger'}>
+          <span>{isSuccess.text}</span>
+        </Alert>
+      )}
       <div className="content container-fluid">
         <Sidebar />
         <div className="userpage-wrapper text-center">

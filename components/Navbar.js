@@ -86,7 +86,6 @@ const Navbars = () => {
   return (
     <Navbar bg='light' expand="lg" className={`${style.navbarCus}`}>
         <div className="container-fluid ms-4">
-            {/* <Link className="navbar-brand" href="/" passHref={true}> */}
             <Navbar.Brand>
                 <Image 
                 onClick={()=> router.push('/')}
@@ -96,22 +95,12 @@ const Navbars = () => {
                 height="70" 
                 style={{cursor:"pointer"}}
                 className={`align-text-top px-2 ${style.logo}`} />
-                {/* <Image 
-                onClick={()=> router.push('/')}
-                src={SmallLogo}
-                alt='logo' 
-                width="80" 
-                height="80"
-                className={`align-text-top px-2${style.smallLogo}`} /> */}
             </Navbar.Brand>
-            {/* </Link> */}
-            {/* <div className="d-flex me-4"> */}
             <Navbar.Toggle />
             <Navbar.Collapse>
                 {landingNavMenu()}
                 {userDropDown()}
             </Navbar.Collapse>
-            {/* </div> */}
         </div>
     </Navbar>
   )

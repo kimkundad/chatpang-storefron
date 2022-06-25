@@ -13,7 +13,7 @@ const FacebookLogin = ({ onShowWarning }) => {
     console.log('click')
   }
   const responseFacebook = async (response) => {
-    console.log(response)
+    // console.log(response)
     setResData(response)
     const fields = 'id,name,email,picture'
     const token = response.accessToken
@@ -27,7 +27,7 @@ const FacebookLogin = ({ onShowWarning }) => {
       const data = facebookData.data
       //*check already signup
       const loginData = await userAxios.post('/user/login', { email: data.email })
-      console.log(loginData);
+      // console.log(loginData);
       //*not register
       if (loginData?.data?.msg === "This user account is not found.") {
         console.log("not register");

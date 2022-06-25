@@ -20,15 +20,15 @@ const Chatbot = () => {
   const [isCheckAll, setIsCheckAll] = useState(false)
 
   const onEdit = (id) => {
-    // const item = data.filter((obj) => obj.item._id === id)[0]
-    // setSelectedItem(item)
-    console.log(id);
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id,pageId:pageID } }, `${router.pathname}/edit/${id}`)
+    router.push(
+      { pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageId: pageID } },
+      `${router.pathname}/edit/${id}`
+    )
   }
 
   const onChecked = async (e) => {
     setIsCheckAll(false)
-    const newId = parseInt(e.target.name)
+    const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
       await setItemList([...itemList, newId])
     } else {
@@ -36,26 +36,63 @@ const Chatbot = () => {
     }
   }
 
-  const onCopy = () => {
-    let lastIndex = data.length
-    let arr = []
-    // let selected = data.filter(item => itemList.indexOf(item.id) !== -1)
-    for (const key of itemList) {
-      lastIndex += 1
-      let temp = { ...data[key - 1], id: lastIndex }
-      arr.push(temp)
+  //* check user status
+  const checkFreeTrial = () => {
+    return user?.user?.status === 'inactive'
+  }
+  const onCopy = async () => {
+    try {
+      for (const id of itemList) {
+        let temp = data.filter((item) => item.item._id === id)
+        // console.log(temp[0])
+        temp[0].item.campaignName = '(copy) ' + temp[0].item.campaignName
+        const copyData = {
+          pageId: temp[0].item.pageId,
+          campaignName: temp[0].item.campaignName,
+          txtInboxComment: temp[0].item.txtInboxComment,
+          fileInboxComment: temp[0].item.fileInboxComment,
+          isInboxComment: temp[0].item.isInboxComment,
+          txtComment: temp[0].item.txtComment,
+          fileComment: temp[0].item.fileComment,
+          isComment: temp[0].item.isComment,
+          isLikeComment: temp[0].item.isLikeComment,
+          isDuplicateComment: temp[0].item.isDuplicateComment,
+          isHideComment: temp[0].item.isHideComment,
+          txtData: temp[0].item.txtData,
+        }
+        const res = await axios.post('/chatbots', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+        // console.log(res.data);
+        setData([...data,res.data.createdChatbot])
+      }
+      setItemList([])
+    } catch (error) {
+      console.log(error)
     }
-    setData([...data, ...arr])
-    setItemList([])
   }
 
-  const onDelete = () => {
-    const newData = data.filter((item) => itemList.indexOf(item.id) === -1)
-    setData(newData)
+  const onDelete = async () => {
+    const data = {
+      isDelete: true,
+      deleteAt: new Date(),
+    }
+    try {
+      for (const id of itemList) {
+        const res = await axios.patch(`/chatbots/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${user?.accessToken}`,
+          },
+        })
+        // console.log(res.data)
+        setData((prev) => prev.filter((item) => item.item._id !== id))
+      }
+      setItemList([])
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const onCheckAll = () => {
-    const Ids = data.map((item) => item.id)
+    const Ids = data.map((item) => item.item._id)
     if (itemList.length !== 0) {
       setItemList([])
       setIsCheckAll(false)
@@ -66,43 +103,41 @@ const Chatbot = () => {
   }
   //* select page by id
   const onSelect = (id) => {
-    console.log(id)
+    // console.log(id)
     setPageID(id)
   }
   const renderTable = () => {
-    // if (data.length === 0) {
-    //   return <p>ไม่มีข้อมูล กรุณาสร้าง แคมเปญ</p>
-    // } else {
     return data.map((item, index) => {
       return (
-        <tr key={index}>
-          <td>
-            <input
-              type="checkbox"
-              name={item.item._id}
-              checked={itemList.includes(item.item._id)}
-              onClick={(e) => onChecked(e)}
-            />
-          </td>
-          <td>{item.item.campaignName}</td>
-          <td>
-            <div>
-              <span onClick={() => onEdit(item.item._id)} className="userEditButton">
-                แก้ไข
-              </span>
-            </div>
-          </td>
-        </tr>
+        !item?.item?.isDelete && (
+          <tr key={index}>
+            <td>
+              <input
+                type="checkbox"
+                name={item?.item?._id}
+                checked={itemList.includes(item?.item?._id)}
+                onClick={(e) => onChecked(e)}
+              />
+            </td>
+            <td>{item?.item?.campaignName}</td>
+            <td>
+              <div>
+                <span onClick={() => onEdit(item?.item?._id)} className="userEditButton">
+                  แก้ไข
+                </span>
+              </div>
+            </td>
+          </tr>
+        )
       )
     })
-    // }
   }
 
   const getChatbotList = async () => {
     //id from pageId
     try {
       const res = await axios.get(`/chatbots/${pageID}`, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      console.log(res.data)
+      // console.log(res.data)
       setData(res.data.chatbots)
     } catch (error) {
       console.log(error)
@@ -133,18 +168,27 @@ const Chatbot = () => {
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
               <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={() => router.push({ pathname: `${router.pathname}/create-bot`, query: { pageId: pageID } })}
                 className="userButton"
               >
                 <FontAwesomeIcon className="me-2" icon={faPlus} />
                 สร้างแคมเปญ
               </span>
-              <span onClick={onCopy} className="userButton">
+              <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                onClick={onCopy}
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faCopy} />
                 สร้างซ้ำ
               </span>
               {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
-              <span onClick={onDelete} className="userButton">
+              <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                onClick={onDelete}
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faTrashCan} />
                 ลบ
               </span>

@@ -14,6 +14,7 @@ import Sidebar from '../../../../components/Sidebar'
 import useUser from '../../../../Hooks/useUser'
 import PageDropdown from '../../../../components/PageDropdown'
 import axios from '../../../api/axios'
+import { Alert } from 'react-bootstrap'
 
 const CreateWelcome = () => {
   const router = useRouter()
@@ -32,7 +33,12 @@ const CreateWelcome = () => {
       type: 'image',
     },
   ])
-
+  //*check status
+  const [isSuccess, setIsSuccess] = useState({
+    show: false,
+    isSuccess: false,
+    text: '',
+  })
   const onSubmit = async (e) => {
     e.preventDefault()
     await convertToImagePath()
@@ -41,15 +47,46 @@ const CreateWelcome = () => {
       campaignName: campaignName,
       receptionDetail: details,
     }
-    console.log(data)
+    // console.log(data)
     try {
       const res = await axios.post('/receptions', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      console.log(res.data)
+      // console.log(res.data)
+      setIsSuccess({
+        show: true,
+        isSuccess: true,
+        text: 'สร้างแคมเปญสำเร็จ',
+      })
+      handleNotify()
+      setCampaignName('')
+      setDetails([
+        {
+          name: '',
+          type: 'text',
+        },
+        {
+          name: '',
+          type: 'image',
+        },
+      ])
     } catch (error) {
       console.log(error)
+      setIsSuccess({
+        show: true,
+        isSuccess: false,
+        text: 'สร้างแคมเปญไม่สำเร็จ',
+      })
+      handleNotify()
     }
   }
-
+  const handleNotify = () => {
+    setTimeout(() => {
+      setIsSuccess({
+        show: false,
+        isSuccess: false,
+        text: '',
+      })
+    }, 2000)
+  }
   const convertToImagePath = async () => {
     for (const item of details) {
       if (item.type === 'image') {
@@ -133,7 +170,7 @@ const CreateWelcome = () => {
       if (data.type === 'text') {
         return (
           <div key={index} className="row g-md-3 createContainer">
-          {/* <> */}
+            {/* <> */}
             <div className="col-md-3 col-xs-12 commentHeader">
               <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
             </div>
@@ -162,7 +199,7 @@ const CreateWelcome = () => {
                 </span>
               </div>
             </div>
-          {/* </> */}
+            {/* </> */}
           </div>
         )
       }
@@ -218,6 +255,11 @@ const CreateWelcome = () => {
   //* function handle text and image
   return (
     <div className="page-wrapper">
+      {isSuccess.show && (
+        <Alert className="text-center" variant={isSuccess.isSuccess ? 'success' : 'danger'}>
+          <span>{isSuccess.text}</span>
+        </Alert>
+      )}
       <div className="content container-fluid">
         <Sidebar />
         <div className="userpage-wrapper text-center">

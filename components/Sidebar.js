@@ -17,16 +17,22 @@ const Sidebar = () => {
 
   const isActive = (path) => {
     const n = '/user/manage'.length
-    return pathName.slice(n) === path
+
+    if (pathName.slice(n) !== "" && path === "") {
+      return false
+    } else {
+      return pathName.slice(n).includes(path)
+    }
   }
 
   const getPackageInfo = async () => {
     try {
       if (user?.user?.packageData !== undefined) {
-        const res = await axios.get(`/packages/${user?.user?.packageData[0].id}`,{headers:{Authorization: 'Bearer ' + user?.accessToken}})
+        const latestPack = user?.user?.packageData.length - 1
+        const res = await axios.get(`/packages/${user?.user?.packageData[latestPack].id}`,{headers:{Authorization: 'Bearer ' + user?.accessToken}})
         const data = res.data
-        data.periodOfUse = moment(moment(user?.user?.packageData[0].endAt) - moment()).format('DD')
-        data.exp = moment(user?.user?.packageData[0].endAt).format('DD/MM/YYYY')
+        data.periodOfUse = moment(moment(user?.user?.packageData[latestPack].endAt) - moment()).format('DD')
+        data.exp = moment(user?.user?.packageData[latestPack].endAt).format('DD/MM/YYYY')
         // console.log(data);
        await setUserData({
           ...user,
@@ -68,7 +74,8 @@ const Sidebar = () => {
               <div className="packInfo">
                 <span>{packageInfo?.price} บาท/เดือน</span>
                 <span>ใช้งานได้ {packageInfo?.periodOfUse} วัน</span>
-                <span>หมดอายุ {packageInfo?.exp}</span>
+                <span>หมดอายุ</span>
+                <span>{packageInfo?.exp}</span>
               </div>
             </div>
             <ul>
@@ -77,7 +84,7 @@ const Sidebar = () => {
               </li>
               <li
                 className={`menu-title ${
-                  isActive('/chatbot') || isActive('/chatbot/edit/:id') || isActive('/chatbot/create-bot')
+                  isActive('/chatbot') || isActive('/chatbot/edit/') || isActive('/chatbot/create-bot')
                     ? 'active'
                     : ''
                 }`}

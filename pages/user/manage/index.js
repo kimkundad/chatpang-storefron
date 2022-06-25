@@ -9,12 +9,9 @@ const Index = () => {
   const { user, setUserData } = useUser()
   const [checkAll, setCheckAll] = useState(false)
   const [checkList, setCheckList] = useState(user?.selectedPage.length !== 0 ? user?.selectedPag?.map(item => item.pageId) : [])
-  // const [pagesList, setPagesList] = useState([])
-  console.log(checkList);
   const [data, setData] = useState([])
   const onCheckAll = async () => {
     setCheckList(!checkAll ? data?.map(item=> item.id) : [])
-    // setPagesList(!checkAll ? data : [])
     setCheckAll(!checkAll)
    await setUserData({
       ...user,
@@ -24,11 +21,11 @@ const Index = () => {
 
   const onCheck = async (e) => {
     const id = e.target.name
-    console.log(id)
+    // console.log(id)
     if (checkList.indexOf(id) === -1) {
       await setCheckList([...checkList, id])
       const item = data?.filter(item => item.pageId === id)
-      console.log(item);
+      // console.log(item);
       user.selectedPage.push(item[0])
     } else {
       await setCheckList((prev) => prev.filter((v) => v !== id))
@@ -42,7 +39,7 @@ const Index = () => {
       // console.log(res.data)
       const arr = res.data.pages.map((item) => item.item)
       setData(arr)
-      console.log(arr)
+      // console.log(arr)
     } catch (error) {
       console.log(error)
     }
@@ -56,7 +53,7 @@ const Index = () => {
           <tr key={index}>
             <td>{item.pageName}</td>
             <td>
-              <input type="checkbox" name={item.pageId} onClick={(e) => onCheck(e)} checked={checkList.includes(item.pageId)} />
+              <input type="checkbox" name={item.pageId} onClick={(e) => onCheck(e)} checked={checkList?.includes(item?.pageId)} />
             </td>
           </tr>
         )

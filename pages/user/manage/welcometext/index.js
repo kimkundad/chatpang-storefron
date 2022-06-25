@@ -20,36 +20,60 @@ const Welcometext = () => {
   const [isCheckAll, setIsCheckAll] = useState(false)
 
   const onEdit = (id) => {
-    // const item = data.filter((obj) => obj.id === id)[0]
-    // setSelectedItem(item)
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } },`${router.pathname}/edit/${id}`)
+    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } }, `${router.pathname}/edit/${id}`)
   }
 
   const onChecked = async (e) => {
     setIsCheckAll(false)
-    const newId = parseInt(e.target.name)
+    const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
       await setItemList([...itemList, newId])
     } else {
       await setItemList((prev) => prev.filter((value) => value !== newId))
     }
   }
-  const onCopy = () => {
-    let lastIndex = data.length
-    let arr = []
-    // let selected = data.filter(item => itemList.indexOf(item.id) !== -1)
-    for (const key of itemList) {
-      lastIndex += 1
-      let temp = { ...data[key - 1], id: lastIndex }
-      arr.push(temp)
+  //* check user status
+  const checkFreeTrial = () => {
+    return user?.user?.status === 'inactive'
+  }
+  const onCopy = async () => {
+    try {
+      for (const id of itemList) {
+        let temp = data.filter((item) => item.item._id === id)
+        temp[0].item.campaignName = '(copy) ' + temp[0].item.campaignName
+        const copyData = {
+          pageId: temp[0].item.pageId,
+          campaignName: temp[0].item.campaignName,
+          receptionDetail: temp[0].item.receptionDetail,
+        }
+        // console.log(copyData)
+        const res = await axios.post('/receptions', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+        // console.log(res.data)
+        setData([...data,res.data.createdKeyword])
+      }
+      setItemList([])
+    } catch (error) {
+      console.log(error)
     }
-    setData([...data, ...arr])
-    setItemList([])
   }
 
-  const onDelete = () => {
-    const newData = data.filter((item) => itemList.indexOf(item.item._id) === -1)
-    setData(newData)
+  const onDelete = async () => {
+    const data = {
+      isDelete: true,
+      deleteAt: new Date(),
+    }
+    try {
+      for (const id of itemList) {
+        const res = await axios.patch(`/receptions/${id}`, data, {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        })
+        // console.log(res.data)
+        setData((prev) => prev.filter((item) => item.item._id !== id))
+      }
+      setItemList([])
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const onCheckAll = () => {
@@ -69,19 +93,26 @@ const Welcometext = () => {
   const renderTable = () => {
     return data.map((item, index) => {
       return (
-        <tr key={index}>
-          <td>
-            <input type="checkbox" name={item.item._id} checked={itemList.includes(item.item._id)} onClick={(e) => onChecked(e)} />
-          </td>
-          <td>{item.item.campaignName}</td>
-          <td>
-            <div>
-              <span onClick={() => onEdit(item.item._id)} className="userEditButton">
-                แก้ไข
-              </span>
-            </div>
-          </td>
-        </tr>
+        !item?.item?.isDelete && (
+          <tr key={index}>
+            <td>
+              <input
+                type="checkbox"
+                name={item.item._id}
+                checked={itemList.includes(item.item._id)}
+                onClick={(e) => onChecked(e)}
+              />
+            </td>
+            <td>{item.item.campaignName}</td>
+            <td>
+              <div>
+                <span onClick={() => onEdit(item.item._id)} className="userEditButton">
+                  แก้ไข
+                </span>
+              </div>
+            </td>
+          </tr>
+        )
       )
     })
   }
@@ -122,6 +153,7 @@ const Welcometext = () => {
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
               <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={() =>
                   router.push({ pathname: `${router.pathname}/create-welcome`, query: { pageId: pageID } })
                 }
@@ -130,12 +162,20 @@ const Welcometext = () => {
                 <FontAwesomeIcon className="me-2" icon={faPlus} />
                 สร้างแคมเปญ
               </span>
-              <span onClick={onCopy} className="userButton">
+              <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                onClick={onCopy}
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faCopy} />
                 สร้างซ้ำ
               </span>
               {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
-              <span onClick={onDelete} className="userButton">
+              <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                onClick={onDelete}
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faTrashCan} />
                 ลบ
               </span>

@@ -15,40 +15,69 @@ const Replykeyword = () => {
   const [itemList, setItemList] = useState([])
   const [data, setData] = useState([])
   const [isCheckAll, setIsCheckAll] = useState(false)
-  console.log(user)
   const onEdit = (id) => {
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id } },`${router.pathname}/edit/${id}`)
+    router.push(
+      { pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id } },
+      `${router.pathname}/edit/${id}`
+    )
   }
 
   const onChecked = async (e) => {
     setIsCheckAll(false)
-    const newId = parseInt(e.target.name)
+    const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
       await setItemList([...itemList, newId])
     } else {
       await setItemList((prev) => prev.filter((value) => value !== newId))
     }
   }
-  const onCopy = () => {
-    let lastIndex = data.length
-    let arr = []
-    // let selected = data.filter(item => itemList.indexOf(item.id) !== -1)
-    for (const key of itemList) {
-      lastIndex += 1
-      let temp = { ...data[key - 1], id: lastIndex }
-      arr.push(temp)
+  //* check user status
+  const checkFreeTrial = () => {
+    return user?.user?.status === 'inactive'
+  }
+  const onCopy = async () => {
+    try {
+      for (const id of itemList) {
+        let temp = data.filter((item) => item.item._id === id)
+        // console.log(temp[0])
+        temp[0].item.campaignName = '(copy) ' + temp[0].item.campaignName
+        const copyData = {
+          pageId: temp[0].item.pageId,
+          keywordName: temp[0].item.keywordName,
+          campaignName: temp[0].item.campaignName,
+          keywordDetail: temp[0].item.keywordDetail,
+        }
+        const res = await axios.post('/keywords', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+        // console.log(res.data)
+        setData([...data,res.data.createdKeyword])
+      }
+        setItemList([])
+    } catch (error) {
+      console.log(error)
     }
-    setData([...data, ...arr])
-    setItemList([])
   }
 
-  const onDelete = () => {
-    const newData = data.filter((item) => itemList.indexOf(item.id) === -1)
-    setData(newData)
+  const onDelete = async () => {
+    const data = {
+      isDelete: true,
+      deleteAt: new Date(),
+    }
+    try {
+      for (const id of itemList) {
+        const res = await axios.patch(`/keywords/${id}`, data, {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        })
+        // console.log(res.data)
+        setData((prev) => prev.filter((item) => item.item._id !== id))
+      }
+      setItemList([])
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const onCheckAll = () => {
-    const Ids = data.map((item) => item.id)
+    const Ids = data.map((item) => item.item._id)
     if (itemList.length !== 0) {
       setItemList([])
       setIsCheckAll(false)
@@ -61,25 +90,32 @@ const Replykeyword = () => {
   const renderTable = () => {
     return data.map((item, index) => {
       return (
-        <tr key={index}>
-          <td>
-            <input type="checkbox" name={item.item._id} checked={itemList.includes(item.item._id)} onClick={(e) => onChecked(e)} />
-          </td>
-          <td>{item.item.campaignName}</td>
-          <td>
-            <div>
-              <span onClick={() => onEdit(item.item._id)} className="userEditButton">
-                แก้ไข
-              </span>
-            </div>
-          </td>
-        </tr>
+        !item?.item?.isDelete && (
+          <tr key={index}>
+            <td>
+              <input
+                type="checkbox"
+                name={item.item._id}
+                checked={itemList.includes(item.item._id)}
+                onClick={(e) => onChecked(e)}
+              />
+            </td>
+            <td>{item.item.campaignName}</td>
+            <td>
+              <div>
+                <span onClick={() => onEdit(item.item._id)} className="userEditButton">
+                  แก้ไข
+                </span>
+              </div>
+            </td>
+          </tr>
+        )
       )
     })
   }
 
   const onSelect = (id) => {
-    console.log(id)
+    // console.log(id)
     setPageID(id)
   }
   const getKeywordsList = async () => {
@@ -88,7 +124,7 @@ const Replykeyword = () => {
       const res = await axios.get(`/keywords/${pageID}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data)
+      // console.log(res.data)
       setData(res.data.keywords)
     } catch (error) {
       console.log(error)
@@ -116,6 +152,7 @@ const Replykeyword = () => {
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
               <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={() =>
                   router.push({ pathname: `${router.pathname}/create-replykeyword`, query: { pageId: pageID } })
                 }
@@ -124,12 +161,20 @@ const Replykeyword = () => {
                 <FontAwesomeIcon className="me-2" icon={faPlus} />
                 สร้างแคมเปญ
               </span>
-              <span onClick={onCopy} className="userButton">
+              <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                onClick={onCopy}
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faCopy} />
                 สร้างซ้ำ
               </span>
               {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
-              <span onClick={onDelete} className="userButton">
+              <span
+                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                onClick={onDelete}
+                className="userButton"
+              >
                 <FontAwesomeIcon className="me-2" icon={faTrashCan} />
                 ลบ
               </span>

@@ -3,12 +3,12 @@ import Sidebar from '../../../../components/Sidebar'
 
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faChevronLeft, faUpload } from '@fortawesome/free-solid-svg-icons'
-import { Avatar, Divider, Input, Switch, Upload } from 'antd'
-import { InputTags } from 'react-bootstrap-tagsinput'
+import { faTrash, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { Divider, Input, Switch } from 'antd'
 import useUser from '../../../../Hooks/useUser'
 import axios from '../../../api/axios'
 import PageDropdown from '../../../../components/PageDropdown'
+import { Alert } from 'react-bootstrap'
 
 const Createbot = () => {
   const router = useRouter()
@@ -34,7 +34,12 @@ const Createbot = () => {
   const [words, setWords] = useState([])
   const [tags, setTags] = useState([])
   const [hiddenWords, setHiddenWords] = useState([])
-
+  //*check status
+  const [isSuccess, setIsSuccess] = useState({
+    show: false,
+    isSuccess: false,
+    text: '',
+  })
   const onSubmit = async (e) => {
     e.preventDefault()
     const pathInbox = await getImagePath(fileInboxComment)
@@ -53,20 +58,55 @@ const Createbot = () => {
       isHideComment: isHideComment,
       txtData: [
         {
-          txtSpecWord: words[0],
-          txtSpecHashTag: tags[0],
-          txtHideWord: hiddenWords[0],
+          txtSpecWord: words,
+          txtSpecHashTag: tags,
+          txtHideWord: hiddenWords,
         },
       ],
     }
     try {
       const res = await axios.post('/chatbots', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
       // console.log(res.data)
+      setIsSuccess({
+        show: true,
+        isSuccess: true,
+        text: 'สร้างแคมเปญสำเร็จ',
+      })
+      handleNotify()
+      setCampaignName('')
+      setTxtInboxComment('')
+      setFileInboxComment('')
+      setIsInboxComment('')
+      setTxtComment('')
+      setFileComment('')
+      setIsComment('')
+      setIsLikeComment('')
+      setIsDuplicateComment('')
+      setIsHideComment('')
+      setWords('')
+      setTags('')
+      setHiddenWords('')
+      setImg1('')
+      setImg2('')
     } catch (error) {
       console.log(error)
+      setIsSuccess({
+        show: true,
+        isSuccess: false,
+        text: 'สร้างแคมเปญไม่สำเร็จ',
+      })
+      handleNotify()
     }
   }
-
+  const handleNotify = () => {
+    setTimeout(() => {
+      setIsSuccess({
+        show: false,
+        isSuccess: false,
+        text: '',
+      })
+    }, 2000)
+  }
   const setImageInbox = (e) => {
     setFileInboxComment(e.target.files[0])
     setImg1(URL.createObjectURL(e.target.files[0]))
@@ -94,6 +134,11 @@ const Createbot = () => {
   }
   return (
     <div className="page-wrapper">
+    {isSuccess.show && (
+        <Alert className="text-center" variant={isSuccess.isSuccess ? 'success' : 'danger'}>
+          <span>{isSuccess.text}</span>
+        </Alert>
+      )}
       <div className="content container-fluid">
         <Sidebar />
         <div className="userpage-wrapper text-center">
@@ -115,8 +160,8 @@ const Createbot = () => {
           {/* content */}
           <div className="row g-3">
             {/* <div className='mx-auto chatNameInput'> */}
-            <div className="col-md-4 text-md-end text-center">
-              <strong className="me-3">ชื่อแคมเปญ</strong>
+            <div className="col-md-4 d-flex justify-content-md-end justify-content-center">
+              <h4 className="me-3 text-md-end my-auto">ชื่อแคมเปญ</h4>
             </div>
             <div className="col-md-4 mx-auto chatNameInput">
               <input
@@ -139,7 +184,7 @@ const Createbot = () => {
           <div className="row g-3">
             {/* <div className='col-md-8 mx-auto chatComment'> */}
             <div className="col-md-3 commentHeader">
-              <strong className="ms-md-3 me-2">ข้อความตอบเข้าอินบ็อกซ์</strong>
+              <h4 className="ms-md-3 me-2">ข้อความตอบเข้าอินบ็อกซ์</h4>
               <Switch
                 style={{ width: 'fit-content' }}
                 size="small"
@@ -188,7 +233,7 @@ const Createbot = () => {
           <div className="row text-center g-3">
             {/* <div className='col-md-8 mx-auto chatComment'> */}
             <div className="col-md-3 commentHeader">
-              <strong className="ms-md-3 me-2">คอมเม้นต์ใต้โพสต์</strong>
+              <h4 className="ms-md-3 me-2">คอมเม้นต์ใต้โพสต์</h4>
               <Switch
                 style={{ width: 'fit-content' }}
                 size="small"
@@ -208,7 +253,7 @@ const Createbot = () => {
               <div className="toggleCommentOptions">
                 <div>
                   <Switch size="small" value={isLikeComment} onChange={() => setIsLikeComment(!isLikeComment)} />
-                  <strong className="ms-3">ถูกใจคอมเม้นต์</strong>
+                  <h4 className="ms-3 my-auto">ถูกใจคอมเม้นต์</h4>
                 </div>
                 <div>
                   <Switch
@@ -216,11 +261,11 @@ const Createbot = () => {
                     value={isDuplicateComment}
                     onChange={() => setIsDuplicateComment(!isDuplicateComment)}
                   />
-                  <strong className="ms-3">ไม่ตอบซ้ำคนเดิม</strong>
+                  <h4 className="ms-3 my-auto">ไม่ตอบซ้ำคนเดิม</h4>
                 </div>
                 <div>
                   <Switch size="small" value={isHideComment} onChange={() => setIsHideComment(!isHideComment)} />
-                  <strong className="ms-3">ซ่อนคอมเม้นต์</strong>
+                  <h4 className="ms-3 my-auto">ซ่อนคอมเม้นต์</h4>
                 </div>
               </div>
             </div>
@@ -252,24 +297,24 @@ const Createbot = () => {
             {/* </div> */}
           </div>
           <Divider />
-          <div className="row">
-            <div className="col-md-6 mx-auto chatWording">
-              <div className="d-flex my-3">
-                <strong className="me-3 my-auto">ตอบเฉพาะคำเหล่านี้</strong>
+          <div className="row justify-content-center">
+            <div className="col-md-6 mx-auto chatWording text-start text-md-end">
+              <div className="d-flex flex-column flex-md-row my-3">
+                <h4 className="me-3 my-auto">ตอบเฉพาะคำเหล่านี้</h4>
                 <div className="chatWordInput">
-                  <InputTags values={words} onTags={(value) => setWords(value.values)} name="tags" />
+                  <input value={words} onChange={(e) => setWords(e.target.value)} name="tags" />
                 </div>
               </div>
-              <div className="d-flex my-3">
-                <strong className="me-3 my-auto">ตอบเฉพาะแฮทแท็กนี้</strong>
+              <div className="d-flex my-3 flex-column flex-md-row">
+                <h4 className="me-3 my-auto">ตอบเฉพาะแฮทแท็กนี้</h4>
                 <div className="chatWordInput">
-                  <InputTags values={tags} onTags={(value) => setTags(value.values)} name="specificWord" />
+                  <input value={tags} onChange={(e) => setTags(e.target.value)} name="specificWord" />
                 </div>
               </div>
-              <div className="d-flex my-3">
-                <strong className="me-3 my-auto">ซ่อนคำเหล่านี้</strong>
+              <div className="d-flex my-3 flex-column flex-md-row">
+                <h4 className="me-3 my-auto">ซ่อนคำเหล่านี้</h4>
                 <div className="chatWordInput">
-                  <InputTags values={hiddenWords} onTags={(value) => setHiddenWords(value.values)} name="tags" />
+                  <input value={hiddenWords} onChange={(e) => setHiddenWords(e.target.value)} name="tags" />
                 </div>
               </div>
             </div>

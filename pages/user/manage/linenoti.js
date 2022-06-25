@@ -20,16 +20,6 @@ const Linenoti = () => {
   const [timeUnit, setTimeUnit] = useState('s')
   const [time, setTime] = useState()
   const [data, setData] = useState([])
-  // const data = [
-  //   {
-  //     name: 'แจ้งเตือนตอบช้า live Page',
-  //     qty: 5,
-  //   },
-  //   {
-  //     name: 'แจ้งเตือนตอบช้า live_2 Page',
-  //     qty: 2,
-  //   },
-  // ]
 
   const onSubmit = async () => {
     const data = {
@@ -38,10 +28,10 @@ const Linenoti = () => {
       lineAccessToken: lineAccessToken,
       lineTimer: lineTimer,
     }
-    console.log(data)
+    // console.log(data)
     try {
       const res = await axios.post(`/notifications`, data,{ headers: { Authorization: `Bearer ${user?.accessToken}`}})
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -63,8 +53,6 @@ const Linenoti = () => {
   function onChangeTime(value) {
     setTime(value)
     let mili = 0
-    // console.log('changed', value)
-    // console.log(timeUnit)
     switch (timeUnit) {
       case 's':
         mili = value * 1000

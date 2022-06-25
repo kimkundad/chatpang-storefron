@@ -43,7 +43,7 @@ const QRcode = () => {
     // <div className="page-wrapper">
     // <div className="content">
     <>
-      <div className="row justify-content-center mb-3">
+      <div className="row justify-content-center">
         <div className="col-md-3 col-10 text-center qrcodeDetail mx-auto">
           <p>รายละเอียดการชำระเงิน</p>
           <Divider />

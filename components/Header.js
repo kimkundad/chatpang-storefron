@@ -26,33 +26,33 @@ const Header = () => {
 
   const onLogOut = () => {
     router.push('/')
-    setUserData({ ...user,isLogin: false })
+    setUserData({ ...user, isLogin: false })
   }
 
   const menu = (
     <Menu
       items={[
         {
-          label: <span onClick={() => router.push('/user/info/pagemanagement')}>จัดการเพจ</span>,
+          label: <span style={{fontSize:'min(1.5rem,3vw)'}} onClick={() => router.push('/user/info/pagemanagement')}>จัดการเพจ</span>,
           key: 0,
         },
         {
-          label: <span onClick={() => router.push('/user/info/accountmanagement')}>จัดการบัญชีและสมาชิก</span>,
+          label: <span style={{fontSize:'min(1.5rem,3vw)'}} onClick={() => router.push('/user/info/accountmanagement')}>จัดการบัญชีและสมาชิก</span>,
           key: 1,
         },
         {
-          label: <span onClick={() => router.push('/user/manage')}>หน้าหลัก</span>,
+          label: <span style={{fontSize:'min(1.5rem,3vw)'}} onClick={() => router.push('/user/manage')}>หน้าหลัก</span>,
           key: 3,
         },
         {
-          label: <span onClick={() => router.push('/user/contactus')}>ติดต่อเรา</span>,
+          label: <span style={{fontSize:'min(1.5rem,3vw)'}} onClick={() => router.push('/user/contactus')}>ติดต่อเรา</span>,
           key: 4,
         },
         {
           type: 'divider',
         },
         {
-          label: <span onClick={onLogOut}>ออกจากระบบ</span>,
+          label: <span style={{fontSize:'min(1.5rem,3vw)'}} onClick={onLogOut}>ออกจากระบบ</span>,
           key: 5,
         },
       ]}
@@ -63,13 +63,13 @@ const Header = () => {
     if (user.isLogin) {
       return (
         // <AppContext.Consumer>
-          <Dropdown overlay={menu} trigger={['click']} className="fw-bold fs-4 d-flex align-items-center ms-3">
-            <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
-              {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
-              <span className="mx-2">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
-              <FontAwesomeIcon icon={faAngleDown} />
-            </a>
-          </Dropdown>
+        <Dropdown overlay={menu} trigger={['click']} className="fw-bold fs-4 d-flex align-items-center ms-3">
+          <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
+            {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
+            <span className="mx-2">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+            <FontAwesomeIcon icon={faAngleDown} />
+          </a>
+        </Dropdown>
         // </AppContext.Consumer>
       )
     } else {
@@ -89,7 +89,14 @@ const Header = () => {
   }
 
   const renderMenuNav = () => {
-    if (!pathName.includes('user')) {
+    if (
+      !pathName.includes('/user/manage') &&
+      !pathName.includes('/user/payment') &&
+      !pathName.includes('/user/info') &&
+      !pathName.includes('/user/register')&&
+      !pathName.includes('/user/changepackage')&&
+      !pathName.includes('/user/contactus')
+    ) {
       return (
         <div className="collapse navbar-collapse align-content-end" id="navbarNavAltMarkup">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -132,7 +139,7 @@ const Header = () => {
   }
 
   const renderBTNNavbar = () => {
-    if (!pathName.includes('user/manage')) {
+    if (!pathName.includes('user')) {
       return (
         <button
           className="navbar-toggler"
@@ -163,7 +170,14 @@ const Header = () => {
     <header className="position-fixed w-100 top-0" style={{ zIndex: '1000' }}>
       <nav className="customHeader navbar navbar-expand-lg navbar-dark shadow-sm">
         <div className="container-xl">
-          <Link to="/" onClick={() =>{ setCurrent(''); router.push('/')}} className="navbar-brand" >
+          <Link
+            to="/"
+            onClick={() => {
+              setCurrent('')
+              router.push('/')
+            }}
+            className="navbar-brand"
+          >
             <img src="/images/header-logo.svg" style={{ maxWidth: '209px' }} alt="logo" />
           </Link>
           {/* <div className='sideBarToggle d-md-none d-sm-block me-3' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >

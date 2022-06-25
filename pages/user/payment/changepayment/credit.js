@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/dist/client/router'
 import axios from '../../../api/axios'
 import useUser from '../../../../Hooks/useUser'
-const Credit = () => {
+const Credit = ({setIsSuccess}) => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [cardName, setCardName] = useState(user?.payment?.customerName)
@@ -10,6 +10,7 @@ const Credit = () => {
   const [mm, setMm] = useState(user?.payment?.customerCardexpirationMonth)
   const [yy, setYy] = useState(user?.payment?.customerCardexpirationYear)
   const [cvv, setCvv] = useState(user?.payment?.customerCardsecurityCode)
+  
   const onSubmit = async () => {
     const data = {
       cardNo: cardNO,
@@ -33,21 +34,41 @@ const Credit = () => {
       // phone: user?.user?.phoneNo,
       // detail: user?.package?.name,
     }
-    console.log(data)
-    console.log(user?.user?._id)
+    // console.log(data)
+    // console.log(user?.user?._id)
     //!move to parent component
     try {
       const res = await axios.patch(`/user/updateUser/${user?.user?._id}`, data, {
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user?.accessToken}`},
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user?.accessToken}` },
       })
-      const payment = res.data.createdPayment
-      console.log(res.data)
-      await setUserData({ ...user, payment: payment })
-      // router.back()
+      setIsSuccess({
+        show: true,
+        isSuccess: true,
+        text: 'อัพเดตข้อมูลสำเร็จ',
+      })
+      handleNotify()
+      // console.log(res.data)
     } catch (error) {
       console.log(error)
       // router.push(`/user`)
+      console.log(error)
+      setIsSuccess({
+        show: true,
+        isSuccess: false,
+        text: 'อัพเดตข้อมูลไม่สำเร็จ',
+      })
+      handleNotify()
     }
+  }
+  const handleNotify = () => {
+    setTimeout(() => {
+      setIsSuccess({
+        show: false,
+        isSuccess: false,
+        text: '',
+      })
+      router.back()
+    }, 2000)
   }
   return (
     <>

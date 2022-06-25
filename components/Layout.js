@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return children ? (
     <div className='main-wrapper'>
       <Header />
-      <div style={{ marginTop: '104px' }}>{children}</div>
+      <div>{children}</div>
       <Footer />
     </div>
   ) : (

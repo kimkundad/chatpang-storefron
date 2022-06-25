@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import axios from '../../../../api/axios'
 import useUser from '../../../../../Hooks/useUser'
 import Sidebar from '../../../../../components/Sidebar'
+import { Alert } from 'react-bootstrap'
 
 const Edit = () => {
   const router = useRouter()
@@ -33,7 +34,12 @@ const Edit = () => {
       type: 'image',
     },
   ])
-
+  //*check status
+  const [isSuccess, setIsSuccess] = useState({
+    show: false,
+    isSuccess: false,
+    text: '',
+  })
   const onSubmit = async (e) => {
     e.preventDefault()
     await convertToImagePath()
@@ -42,16 +48,38 @@ const Edit = () => {
       keywordName: keywordName,
       keywordDetail: details,
     }
-    console.log(data)
+    // console.log(data)
 
     try {
       const res = await axios.patch(`/keywords/${id}`, data, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data)
+      // console.log(res.data)
+      setIsSuccess({
+        show: true,
+        isSuccess: true,
+        text: 'แก้ไขแคมเปญสำเร็จ',
+      })
+      handleNotify()
     } catch (error) {
       console.log(error)
+      setIsSuccess({
+        show: true,
+        isSuccess: false,
+        text: 'แก้ไขแคมเปญไม่สำเร็จ',
+      })
+      handleNotify()
     }
+  }
+  const handleNotify = () => {
+    setTimeout(() => {
+      setIsSuccess({
+        show: false,
+        isSuccess: false,
+        text: '',
+      })
+      router.back()
+    }, 2000)
   }
   const convertToImagePath = async () => {
     //check already a img link by check https
@@ -68,7 +96,7 @@ const Edit = () => {
     formData.append('image', file, file.name)
     try {
       const res = await axios.post('/configs/upload', formData)
-      console.log(res.data)
+      // console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log(error)
@@ -97,7 +125,7 @@ const Edit = () => {
       temArr[index].name = e.target.value
     } else {
       const file = e.target.files[0]
-      console.log(file)
+      // console.log(file)
       await onUpload(index, file)
       temArr[index].name = file
     }
@@ -116,11 +144,11 @@ const Edit = () => {
     onDeleteImg(index)
   }
   const handleClickFileInput = (index) => {
-    console.log(inputRef[index])
+    // console.log(inputRef[index])
     inputRef[index].current.click()
   }
   const onClickNext = (index) => {
-    console.log(inputRef[index].current)
+    // console.log(inputRef[index].current)
     inputRef[index].current.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
@@ -231,7 +259,7 @@ const Edit = () => {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       const data = res.data
-      console.log(res.data)
+      // console.log(res.data)
       setCampaignName(data.campaignName)
       setKeywordName(data.keywordName)
       setDetails(data.keywordDetail)
@@ -244,7 +272,16 @@ const Edit = () => {
   const onClear = () => {
     setCampaignName('')
     setKeywordName('')
-    setKeywordDetail('')
+    setKeywordDetail([
+      {
+        name: '',
+        type: 'text',
+      },
+      {
+        name: '',
+        type: 'image',
+      },
+    ])
   }
 
   useEffect(() => {
@@ -252,6 +289,11 @@ const Edit = () => {
   }, [])
   return (
     <div className="page-wrapper">
+      {isSuccess.show && (
+        <Alert className="text-center" variant={isSuccess.isSuccess ? 'success' : 'danger'}>
+          <span>{isSuccess.text}</span>
+        </Alert>
+      )}
       <div className="content container-fluid">
         <Sidebar />
         <div className="userpage-wrapper text-center">

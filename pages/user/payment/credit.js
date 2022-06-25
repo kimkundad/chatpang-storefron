@@ -6,10 +6,10 @@ const Credit = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [cardName, setCardName] = useState('')
-  const [cardNO, setCardNO] = useState('4535017710535741')
-  const [mm, setMm] = useState('05')
-  const [yy, setYy] = useState('28')
-  const [cvv, setCvv] = useState('184')
+  const [cardNO, setCardNO] = useState('')
+  const [mm, setMm] = useState('')
+  const [yy, setYy] = useState('')
+  const [cvv, setCvv] = useState('')
   const onSubmit = async () => {
     const data = {
       number: cardNO,
@@ -18,21 +18,20 @@ const Credit = () => {
       code: cvv,
       name: cardName,
       email: user?.user?.email,
-      //*fixed value
-      // year: '28',
-      // month: '05',
-      // name: 'Gftherd Therdsak Paradeewirai',
-      // number: '4535017710535741',
-      // code: '184',
-      // email: 'gftherd.p@gmail.com',
-      //*fixed value
-
       type: 'card',
       referenceNo: '20171128001',
       amount: user?.package?.price,
       phone: user?.user?.phoneNo,
       detail: user?.package?.name,
     }
+    //*fixed value
+    // year: '28',
+    // month: '05',
+    // name: 'Gftherd Therdsak Paradeewirai',
+    // number: '4535017710535741',
+    // code: '184',
+    // email: 'gftherd.p@gmail.com',
+    //*fixed value
     // console.log(data)
     //!move to parent component
     try {
