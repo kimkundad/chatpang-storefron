@@ -97,7 +97,7 @@ const Linenoti = () => {
 
   //* select page by id
   const onSelect = (id) => {
-    console.log(id)
+    // console.log(id)
     setPageID(id)
   }
 
@@ -107,7 +107,7 @@ const Linenoti = () => {
       const res = await axios.get(`/notifications/${pageID}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data.notifications);
+      // console.log(res.data.notifications);
       setData(res.data.notifications)
     } catch (error) {
       console.log(error)
@@ -193,7 +193,7 @@ const Linenoti = () => {
                   controls={true}
                   value={time}
                   min={1}
-                  max={timeUnit === 'h' ? 12 : 60}
+                  max={timeUnit === 'h' ? 24 : 60}
                   addonAfter={selectAfter}
                   onChange={onChangeTime}
                 />

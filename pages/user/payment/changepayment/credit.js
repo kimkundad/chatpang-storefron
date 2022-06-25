@@ -1,23 +1,23 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/dist/client/router'
-import axios from '../../api/axios'
-import useUser from '../../../Hooks/useUser'
+import axios from '../../../api/axios'
+import useUser from '../../../../Hooks/useUser'
 const Credit = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  const [cardName, setCardName] = useState('')
-  const [cardNO, setCardNO] = useState('4535017710535741')
-  const [mm, setMm] = useState('05')
-  const [yy, setYy] = useState('28')
-  const [cvv, setCvv] = useState('184')
+  const [cardName, setCardName] = useState(user?.payment?.customerName)
+  const [cardNO, setCardNO] = useState(user?.payment?.customerCardNo)
+  const [mm, setMm] = useState(user?.payment?.customerCardexpirationMonth)
+  const [yy, setYy] = useState(user?.payment?.customerCardexpirationYear)
+  const [cvv, setCvv] = useState(user?.payment?.customerCardsecurityCode)
   const onSubmit = async () => {
     const data = {
-      number: cardNO,
-      month: mm,
-      year: yy,
-      code: cvv,
-      name: cardName,
-      email: user?.user?.email,
+      cardNo: cardNO,
+      cardMonth: mm,
+      cardYear: yy,
+      cardCode: cvv,
+      cardName: cardName,
+      // email: user?.user?.email,
       //*fixed value
       // year: '28',
       // month: '05',
@@ -27,22 +27,26 @@ const Credit = () => {
       // email: 'gftherd.p@gmail.com',
       //*fixed value
 
-      type: 'card',
-      referenceNo: '20171128001',
-      amount: user?.package?.price,
-      phone: user?.user?.phoneNo,
-      detail: user?.package?.name,
+      // type: 'card',
+      // referenceNo: '20171128001',
+      // amount: user?.package?.price,
+      // phone: user?.user?.phoneNo,
+      // detail: user?.package?.name,
     }
-    // console.log(data)
+    console.log(data)
+    console.log(user?.user?._id)
     //!move to parent component
     try {
-      const res = await axios.post('/payments', data, { headers: { 'Content-Type': 'application/json' } })
+      const res = await axios.patch(`/user/updateUser/${user?.user?._id}`, data, {
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user?.accessToken}`},
+      })
       const payment = res.data.createdPayment
+      console.log(res.data)
       await setUserData({ ...user, payment: payment })
-      router.push(`/user/payment/confirmorder`)
+      // router.back()
     } catch (error) {
       console.log(error)
-      router.push(`/user`)
+      // router.push(`/user`)
     }
   }
   return (
@@ -112,7 +116,7 @@ const Credit = () => {
             ย้อนกลับ
           </button>
           <button onClick={() => onSubmit()} className="ms-3">
-            ต่อไป
+            บันทึก
           </button>
         </div>
       </div>
