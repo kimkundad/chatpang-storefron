@@ -95,7 +95,8 @@ const Header = () => {
       !pathName.includes('/user/info') &&
       !pathName.includes('/user/register')&&
       !pathName.includes('/user/changepackage')&&
-      !pathName.includes('/user/contactus')
+      !pathName.includes('/user/contactus')&&
+      !pathName.includes('/user/packages')
     ) {
       return (
         <div className="collapse navbar-collapse align-content-end" id="navbarNavAltMarkup">
