@@ -52,7 +52,7 @@ const Packages = () => {
           </div>
         </div>
         <div className="row justify-content-center mt-5">
-          <div style={{ minHeight: '350px' }} className="col-md-12 d-flex justify-content-center flex-wrap">
+          <div style={{ minHeight: '450px' }} className="col-md-12 d-flex justify-content-center flex-wrap">
             <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage} />
           </div>
         </div>
