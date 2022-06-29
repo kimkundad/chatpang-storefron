@@ -27,6 +27,7 @@ const Confirmorder = () => {
   }
   const onsubmit = async () => {
     const signupData = {
+      userId: user?.user?.userId,
       name: user?.user?.name,
       email: user?.user?.email,
       imgProfile: user?.user?.imgProfile,
@@ -46,6 +47,11 @@ const Confirmorder = () => {
           endAt: await getEndDate(),
         },
       ],
+      cardName: user?.reqPayment?.name,
+      cardNo: user?.reqPayment?.number,
+      cardMonth: user?.reqPayment?.month,
+      cardYear: user?.reqPayment?.year,
+      cardCode: user?.reqPayment?.code
     }
     // console.log(signupData)
     const createPageData = {

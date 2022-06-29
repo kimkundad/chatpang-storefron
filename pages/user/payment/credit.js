@@ -37,7 +37,7 @@ const Credit = () => {
     try {
       const res = await axios.post('/payments', data, { headers: { 'Content-Type': 'application/json' } })
       const payment = res.data.createdPayment
-      await setUserData({ ...user, payment: payment })
+      await setUserData({ ...user, payment: payment,reqPayment:data })
       router.push(`/user/payment/confirmorder`)
     } catch (error) {
       console.log(error)
