@@ -99,7 +99,6 @@ const CreateReplyKeyword = () => {
     formData.append('image', file, file.name)
     try {
       const res = await axios.post('/configs/upload', formData)
-      // console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log(error)

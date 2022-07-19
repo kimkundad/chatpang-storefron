@@ -10,6 +10,7 @@ import Player from 'react-player'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import QAContainer from '../components/QAContainer'
 const featureData = [
   {
     img: '/images/landing-page/feature-1.svg',
@@ -57,10 +58,6 @@ const responsive = {
   },
 }
 
-// const star = [{}, {}, {}, {}, {}]
-
-// const clientFeedbackData = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
-
 const accordionData = [
   {
     id: '1',
@@ -84,37 +81,6 @@ const accordionData = [
   },
 ]
 
-// const packageData = [
-//   {
-//     plane: 'Basic',
-//     price: '290',
-//     features: [
-//       { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
-//       { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
-//       { feature: 'ใช้งานได้ 1 เพจ' },
-//     ],
-//   },
-//   {
-//     plane: 'VIP',
-//     price: '590',
-//     features: [
-//       { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
-//       { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
-//       { feature: 'ใช้งานได้ 3 เพจ' },
-//     ],
-//   },
-//   {
-//     plane: 'Bussiness',
-//     price: '990',
-//     features: [
-//       { feature: 'ตอบคอมเม้นต์อัตโนมัติ' },
-//       { feature: 'ดึงคอมเม้นต์เข้า Inbox' },
-//       { feature: 'ใช้งานได้ 1 เพจ' },
-//       { feature: 'ระบบ Line แจ้งเตือน' },
-//     ],
-//   },
-// ]
-
 export default function Home() {
   const router = useRouter()
   const myRef = useRef()
@@ -123,29 +89,29 @@ export default function Home() {
 
   const [reviews, setReviews] = useState([])
 
- async function getPackages() {
+  async function getPackages() {
     try {
       const res = await axios('/packages')
       setPackages(res.data.packages)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
   function setSelectedPackage(id) {
-    if (selected === id) {
+    if (selectedPackage === id) {
       setPackage(null)
     } else {
       setPackage(id)
     }
   }
 
- async function getReviews() {
-  try {
-    const res = await axios('/reviews')
-    setReviews(res.data.reviews)
-  } catch (error) {
-    console.log(error);
-  }
+  async function getReviews() {
+    try {
+      const res = await axios('/reviews')
+      setReviews(res.data.reviews)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function renderRating(num) {
@@ -154,29 +120,27 @@ export default function Home() {
       star.push(i)
     }
     return (
-        <div>
-          {star.map((obj)=>{
-            return(
-              <FontAwesomeIcon key={obj} icon={faStar} />
-            )
-          })}
-        </div>
-      )
+      <div>
+        {star.map((obj) => {
+          return <FontAwesomeIcon style={{color:"yellow", margin:"0 2px"}} key={obj} icon={faStar} />
+        })}
+      </div>
+    )
   }
   function renderReviewDetail(text) {
-      if (text.length > 30) {
-        return text.substring(0,31)+"..."
-      }else{
-        return text
-      }
+    if (text.length > 30) {
+      return text.substring(0, 31) + '...'
+    } else {
+      return text
+    }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getPackages()
     getReviews()
-  },[])
+  }, [])
   return (
     <>
-      <div className="container-md">
+      <div className="container container-fluid">
         {/* Section 1 */}
         <div
           className="d-flex flex-column-reverse flex-md-row row-cols-2 p-2 p-md-0 h-100"
@@ -186,18 +150,23 @@ export default function Home() {
           <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
             <iframe
               src="https://www.youtube.com/embed/QIjZn_fiS3M"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
+              width="100%"
+              height="100%"
+              className="video-yt"
+              allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
               allowFullScreen
-              title="video"
-              style={{ height: '100%', width: '100%', maxHeight: '518px' }}
+              // style={{ height: '100%', width: '100%', maxHeight: '518px' }}
             />
           </div>
           <div className="col-12 col-md-6 py-5 py-md-0 flex-column align-items-center justify-content-center d-flex">
-            <img src="/images/landing-page/home-section-logo.svg" style={{ width: '100%', maxWidth: '376px' }}/>
-            <div className="display-4 display-sm-2">ผู้ช่วยตอบแชทเก่ง!</div>
-            <h2 className="fst-italic fw-normal">ของแม่ค้าออนไลน์</h2>
-            <Button onClick={()=> router.push('/user')} variant="dark" className="rounded-pill">
+            <img src="/images/logo/newLogo.png" style={{ width: '100%', maxWidth: '980px' }} />
+            <div className="index-text">
+              ผู้ช่วยตอบแชทเก่ง! <br />
+              ของแม่ค้าออนไลน์
+            </div>
+            {/* <div className="display-4 display-sm-2">ผู้ช่วยตอบแชทเก่ง!</div> */}
+            {/* <h2 className="fst-italic fw-normal">ของแม่ค้าออนไลน์</h2> */}
+            <Button onClick={() => router.push('/user')} className="btn custom-index-btn rounded-pill">
               สนใจเริ่มใช้งาน
             </Button>
           </div>
@@ -210,7 +179,7 @@ export default function Home() {
         >
           <div className="col-12 col-md-8 d-flex py-5 py-md-0 flex-column align-items-center justify-content-center ">
             <div className="d-flex">
-              <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '131px' }} />
+              <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '160px' }} />
               <div className="display-4 display-md-4">
                 ไม่พลาดทุกแชทของลูกค้า
                 <br />
@@ -240,10 +209,12 @@ export default function Home() {
         {/* Section 3 */}
         <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0">
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
-            <div className=" display-6 fw-bolder" id="benefit">Chatpang ทำอะไรได้บ้าง ?</div>
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '80px' }} />
+            <div className="display-6 fw-bolder" id="benefit">
+              Chatpang ทำอะไรได้บ้าง ?
+            </div>
           </div>
-          <div className="text-center">
+          <div className="text-center fs-2">
             รวม 5 ฟังก์ชั่นของ <span className="text-secondary">Chatpang</span> ที่จะช่วยให้คุณตอบแชทกับลูกค้าได้ในทันที
           </div>
           <div
@@ -253,7 +224,7 @@ export default function Home() {
             {featureData.map((val, index) => (
               <div className="px-3 mt-5 h-100" key={index}>
                 <div
-                  className="px-2 pb-3 position-relative border-grey100 border rounded-3 d-flex flex-column align-items-center"
+                  className="px-2 pb-3 position-relative border-grey100 border rounded-3 d-flex flex-column align-items-center shadow-sm"
                   style={{ paddingTop: '56px', height: '180px' }}
                 >
                   <img
@@ -268,8 +239,8 @@ export default function Home() {
                       top: '-40px',
                     }}
                   />
-                  <div className=" fw-bold">{val.title}</div>
-                  <div className="text-center text-break">{val.subTitle}</div>
+                  <div className=" fw-bold fs-2">{val.title}</div>
+                  <div className="text-center text-break fs-4">{val.subTitle}</div>
                 </div>
               </div>
             ))}
@@ -277,9 +248,12 @@ export default function Home() {
         </div>
 
         {/* Section 4 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5" id="review">
+        <div
+          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5"
+          id="review"
+        >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '72px' }} />
             <div className=" display-6 fw-bolder">รีวิวจากลูกค้า</div>
           </div>
 
@@ -289,12 +263,11 @@ export default function Home() {
                 <div key={index} className="flex flex-column p-3">
                   {/* <img src="/images/landing-page/placeholder-video.svg" className="w-100" /> */}
                   <Player
-                  url={val.item.linkUrl} 
-                  controls={true}
-                  muted={true}
-                  width="280px"
-                  height="280px"
-                   />
+                    width="100%"
+                    height="240px"
+                    url={val.item.linkUrl}
+                    style={{ borderRadius:'20px !important' }}
+                  />
                   <div
                     className="bg-grey50 shadow px-5 pt-4 pb-3 border rounded-3 position-relative"
                     style={{ marginTop: '4em' }}
@@ -304,24 +277,26 @@ export default function Home() {
                       className="position-absolute m-auto"
                       style={{
                         maxWidth: '60px',
-                        maxHeight:"60px",
+                        maxHeight: '60px',
                         left: 0,
                         right: 0,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         top: '-40px',
-                        borderRadius:"50px"
+                        borderRadius: '50px',
                       }}
                     />
                     <div className=" d-flex flex-column align-items-center">
                       <div>{val.item.name}</div>
                       {/* <div> */}
-                        {/* {star.map((val, index) => (
+                      {/* {star.map((val, index) => (
                           <img src="/images/landing-page/star-icon.svg" key={index} />
                         ))} */}
-                        {renderRating(val.item.rating)}
+                      {renderRating(val.item.rating)}
                       {/* </div> */}
-                      <div style={{minHeight:"50px"}} className="text-center">{renderReviewDetail(val.item.detail)}</div>
+                      <div style={{ minHeight: '50px', fontSize:'1.2rem' }} className="text-center">
+                        {renderReviewDetail(val.item.detail)}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -331,18 +306,22 @@ export default function Home() {
         </div>
 
         {/* Section 5 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5" id="questions">
+        <div
+          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5"
+          id="questions"
+        >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '72px' }} />
             <div className=" display-6 fw-bolder">คำถามที่พบบ่อย</div>
           </div>
-          <div className="text-center">
+          <div className="text-center fs-2">
             รวมคำถามที่เราได้รับมาบ่อยๆ หากมีปัญหาอะไรเพิ่มเติมสามารถติดต่อได้ที่{' '}
             <span className="text-secondary">LINE : @chatpang</span>
           </div>
 
           <div className="mt-3 w-100">
-            <Accordion defaultActiveKey="0">
+          <QAContainer data={accordionData} />
+            {/* <Accordion defaultActiveKey="0">
               {accordionData.map((val, index) => (
                 <Accordion.Item key={index} eventKey={val.id}>
                   <Accordion.Header>
@@ -355,21 +334,26 @@ export default function Home() {
                   <Accordion.Body>{val.des}</Accordion.Body>
                 </Accordion.Item>
               ))}
-            </Accordion>
+            </Accordion> */}
           </div>
         </div>
 
         {/* Section 6 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 py-5 my-5" id="packages">
+        <div
+          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 py-5 my-5"
+          id="packages"
+        >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/landing-page/main-logo.svg" style={{ width: '100%', maxWidth: '72px' }} />
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '72px' }} />
             <div className=" display-6 fw-bolder">แพ็คเกจสุดคุ้ม!</div>
           </div>
 
           <div className="row w-100 overflow-hidden" style={{ marginTop: '2em' }}>
-          {/* <CardPrice data={packages} selected={selectedPackage} setSelectedPackage={setSelectedPackage}/> */}
-            {packages.map((val, index) => (
-              <div key={index} className="col-12 col-md-4 p-3">
+            <div className="col-md-12 cardPriceContainer">
+              {/* {packages.map((val, index) => ( */}
+              <CardPrice data={packages} selected={selectedPackage} setSelectedPackage={setSelectedPackage} />
+
+              {/* <div key={index} className="col-12 col-md-4 p-3">
                 <div className="position-relative shadow rounded-2 d-flex flex-column justify-content-between align-items-center p-4 h-100">
                   <div className="d-flex flex-column align-items-center mb-5">
                     <div className="bg-primary rounded px-5 py-1">{val.item.name}</div>
@@ -398,11 +382,12 @@ export default function Home() {
                   )
                   }
                 </div>
-              </div>
-            ))}
+              </div> */}
+              {/* ))} */}
+            </div>
           </div>
 
-          <div className="mt-3 text-danger">
+          <div className="mt-3 text-danger fs-2">
             ***สำหรับแพ็คเกจ Basic / VIP ถ้าต้องการใช้ระบบ Line แจ้งเตือน มีค่าบริการเพิ่มเติมเดือนละ 200 บาท***
           </div>
         </div>
@@ -417,7 +402,7 @@ export default function Home() {
             <u className="display-5">ติดต่อสอบถามเพิ่มเติม</u>
             <div className="d-flex" style={{ marginTop: '24px' }}>
               <img src="/images/landing-page/location.png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4">
+              <div className="ms-4 fs-4">
                 บริษัท บีทีวาย มาเก็ตติ้ง จำกัด
                 <br />
                 169/93 หมู่บ้านอรินสิริ@ข้าวหลาม
@@ -427,23 +412,23 @@ export default function Home() {
             </div>
             <div className="d-flex" style={{ marginTop: '16px' }}>
               <img src="/images/landing-page/call.png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4">087 135 2410 (คุณต๊อป)</div>
+              <div className="ms-4 fs-4">087 135 2410 (คุณต๊อป)</div>
             </div>
             <div className="d-flex" style={{ marginTop: '16px' }}>
               <img src="/images/landing-page/line .png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4">@chatpang</div>
+              <div className="ms-4 fs-4">@chatpang</div>
             </div>
             <div className="d-flex" style={{ marginTop: '16px' }}>
               <img src="/images/landing-page/email.svg" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4">chatpang@gmail.com</div>
+              <div className="ms-4 fs-4">chatpang@gmail.com</div>
             </div>
             <div className="d-flex" style={{ marginTop: '16px' }}>
               <img src="/images/landing-page/timer.png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4">ทุกวัน 9.00 - 23.00</div>
+              <div className="ms-4 fs-4">ทุกวัน 9.00 - 23.00</div>
             </div>
           </div>
           <div className="col-12 col-md-6 py-5 py-md-0 d-flex flex-column align-items-center justify-content-center">
-            <img src="/images/landing-page/qr-code.svg" style={{ width: '200px' }} />
+            <img src="/images/landing-page/qr-code.svg" style={{ width: '250px' }} />
             <div className="d-flex mt-4 gap-3">
               <img src="/images/landing-page/facebook-round.svg" style={{ width: '42px' }} />
               <img src="/images/landing-page/line-round.svg" style={{ width: '42px' }} />

@@ -74,7 +74,7 @@ const Header = () => {
       )
     } else {
       return (
-        <li className="nav-item">
+        <li className="nav-item fs-2">
           <Link to="/" offset={-40}>
             <span
               onClick={() => router.push('/user/contactus')}
@@ -179,7 +179,7 @@ const Header = () => {
             }}
             className="navbar-brand"
           >
-            <img src="/images/header-logo.svg" style={{ maxWidth: '209px' }} alt="logo" />
+            <img src="/images/logo/newLogo.png" style={{ maxWidth: '209px' }} alt="logo" />
           </Link>
           {/* <div className='sideBarToggle d-md-none d-sm-block me-3' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >
             <FontAwesomeIcon icon={faBars} /> 
@@ -241,42 +241,42 @@ const Header = () => {
       {modalMobile ? (
         <div className="position-absolute bg-white vw-100 shadow">
           <ul className="navbar-nav px-4 py-3">
-            <li className="nav-item">
+            <li className="nav-item fs-2">
               <Link activeClass="active" to="about" offset={-110}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   เกี่ยวกับ
                 </button>
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item fs-2">
               <Link to="benefit" offset={-200}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   ฟังก์ชั่น
                 </button>
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item fs-2">
               <Link to="review" offset={-120}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   รีวิวจากลูกค้า
                 </button>
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item fs-2">
               <Link to="questions" offset={-140}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   คำถามที่พบบ่อย
                 </button>
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item fs-2">
               <Link to="packages" offset={-100}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   แพ็คเกจ
                 </button>
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item fs-2">
               <Link to="contract" offset={-180}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   ติดต่อเรา

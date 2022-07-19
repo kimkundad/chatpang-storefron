@@ -7,29 +7,6 @@ import axios from '../../api/axios'
 const Package = () => {
   const [selected, setSelected] = useState(null)
   const [data, setData] = useState([])
-  // const data = [
-  //   {
-  //     id: 1,
-  //     title: 'Basic',
-  //     price: '290',
-  //     isBestSell: false,
-  //     options: ['ตอบคอมเม้นต์อัตโนมัติ', 'ดึงคอมเม้นต์เข้า Inbox', 'ใช้งานได้ 1 เพจ'],
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'VIP',
-  //     price: '590',
-  //     isBestSell: false,
-  //     options: ['ตอบคอมเม้นต์อัตโนมัติ', 'ดึงคอมเม้นต์เข้า Inbox', 'ใช้งานได้ 3 เพจ'],
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Business',
-  //     price: '990',
-  //     isBestSell: true,
-  //     options: ['ตอบคอมเม้นต์อัตโนมัติ', 'ดึงคอมเม้นต์เข้า Inbox', 'ใช้งานได้ 10 เพจ'],
-  //   },
-  // ]
   async function getPackages() {
     try {
       const res = await axios('/packages')
@@ -62,7 +39,7 @@ const Package = () => {
             </div>
           </div>
           <div className="row">
-            <div style={{ minHeight: '380px' }} className="col-md-12 w-xs-25 d-md-flex justify-content-center">
+            <div style={{ minHeight: '380px' }} className="cardPriceContainer col-md-12 w-xs-25 d-md-flex justify-content-center">
               <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage} />
             </div>
           </div>
