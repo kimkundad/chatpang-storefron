@@ -23,33 +23,33 @@ const CardPrice = ({ data = [], selected, setSelectedPackage }) => {
   } else {
     return data.map((item, index) => {
       return (
-        <Card key={index} className="mx-3 cardContainer" onClick={() => onSelected(item.item._id)}>
+        <Card key={index} className="mx-3 cardContainer" onClick={() => onSelected(item.id)}>
           <Card.Body className="cardBody justify-content-center m-0 p-0">
             <Card.Title className="cardTitle mx-auto">
-              <span style={{ display: `${item.item.isBestSeller ? 'block' : 'none'}` }} className="bestSellTag">
+              <span style={{ display: `${item?.special_text?.length !== 0  ? 'block' : 'none'}` }} className="bestSellTag">
                 ขายดี
               </span>
-              {item.item.name}
+              {item.name}
             </Card.Title>
             <Card.Text>
               <div className="d-flex flex-column text-center mb-3 text-price-header">
-                <h2>{item.item.price}</h2>
+                <h2>{item?.price}</h2>
                 <span className="text-center">บาท/เดือน</span>
               </div>
               <span className="showDetaile text-info">รายละเอียดแพ็คเกจ</span>
-              <div style={{ height: `${selectedCard === item.item._id ? 'fit-content' : '0'}` }} className="details">
+              <div style={{ height: `${selectedCard === item?.id ? 'fit-content' : '0'}` }} className="details">
                 <ul className="m-0 p-0">
-                  {item.item.detail.map((op, index) => (
+                  {item?.options.map((option, index) => (
                     <li className='d-flex align-items-center' key={index}>
                       <Image width='30px' height='30px'  alt="logo" src={CheckedImg}  />
                       {/* <FontAwesomeIcon className="me-2" icon={faCircleCheck} /> */}
-                      <span>{op}</span>
+                      <span>{option}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </Card.Text>
-            <span style={{ display: `${selected === item.item._id ? 'grid' : 'none'}` }} className="selectBtnCustom">
+            <span style={{ display: `${selected === item.id ? 'grid' : 'none'}` }} className="selectBtnCustom">
               เลือกแพ็คเกจนี้
             </span>
           </Card.Body>

@@ -88,11 +88,12 @@ export default function Home() {
   const [selectedPackage, setPackage] = useState(null)
 
   const [reviews, setReviews] = useState([])
+  const [questions, setQuestions] = useState([])
 
   async function getPackages() {
     try {
-      const res = await axios('/packages')
-      setPackages(res.data.packages)
+      const res = await axios('/public/packages')
+      setPackages(res.data.results)
     } catch (error) {
       console.log(error)
     }
@@ -105,10 +106,19 @@ export default function Home() {
     }
   }
 
+ async function getQuestions() {
+    try {
+      const res = await axios('/public/questions')
+      setQuestions(res.data.results)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function getReviews() {
     try {
-      const res = await axios('/reviews')
-      setReviews(res.data.reviews)
+      const res = await axios('/public/reviews')
+      setReviews(res.data.results)
     } catch (error) {
       console.log(error)
     }
@@ -122,14 +132,14 @@ export default function Home() {
     return (
       <div>
         {star.map((obj) => {
-          return <FontAwesomeIcon style={{color:"yellow", margin:"0 2px"}} key={obj} icon={faStar} />
+          return <FontAwesomeIcon style={{ color: 'yellow', margin: '0 2px' }} key={obj} icon={faStar} />
         })}
       </div>
     )
   }
   function renderReviewDetail(text) {
-    if (text.length > 30) {
-      return text.substring(0, 31) + '...'
+    if (text?.length > 30) {
+      return text?.substring(0, 31) + '...'
     } else {
       return text
     }
@@ -137,14 +147,15 @@ export default function Home() {
   useEffect(() => {
     getPackages()
     getReviews()
+    getQuestions()
   }, [])
   return (
     <>
-      <div className="container container-fluid">
+      <div className="container container-fluid m-0 p-0 mx-auto">
         {/* Section 1 */}
         <div
           className="d-flex flex-column-reverse flex-md-row row-cols-2 p-2 p-md-0 h-100"
-          style={{ minHeight: 'calc(100vh - 104px)' }}
+          // style={{ minHeight: 'calc(100vh - 104px)' }}
           id="home"
         >
           <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
@@ -173,10 +184,7 @@ export default function Home() {
         </div>
 
         {/* Section 2 */}
-        <div
-          className="d-flex flex-column flex-md-row h-auto align-items-center h-100 py-5 py-md-0 min-vh-100"
-          id="about"
-        >
+        <div className="d-flex flex-column flex-md-row py-5 py-md-0" id="about">
           <div className="col-12 col-md-8 d-flex py-5 py-md-0 flex-column align-items-center justify-content-center ">
             <div className="d-flex">
               <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '160px' }} />
@@ -207,12 +215,12 @@ export default function Home() {
         </div>
 
         {/* Section 3 */}
-        <div className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0">
+        <div className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
+        id='benefit'
+        >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '80px' }} />
-            <div className="display-6 fw-bolder" id="benefit">
-              Chatpang ทำอะไรได้บ้าง ?
-            </div>
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
+            <div className="text-section-header">Chatpang ทำอะไรได้บ้าง ?</div>
           </div>
           <div className="text-center fs-2">
             รวม 5 ฟังก์ชั่นของ <span className="text-secondary">Chatpang</span> ที่จะช่วยให้คุณตอบแชทกับลูกค้าได้ในทันที
@@ -249,31 +257,44 @@ export default function Home() {
 
         {/* Section 4 */}
         <div
-          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5"
+          className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
           id="review"
         >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '72px' }} />
-            <div className=" display-6 fw-bolder">รีวิวจากลูกค้า</div>
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
+            <div className="text-section-header">รีวิวจากลูกค้า</div>
           </div>
 
-          <div className="h-100 w-100 px-0 px-md-5">
+          <div className="h-100 w-100 px-0 px-md-5 my-auto">
             <Carousel responsive={responsive}>
               {reviews.map((val, index) => (
                 <div key={index} className="flex flex-column p-3">
                   {/* <img src="/images/landing-page/placeholder-video.svg" className="w-100" /> */}
-                  <Player
+                  <div className='ratio ratio-4x3'>
+                    {val.video_url !==  null ? <Player
+                      width="100%"
+                      height="100%"
+                      url={val.video_url}
+                      className="video-yt"
+                      style={{ borderRadius: '20px !important' }}
+                    />: <div style={{ borderRadius: '20px !important' }}>NO VDO</div>}
+                  </div>
+                  {/* <iframe
+                    src="https://www.youtube.com/embed/QIjZn_fiS3M"
+                    // src={val.item.linkUrl}
                     width="100%"
-                    height="240px"
-                    url={val.item.linkUrl}
-                    style={{ borderRadius:'20px !important' }}
-                  />
+                    height="100%"
+                    className="video-yt"
+                    allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ height: '100%', width: '100%', maxHeight: '518px' }}
+                  /> */}
                   <div
-                    className="bg-grey50 shadow px-5 pt-4 pb-3 border rounded-3 position-relative"
+                    className="bg-grey50 shadow px-3 pt-4 pb-3 border rounded-3 position-relative"
                     style={{ marginTop: '4em' }}
                   >
                     <img
-                      src={val.item.imgURL}
+                      src={val.picture}
                       className="position-absolute m-auto"
                       style={{
                         maxWidth: '60px',
@@ -287,15 +308,10 @@ export default function Home() {
                       }}
                     />
                     <div className=" d-flex flex-column align-items-center">
-                      <div>{val.item.name}</div>
-                      {/* <div> */}
-                      {/* {star.map((val, index) => (
-                          <img src="/images/landing-page/star-icon.svg" key={index} />
-                        ))} */}
-                      {renderRating(val.item.rating)}
-                      {/* </div> */}
-                      <div style={{ minHeight: '50px', fontSize:'1.2rem' }} className="text-center">
-                        {renderReviewDetail(val.item.detail)}
+                      <div>{val.name}</div>
+                      {renderRating(val.rate)}
+                      <div style={{ minHeight: '50px', fontSize: '1.2rem' }} className="text-center">
+                        {renderReviewDetail(val.description)}
                       </div>
                     </div>
                   </div>
@@ -307,34 +323,20 @@ export default function Home() {
 
         {/* Section 5 */}
         <div
-          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 my-5"
+          className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
           id="questions"
         >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '72px' }} />
-            <div className=" display-6 fw-bolder">คำถามที่พบบ่อย</div>
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
+            <div className="text-section-header">คำถามที่พบบ่อย</div>
           </div>
           <div className="text-center fs-2">
             รวมคำถามที่เราได้รับมาบ่อยๆ หากมีปัญหาอะไรเพิ่มเติมสามารถติดต่อได้ที่{' '}
             <span className="text-secondary">LINE : @chatpang</span>
           </div>
 
-          <div className="mt-3 w-100">
-          <QAContainer data={accordionData} />
-            {/* <Accordion defaultActiveKey="0">
-              {accordionData.map((val, index) => (
-                <Accordion.Item key={index} eventKey={val.id}>
-                  <Accordion.Header>
-                    <div
-                      className="bg-primary position-absolute"
-                      style={{ height: '100%', width: '40px', left: '0' }}
-                    ></div>
-                    <div className=" ms-4">{val.title}</div>
-                  </Accordion.Header>
-                  <Accordion.Body>{val.des}</Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </Accordion> */}
+          <div className="mt-3 w-100 my-auto">
+            {questions?.length === 0 ? <div className='text-center'>ไม่มีข้อมูล</div> : <QAContainer data={questions} />}
           </div>
         </div>
 
@@ -350,40 +352,7 @@ export default function Home() {
 
           <div className="row w-100 overflow-hidden" style={{ marginTop: '2em' }}>
             <div className="col-md-12 cardPriceContainer">
-              {/* {packages.map((val, index) => ( */}
               <CardPrice data={packages} selected={selectedPackage} setSelectedPackage={setSelectedPackage} />
-
-              {/* <div key={index} className="col-12 col-md-4 p-3">
-                <div className="position-relative shadow rounded-2 d-flex flex-column justify-content-between align-items-center p-4 h-100">
-                  <div className="d-flex flex-column align-items-center mb-5">
-                    <div className="bg-primary rounded px-5 py-1">{val.item.name}</div>
-                    <div className=" display-3 text-bold">{val.item.price}</div>
-                    <div className="text-grey200">บาท/เดือน</div>
-                    <div className="flex-column" style={{ marginTop: '24px' }}>
-                      {val.item.detail.map((data, index) => (
-                        <div key={index} className="d-flex align-items-center">
-                          <img src="/images/landing-page/bullet-check.svg" style={{ height: '18px' }} />
-                          <div className="ms-1 text-grey200">{data}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <button className="px-3 py-1 rounded border-0 bg-primary">สนใจสั่งซื้อ</button>
-                  </div>
-                  {val.item.isBestSeller ? (
-                    <img
-                      src="/images/landing-page/baged-best-seller.svg"
-                      className=" position-absolute"
-                      style={{ right: '0', top: '0', width: '70px' }}
-                    />
-                  ) : (
-                    <></>
-                  )
-                  }
-                </div>
-              </div> */}
-              {/* ))} */}
             </div>
           </div>
 

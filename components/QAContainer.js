@@ -20,12 +20,12 @@ const QAContainer = ({ data }) => {
       return (
         <div key={index} className="qa-container" onClick={() => onSelectedQA(index)}>
           <div className="q-container">
-            {item?.title}
+            {item?.question}
             <div className="qa-icon">
               {selected.includes(index) ? <FontAwesomeIcon icon={faChevronDown} /> : <FontAwesomeIcon icon={faChevronUp} />}
             </div>
           </div>
-          {selected.includes(index) && <div className="a-container">{item?.des}</div>}
+          {selected.includes(index) && <div className="a-container">{item?.answer}</div>}
         </div>
       )
     })

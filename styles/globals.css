@@ -228,7 +228,7 @@ main section
 ------------*/
 .index-text {
   font-weight: 600;
-  font-size: 72px;
+  font-size: min(4rem, 5vw);
   line-height: 100.88px;
   text-align: center;
   letter-spacing: 3px;
@@ -241,7 +241,7 @@ main section
 }
 .custom-index-btn {
   font-weight: 600 !important;
-  font-size: 42px !important;
+  font-size: min(3rem, 5vw) !important;
   padding: 16px 50px !important;
   letter-spacing: 3px;
   background: var(--mainCRed_1) !important;
@@ -385,6 +385,14 @@ Landing
   padding: 1rem 1.5rem;
   border-radius: 50px;
   font-size: 2rem;
+}
+#home,#about,#benefit,#review,#questions{
+  min-height: 900px;
+}
+.text-section-header{
+  font-size: min(8rem,5vw);
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 /*------
 register section
@@ -845,7 +853,7 @@ table.table td h2 span {
   background: var(--mainCRed_1);
 }
 .customHeaderItem {
-  font-size: 2rem;
+  font-size: min(2rem, 2vw);
   padding: 8px 16px;
   margin: 0 5px;
   border-radius: 50px;
@@ -1346,6 +1354,7 @@ QA container
   position: relative;
   overflow: hidden;
   padding-left: 32px;
+  padding-right: 16px;
   display: flex;
   align-items: center;
   font-size: 1.5rem;
