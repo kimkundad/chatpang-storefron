@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useRef, useState } from 'react'
-import { Accordion, Card, Col, Container, Row, Button } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
+import { Button } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
@@ -58,32 +58,31 @@ const responsive = {
   },
 }
 
-const accordionData = [
-  {
-    id: '1',
-    title: 'Q : Chatpang ใช้ทำอะไรได้บ้าง ?',
-    des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
-  },
-  {
-    id: '2',
-    title: 'Q : Chatpang เหมาะกับใคร ?',
-    des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
-  },
-  {
-    id: '3',
-    title: 'Q : Chatpang มีค่าบริการเท่าไร ?',
-    des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
-  },
-  {
-    id: '4',
-    title: 'Q : Chatpang มีค่าบริการเท่าไร ?',
-    des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
-  },
-]
+// const accordionData = [
+//   {
+//     id: '1',
+//     title: 'Q : Chatpang ใช้ทำอะไรได้บ้าง ?',
+//     des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
+//   },
+//   {
+//     id: '2',
+//     title: 'Q : Chatpang เหมาะกับใคร ?',
+//     des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
+//   },
+//   {
+//     id: '3',
+//     title: 'Q : Chatpang มีค่าบริการเท่าไร ?',
+//     des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
+//   },
+//   {
+//     id: '4',
+//     title: 'Q : Chatpang มีค่าบริการเท่าไร ?',
+//     des: `Chatpang สามารถช่วยคุณดึงคอมเม้นต์เข้า Inbox และช่วยแชทแทนคุณ ในเวลาที่คุณไม่ว่าง เพื่อให้ลูกค้าตัดสินใจซื้อได้ทันที! และประหยัดเวลาในการตอบแชท`,
+//   },
+// ]
 
 export default function Home() {
   const router = useRouter()
-  const myRef = useRef()
   const [packages, setPackages] = useState([])
   const [selectedPackage, setPackage] = useState(null)
 
@@ -93,7 +92,8 @@ export default function Home() {
   async function getPackages() {
     try {
       const res = await axios('/public/packages')
-      setPackages(res.data.results)
+      console.log(res.data.data.results);
+      setPackages(res.data.data.results)
     } catch (error) {
       console.log(error)
     }
@@ -109,7 +109,7 @@ export default function Home() {
  async function getQuestions() {
     try {
       const res = await axios('/public/questions')
-      setQuestions(res.data.results)
+      setQuestions(res.data.data.results)
     } catch (error) {
       console.log(error);
     }
@@ -118,7 +118,7 @@ export default function Home() {
   async function getReviews() {
     try {
       const res = await axios('/public/reviews')
-      setReviews(res.data.results)
+      setReviews(res.data.data.results)
     } catch (error) {
       console.log(error)
     }
@@ -153,8 +153,8 @@ export default function Home() {
     <>
       <div className="container container-fluid m-0 p-0 mx-auto">
         {/* Section 1 */}
-        <div
-          className="d-flex flex-column-reverse flex-md-row row-cols-2 p-2 p-md-0 h-100"
+        <section
+          className="d-flex flex-column-reverse flex-md-row row-cols-2"
           // style={{ minHeight: 'calc(100vh - 104px)' }}
           id="home"
         >
@@ -181,11 +181,14 @@ export default function Home() {
               สนใจเริ่มใช้งาน
             </Button>
           </div>
-        </div>
+        </section>
 
         {/* Section 2 */}
-        <div className="d-flex flex-column flex-md-row py-5 py-md-0" id="about">
-          <div className="col-12 col-md-8 d-flex py-5 py-md-0 flex-column align-items-center justify-content-center ">
+        {/* <sections id="about" className="d-flex">
+        ABOUT
+        </sections> */}
+        <section className="d-flex flex-column flex-md-row py-5 py-md-0" id="about">
+          <div className="col-6 col-md-8 d-flex flex-column align-items-center justify-content-center ">
             <div className="d-flex">
               <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '160px' }} />
               <div className="display-4 display-md-4">
@@ -194,7 +197,7 @@ export default function Home() {
                 ด้วยข้อความอัตโนมัติ
               </div>
             </div>
-            <div className="f-flex flex-column mt-5">
+            <div className="d-flex flex-column mt-5">
               <div className="d-flex align-items-center gap-1">
                 <img src="/images/landing-page/bullet-point.svg" style={{ width: '80px' }} />
                 <div className="ms-2 display-6 display-md-4">ตอบคอมเม้นต์อัตโนมัติ</div>
@@ -212,11 +215,11 @@ export default function Home() {
           <div className="col-6 col-md-4 d-flex align-items-center justify-content-center">
             <img src="/images/landing-page/about-image.svg" style={{ width: '100%', maxWidth: '780px' }} />
           </div>
-        </div>
+        </section>
 
         {/* Section 3 */}
-        <div className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
-        id='benefit'
+        <section className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
+        id="function"
         >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
@@ -253,12 +256,13 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Section 4 */}
-        <div
+        <section
           className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
           id="review"
+          // id='benefit'
         >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
@@ -277,7 +281,7 @@ export default function Home() {
                       url={val.video_url}
                       className="video-yt"
                       style={{ borderRadius: '20px !important' }}
-                    />: <div style={{ borderRadius: '20px !important' }}>NO VDO</div>}
+                    />: <div className='mx-auto text-center' style={{ borderRadius: '20px !important', fontSize:'clamp(1rem, 1rem + 1.5vw, 2.5rem)' }}>NO VDO</div>}
                   </div>
                   {/* <iframe
                     src="https://www.youtube.com/embed/QIjZn_fiS3M"
@@ -297,8 +301,9 @@ export default function Home() {
                       src={val.picture}
                       className="position-absolute m-auto"
                       style={{
-                        maxWidth: '60px',
-                        maxHeight: '60px',
+                        width: '60px',
+                        height: '60px',
+                        objectFit:'fill',
                         left: 0,
                         right: 0,
                         marginLeft: 'auto',
@@ -319,10 +324,10 @@ export default function Home() {
               ))}
             </Carousel>
           </div>
-        </div>
+        </section>
 
         {/* Section 5 */}
-        <div
+        <section
           className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
           id="questions"
         >
@@ -338,16 +343,16 @@ export default function Home() {
           <div className="mt-3 w-100 my-auto">
             {questions?.length === 0 ? <div className='text-center'>ไม่มีข้อมูล</div> : <QAContainer data={questions} />}
           </div>
-        </div>
+        </section>
 
         {/* Section 6 */}
-        <div
+        <section
           className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 py-5 my-5"
           id="packages"
         >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '72px' }} />
-            <div className=" display-6 fw-bolder">แพ็คเกจสุดคุ้ม!</div>
+            <div className="text-section-header">แพ็คเกจสุดคุ้ม!</div>
           </div>
 
           <div className="row w-100 overflow-hidden" style={{ marginTop: '2em' }}>
@@ -359,10 +364,10 @@ export default function Home() {
           <div className="mt-3 text-danger fs-2">
             ***สำหรับแพ็คเกจ Basic / VIP ถ้าต้องการใช้ระบบ Line แจ้งเตือน มีค่าบริการเพิ่มเติมเดือนละ 200 บาท***
           </div>
-        </div>
+        </section>
 
         {/* Section 7 */}
-        <div
+        <section
           className="d-flex flex-column flex-md-row row-cols-2 p-2 p-md-0 h-100 align-items-center"
           style={{ minHeight: 'calc(80vh)' }}
           id="contract"
@@ -405,7 +410,7 @@ export default function Home() {
               <img src="/images/landing-page/youtube-round.svg" style={{ width: '42px' }} />
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </>
   )

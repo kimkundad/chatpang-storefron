@@ -21,18 +21,9 @@ const CreateWelcome = () => {
   const { user } = useUser()
   const [pageID, setPageID] = useState(router.query.pageId)
   const { TextArea } = Input
-  const [img, setImg] = useState({})
+  // const [img, setImg] = useState({})
   const [campaignName, setCampaignName] = useState('')
-  const [details, setDetails] = useState([
-    {
-      name: '',
-      type: 'text',
-    },
-    {
-      name: '',
-      type: 'image',
-    },
-  ])
+  const [details, setDetails] = useState([''])
   //*check status
   const [isSuccess, setIsSuccess] = useState({
     show: false,
@@ -41,15 +32,21 @@ const CreateWelcome = () => {
   })
   const onSubmit = async (e) => {
     e.preventDefault()
-    await convertToImagePath()
+    // await convertToImagePath()
     const data = {
-      pageId: pageID,
-      campaignName: campaignName,
-      receptionDetail: details,
+      // pageId: pageID,
+      // campaignName: campaignName,
+      // receptionDetail: details,
+      messages: details,
+      name: campaignName,
+      page: pageID,
+      facebookUser: 'string',
     }
     // console.log(data)
     try {
-      const res = await axios.post('/receptions', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+      const res = await axios.post('/greeting-messages', data, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
       // console.log(res.data)
       setIsSuccess({
         show: true,
@@ -58,16 +55,7 @@ const CreateWelcome = () => {
       })
       handleNotify()
       setCampaignName('')
-      setDetails([
-        {
-          name: '',
-          type: 'text',
-        },
-        {
-          name: '',
-          type: 'image',
-        },
-      ])
+      setDetails([''])
     } catch (error) {
       console.log(error)
       setIsSuccess({
@@ -87,25 +75,25 @@ const CreateWelcome = () => {
       })
     }, 2000)
   }
-  const convertToImagePath = async () => {
-    for (const item of details) {
-      if (item.type === 'image') {
-        item.name = await getImagePath(item.name)
-      }
-    }
-    setDetails(details)
-  }
-  const getImagePath = async (file) => {
-    const formData = new FormData()
-    formData.append('image', file, file.name)
-    try {
-      const res = await axios.post('/configs/upload', formData)
-      console.log(res.data)
-      return res.data.data
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const convertToImagePath = async () => {
+  //   for (const item of details) {
+  //     if (item.type === 'image') {
+  //       item.name = await getImagePath(item.name)
+  //     }
+  //   }
+  //   setDetails(details)
+  // }
+  // const getImagePath = async (file) => {
+  //   const formData = new FormData()
+  //   formData.append('image', file, file.name)
+  //   try {
+  //     const res = await axios.post('/configs/upload', formData)
+  //     console.log(res.data)
+  //     return res.data.data
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const onSelect = (id) => {
     console.log(id)
@@ -118,47 +106,47 @@ const CreateWelcome = () => {
     acc[index] = createRef()
     return acc
   }, {})
-  const onUpload = async (index, file) => {
-    let temObj = { ...img }
-    temObj[index] = URL.createObjectURL(file)
-    setImg(temObj)
-  }
-  const onDeleteImg = async (index) => {
-    let temObj = { ...img }
-    delete temObj[index]
-    setImg(temObj)
-  }
+  // const onUpload = async (index, file) => {
+  //   let temObj = { ...img }
+  //   temObj[index] = URL.createObjectURL(file)
+  //   setImg(temObj)
+  // }
+  // const onDeleteImg = async (index) => {
+  //   let temObj = { ...img }
+  //   delete temObj[index]
+  //   setImg(temObj)
+  // }
 
   const onHandleChangeDetail = async (e, index) => {
     let temArr = [...details]
-    if (temArr[index].type === 'text') {
-      temArr[index].name = e.target.value
-    } else {
-      const file = e.target.files[0]
-      console.log(file)
-      await onUpload(index, file)
-      temArr[index].name = file
-    }
+    // if (temArr[index].type === 'text') {
+      temArr[index] = e.target.value
+    // } else {
+    //   const file = e.target.files[0]
+    //   console.log(file)
+    //   await onUpload(index, file)
+    //   temArr[index].name = file
+    // }
     setDetails(temArr)
   }
   const handleAddText = () => {
-    setDetails([...details, { name: '', type: 'text' }])
+    setDetails([...details, ''])
   }
-  const handleAddImage = () => {
-    setDetails([...details, { name: '', type: 'image' }])
-  }
+  // const handleAddImage = () => {
+  //   setDetails([...details, { name: '', type: 'image' }])
+  // }
   const onDeleteDetails = (index) => {
     let tempArr = [...details]
     tempArr.splice(index, 1)
     setDetails(tempArr)
-    onDeleteImg(index)
+    // onDeleteImg(index)
   }
-  const handleClickFileInput = (index) => {
-    console.log(inputRef[index])
-    inputRef[index].current.click()
-  }
+  // const handleClickFileInput = (index) => {
+  //   console.log(inputRef[index])
+  //   inputRef[index].current.click()
+  // }
   const onClickNext = (index) => {
-    console.log(inputRef[index].current)
+    // console.log(inputRef[index].current)
     inputRef[index].current.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
@@ -205,53 +193,53 @@ const CreateWelcome = () => {
       }
     })
   }
-  const renderImageInput = () => {
-    return details.map((data, index) => {
-      if (data.type === 'image') {
-        return (
-          <div key={index} className="row g-md-3 createContainer">
-            <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
-            </div>
-            <div className="col-md-6 col-9 commentInput">
-              {img[index] !== undefined ? (
-                <div onClick={() => onDeleteImg(index)} className="uploadIMG">
-                  <img width={100} src={img[index]} alt="img" />
-                </div>
-              ) : (
-                <>
-                  <input
-                    type="file"
-                    ref={inputRef[index]}
-                    className="inputfile"
-                    onChange={(e) => onHandleChangeDetail(e, index)}
-                  />
-                  <label onClick={() => handleClickFileInput(index)} htmlFor="file">
-                    อัพโหลดรูป
-                  </label>
-                </>
-              )}
-            </div>
-            <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
-              <div className="d-flex flex-column me-4">
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronUp} />
-                </span>
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronDown} />
-                </span>
-              </div>
-              <div className="replyDeleteBTN">
-                <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
-                </span>
-              </div>
-            </div>
-          </div>
-        )
-      }
-    })
-  }
+  // const renderImageInput = () => {
+  //   return details.map((data, index) => {
+  //     if (data.type === 'image') {
+  //       return (
+  //         <div key={index} className="row g-md-3 createContainer">
+  //           <div className="col-md-3 col-xs-12 commentHeader">
+  //             <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
+  //           </div>
+  //           <div className="col-md-6 col-9 commentInput">
+  //             {img[index] !== undefined ? (
+  //               <div onClick={() => onDeleteImg(index)} className="uploadIMG">
+  //                 <img width={100} src={img[index]} alt="img" />
+  //               </div>
+  //             ) : (
+  //               <>
+  //                 <input
+  //                   type="file"
+  //                   ref={inputRef[index]}
+  //                   className="inputfile"
+  //                   onChange={(e) => onHandleChangeDetail(e, index)}
+  //                 />
+  //                 <label onClick={() => handleClickFileInput(index)} htmlFor="file">
+  //                   อัพโหลดรูป
+  //                 </label>
+  //               </>
+  //             )}
+  //           </div>
+  //           <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+  //             <div className="d-flex flex-column me-4">
+  //               <span>
+  //                 <FontAwesomeIcon icon={faCircleChevronUp} />
+  //               </span>
+  //               <span>
+  //                 <FontAwesomeIcon icon={faCircleChevronDown} />
+  //               </span>
+  //             </div>
+  //             <div className="replyDeleteBTN">
+  //               <span style={{ color: 'red' }}>
+  //                 <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+  //               </span>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       )
+  //     }
+  //   })
+  // }
   //* function handle text and image
   return (
     <div className="page-wrapper">
@@ -299,8 +287,9 @@ const CreateWelcome = () => {
           </div>
           <Divider />
           {renderTextInput()}
-          <Divider />
-          {renderImageInput()}
+          {/* can not according to facebook greeting function */}
+          {/* <Divider />
+          {renderImageInput()} */}
           <Divider />
           <div className="row g-3 justify-content-center">
             <div className="col-md-4 replyButtonContainer">
@@ -309,12 +298,13 @@ const CreateWelcome = () => {
                 <span>เพิ่มข้อความ</span>
               </button>
             </div>
-            <div className="col-md-4 text-center replyButtonContainer">
+            {/* can not according to facebook greeting function */}
+            {/* <div className="col-md-4 text-center replyButtonContainer">
               <button onClick={handleAddImage} className="replyCustomBtn">
                 <FontAwesomeIcon icon={faPlus} />
                 <span>เพิ่มรูปภาพ</span>
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

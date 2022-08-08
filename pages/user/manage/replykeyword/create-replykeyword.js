@@ -1,6 +1,12 @@
 import React, { useState, createRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleChevronDown, faCircleChevronUp, faTrashAlt,faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCircleChevronDown,
+  faCircleChevronUp,
+  faTrashAlt,
+  faPlus,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons'
 import { Input, Divider } from 'antd'
 import { useRouter } from 'next/router'
 
@@ -9,6 +15,7 @@ import axios from '../../../api/axios'
 import PageDropdown from '../../../../components/PageDropdown'
 import useUser from '../../../../Hooks/useUser'
 import { Alert } from 'react-bootstrap'
+import TagsInput from '../../../../components/tagsinput/TagsInput'
 
 const CreateReplyKeyword = () => {
   const router = useRouter()
@@ -16,19 +23,11 @@ const CreateReplyKeyword = () => {
   const [pageID, setPageID] = useState(router.query.pageId)
   const { TextArea } = Input
 
-  const [img, setImg] = useState({})
+  const [imgs, setImgs] = useState([''])
+  const [previewImgs, setPreviewImgs] = useState([])
   const [campaignName, setCampaignName] = useState('')
-  const [keywordName, setKeywordName] = useState('')
-  const [details, setDetails] = useState([
-    {
-      name: '',
-      type: 'text',
-    },
-    {
-      name: '',
-      type: 'image',
-    },
-  ])
+  const [keywordName, setKeywordName] = useState([])
+  const [details, setDetails] = useState([''])
   //*check status
   const [isSuccess, setIsSuccess] = useState({
     show: false,
@@ -39,14 +38,21 @@ const CreateReplyKeyword = () => {
     e.preventDefault()
     await convertToImagePath()
 
+    // const data = {
+    //   pageId: pageID,
+    //   campaignName: campaignName,
+    //   keywordName: keywordName,
+    //   keywordDetail: details,
+    // }
     const data = {
-      pageId: pageID,
-      campaignName: campaignName,
-      keywordName: keywordName,
-      keywordDetail: details,
+      keywords: keywordName,
+      messages: details,
+      images: imgs,
+      name: campaignName,
+      facebookUser: 'string',
     }
     try {
-      const res = await axios.post('/keywords', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+      const res = await axios.post('/auto-replies', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
       // console.log(res.data)
       setIsSuccess({
         show: true,
@@ -55,17 +61,9 @@ const CreateReplyKeyword = () => {
       })
       handleNotify()
       setCampaignName('')
-      setKeywordName('')
-      setDetails([
-        {
-          name: '',
-          type: 'text',
-        },
-        {
-          name: '',
-          type: 'image',
-        },
-      ])
+      setKeywordName([])
+      setDetails([])
+      setImgs([])
     } catch (error) {
       console.log(error)
       setIsSuccess({
@@ -87,19 +85,19 @@ const CreateReplyKeyword = () => {
     }, 2000)
   }
   const convertToImagePath = async () => {
-    for (const item of details) {
-      if (item.type === 'image') {
-        item.name = await getImagePath(item.name)
-      }
+    let tmpArr = []
+    for (const img of imgs) {
+      let url = await getImagePath(img)
+      tmpArr.push(url)
     }
-    setDetails(details)
+    setImgs([...tmpArr])
   }
   const getImagePath = async (file) => {
     const formData = new FormData()
-    formData.append('image', file, file.name)
+    formData.append('file', file, file.name)
     try {
-      const res = await axios.post('/configs/upload', formData)
-      return res.data.data
+      const res = await axios.post('/upload', formData)
+      return res.data.data.public_url
     } catch (error) {
       console.log(error)
     }
@@ -107,8 +105,9 @@ const CreateReplyKeyword = () => {
 
   const onClear = () => {
     setCampaignName('')
-    setKeywordName('')
-    setKeywordDetail('')
+    setKeywordName([])
+    setDetails([''])
+    setImgs([''])
   }
 
   const onSelect = (id) => {
@@ -121,56 +120,81 @@ const CreateReplyKeyword = () => {
     acc[index] = createRef()
     return acc
   }, {})
+  const imgsRef = imgs.reduce((acc, value, index) => {
+    acc[index] = createRef()
+    return acc
+  }, {})
   const onUpload = async (index, file) => {
-    let temObj = { ...img }
-    temObj[index] = URL.createObjectURL(file)
-    setImg(temObj)
+    let temImg = URL.createObjectURL(file)
+    let tempArr = [...previewImgs]
+    tempArr[index] = temImg
+    setPreviewImgs(tempArr)
+
   }
-  const onDeleteImg = async (index) => {
-    let temObj = { ...img }
-    delete temObj[index]
-    setImg(temObj)
+  const onDeleteImg = (index) => {
+    let temp1 = [...imgs]
+    let temp2 = [...previewImgs]
+    temp1.splice(index, 1)
+    temp2.splice(index, 1)
+    setImgs(temp1)
+    setPreviewImgs(temp2)
+  }
+  const onClearImg = async (index) => {
+    let temp1 = [...imgs]
+    let temp2 = [...previewImgs]
+    temp1[index] = ''
+    temp2[index] = ''
+    setImgs(temp1)
+    setPreviewImgs(temp2)
   }
 
   const onHandleChangeDetail = async (e, index) => {
     let temArr = [...details]
-    if (temArr[index].type === 'text') {
-      temArr[index].name = e.target.value
-    } else {
-      const file = e.target.files[0]
-      // console.log(file)
-      await onUpload(index, file)
-      temArr[index].name = file
-    }
+    temArr[index] = e.target.value
     setDetails(temArr)
   }
+  const onHandleChangeImg = async (e, index) => {
+    let temArr = [...imgs]
+    temArr[index] = e.target.files[0]
+    await onUpload(index, e.target.files[0])
+    setImgs(temArr)
+  }
+
   const handleAddText = () => {
-    setDetails([...details, { name: '', type: 'text' }])
+    setDetails([...details, ''])
   }
   const handleAddImage = () => {
-    setDetails([...details, { name: '', type: 'image' }])
+    setImgs([...imgs, ''])
+    setPreviewImgs([...previewImgs,''])
   }
   const onDeleteDetails = (index) => {
-    let tempArr = [...details]
-    tempArr.splice(index, 1)
-    setDetails(tempArr)
-    onDeleteImg(index)
+    let temp1 = [...details]
+    temp1.splice(index, 1)
+    setDetails(temp1)
   }
   const handleClickFileInput = (index) => {
     // console.log(inputRef[index])
-    inputRef[index].current.click()
+    imgsRef[index].current.click()
   }
-  const onClickNext = (index) => {
-    // console.log(inputRef[index].current)
+  const onInputNext = (index) => {
+    console.log(inputRef)
     inputRef[index].current.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'end',
     })
   }
+  const onImgNext = (index) => {
+    // console.log(inputRef[index].current)
+    imgsRef[index].current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'end',
+    })
+  }
   const renderTextInput = () => {
-    return details.map((data, index) => {
-      if (data.type === 'text') {
+    return details.map((text, index) => {
+      // if (data.type === 'text') {
         return (
           <div key={index} className="row g-md-3 createContainer">
             {/* <> */}
@@ -180,7 +204,7 @@ const CreateReplyKeyword = () => {
             <div className="col-md-6 col-9 commentInput">
               <TextArea
                 showCount
-                value={details.name}
+                value={text}
                 onChange={(e) => onHandleChangeDetail(e, index)}
                 maxLength={200}
                 placeholder="พิมพ์ข้อความที่นี้..."
@@ -193,7 +217,7 @@ const CreateReplyKeyword = () => {
                   <FontAwesomeIcon icon={faCircleChevronUp} />
                 </span>
                 <span>
-                  <FontAwesomeIcon onClick={() => onClickNext(index)} icon={faCircleChevronDown} />
+                  <FontAwesomeIcon onClick={() => onInputNext(index)} icon={faCircleChevronDown} />
                 </span>
               </div>
               <div className="replyDeleteBTN">
@@ -205,29 +229,30 @@ const CreateReplyKeyword = () => {
             {/* </> */}
           </div>
         )
-      }
+      // }
     })
   }
   const renderImageInput = () => {
-    return details.map((data, index) => {
-      if (data.type === 'image') {
+    return imgs.map((img, index) => {
+      // if (data.type === 'image') {
         return (
           <div key={index} className="row g-md-3 createContainer">
             <div className="col-md-3 col-xs-12 commentHeader">
               <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
             </div>
             <div className="col-md-6 col-9 commentInput">
-              {img[index] !== undefined ? (
-                <div onClick={() => onDeleteImg(index)} className="uploadIMG">
-                  <img width={100} src={img[index]} alt="img" />
+              {img !== '' ? (
+                <div onClick={() => onClearImg(index)} className="uploadIMG">
+                  <img width={100} src={previewImgs[index]} alt="img" />
+                  <span>ลบรูป</span>
                 </div>
               ) : (
                 <>
                   <input
                     type="file"
-                    ref={inputRef[index]}
+                    ref={imgsRef[index]}
                     className="inputfile"
-                    onChange={(e) => onHandleChangeDetail(e, index)}
+                    onChange={(e) => onHandleChangeImg(e, index)}
                   />
                   <label onClick={() => handleClickFileInput(index)} htmlFor="file">
                     อัพโหลดรูป
@@ -241,18 +266,18 @@ const CreateReplyKeyword = () => {
                   <FontAwesomeIcon icon={faCircleChevronUp} />
                 </span>
                 <span>
-                  <FontAwesomeIcon icon={faCircleChevronDown} />
+                  <FontAwesomeIcon onClick={() => onImgNext(index)} icon={faCircleChevronDown} />
                 </span>
               </div>
               <div className="replyDeleteBTN">
                 <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+                  <FontAwesomeIcon onClick={() => onDeleteImg(index)} icon={faTrashAlt} />
                 </span>
               </div>
             </div>
           </div>
         )
-      }
+      // }
     })
   }
   //* function handle text and image
@@ -304,9 +329,10 @@ const CreateReplyKeyword = () => {
             </div>
             <div className="col-md-4 text-md-end text-start">
               <strong className="me-3">Keywords</strong>
-            </div>
-            <div className="col-md-4 chatNameInput">
-              <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} />
+            </div> 
+            <div className="col-md-4">
+              <TagsInput tags={keywordName} setTags={setKeywordName}/>
+              {/* <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} /> */}
             </div>
           </div>
           <Divider />

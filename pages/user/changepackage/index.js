@@ -26,8 +26,8 @@ const Index = () => {
   }
   async function getPackages() {
     try {
-      const res = await axios('/packages')
-      setData(res.data.packages)
+      const res = await axios('/public/packages')
+      setData(res.data.data.results)
     } catch (error) {
       console.log(error)
     }

@@ -67,7 +67,7 @@ const Sidebar = () => {
       >
         <div className="sidebar-inner">
           <div className="sidebar-menu">
-            <div className="sidePackageInfo">
+            {packageInfo ? <div className='text-center'>NO DATA</div> : <div className="sidePackageInfo">
               <div style={{ color: 'black' }} className="cardTitle">
                 {packageInfo?.name}
               </div>
@@ -77,7 +77,7 @@ const Sidebar = () => {
                 <span>หมดอายุ</span>
                 <span>{packageInfo?.exp}</span>
               </div>
-            </div>
+            </div>}
             <ul>
               <li className={`menu-title ${isActive('') ? 'active' : ''}`}>
                 <Link href="/user/manage">หน้าหลัก</Link>

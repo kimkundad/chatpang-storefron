@@ -14,6 +14,7 @@ import axios from '../../../../api/axios'
 import useUser from '../../../../../Hooks/useUser'
 import Sidebar from '../../../../../components/Sidebar'
 import { Alert } from 'react-bootstrap'
+import TagsInput from '../../../../../components/tagsinput/TagsInput'
 
 const Edit = () => {
   const router = useRouter()
@@ -21,19 +22,11 @@ const Edit = () => {
   const id = router.query.campaignId
   const { TextArea } = Input
 
-  const [img, setImg] = useState([])
+  const [imgs, setImgs] = useState([''])
+  const [previewImgs, setPreviewImgs] = useState([])
   const [campaignName, setCampaignName] = useState('')
-  const [keywordName, setKeywordName] = useState('')
-  const [details, setDetails] = useState([
-    {
-      name: '',
-      type: 'text',
-    },
-    {
-      name: '',
-      type: 'image',
-    },
-  ])
+  const [keywordName, setKeywordName] = useState([])
+  const [details, setDetails] = useState([''])
   //*check status
   const [isSuccess, setIsSuccess] = useState({
     show: false,
@@ -43,15 +36,21 @@ const Edit = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
     await convertToImagePath()
-    const data = {
-      campaignName: campaignName,
-      keywordName: keywordName,
-      keywordDetail: details,
-    }
+    // const data = {
+    //   campaignName: campaignName,
+    //   keywordName: keywordName,
+    //   keywordDetail: details,
+    // }
     // console.log(data)
-
+    const data = {
+      keywords: keywordName,
+      messages: details,
+      images: imgs,
+      name: campaignName,
+      facebookUser: 'string',
+    }
     try {
-      const res = await axios.patch(`/keywords/${id}`, data, {
+      const res = await axios.put(`/auto-replies/${id}`, data, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
@@ -84,20 +83,20 @@ const Edit = () => {
   const convertToImagePath = async () => {
     //check already a img link by check https
     const regExURL = /https?:\/\//
-    for (const item of details) {
-      if (item.type === 'image') {
-        item.name = regExURL.test(item.name) ? item.name : await getImagePath(item.name)
-      }
+    for (const item of imgs) {
+      // if (item.type === 'image') {
+        item = regExURL.test(item) ? item : await getImagePath(item)
+      // }
     }
     setDetails(details)
   }
   const getImagePath = async (file) => {
     const formData = new FormData()
-    formData.append('image', file, file.name)
+    formData.append('file', file, file.name)
     try {
-      const res = await axios.post('/configs/upload', formData)
+      const res = await axios.post('/upload', formData)
       // console.log(res.data)
-      return res.data.data
+      return res.data.data.public_url
     } catch (error) {
       console.log(error)
     }
@@ -108,56 +107,79 @@ const Edit = () => {
     acc[index] = createRef()
     return acc
   }, {})
+  const imgsRef = imgs.reduce((acc, value, index) => {
+    acc[index] = createRef()
+    return acc
+  }, {})
   const onUpload = async (index, file) => {
-    let temObj = { ...img }
-    temObj[index] = URL.createObjectURL(file)
-    setImg(temObj)
+    let temImg = URL.createObjectURL(file)
+    let tempArr = [...previewImgs]
+    tempArr[index] = temImg
+    setPreviewImgs(tempArr)
   }
-  const onDeleteImg = async (index) => {
-    let temObj = { ...img }
-    delete temObj[index]
-    setImg(temObj)
+  const onDeleteImg = (index) => {
+    let temp1 = [...imgs]
+    let temp2 = [...previewImgs]
+    temp1.splice(index, 1)
+    temp2.splice(index, 1)
+    setImgs(temp1)
+    setPreviewImgs(temp2)
+  }
+  const onClearImg = async (index) => {
+    let temp1 = [...imgs]
+    let temp2 = [...previewImgs]
+    temp1[index] = ''
+    temp2[index] = ''
+    setImgs(temp1)
+    setPreviewImgs(temp2)
   }
 
   const onHandleChangeDetail = async (e, index) => {
     let temArr = [...details]
-    if (temArr[index].type === 'text') {
-      temArr[index].name = e.target.value
-    } else {
-      const file = e.target.files[0]
-      // console.log(file)
-      await onUpload(index, file)
-      temArr[index].name = file
-    }
+    temArr[index] = e.target.value
     setDetails(temArr)
   }
+  const onHandleChangeImg = async (e, index) => {
+    let temArr = [...imgs]
+    temArr[index] = e.target.files[0]
+    await onUpload(index, e.target.files[0])
+    setImgs(temArr)
+  }
   const handleAddText = () => {
-    setDetails([...details, { name: '', type: 'text' }])
+    setDetails([...details, ''])
   }
   const handleAddImage = () => {
-    setDetails([...details, { name: '', type: 'image' }])
+    setImgs([...imgs, ''])
+    setPreviewImgs([...previewImgs,''])
   }
   const onDeleteDetails = (index) => {
-    let tempArr = [...details]
-    tempArr.splice(index, 1)
-    setDetails(tempArr)
-    onDeleteImg(index)
+    let temp1 = [...details]
+    temp1.splice(index, 1)
+    setDetails(temp1)
   }
   const handleClickFileInput = (index) => {
     // console.log(inputRef[index])
-    inputRef[index].current.click()
+    imgsRef[index].current.click()
   }
-  const onClickNext = (index) => {
-    // console.log(inputRef[index].current)
+  const onInputNext = (index) => {
+    console.log(inputRef)
     inputRef[index].current.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'end',
     })
   }
+  const onImgNext = (index) => {
+    // console.log(inputRef[index].current)
+    imgsRef[index].current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'end',
+    })
+  }
   const renderTextInput = () => {
-    return details.map((data, index) => {
-      if (data.type === 'text') {
+    return details.map((text, index) => {
+      // if (data.type === 'text') {
         return (
           <div key={index} className="row g-md-3 createContainer">
             {/* <> */}
@@ -167,7 +189,7 @@ const Edit = () => {
             <div className="col-md-6 col-9 commentInput">
               <TextArea
                 showCount
-                value={data.name}
+                value={text}
                 onChange={(e) => onHandleChangeDetail(e, index)}
                 maxLength={200}
                 placeholder="พิมพ์ข้อความที่นี้..."
@@ -180,7 +202,7 @@ const Edit = () => {
                   <FontAwesomeIcon icon={faCircleChevronUp} />
                 </span>
                 <span>
-                  <FontAwesomeIcon onClick={() => onClickNext(index)} icon={faCircleChevronDown} />
+                  <FontAwesomeIcon onClick={() => onInputNext(index)} icon={faCircleChevronDown} />
                 </span>
               </div>
               <div className="replyDeleteBTN">
@@ -192,12 +214,12 @@ const Edit = () => {
             {/* </> */}
           </div>
         )
-      }
+      // }
     })
   }
   const renderImageInput = () => {
-    return details.map((data, index) => {
-      if (data.type === 'image') {
+    return imgs.map((img, index) => {
+      // if (data.type === 'image') {
         return (
           <div key={index} className="row g-md-3 createContainer">
             <div className="col-md-3 col-xs-12 commentHeader">
@@ -205,16 +227,17 @@ const Edit = () => {
             </div>
             <div className="col-md-6 col-9 commentInput">
               {img[index] !== undefined ? (
-                <div onClick={() => onDeleteImg(index)} className="uploadIMG">
+                <div onClick={() => onClearImg(index)} className="uploadIMG">
                   <img width={100} src={img[index]} alt="img" />
+                  <span>ลบรูป</span>
                 </div>
               ) : (
                 <>
                   <input
                     type="file"
-                    ref={inputRef[index]}
+                    ref={imgsRef[index]}
                     className="inputfile"
-                    onChange={(e) => onHandleChangeDetail(e, index)}
+                    onChange={(e) => onHandleChangeImg(e, index)}
                   />
                   <label onClick={() => handleClickFileInput(index)} htmlFor="file">
                     อัพโหลดรูป
@@ -228,42 +251,43 @@ const Edit = () => {
                   <FontAwesomeIcon icon={faCircleChevronUp} />
                 </span>
                 <span>
-                  <FontAwesomeIcon icon={faCircleChevronDown} />
+                  <FontAwesomeIcon onClick={() => onImgNext(index)} icon={faCircleChevronDown} />
                 </span>
               </div>
               <div className="replyDeleteBTN">
                 <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+                  <FontAwesomeIcon onClick={() => onDeleteImg(index)} icon={faTrashAlt} />
                 </span>
               </div>
             </div>
           </div>
         )
-      }
+      // }
     })
   }
   //* function handle text and image
-  const setImgFirstTime = async (arr) => {
-    let temObj = { ...img }
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].type === 'image') {
-        temObj[i] = arr[i].name
-      }
-    }
-    setImg(temObj)
-  }
+  // const setImgFirstTime = async (arr) => {
+  //   let temObj = { ...img }
+  //   for (let i = 0; i < arr.length; i++) {
+  //     if (arr[i].type === 'image') {
+  //       temObj[i] = arr[i].name
+  //     }
+  //   }
+  //   setImg(temObj)
+  // }
 
   const getKeywordSettingById = async () => {
     try {
-      const res = await axios.get(`/keywords/detail/${id}`, {
+      const res = await axios.get(`/auto-replies/${id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      const data = res.data
+      const data = res.data.data
       // console.log(res.data)
-      setCampaignName(data.campaignName)
-      setKeywordName(data.keywordName)
-      setDetails(data.keywordDetail)
-      await setImgFirstTime(data.keywordDetail)
+      setCampaignName(data.name)
+      setKeywordName(data.keywords)
+      setDetails(data.messages)
+      setImgs(data.images)
+      // await setImgFirstTime(data.keywordDetail)
     } catch (error) {
       console.log(error)
     }
@@ -271,17 +295,9 @@ const Edit = () => {
 
   const onClear = () => {
     setCampaignName('')
-    setKeywordName('')
-    setKeywordDetail([
-      {
-        name: '',
-        type: 'text',
-      },
-      {
-        name: '',
-        type: 'image',
-      },
-    ])
+    setKeywordName([])
+    setDetails([''])
+    setImgs([''])
   }
 
   useEffect(() => {
@@ -332,8 +348,9 @@ const Edit = () => {
             <div className="col-md-4 text-md-end text-start">
               <strong className="me-3">Keywords</strong>
             </div>
-            <div className="col-md-4 chatNameInput">
-              <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} />
+            <div className="col-md-4">
+                  <TagsInput tags={keywordName} setTags={setKeywordName} />
+              {/* <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} /> */}
             </div>
           </div>
           <Divider />

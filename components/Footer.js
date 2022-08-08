@@ -5,14 +5,15 @@ import { faLocationDot, faPhone, faEnvelope, faStopwatch } from '@fortawesome/fr
 import Image from 'next/image'
 import BG from '../resources/imgs/footer_bg.png'
 import LOGO from '../resources/imgs/newLogo.png'
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from 'react-scroll'
 const Footer = () => {
   return (
     <div className="footer">
-      <img className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" />
+      {/* <img className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" /> */}
       <div className="row footer-container">
-        <div className="col-md-4 col-6 d-flex flex-column align-items-center">
-          <Image src={LOGO} width="350" height="120" alt="logo" />
+        <div className="col-md-4 col-6 d-flex flex-column align-items-center justify-content-end mb-3">
+          <Image src={LOGO} width="240" height="80" alt="logo" />
           <div className="footer-title">ผู้ช่วยตอบแชทเก่ง</div>
           <div className="footer-sub-title">สำหรับแม่ค้าออนไลน์</div>
           <div className="address">
@@ -23,43 +24,43 @@ const Footer = () => {
         </div>
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>บริการ</strong>
-          <Link href="#">
+          <Link to="about">
             <div className="link">เกี่ยวกับเรา</div>
           </Link>
 
-          <Link href="#">
+          <Link to="function">
             <div className="link">ฟังก์ชั่น</div>
           </Link>
 
-          <Link href="#">
+          <Link to="review">
             <div className="link">รีวิวจากลูกค้า</div>
           </Link>
         </div>
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>ซัพพอร์ต</strong>
-          <Link href="#">
+          <Link to="#">
             <div className="link">คู่มือการใช้งาน</div>
           </Link>
 
-          <Link href="#">
+          <Link to="/">
             <div className="link">ฟังก์ชั่น</div>
           </Link>
 
-          <Link href="#">
+          <Link to="/">
             <div className="link">รีวิวจากลูกค้า</div>
           </Link>
         </div>
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>บริษัท</strong>
-          <Link href="#">
+          <Link to="/">
             <div className="link">เงื่อนไขการใช้งาน</div>
           </Link>
 
-          <Link href="#">
+          <Link to="/">
             <div className="link">นโยบายความเป็นส่วนตัว</div>
           </Link>
 
-          <Link href="#">
+          <Link to="/">
             <div className="link">บทความ</div>
           </Link>
         </div>

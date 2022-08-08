@@ -3,10 +3,9 @@ import { Link } from 'react-scroll'
 import { useRouter } from 'next/router'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faAngleDown, faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../Hooks/useUser'
 import { Dropdown, Menu, Avatar } from 'antd'
-import AppContext from '../context/AppContextProvider'
 
 const Header = () => {
   const router = useRouter()
@@ -102,33 +101,45 @@ const Header = () => {
         <div className="collapse navbar-collapse align-content-end" id="navbarNavAltMarkup">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link onClick={() => onClickItem('1')} to="about" offset={-40}>
-                <span className={`customHeaderItem ${current === '1' && 'active'}`}>เกี่ยวกับ</span>
+              <Link className='customHeaderItem' activeClass='active' spy to="about" offset={-60}>
+                {/* <span className={`customHeaderItem ${current === '1' && 'active'}`}> */}
+                เกี่ยวกับ
+                {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link onClick={() => onClickItem('2')} to="benefit" offset={-220}>
-                <span className={`customHeaderItem ${current === '2' && 'active'}`}>ฟังก์ชั่น</span>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="function" offset={-100}>
+                {/* <span className={`customHeaderItem ${current === '2' && 'active'}`}> */}
+                ฟังก์ชั่น
+                {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link onClick={() => onClickItem('3')} to="review" offset={-140}>
-                <span className={`customHeaderItem ${current === '3' && 'active'}`}>รีวิวจากลูกค้า</span>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="review" offset={-100}>
+                {/* <span className={`customHeaderItem ${current === '3' && 'active'}`}> */}
+                รีวิวจากลูกค้า
+                {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link onClick={() => onClickItem('4')} to="questions" offset={-140}>
-                <span className={`customHeaderItem ${current === '4' && 'active'}`}>คำถามที่พบบ่อย</span>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="questions" offset={-100}>
+                {/* <span className={`customHeaderItem ${current === '4' && 'active'}`}> */}
+                คำถามที่พบบ่อย
+                {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link onClick={() => onClickItem('5')} to="packages" offset={-120}>
-                <span className={`customHeaderItem ${current === '5' && 'active'}`}>แพ็คเกจ</span>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="packages" offset={-100}>
+                {/* <span className={`customHeaderItem ${current === '5' && 'active'}`}> */}
+                แพ็คเกจ
+                {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link onClick={() => onClickItem('6')} to="contract" offset={-150}>
-                <span className={`customHeaderItem ${current === '6' && 'active'}`}>ติดต่อเรา</span>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="contract" offset={-100}>
+                {/* <span className={`customHeaderItem ${current === '6' && 'active'}`}> */}
+                ติดต่อเรา
+                {/* </span> */}
               </Link>
             </li>
           </ul>

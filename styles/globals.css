@@ -100,12 +100,12 @@ textarea.form-control {
   border-radius: 0.3125rem;
 }
 a {
-  color: #377dff;
+  color: #000 !important;
   cursor: pointer;
+  text-decoration: none !important;
 }
 a:hover {
-  color: #0052ea;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 p {
   margin-top: 0;
@@ -249,6 +249,70 @@ main section
   color: #000 !important;
 }
 /*-----------------
+	Tags-input
+-----------------------*/
+.tags-input-container {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	min-height: 48px;
+	width: 100%;
+	padding: 0 8px;
+	/* border: 1px solid rgb(214, 216, 218);
+   */
+  border: 1px solid var(--mainCBlack);
+	border-radius: 10px;
+}
+.tags-input-container:focus-within{
+  border: 1px solid #0052cc;
+}
+.tags-input {
+  flex: 1;
+  border: none;
+  height: 46px;
+  font-size: 18px;
+  padding: 4px 0 0 0;
+}
+.tags-input:focus {
+  outline: transparent;
+}
+#tags {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+	margin: 8px 0 0 0;
+}
+.tag {
+	width: auto;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	padding: 0 8px;
+	font-size: 18px;
+	list-style: none;
+	border-radius: 6px;
+	margin: 0 8px 8px 0;
+	background: #0052cc;
+}
+.tag-title {
+  margin-top: 3px;
+}
+.tag-close-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 14px;
+  margin-left: 8px;
+  color: #0052cc;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+/*-----------------
 	Sidebar
 -----------------------*/
 
@@ -257,10 +321,11 @@ main section
   bottom: 0;
   left: 0;
   /* margin-top: 5px; */
-  position: fixed;
+  position: absolute;
   top: 100px;
   transition: all 0.2s ease-in-out 0s;
   width: 240px;
+  height: 100vh;
   z-index: 1;
   /* border-top-right-radius: 20px; */
   box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
@@ -386,8 +451,9 @@ Landing
   border-radius: 50px;
   font-size: 2rem;
 }
-#home,#about,#benefit,#review,#questions{
+#home, #about, #benefit, #review,#questions{
   min-height: 900px;
+  height: auto;
 }
 .text-section-header{
   font-size: min(8rem,5vw);
@@ -619,7 +685,7 @@ function section
   font-size: min(2rem, 3vw);
 }
 .page-wrapper {
-  margin-left: 240px;
+  /* margin-left: 240px; */
   /*set at 900 - footer height*/
   /* min-height: 756px; */
   min-height: calc(100vh - 144px);
@@ -630,12 +696,9 @@ function section
   font-size: min(1.5rem, 3vw);
 }
 .userpage-wrapper {
-  /* margin-left: 240px; */
+  margin-left: 240px;
   position: relative;
   transition: all 0.4s ease;
-}
-.page-wrapper > .content {
-  /* padding: 1.875rem 1.875rem 0; */
 }
 
 .page-header {
@@ -863,7 +926,7 @@ table.table td h2 span {
 .customHeaderItem:hover,
 .active {
   background-color: var(--mainCBlack);
-  color: var(--mainCWhite);
+  color: var(--mainCWhite) !important;
 }
 /*-----------------
 	chatbot-section, line-noti
@@ -926,11 +989,27 @@ table.table td h2 span {
   margin: 16px 0;
   overflow: hidden;
   height: 230px;
+  display: grid;
+  place-items: center;
 }
 .uploadIMG img {
   width: 100%;
   object-fit: contain;
   cursor: pointer;
+  opacity: 1;
+  position: relative;
+  z-index: 4;
+}
+.uploadIMG:hover img{
+  opacity: 0.5;
+}
+.uploadIMG span{
+  position: absolute;
+  bottom: 50%;
+  z-index: 20;
+  opacity: 0;
+}
+.uploadIMG:hover span{
   opacity: 1;
 }
 .userBackButton:hover,
@@ -1013,11 +1092,11 @@ table.table td h2 span {
 .chatWordInput {
   min-width: 60%;
 }
-.chatWordInput input {
+/* .chatWordInput input {
   border: 1px solid var(--mainCBlack);
   border-radius: 10px;
   width: 100%;
-}
+} */
 .lineTokenHeader {
   text-align: left;
   font-size: 1.5rem;
@@ -1375,12 +1454,11 @@ FOOTER
   display: flex;
   justify-content: space-between;
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   height: 420px;
   z-index: 1200;
-  /* background-image: url("/images/bg/footer_bg.png");
-  background-size: 100% 100%; */
-  /* bottom: 0; */
+  background-image: url("/images/bg/footer_bg.png");
+  background-size: 100% 100%;
 }
 .footer-container {
   padding: 16px 5%;

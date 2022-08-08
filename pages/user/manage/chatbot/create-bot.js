@@ -9,6 +9,7 @@ import useUser from '../../../../Hooks/useUser'
 import axios from '../../../api/axios'
 import PageDropdown from '../../../../components/PageDropdown'
 import { Alert } from 'react-bootstrap'
+import TagsInput from '../../../../components/tagsinput/TagsInput'
 
 const Createbot = () => {
   const router = useRouter()
@@ -134,7 +135,7 @@ const Createbot = () => {
   }
   return (
     <div className="page-wrapper">
-    {isSuccess.show && (
+      {isSuccess.show && (
         <Alert className="text-center" variant={isSuccess.isSuccess ? 'success' : 'danger'}>
           <span>{isSuccess.text}</span>
         </Alert>
@@ -302,19 +303,24 @@ const Createbot = () => {
               <div className="d-flex flex-column flex-md-row my-3">
                 <h4 className="me-3 my-auto">ตอบเฉพาะคำเหล่านี้</h4>
                 <div className="chatWordInput">
-                  <input value={words} onChange={(e) => setWords(e.target.value)} name="tags" />
+                  <TagsInput tags={words} setTags={setWords} />
+                  {/* <input value={words} onChange={(e) => setWords(e.target.value)} name="tags" /> */}
                 </div>
               </div>
               <div className="d-flex my-3 flex-column flex-md-row">
                 <h4 className="me-3 my-auto">ตอบเฉพาะแฮทแท็กนี้</h4>
                 <div className="chatWordInput">
-                  <input value={tags} onChange={(e) => setTags(e.target.value)} name="specificWord" />
+                  <TagsInput tags={tags} setTags={setTags} />
+
+                  {/* <input value={tags} onChange={(e) => setTags(e.target.value)} name="specificWord" /> */}
                 </div>
               </div>
               <div className="d-flex my-3 flex-column flex-md-row">
                 <h4 className="me-3 my-auto">ซ่อนคำเหล่านี้</h4>
                 <div className="chatWordInput">
-                  <input value={hiddenWords} onChange={(e) => setHiddenWords(e.target.value)} name="tags" />
+                  <TagsInput tags={hiddenWords} setTags={setHiddenWords} />
+
+                  {/* <input value={hiddenWords} onChange={(e) => setHiddenWords(e.target.value)} name="tags" /> */}
                 </div>
               </div>
             </div>

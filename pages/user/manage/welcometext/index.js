@@ -39,17 +39,20 @@ const Welcometext = () => {
   const onCopy = async () => {
     try {
       for (const id of itemList) {
-        let temp = data.filter((item) => item.item._id === id)
-        temp[0].item.campaignName = '(copy) ' + temp[0].item.campaignName
+        let temp = data.filter((item) => item.id === id)
+        temp[0].name = '(copy) ' + temp[0].name
         const copyData = {
-          pageId: temp[0].item.pageId,
-          campaignName: temp[0].item.campaignName,
-          receptionDetail: temp[0].item.receptionDetail,
+          page: temp[0].page,
+          name: temp[0].name,
+          messages: temp[0].messages,
+          facebookUser: 'string',
         }
         // console.log(copyData)
-        const res = await axios.post('/receptions', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+        const res = await axios.post('/greeting-messages', copyData, {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        })
         // console.log(res.data)
-        setData([...data,res.data.createdKeyword])
+        setData([...data, res.data.data])
       }
       setItemList([])
     } catch (error) {
@@ -68,7 +71,7 @@ const Welcometext = () => {
           headers: { Authorization: `Bearer ${user?.accessToken}` },
         })
         // console.log(res.data)
-        setData((prev) => prev.filter((item) => item.item._id !== id))
+        setData((prev) => prev.filter((item) => item.id !== id))
       }
       setItemList([])
     } catch (error) {
@@ -77,7 +80,7 @@ const Welcometext = () => {
   }
 
   const onCheckAll = () => {
-    const Ids = data.map((item) => item.item._id)
+    const Ids = data.map((item) => item.id)
     if (itemList.length !== 0) {
       setItemList([])
       setIsCheckAll(false)
@@ -93,37 +96,37 @@ const Welcometext = () => {
   const renderTable = () => {
     return data.map((item, index) => {
       return (
-        !item?.item?.isDelete && (
-          <tr key={index}>
-            <td>
-              <input
-                type="checkbox"
-                name={item.item._id}
-                checked={itemList.includes(item.item._id)}
-                onClick={(e) => onChecked(e)}
-              />
-            </td>
-            <td>{item.item.campaignName}</td>
-            <td>
-              <div>
-                <span onClick={() => onEdit(item.item._id)} className="userEditButton">
-                  แก้ไข
-                </span>
-              </div>
-            </td>
-          </tr>
-        )
+        // item?.status && (
+        <tr key={index}>
+          <td>
+            <input
+              type="checkbox"
+              name={item?.id}
+              checked={itemList.includes(item?.id)}
+              onClick={(e) => onChecked(e)}
+            />
+          </td>
+          <td>{item.name}</td>
+          <td>
+            <div>
+              <span onClick={() => onEdit(item.id)} className="userEditButton">
+                แก้ไข
+              </span>
+            </div>
+          </td>
+        </tr>
+        // )
       )
     })
   }
   const getReceptionList = async () => {
     //id from pageId
     try {
-      const res = await axios.get(`/receptions/${pageID}`, {
+      const res = await axios.get(`/greeting-messages/${id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data)
-      setData(res.data.receptions)
+      // console.log(res.data)
+      setData(res.data.data.results)
     } catch (error) {
       console.log(error)
     }

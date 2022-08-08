@@ -13,7 +13,7 @@ const FacebookLogin = ({ onShowWarning }) => {
     console.log('click')
   }
   const responseFacebook = async (response) => {
-    // console.log(response)
+    console.log(response)
     setResData(response)
     const fields = 'id,name,email,picture'
     const token = response.accessToken

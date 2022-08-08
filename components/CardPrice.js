@@ -31,7 +31,7 @@ const CardPrice = ({ data = [], selected, setSelectedPackage }) => {
               </span>
               {item.name}
             </Card.Title>
-            <Card.Text>
+            {/* <Card.Text> */}
               <div className="d-flex flex-column text-center mb-3 text-price-header">
                 <h2>{item?.price}</h2>
                 <span className="text-center">บาท/เดือน</span>
@@ -48,7 +48,7 @@ const CardPrice = ({ data = [], selected, setSelectedPackage }) => {
                   ))}
                 </ul>
               </div>
-            </Card.Text>
+            {/* </Card.Text> */}
             <span style={{ display: `${selected === item.id ? 'grid' : 'none'}` }} className="selectBtnCustom">
               เลือกแพ็คเกจนี้
             </span>

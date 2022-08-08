@@ -38,16 +38,17 @@ const Replykeyword = () => {
   const onCopy = async () => {
     try {
       for (const id of itemList) {
-        let temp = data.filter((item) => item.item._id === id)
+        let temp = data.filter((item) => item.id === id)
         // console.log(temp[0])
-        temp[0].item.campaignName = '(copy) ' + temp[0].item.campaignName
+        temp[0].name = '(copy) ' + temp[0].name
         const copyData = {
-          pageId: temp[0].item.pageId,
-          keywordName: temp[0].item.keywordName,
-          campaignName: temp[0].item.campaignName,
-          keywordDetail: temp[0].item.keywordDetail,
+          facebookUser: temp[0].facebook_user,
+          keywords: temp[0].keywords,
+          name: temp[0].name,
+          messages: temp[0].messages,
+          images:item[0].images
         }
-        const res = await axios.post('/keywords', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+        const res = await axios.post('/auto-replies', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
         // console.log(res.data)
         setData([...data,res.data.createdKeyword])
       }
@@ -68,7 +69,7 @@ const Replykeyword = () => {
           headers: { Authorization: `Bearer ${user?.accessToken}` },
         })
         // console.log(res.data)
-        setData((prev) => prev.filter((item) => item.item._id !== id))
+        setData((prev) => prev.filter((item) => item.id !== id))
       }
       setItemList([])
     } catch (error) {
@@ -77,7 +78,7 @@ const Replykeyword = () => {
   }
 
   const onCheckAll = () => {
-    const Ids = data.map((item) => item.item._id)
+    const Ids = data.map((item) => item.id)
     if (itemList.length !== 0) {
       setItemList([])
       setIsCheckAll(false)
@@ -95,15 +96,15 @@ const Replykeyword = () => {
             <td>
               <input
                 type="checkbox"
-                name={item.item._id}
-                checked={itemList.includes(item.item._id)}
+                name={item.id}
+                checked={itemList.includes(item.id)}
                 onClick={(e) => onChecked(e)}
               />
             </td>
-            <td>{item.item.campaignName}</td>
+            <td>{item.name}</td>
             <td>
               <div>
-                <span onClick={() => onEdit(item.item._id)} className="userEditButton">
+                <span onClick={() => onEdit(item.id)} className="userEditButton">
                   แก้ไข
                 </span>
               </div>
@@ -121,11 +122,11 @@ const Replykeyword = () => {
   const getKeywordsList = async () => {
     //id from pageId
     try {
-      const res = await axios.get(`/keywords/${pageID}`, {
+      const res = await axios.get(`/auto-replies/${pageID}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
-      setData(res.data.keywords)
+      setData(res.data.data.results)
     } catch (error) {
       console.log(error)
     }

@@ -23,17 +23,26 @@ const Linenoti = () => {
 
   const onSubmit = async () => {
     const data = {
-      pageId: pageID,
-      lineName: lineName,
-      lineAccessToken: lineAccessToken,
-      lineTimer: lineTimer,
+      // pageId: pageID,
+      // lineName: lineName,
+      // lineAccessToken: lineAccessToken,
+      // lineTimer: lineTimer,
+
+      facebookUser: 'string',
+      token: lineAccessToken,
+      name: lineName,
+      duration: lineTimer,
+      pages: [pageID],
+      status: 'active',
     }
     // console.log(data)
     try {
-      const res = await axios.post(`/notifications`, data,{ headers: { Authorization: `Bearer ${user?.accessToken}`}})
+      const res = await axios.post(`/public/line-notifications`, data, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
       // console.log(res.data);
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
   const onChangeTimeUnit = (value) => {
@@ -74,9 +83,9 @@ const Linenoti = () => {
     return data.map((item, index) => {
       return (
         <tr key={index}>
-          <td className="text-start">{`${index + 1}. ${item?.item?.lineName}`}</td>
+          <td className="text-start">{`${index + 1}. ${item?.name}`}</td>
           <td>
-            {item?.item?.qty} <FontAwesomeIcon icon={faEye} />
+            {item?.pages?.length} <FontAwesomeIcon icon={faEye} />
           </td>
         </tr>
       )
@@ -92,18 +101,18 @@ const Linenoti = () => {
   //*get line list
   const getLineList = async () => {
     try {
-      const res = await axios.get(`/notifications/${pageID}`, {
+      const res = await axios.get(`/public/line-notifications/${id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data.notifications);
-      setData(res.data.notifications)
+      setData(res.data.data.results)
     } catch (error) {
       console.log(error)
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getLineList()
-  },[])
+  }, [])
   return (
     <div className="page-wrapper">
       <div className="content container-fluid">

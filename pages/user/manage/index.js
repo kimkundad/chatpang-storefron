@@ -67,7 +67,7 @@ const Index = () => {
   },[])
   return (
     <div className="page-wrapper">
-      <div className="content container-fluid">
+      <div className="container container-fluid">
         <Sidebar />
         <div className="userpage-wrapper text-center">
           <div className="page-header">
