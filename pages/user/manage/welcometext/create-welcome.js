@@ -21,7 +21,7 @@ const CreateWelcome = () => {
   const { user } = useUser()
   const [pageID, setPageID] = useState(router.query.pageId)
   const { TextArea } = Input
-  // const [img, setImg] = useState({})
+
   const [campaignName, setCampaignName] = useState('')
   const [details, setDetails] = useState([''])
   //*check status
@@ -30,13 +30,10 @@ const CreateWelcome = () => {
     isSuccess: false,
     text: '',
   })
+
   const onSubmit = async (e) => {
     e.preventDefault()
-    // await convertToImagePath()
     const data = {
-      // pageId: pageID,
-      // campaignName: campaignName,
-      // receptionDetail: details,
       messages: details,
       name: campaignName,
       page: pageID,
@@ -48,6 +45,11 @@ const CreateWelcome = () => {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
+      //set Id for publish 
+      const greetingId = res.data.data.id
+      const res1 = await axios.post(`/greeting-messages/${greetingId}/publish`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
       setIsSuccess({
         show: true,
         isSuccess: true,
@@ -96,7 +98,7 @@ const CreateWelcome = () => {
   // }
 
   const onSelect = (id) => {
-    console.log(id)
+    // console.log(id)
     setPageID(id)
   }
 
@@ -147,41 +149,47 @@ const CreateWelcome = () => {
   // }
   const onClickNext = (index) => {
     // console.log(inputRef[index].current)
-    inputRef[index].current.scrollIntoView({
+    index + 1 <= Object.values(inputRef).length - 1 &&inputRef[index + 1].current.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'end',
     })
   }
+  const onClickPrev = (index) => {
+    index - 1 >= 0 &&inputRef[index - 1].current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'start',
+    })
+  }
   const renderTextInput = () => {
-    return details.map((data, index) => {
-      if (data.type === 'text') {
+    return details.map((text, index) => {
         return (
           <div key={index} className="row g-md-3 createContainer">
             {/* <> */}
             <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
+              <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
             </div>
-            <div className="col-md-6 col-9 commentInput">
+            <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
               <TextArea
                 showCount
-                value={details.name}
+                value={text}
                 onChange={(e) => onHandleChangeDetail(e, index)}
                 maxLength={200}
                 placeholder="พิมพ์ข้อความที่นี้..."
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
             </div>
-            <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+            <div className="col-md-2 col-2 d-flex justify-content-center align-items-start align-items-md-center replyKeywordBtn">
               <div className="h-auto d-flex flex-column me-4">
                 <span>
-                  <FontAwesomeIcon icon={faCircleChevronUp} />
+                  <FontAwesomeIcon onClick={() => onClickPrev(index)} icon={faCircleChevronUp} />
                 </span>
                 <span>
                   <FontAwesomeIcon onClick={() => onClickNext(index)} icon={faCircleChevronDown} />
                 </span>
               </div>
-              <div className="replyDeleteBTN">
+              <div className="">
                 <span style={{ color: 'red' }}>
                   <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
                 </span>
@@ -190,7 +198,6 @@ const CreateWelcome = () => {
             {/* </> */}
           </div>
         )
-      }
     })
   }
   // const renderImageInput = () => {
@@ -286,7 +293,9 @@ const CreateWelcome = () => {
             </div>
           </div>
           <Divider />
+          <div className='text-container'>
           {renderTextInput()}
+          </div>
           {/* can not according to facebook greeting function */}
           {/* <Divider />
           {renderImageInput()} */}

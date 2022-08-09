@@ -30,9 +30,9 @@ const Chatbot = () => {
     setIsCheckAll(false)
     const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
-      await setItemList([...itemList, newId])
+       setItemList([...itemList, newId])
     } else {
-      await setItemList((prev) => prev.filter((value) => value !== newId))
+       setItemList((prev) => prev.filter((value) => value !== newId))
     }
   }
 

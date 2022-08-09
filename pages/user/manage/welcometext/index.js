@@ -61,13 +61,13 @@ const Welcometext = () => {
   }
 
   const onDelete = async () => {
-    const data = {
-      isDelete: true,
-      deleteAt: new Date(),
-    }
+    // const data = {
+    //   isDelete: true,
+    //   deleteAt: new Date(),
+    // }
     try {
       for (const id of itemList) {
-        const res = await axios.patch(`/receptions/${id}`, data, {
+        const res = await axios.delete(`/greeting-messages/${id}`, {
           headers: { Authorization: `Bearer ${user?.accessToken}` },
         })
         // console.log(res.data)
@@ -120,7 +120,7 @@ const Welcometext = () => {
     })
   }
   const getReceptionList = async () => {
-    //id from pageId
+    //id from facebookUserId
     try {
       const res = await axios.get(`/greeting-messages/${id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },

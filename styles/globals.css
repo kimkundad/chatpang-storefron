@@ -486,10 +486,19 @@ register section
 /*------
 chatbot section
 ------*/
+.text-container{
+  /* background: red; */
+  max-height: 550px;
+  overflow-y: scroll;
+}
 .createContainer {
   font-size: min(2.5rem, 3vw);
-  height: 270px;
-  overflow-y: scroll;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* overflow-y: scroll; */
+  /* scroll-behavior: smooth; */
 }
 .ant-input {
   font-size: min(2rem, 3vw) !important;
@@ -510,7 +519,7 @@ chatbot section
 }
 .commentInput {
   max-width: 450px;
-  height: 250px;
+  height: 240px;
 }
 .toggleCommentOptions {
   display: flex;
@@ -1555,7 +1564,7 @@ Upload
 	Responsive
 -----------------------*/
 @media (max-width: 991.98px) {
-  .page-wrapper {
+  .page-wrapper,.userpage-wrapper{
     margin-left: 0;
     padding-left: 0;
     padding-right: 0;
