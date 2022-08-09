@@ -18,16 +18,20 @@ const Createbot = () => {
   const [pageID, setPageID] = useState(router.query.pageId)
 
   const { TextArea } = Input
-  const hiddenfileInbox = useRef(null)
-  const hiddenfileComment = useRef(null)
-  const [img1, setImg1] = useState('')
-  const [img2, setImg2] = useState('')
+  // const hiddenfileInbox = useRef(null)
+  // const hiddenfileComment = useRef(null)
+  // const [img1, setImg1] = useState('')
+  // const [img2, setImg2] = useState('')
   const [campaignName, setCampaignName] = useState('')
   const [txtInboxComment, setTxtInboxComment] = useState('')
-  const [fileInboxComment, setFileInboxComment] = useState('')
+
+  // const [fileInboxComment, setFileInboxComment] = useState('')
+
   const [isInboxComment, setIsInboxComment] = useState(false)
   const [txtComment, setTxtComment] = useState('')
-  const [fileComment, setFileComment] = useState('')
+
+  // const [fileComment, setFileComment] = useState('')
+
   const [isComment, setIsComment] = useState(false)
   const [isLikeComment, setIsLikeComment] = useState(false)
   const [isDuplicateComment, setIsDuplicateComment] = useState(false)
@@ -43,30 +47,28 @@ const Createbot = () => {
   })
   const onSubmit = async (e) => {
     e.preventDefault()
-    const pathInbox = await getImagePath(fileInboxComment)
-    const pathComment = await getImagePath(fileComment)
+    // const pathInbox = await getImagePath(fileInboxComment)
+    // const pathComment = await getImagePath(fileComment)
     const data = {
-      pageId: pageID,
-      campaignName: campaignName,
-      txtInboxComment: txtInboxComment,
-      fileInboxComment: pathInbox,
-      isInboxComment: isInboxComment,
-      txtComment: txtComment,
-      fileComment: pathComment,
-      isComment: isComment,
-      isLikeComment: isLikeComment,
-      isDuplicateComment: isDuplicateComment,
-      isHideComment: isHideComment,
-      txtData: [
-        {
-          txtSpecWord: words,
-          txtSpecHashTag: tags,
-          txtHideWord: hiddenWords,
-        },
-      ],
+      messages: {
+        active: isInboxComment,
+        values: [txtInboxComment],
+      },
+      comments: {
+        active: isComment,
+        values: [txtComment],
+      },
+      keywords: words,
+      hashtags: tags,
+      hiddens: hiddenWords,
+      name: campaignName,
+      likeComment: isLikeComment,
+      replySamePerson: isDuplicateComment,
+      hideComment: isHideComment,
+      facebookUser: 'string',
     }
     try {
-      const res = await axios.post('/chatbots', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+      const res = await axios.post('/campaigns', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
       // console.log(res.data)
       setIsSuccess({
         show: true,
@@ -76,19 +78,19 @@ const Createbot = () => {
       handleNotify()
       setCampaignName('')
       setTxtInboxComment('')
-      setFileInboxComment('')
-      setIsInboxComment('')
+      // setFileInboxComment('')
+      setIsInboxComment(false)
       setTxtComment('')
-      setFileComment('')
-      setIsComment('')
-      setIsLikeComment('')
-      setIsDuplicateComment('')
-      setIsHideComment('')
-      setWords('')
-      setTags('')
-      setHiddenWords('')
-      setImg1('')
-      setImg2('')
+      // setFileComment('')
+      setIsComment(false)
+      setIsLikeComment(false)
+      setIsDuplicateComment(false)
+      setIsHideComment(false)
+      setWords([])
+      setTags([])
+      setHiddenWords([])
+      // setImg1('')
+      // setImg2('')
     } catch (error) {
       console.log(error)
       setIsSuccess({
@@ -108,26 +110,26 @@ const Createbot = () => {
       })
     }, 2000)
   }
-  const setImageInbox = (e) => {
-    setFileInboxComment(e.target.files[0])
-    setImg1(URL.createObjectURL(e.target.files[0]))
-  }
-  const setImageComment = (e) => {
-    setFileComment(e.target.files[0])
-    setImg2(URL.createObjectURL(e.target.files[0]))
-  }
+  // const setImageInbox = (e) => {
+  //   setFileInboxComment(e.target.files[0])
+  //   setImg1(URL.createObjectURL(e.target.files[0]))
+  // }
+  // const setImageComment = (e) => {
+  //   setFileComment(e.target.files[0])
+  //   setImg2(URL.createObjectURL(e.target.files[0]))
+  // }
 
-  const getImagePath = async (file) => {
-    const formData = new FormData()
-    formData.append('image', file, file.name)
-    try {
-      const res = await axios.post('/configs/upload', formData)
-      // console.log(res.data)
-      return res.data.data
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const getImagePath = async (file) => {
+  //   const formData = new FormData()
+  //   formData.append('image', file, file.name)
+  //   try {
+  //     const res = await axios.post('/configs/upload', formData)
+  //     // console.log(res.data)
+  //     return res.data.data
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const onSelect = (id) => {
     // console.log(id);
@@ -203,15 +205,14 @@ const Createbot = () => {
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
             </div>
-            {img1 ? (
+            {/* {img1 ? (
               <div className="col-md-2 uploadComment">
                 <img className="imgUpload" src={img1} alt="img" />
                 <div className="imgUploadOptions">
                   <div onClick={() => setImg1('')} className="optionsIcon">
                     <FontAwesomeIcon icon={faTrash} />
                   </div>
-                  {/* <div className='optionsIcon'><FontAwesomeIcon icon={faUpload} /></div> */}
-                </div>
+                  </div>
               </div>
             ) : (
               <div className="col-md-2 uploadComment">
@@ -227,8 +228,7 @@ const Createbot = () => {
                   UPLOAD
                 </label>
               </div>
-            )}
-            {/* </div> */}
+            )} */}
           </div>
           <Divider />
           <div className="row text-center g-3">
@@ -270,15 +270,13 @@ const Createbot = () => {
                 </div>
               </div>
             </div>
-            {img2 ? (
+            {/* {img2 ? (
               <div className="col-md-2 uploadComment">
                 <img className="imgUpload" src={img2} alt="img" />
                 <div className="imgUploadOptions">
                   <div onClick={() => setImg2('')} className="optionsIcon">
                     <FontAwesomeIcon icon={faTrash} />
-                  </div>
-                  {/* <div className='optionsIcon'><FontAwesomeIcon icon={faUpload} /></div> */}
-                </div>
+                  </div></div>
               </div>
             ) : (
               <div className="col-md-2 uploadComment">
@@ -294,8 +292,7 @@ const Createbot = () => {
                   UPLOAD
                 </label>
               </div>
-            )}
-            {/* </div> */}
+            )} */}
           </div>
           <Divider />
           <div className="row justify-content-center">

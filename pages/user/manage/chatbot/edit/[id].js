@@ -8,29 +8,37 @@ import { Divider, Input, Switch } from 'antd'
 import axios from '../../../../api/axios'
 import useUser from '../../../../../Hooks/useUser'
 import { Alert } from 'react-bootstrap'
+import TagsInput from '../../../../../components/tagsinput/TagsInput'
 const Edit = () => {
   const router = useRouter()
   const { user } = useUser()
   const id = router.query.id
   const { TextArea } = Input
   const [pageID, setPageID] = useState(router.query.pageId)
-  const [img1, setImg1] = useState('')
-  const [img2, setImg2] = useState('')
-  const hiddenfileInbox = useRef(null)
-  const hiddenfileComment = useRef(null)
+
+  // const [img1, setImg1] = useState('')
+  // const [img2, setImg2] = useState('')
+  // const hiddenfileInbox = useRef(null)
+  // const hiddenfileComment = useRef(null)
+
   const [campaignName, setCampaignName] = useState('')
   const [txtInboxComment, setTxtInboxComment] = useState('')
-  const [fileInboxComment, setFileInboxComment] = useState('')
+
+  // const [fileInboxComment, setFileInboxComment] = useState('')
+
   const [isInboxComment, setIsInboxComment] = useState(false)
   const [txtComment, setTxtComment] = useState('')
-  const [fileComment, setFileComment] = useState('')
+
+  // const [fileComment, setFileComment] = useState('')
+
   const [isComment, setIsComment] = useState(false)
   const [isLikeComment, setIsLikeComment] = useState(false)
   const [isDuplicateComment, setIsDuplicateComment] = useState(false)
   const [isHideComment, setIsHideComment] = useState(false)
-  const [words, setWords] = useState('')
-  const [tags, setTags] = useState('')
-  const [hiddenWords, setHiddenWords] = useState('')
+  const [words, setWords] = useState([])
+  const [tags, setTags] = useState([])
+  const [hiddenWords, setHiddenWords] = useState([])
+  const [facebookUserId, setFacebookUserId] = useState('')
   //*check status
   const [isSuccess, setIsSuccess] = useState({
     show: false,
@@ -39,35 +47,48 @@ const Edit = () => {
   })
   const onSubmit = async (e) => {
     e.preventDefault()
-    const regExURL = /https?:\/\//
-    const pathInbox = regExURL.test(fileInboxComment) ? fileInboxComment : await getImagePath(fileInboxComment)
-    const pathComment = regExURL.test(fileComment) ? fileComment : await getImagePath(fileComment)
+    // const regExURL = /https?:\/\//
+    // const pathInbox = regExURL.test(fileInboxComment) ? fileInboxComment : await getImagePath(fileInboxComment)
+    // const pathComment = regExURL.test(fileComment) ? fileComment : await getImagePath(fileComment)
     const data = {
-      campaignName: campaignName,
-      txtInboxComment: txtInboxComment,
-      fileInboxComment: pathInbox,
-      isInboxComment: isInboxComment,
-      txtComment: txtComment,
-      fileComment: pathComment,
-      isComment: isComment,
-      isLikeComment: isLikeComment,
-      isDuplicateComment: isDuplicateComment,
-      isHideComment: isHideComment,
-      txtData: [
-        {
-          txtSpecWord: words,
-          txtSpecHashTag: tags,
-          txtHideWord: hiddenWords,
-        },
-      ],
+      messages: {
+        active: isInboxComment,
+        values: [txtInboxComment],
+      },
+      comments: {
+        active: isComment,
+        values: [txtComment],
+      },
+      keywords: words,
+      hashtags: tags,
+      hiddens: hiddenWords,
+      name: campaignName,
+      likeComment: isLikeComment,
+      replySamePerson: isDuplicateComment,
+      hideComment: isHideComment,
+      facebookUser: facebookUserId,
     }
     // console.log(data)
     try {
-      const res = await axios.patch(`/chatbots/${id}`, data, {
+      const res = await axios.put(`/campaigns/${id}`, data, {
         headers: {
           Authorization: `Bearer ${user?.accessToken}`,
         },
       })
+      setCampaignName(res.data.data.name)
+      setTxtInboxComment(res.data.data.messages.values[0])
+      // setFileInboxComment('')
+      setIsInboxComment(res.data.data.messages.active)
+      setTxtComment(res.data.data.comment.values[0])
+      // setFileComment('')
+      setIsComment(res.data.data.comment.active)
+      setIsLikeComment(res.data.data.like_comment)
+      setIsDuplicateComment(res.data.data.reply_same_person)
+      setIsHideComment(res.data.data.hide_comment)
+      setWords(res.data.data.keywords)
+      setTags(res.data.data.hashtags)
+      setHiddenWords(res.data.data.hiddens)
+      setFacebookUserId(res.data.data.facebook_user)
       setIsSuccess({
         show: true,
         isSuccess: true,
@@ -96,49 +117,48 @@ const Edit = () => {
       router.back()
     }, 2000)
   }
-  const setImageInbox = (e) => {
-    // console.log(e.target.files[0])
-    setFileInboxComment(e.target.files[0])
-    setImg1(URL.createObjectURL(e.target.files[0]))
-  }
-  const setImageComment = (e) => {
-    // console.log(e.target.files[0])
-    setFileComment(e.target.files[0])
-    setImg2(URL.createObjectURL(e.target.files[0]))
-  }
-  const getImagePath = async (file) => {
-    const formData = new FormData()
-    formData.append('image', file, file.name)
-    try {
-      const res = await axios.post('/configs/upload', formData)
-      // console.log(res.data)
-      return res.data.data
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const setImageInbox = (e) => {
+  //   // console.log(e.target.files[0])
+  //   setFileInboxComment(e.target.files[0])
+  //   setImg1(URL.createObjectURL(e.target.files[0]))
+  // }
+  // const setImageComment = (e) => {
+  //   // console.log(e.target.files[0])
+  //   setFileComment(e.target.files[0])
+  //   setImg2(URL.createObjectURL(e.target.files[0]))
+  // }
+  // const getImagePath = async (file) => {
+  //   const formData = new FormData()
+  //   formData.append('image', file, file.name)
+  //   try {
+  //     const res = await axios.post('/configs/upload', formData)
+  //     // console.log(res.data)
+  //     return res.data.data
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   const getChatSettingById = async () => {
     try {
-      const res = await axios.get(`/chatbots/detail/${id}`, {
+      const res = await axios.get(`/campaigns/${id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
-      const data = res.data
-      setCampaignName(data.campaignName)
-      setTxtInboxComment(data.txtInboxComment)
-      setFileInboxComment(data.fileInboxComment)
-      setIsInboxComment(data.isInboxComment)
-      setTxtComment(data.txtComment)
-      setFileComment(data.fileComment)
-      setIsComment(data.isComment)
-      setIsLikeComment(data.isLikeComment)
-      setIsDuplicateComment(data.isDuplicateComment)
-      setIsHideComment(data.isHideComment)
-      setWords(data.txtData[0].txtSpecWord)
-      setTags(data.txtData[0].txtSpecHashTag)
-      setHiddenWords(data.txtData[0].txtHideWord)
-      setImg1(data.fileInboxComment)
-      setImg2(data.fileComment)
+      // const data = res.data.data
+      setCampaignName(res.data.data.name)
+      setTxtInboxComment(res.data.data.messages.values[0])
+      // setFileInboxComment('')
+      setIsInboxComment(res.data.data.messages.active)
+      setTxtComment(res.data.data.comment.values[0])
+      // setFileComment('')
+      setIsComment(res.data.data.comment.active)
+      setIsLikeComment(res.data.data.like_comment)
+      setIsDuplicateComment(res.data.data.reply_same_person)
+      setIsHideComment(res.data.data.hide_comment)
+      setWords(res.data.data.keywords)
+      setTags(res.data.data.hashtags)
+      setHiddenWords(res.data.data.hiddens)
+      setFacebookUserId(res.data.data.facebook_user)
     } catch (error) {
       console.log(error)
     }
@@ -217,15 +237,13 @@ const Edit = () => {
                 autoSize={{ minRows: 4, maxRows: 6 }}
               />
             </div>
-            {img1 ? (
+            {/* {img1 ? (
               <div className="col-md-2 uploadComment">
                 <img className="imgUpload" src={img1} alt="img" />
                 <div className="imgUploadOptions">
                   <div onClick={() => setImg1('')} className="optionsIcon">
                     <FontAwesomeIcon icon={faTrash} />
-                  </div>
-                  {/* <div className='optionsIcon'><FontAwesomeIcon icon={faUpload} /></div> */}
-                </div>
+                  </div></div>
               </div>
             ) : (
               <div className="col-md-2 uploadComment">
@@ -241,8 +259,7 @@ const Edit = () => {
                   UPLOAD
                 </label>
               </div>
-            )}
-            {/* </div> */}
+            )} */}
           </div>
           <Divider />
           <div className="row text-center g-3">
@@ -268,7 +285,12 @@ const Edit = () => {
               />
               <div className="toggleCommentOptions">
                 <div>
-                  <Switch size="small" value={isLikeComment} onChange={() => setIsLikeComment(!isLikeComment)} checked={isLikeComment} />
+                  <Switch
+                    size="small"
+                    value={isLikeComment}
+                    onChange={() => setIsLikeComment(!isLikeComment)}
+                    checked={isLikeComment}
+                  />
                   <h4 className="ms-3 my-auto">ถูกใจคอมเม้นต์</h4>
                 </div>
                 <div>
@@ -281,20 +303,23 @@ const Edit = () => {
                   <h4 className="ms-3 my-auto">ไม่ตอบซ้ำคนเดิม</h4>
                 </div>
                 <div>
-                  <Switch size="small" value={isHideComment} onChange={() => setIsHideComment(!isHideComment)} checked={isHideComment} />
+                  <Switch
+                    size="small"
+                    value={isHideComment}
+                    onChange={() => setIsHideComment(!isHideComment)}
+                    checked={isHideComment}
+                  />
                   <h4 className="ms-3 my-auto">ซ่อนคอมเม้นต์</h4>
                 </div>
               </div>
             </div>
-            {img2 ? (
+            {/* {img2 ? (
               <div className="col-md-2 uploadComment">
                 <img className="imgUpload" src={img2} alt="img" />
                 <div className="imgUploadOptions">
                   <div onClick={() => setImg2('')} className="optionsIcon">
                     <FontAwesomeIcon icon={faTrash} />
-                  </div>
-                  {/* <div className='optionsIcon'><FontAwesomeIcon icon={faUpload} /></div> */}
-                </div>
+                  </div></div>
               </div>
             ) : (
               <div className="col-md-2 uploadComment">
@@ -310,8 +335,7 @@ const Edit = () => {
                   UPLOAD
                 </label>
               </div>
-            )}
-            {/* </div> */}
+            )} */}
           </div>
           <Divider />
           <div className="row justify-content-center">
@@ -319,19 +343,24 @@ const Edit = () => {
               <div className="d-flex flex-column flex-md-row my-3">
                 <h4 className="me-3 my-auto">ตอบเฉพาะคำเหล่านี้</h4>
                 <div className="chatWordInput">
-                  <input value={words} onChange={(e) => setWords(e.target.value)} name="tags" />
+                  <TagsInput tags={words} setTags={setWords} />
+                  {/* <input value={words} onChange={(e) => setWords(e.target.value)} name="tags" /> */}
                 </div>
               </div>
               <div className="d-flex my-3 flex-column flex-md-row">
                 <h4 className="me-3 my-auto">ตอบเฉพาะแฮทแท็กนี้</h4>
                 <div className="chatWordInput">
-                  <input value={tags} onChange={(e) => setTags(e.target.value)} name="specificWord" />
+                  <TagsInput tags={tags} setTags={setTags} />
+
+                  {/* <input value={tags} onChange={(e) => setTags(e.target.value)} name="specificWord" /> */}
                 </div>
               </div>
               <div className="d-flex my-3 flex-column flex-md-row">
                 <h4 className="me-3 my-auto">ซ่อนคำเหล่านี้</h4>
                 <div className="chatWordInput">
-                  <input value={hiddenWords} onChange={(e) => setHiddenWords(e.target.value)} name="tags" />
+                  <TagsInput tags={hiddenWords} setTags={setHiddenWords} />
+
+                  {/* <input value={hiddenWords} onChange={(e) => setHiddenWords(e.target.value)} name="tags" /> */}
                 </div>
               </div>
             </div>

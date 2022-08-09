@@ -172,7 +172,10 @@ const Replykeyword = () => {
   //     console.log(error)
   //   }
   // }
-
+  const onSelect = (id) => {
+    // console.log(id)
+    setPageID(id)
+  }
   const renderTable = () => {
     return data.map((item, index) => {
       return (
@@ -207,10 +210,7 @@ const Replykeyword = () => {
     })
   }
 
-  const onSelect = (id) => {
-    // console.log(id)
-    setPageID(id)
-  }
+  
   const getKeywordsList = async () => {
     //id from pageId
     try {

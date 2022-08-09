@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashCan, faCopy, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Avatar } from 'antd'
 import Sidebar from '../../../../components/Sidebar'
-import { Table } from 'react-bootstrap'
+import { Table, Form } from 'react-bootstrap'
 import axios from '../../../api/axios'
 import useUser from '../../../../Hooks/useUser'
 import PageDropdown from '../../../../components/PageDropdown'
@@ -16,7 +16,30 @@ const Chatbot = () => {
 
   const [selectedItem, setSelectedItem] = useState()
   const [itemList, setItemList] = useState([])
-  const [data, setData] = useState([])
+  const [data, setData] = useState([
+    {
+      id: '62ab6378d8f80aaaa505458b',
+      keywords: ['Hello', 'Makewebbkk'],
+      hashtags: ['#Hello', '#Makewebbkk'],
+      hiddens: ['Hello', 'Makewebbkk'],
+      messages: {
+        active: true,
+        values: ['Hello', 'Makewebbkk'],
+      },
+      comments: {
+        active: true,
+        values: ['Hello', 'Makewebbkk'],
+      },
+      like_comment: false,
+      reply_same_person: false,
+      hide_comment: false,
+      name: 'Test Auto Replies',
+      facebook_user: '62ab6378d8f80aaaa505458b',
+      status: 'active',
+      created_at: '2022-06-16T17:08:08.520+00:00',
+      updated_at: '2022-06-16T17:08:08.520+00:00',
+    },
+  ])
   const [isCheckAll, setIsCheckAll] = useState(false)
 
   const onEdit = (id) => {
@@ -30,39 +53,48 @@ const Chatbot = () => {
     setIsCheckAll(false)
     const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
-       setItemList([...itemList, newId])
+      setItemList([...itemList, newId])
     } else {
-       setItemList((prev) => prev.filter((value) => value !== newId))
+      setItemList((prev) => prev.filter((value) => value !== newId))
     }
   }
 
   //* check user status
-  const checkFreeTrial = () => {
-    return user?.user?.status === 'inactive'
-  }
+  // const checkFreeTrial = () => {
+  //   return user?.user?.status === 'inactive'
+  // }
+
   const onCopy = async () => {
     try {
       for (const id of itemList) {
-        let temp = data.filter((item) => item.item._id === id)
+        let temp = data.filter((item) => item.id === id)
         // console.log(temp[0])
-        temp[0].item.campaignName = '(copy) ' + temp[0].item.campaignName
+        // temp[0].campaignName = '(copy) ' + temp[0].campaignName
         const copyData = {
-          pageId: temp[0].item.pageId,
-          campaignName: temp[0].item.campaignName,
-          txtInboxComment: temp[0].item.txtInboxComment,
-          fileInboxComment: temp[0].item.fileInboxComment,
-          isInboxComment: temp[0].item.isInboxComment,
-          txtComment: temp[0].item.txtComment,
-          fileComment: temp[0].item.fileComment,
-          isComment: temp[0].item.isComment,
-          isLikeComment: temp[0].item.isLikeComment,
-          isDuplicateComment: temp[0].item.isDuplicateComment,
-          isHideComment: temp[0].item.isHideComment,
-          txtData: temp[0].item.txtData,
+          messages: {
+            active: temp[0].messages.active,
+            values: temp[0].messages.values,
+          },
+          comments: {
+            active: temp[0].comments.active,
+            values: temp[0].comments.values,
+          },
+          keywords: temp[0].keywords,
+          hashtags: temp[0].hashtags,
+          hiddens: temp[0].hiddens,
+          name: '(copy) ' + temp[0].name,
+          likeComment: temp[0].like_comment,
+          replySamePerson: temp[0].reply_same_person,
+          hideComment: temp[0].hide_comment,
+          facebookUser: temp[0].facebook_user,
         }
-        const res = await axios.post('/chatbots', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+        // const res = await axios.post('/campaigns', copyData, {
+        //   headers: { Authorization: `Bearer ${user?.accessToken}` },
+        // })
         // console.log(res.data);
-        setData([...data,res.data.createdChatbot])
+        // setData([...data, res.data.data])
+        setData([...data, copyData])
+
       }
       setItemList([])
     } catch (error) {
@@ -71,19 +103,19 @@ const Chatbot = () => {
   }
 
   const onDelete = async () => {
-    const data = {
-      isDelete: true,
-      deleteAt: new Date(),
-    }
+    // const data = {
+    //   isDelete: true,
+    //   deleteAt: new Date(),
+    // }
     try {
       for (const id of itemList) {
-        const res = await axios.patch(`/chatbots/${id}`, data, {
+        const res = await axios.delete(`/campaigns/${id}`, {
           headers: {
             Authorization: `Bearer ${user?.accessToken}`,
           },
         })
         // console.log(res.data)
-        setData((prev) => prev.filter((item) => item.item._id !== id))
+        setData((prev) => prev.filter((item) => item.id !== id))
       }
       setItemList([])
     } catch (error) {
@@ -106,29 +138,66 @@ const Chatbot = () => {
     // console.log(id)
     setPageID(id)
   }
+
+  const onChangeStatus = async (status, index, id) => {
+    // console.log(id)
+    let temp = [...data]
+    temp[index].status = status ? 'inactive' : 'active'
+    // temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
+    setData(temp)
+  }
+
+  const setStatusActive = async (id) => {
+    try {
+      const res = await axios.patch(`/campaigns/${id}/active`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const setStatusInActive = async (id) => {
+    try {
+      const res = await axios.patch(`/campaigns/${id}/inactive`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const renderTable = () => {
     return data.map((item, index) => {
       return (
-        !item?.item?.isDelete && (
-          <tr key={index}>
-            <td>
-              <input
-                type="checkbox"
-                name={item?.item?._id}
-                checked={itemList.includes(item?.item?._id)}
-                onClick={(e) => onChecked(e)}
-              />
-            </td>
-            <td>{item?.item?.campaignName}</td>
-            <td>
-              <div>
-                <span onClick={() => onEdit(item?.item?._id)} className="userEditButton">
-                  แก้ไข
-                </span>
-              </div>
-            </td>
-          </tr>
-        )
+        <tr key={index}>
+          <td>
+            <input
+              type="checkbox"
+              name={item?.id}
+              checked={itemList.includes(item?.id)}
+              onClick={(e) => onChecked(e)}
+            />
+          </td>
+          <td>
+            <span>{item?.status}</span>
+            <Form.Check
+              type="switch"
+              checked={item?.status === 'active'}
+              // label={item.status}
+              onClick={() => onChangeStatus(item?.status === 'active', index, item.id)}
+            />
+          </td>
+          <td>{item?.name}</td>
+          <td>
+            <div>
+              <span onClick={() => onEdit(item?.id)} className="userEditButton">
+                แก้ไข
+              </span>
+            </div>
+          </td>
+        </tr>
       )
     })
   }
@@ -136,9 +205,11 @@ const Chatbot = () => {
   const getChatbotList = async () => {
     //id from pageId
     try {
-      const res = await axios.get(`/chatbots/${pageID}`, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+      const res = await axios.get(`/campaigns/${pageID}/facebook-user`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
       // console.log(res.data)
-      setData(res.data.chatbots)
+      setData(res.data.data.results)
     } catch (error) {
       console.log(error)
     }
@@ -168,7 +239,7 @@ const Chatbot = () => {
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
               <span
-                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={() => router.push({ pathname: `${router.pathname}/create-bot`, query: { pageId: pageID } })}
                 className="userButton"
               >
@@ -176,7 +247,7 @@ const Chatbot = () => {
                 สร้างแคมเปญ
               </span>
               <span
-                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onCopy}
                 className="userButton"
               >
@@ -185,7 +256,7 @@ const Chatbot = () => {
               </span>
               {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
               <span
-                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onDelete}
                 className="userButton"
               >
@@ -205,8 +276,9 @@ const Chatbot = () => {
                       <th>
                         <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
                       </th>
+                      <th>สถานะ</th>
                       <th>แคมเปญ</th>
-                      <th></th>
+                      <th>จัดการ</th>
                     </tr>
                   </thead>
                   <tbody>{renderTable()}</tbody>
