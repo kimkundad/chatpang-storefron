@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faEye, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faEdit, faEye, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { Avatar, Divider, InputNumber, Select } from 'antd'
-import { Table } from 'react-bootstrap'
+import { Table, Form } from 'react-bootstrap'
+import { useRouter } from 'next/router'
 
-import Sidebar from '../../../components/Sidebar'
-import PageDropdown from '../../../components/PageDropdown'
-import axios from '../../api/axios'
-import useUser from '../../../Hooks/useUser'
+
+import Sidebar from '../../../../components/Sidebar'
+import PageDropdown from '../../../../components/PageDropdown'
+import axios from '../../../api/axios'
+import useUser from '../../../../Hooks/useUser'
 
 const Linenoti = () => {
   const { user } = useUser()
+  const router = useRouter()
+
   const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
   const [lineName, setLineName] = useState('')
   const [lineAccessToken, setLineAccessToken] = useState('')
@@ -19,7 +23,34 @@ const Linenoti = () => {
   const { Option } = Select
   const [timeUnit, setTimeUnit] = useState('s')
   const [time, setTime] = useState()
-  const [data, setData] = useState([])
+  const [data, setData] = useState([
+    {
+      id: '62ab6378d8f80aaaa505458b',
+      facebook_user: '62ab6378d8f80aaaa505458b',
+      token: 'DVbuTnNDutGiv4p3Nio4pJEvEAm5h7kHgxxxxxxxxxx',
+      name: 'Test Line Notification Group',
+      duration: 30,
+      pages: ['499840260026202', '499840260026202'],
+      status: 'active',
+      created_at: '2022-06-16T17:08:08.520+00:00',
+      updated_at: '2022-06-16T17:08:08.520+00:00',
+      updated_by: {
+        id: '62ab59d8ff4000fa83fe982d',
+        username: 'testAdmin01',
+      },
+      created_by: {
+        id: '62ab59d8ff4000fa83fe982d',
+        username: 'testAdmin01',
+      },
+    },
+  ])
+
+  const onEdit = (id) => {
+    router.push(
+      { pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageId: pageID } },
+      `${router.pathname}/edit/${id}`
+    )
+  }
 
   const onSubmit = async () => {
     const data = {
@@ -33,7 +64,7 @@ const Linenoti = () => {
       name: lineName,
       duration: lineTimer,
       pages: [pageID],
-      status: 'active',
+      status: 'inactive',
     }
     // console.log(data)
     try {
@@ -78,14 +109,64 @@ const Linenoti = () => {
     // console.log(mili)
     setLineTimer(mili)
   }
+  const onChangeStatus = async (status, index, id) => {
+    console.log(id)
+    let temp = [...data]
+    temp[index].status = status ? 'inactive' : 'active'
+    temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
+    setData(temp)
+  }
 
+  const setStatusActive = async (id) => {
+    try {
+      const res = await axios.patch(`/public/line-notifications/${id}/active`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const setStatusInActive = async (id) => {
+    try {
+      const res = await axios.patch(`/public/line-notifications/${id}/inactive`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const onDelete = async (id) => {
+    try {
+      const res = await axios.delete(`/public/line-notifications/${id}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+    setData([...data.filter(item => item.id !== id)])
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const renderTable = () => {
     return data.map((item, index) => {
       return (
         <tr key={index}>
+          <td>
+            <Form.Check
+              type="switch"
+              checked={item.status === 'active'}
+              label={item.status}
+              onClick={() => onChangeStatus(item.status === 'active', index, item.id)}
+            />
+          </td>
           <td className="text-start">{`${index + 1}. ${item?.name}`}</td>
           <td>
             {item?.pages?.length} <FontAwesomeIcon icon={faEye} />
+          </td>
+          <td>
+          <FontAwesomeIcon className="lineEditButton" onClick={()=> onEdit(item.id)} icon={faEdit} />
+          <FontAwesomeIcon className="lineEditButton" onClick={() => onDelete(item.id)} icon={faTrash} />
           </td>
         </tr>
       )
@@ -203,8 +284,10 @@ const Linenoti = () => {
               <Table bordered>
                 <thead>
                   <tr>
+                    <th>สถานะ</th>
                     <th>ชื่อกลุ่มไลน์</th>
                     <th>จำนวนเพจที่แจ้งเตือน</th>
+                    <th>จัดการ</th>
                   </tr>
                 </thead>
                 <tbody style={{ fontSize: '1.3rem' }}>{renderTable()}</tbody>

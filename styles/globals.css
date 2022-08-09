@@ -1145,6 +1145,14 @@ table.table td h2 span {
   border-radius: 25px;
   font-size: min(2rem, 3vw);
 }
+.lineEditButton{
+  font-size: 1.5rem;
+  margin: 0 8px;
+  cursor: pointer;
+}
+.lineEditButton:nth-last-child(1){
+  color: var(--mainCRed_3);
+}
 /*------------
   	payment-section
   --------------*/
