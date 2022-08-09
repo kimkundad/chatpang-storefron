@@ -13,7 +13,7 @@ const Paymentoptions = () => {
   // console.log(user)
   const onChangeMethod = (e) => {
     setMethod(!method)
-    console.log(e.target.name)
+    // console.log(e.target.name)
   }
 
   return (
@@ -31,11 +31,10 @@ const Paymentoptions = () => {
               Credit card / Debit card
             </label>
           </div>
-          {/* //!hide qr code */}
-          {/* <div style={{fontSize:"1.5rem"}} className="col-md-3 col-12 text-center">
+          <div style={{fontSize:"1.5rem"}} className="col-md-3 col-12 text-center">
             <input type="checkbox" id="method2" name="method" onClick={()=>onChangeMethod()} checked={method}/>
             <label className='ms-2' htmlFor="method2">QR CODE</label>
-          </div> */}
+          </div>
         </div>
         {method ? <QRcode /> : <Credit />}
       </div>

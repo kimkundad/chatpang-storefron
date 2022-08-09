@@ -35,9 +35,9 @@ const Packages = () => {
   }
 
   const onSubmit = async () => {
-    const pack = data.filter(item => item.item._id === selected)
-    user.package = pack[0].item
-    await setUserData({...user,package:pack[0].item})
+    const pack = data.filter(item => item.id === selected)
+    // user.package = pack[0].item
+    await setUserData({...user,package:pack[0]})
     router.push('/user/payment/paymentoptions')
   }
   useEffect(()=>{

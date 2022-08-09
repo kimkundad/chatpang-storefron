@@ -9,49 +9,66 @@ import moment from 'moment'
 
 const Sidebar = () => {
   const router = useRouter()
-  const { user,setUserData } = useUser()
-  // const [packageInfo, setPackageInfo] = useState({})
+  const { user, setUserData } = useUser()
+  const [packageInfo, setPackageInfo] = useState({})
 
-  const packageInfo = user.package
+  // const packageInfo = user.order.package
+  const latestOrderId = user.order.id || ''
   let pathName = router.pathname
 
   const isActive = (path) => {
     const n = '/user/manage'.length
 
-    if (pathName.slice(n) !== "" && path === "") {
+    if (pathName.slice(n) !== '' && path === '') {
       return false
     } else {
       return pathName.slice(n).includes(path)
     }
   }
 
-  const getPackageInfo = async () => {
+  const getOrderById = async () => {
     try {
-      if (user?.user?.packageData !== undefined) {
-        const latestPack = user?.user?.packageData.length - 1
-        const res = await axios.get(`/packages/${user?.user?.packageData[latestPack].id}`,{headers:{Authorization: 'Bearer ' + user?.accessToken}})
-        const data = res.data
-        data.periodOfUse = moment(moment(user?.user?.packageData[latestPack].endAt) - moment()).format('DD')
-        data.exp = moment(user?.user?.packageData[latestPack].endAt).format('DD/MM/YYYY')
-        // console.log(data);
-       await setUserData({
-          ...user,
-          package:data
-        })
-        // setPackageInfo(data)
-      } else {
-        // setPackageInfo({})
-      }
+      const res = await axios.get(`/public/order/${latestOrderId}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      setPackageInfo(res.data.data)
     } catch (error) {
-        console.log(error);
+      console.log(error)
     }
   }
+  const getExp = () => {
+    return moment(packageInfo?.expire_date).format('DD/MM/YYYY')
+  }
+  // const getPackageInfo = async () => {
+  //   try {
+  //     if (user?.user?.packageData !== undefined) {
+  //       const latestPack = user?.user?.packageData.length - 1
+  //       const res = await axios.get(`/packages/${user?.user?.packageData[latestPack].id}`,{headers:{Authorization: 'Bearer ' + user?.accessToken}})
+  //       const data = res.data
+  //       data.periodOfUse = moment(moment(user?.user?.packageData[latestPack].endAt) - moment()).format('DD')
+  //       data.exp = moment(user?.user?.packageData[latestPack].endAt).format('DD/MM/YYYY')
+  //       // console.log(data);
+  //      await setUserData({
+  //         ...user,
+  //         package:data
+  //       })
+  //       // setPackageInfo(data)
+  //     } else {
+  //       // setPackageInfo({})
+  //     }
+  //   } catch (error) {
+  //       console.log(error);
+  //   }
+  // }
 
-  useEffect(() => {
-    if (Object.values(user?.package).length === 0) {
-      getPackageInfo()
-    }
-  }, [user?.package])
+  // useEffect(() => {
+  //   if (Object.values(user?.package).length === 0) {
+  //     getPackageInfo()
+  //   }
+  // }, [user?.package])
+  useEffect(()=>{
+    latestOrderId?.length > 0 && getOrderById()
+  },[])
   return (
     <div className="sidebar">
       <Scrollbars
@@ -67,26 +84,28 @@ const Sidebar = () => {
       >
         <div className="sidebar-inner">
           <div className="sidebar-menu">
-            {packageInfo ? <div className='text-center'>NO DATA</div> : <div className="sidePackageInfo">
-              <div style={{ color: 'black' }} className="cardTitle">
-                {packageInfo?.name}
+            {packageInfo ? (
+              <div className="text-center">NO DATA</div>
+            ) : (
+              <div className="sidePackageInfo">
+                <div style={{ color: 'black' }} className="cardTitle">
+                  {packageInfo?.package?.name}
+                </div>
+                <div className="packInfo">
+                  <span>{packageInfo?.package?.price} บาท/เดือน</span>
+                  <span>ใช้งานได้ {packageInfo?.package?.days} วัน</span>
+                  <span>หมดอายุ</span>
+                  <span>{getExp()}</span>
+                </div>
               </div>
-              <div className="packInfo">
-                <span>{packageInfo?.price} บาท/เดือน</span>
-                <span>ใช้งานได้ {packageInfo?.periodOfUse} วัน</span>
-                <span>หมดอายุ</span>
-                <span>{packageInfo?.exp}</span>
-              </div>
-            </div>}
+            )}
             <ul>
               <li className={`menu-title ${isActive('') ? 'active' : ''}`}>
                 <Link href="/user/manage">หน้าหลัก</Link>
               </li>
               <li
                 className={`menu-title ${
-                  isActive('/chatbot') || isActive('/chatbot/edit/') || isActive('/chatbot/create-bot')
-                    ? 'active'
-                    : ''
+                  isActive('/chatbot') || isActive('/chatbot/edit/') || isActive('/chatbot/create-bot') ? 'active' : ''
                 }`}
               >
                 <Link href="/user/manage/chatbot">สร้าง chatbot</Link>
