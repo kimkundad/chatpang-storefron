@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashCan, faCopy } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '../../../../components/Sidebar'
-import { Table } from 'react-bootstrap'
+import { Table, Form } from 'react-bootstrap'
 import useUser from '../../../../Hooks/useUser'
 import PageDropdown from '../../../../components/PageDropdown'
 import axios from '../../../api/axios'
@@ -13,8 +13,48 @@ const Replykeyword = () => {
   const { user, setUserData } = useUser()
   const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
   const [itemList, setItemList] = useState([])
-  const [data, setData] = useState([])
+  const [data, setData] = useState([
+    {
+      id: '62ab6378d8f80aaaa505458b',
+      keywords: ['Hello', 'Makewebbkk'],
+      messages: ['Hello', 'Makewebbkk'],
+      images: ['https://makewebbkk.com', 'https://makewebbkk.com'],
+      name: 'Test Auto Replies',
+      facebook_user: '62ab6378d8f80aaaa505458b',
+      status: 'active',
+      created_at: '2022-06-16T17:08:08.520+00:00',
+      updated_at: '2022-06-16T17:08:08.520+00:00',
+      updated_by: {
+        id: '62ab59d8ff4000fa83fe982d',
+        username: 'testAdmin01',
+      },
+      created_by: {
+        id: '62ab59d8ff4000fa83fe982d',
+        username: 'testAdmin01',
+      },
+    },
+    {
+      id: '62ab6378d8f80aaaa505457a',
+      keywords: ['Hello', 'Makewebbkk'],
+      messages: ['Hello', 'Makewebbkk'],
+      images: ['https://makewebbkk.com', 'https://makewebbkk.com'],
+      name: 'Test 2 Auto Replies',
+      facebook_user: '62ab6378d8f80aaaa505458b',
+      status: 'active',
+      created_at: '2022-06-16T17:08:08.520+00:00',
+      updated_at: '2022-06-16T17:08:08.520+00:00',
+      updated_by: {
+        id: '62ab59d8ff4000fa83fe982d',
+        username: 'testAdmin01',
+      },
+      created_by: {
+        id: '62ab59d8ff4000fa83fe982d',
+        username: 'testAdmin01',
+      },
+    },
+  ])
   const [isCheckAll, setIsCheckAll] = useState(false)
+  
   const onEdit = (id) => {
     router.push(
       { pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id } },
@@ -32,40 +72,44 @@ const Replykeyword = () => {
     }
   }
   //* check user status
-  const checkFreeTrial = () => {
-    return user?.user?.status === 'inactive'
-  }
+  // const checkFreeTrial = () => {
+  //   return user?.user?.status === 'inactive'
+  // }
   const onCopy = async () => {
     try {
       for (const id of itemList) {
         let temp = data.filter((item) => item.id === id)
         // console.log(temp[0])
-        temp[0].name = '(copy) ' + temp[0].name
+        // temp[0].name = '(copy) ' + temp[0].name
         const copyData = {
           facebookUser: temp[0].facebook_user,
           keywords: temp[0].keywords,
-          name: temp[0].name,
+          name: '(copy) ' + temp[0].name,
           messages: temp[0].messages,
-          images:item[0].images
+          images: temp[0].images,
         }
-        const res = await axios.post('/auto-replies', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+        const res = await axios.post('/auto-replies', copyData, {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        })
         // console.log(res.data)
-        setData([...data,res.data.createdKeyword])
+        setData([...data, res.data.data])
+        // setData([...data, copyData])
+
       }
-        setItemList([])
+      setItemList([])
     } catch (error) {
       console.log(error)
     }
   }
 
   const onDelete = async () => {
-    const data = {
-      isDelete: true,
-      deleteAt: new Date(),
-    }
+    // const data = {
+    //   isDelete: true,
+    //   deleteAt: new Date(),
+    // }
     try {
       for (const id of itemList) {
-        const res = await axios.patch(`/keywords/${id}`, data, {
+        const res = await axios.delete(`/auto-replies/${id}`, {
           headers: { Authorization: `Bearer ${user?.accessToken}` },
         })
         // console.log(res.data)
@@ -88,20 +132,69 @@ const Replykeyword = () => {
     }
   }
 
+  const onChangeStatus = async (status, index, id) => {
+    // console.log(id)
+    let temp = [...data]
+    temp[index].status = status ? 'inactive' : 'active'
+    // temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
+    setData(temp)
+  }
+
+  const setStatusActive = async (id) => {
+    try {
+      const res = await axios.patch(`/auto-replies/${id}/active`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const setStatusInActive = async (id) => {
+    try {
+      const res = await axios.patch(`/auto-replies/${id}/inactive`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // const onDelete = async (id) => {
+  //   try {
+  //     const res = await axios.delete(`/public/auto-replies/${id}`, {
+  //       headers: { Authorization: `Bearer ${user?.accessToken}` },
+  //     })
+  //     setData([...data.filter((item) => item.id !== id)])
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
   const renderTable = () => {
     return data.map((item, index) => {
       return (
-        !item?.item?.isDelete && (
           <tr key={index}>
             <td>
               <input
                 type="checkbox"
-                name={item.id}
-                checked={itemList.includes(item.id)}
+                name={item?.id}
+                checked={itemList.includes(item?.id)}
                 onClick={(e) => onChecked(e)}
               />
             </td>
-            <td>{item.name}</td>
+            <td>
+              <span>{item?.status}</span>
+              <Form.Check
+                type="switch"
+                checked={item?.status === 'active'}
+                // label={item.status}
+                onClick={() => onChangeStatus(item?.status === 'active', index, item.id)}
+              />
+            </td>
+            <td>{item?.name}</td>
             <td>
               <div>
                 <span onClick={() => onEdit(item.id)} className="userEditButton">
@@ -110,7 +203,6 @@ const Replykeyword = () => {
               </div>
             </td>
           </tr>
-        )
       )
     })
   }
@@ -153,7 +245,7 @@ const Replykeyword = () => {
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
               <span
-                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={() =>
                   router.push({ pathname: `${router.pathname}/create-replykeyword`, query: { pageId: pageID } })
                 }
@@ -163,7 +255,7 @@ const Replykeyword = () => {
                 สร้างแคมเปญ
               </span>
               <span
-                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onCopy}
                 className="userButton"
               >
@@ -172,7 +264,7 @@ const Replykeyword = () => {
               </span>
               {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
               <span
-                style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
+                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onDelete}
                 className="userButton"
               >
@@ -192,8 +284,9 @@ const Replykeyword = () => {
                       <th>
                         <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
                       </th>
+                      <th>สถานะ</th>
                       <th>แคมเปญ</th>
-                      <th></th>
+                      <th>จัดการ</th>
                     </tr>
                   </thead>
                   <tbody>{renderTable()}</tbody>

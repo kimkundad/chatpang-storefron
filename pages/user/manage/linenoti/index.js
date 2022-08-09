@@ -112,7 +112,7 @@ const Linenoti = () => {
   const onChangeStatus = async (status, index, id) => {
     console.log(id)
     let temp = [...data]
-    temp[index].status = status ? 'inactive' : 'active'
+    // temp[index].status = status ? 'inactive' : 'active'
     temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
     setData(temp)
   }

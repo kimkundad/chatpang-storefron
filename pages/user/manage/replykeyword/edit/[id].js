@@ -27,6 +27,7 @@ const Edit = () => {
   const [campaignName, setCampaignName] = useState('')
   const [keywordName, setKeywordName] = useState([])
   const [details, setDetails] = useState([''])
+  const [facebookUserId, setFacebookUserId] = useState('')
   //*check status
   const [isSuccess, setIsSuccess] = useState({
     show: false,
@@ -47,7 +48,7 @@ const Edit = () => {
       messages: details,
       images: imgs,
       name: campaignName,
-      facebookUser: 'string',
+      facebookUser: facebookUserId,
     }
     try {
       const res = await axios.put(`/auto-replies/${id}`, data, {
@@ -287,6 +288,7 @@ const Edit = () => {
       setKeywordName(data.keywords)
       setDetails(data.messages)
       setImgs(data.images)
+      setFacebookUserId(data.facebook_user)
       // await setImgFirstTime(data.keywordDetail)
     } catch (error) {
       console.log(error)
