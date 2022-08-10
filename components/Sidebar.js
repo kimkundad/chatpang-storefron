@@ -13,7 +13,7 @@ const Sidebar = () => {
   const [packageInfo, setPackageInfo] = useState({})
 
   // const packageInfo = user.order.package
-  const latestOrderId = user.order.id || ''
+  const latestOrderId = user?.order?.id || ''
   let pathName = router.pathname
 
   const isActive = (path) => {
@@ -67,7 +67,7 @@ const Sidebar = () => {
   //   }
   // }, [user?.package])
   useEffect(()=>{
-    latestOrderId?.length > 0 && getOrderById()
+    latestOrderId && getOrderById()
   },[])
   return (
     <div className="sidebar">
