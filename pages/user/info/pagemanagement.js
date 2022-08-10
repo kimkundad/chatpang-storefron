@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/router'
 import axios from '../../api/axios'
 import useUser from '../../../Hooks/useUser'
 
 const Pagemanagement = () => {
+  const router = useRouter()
   const [data, setData] = useState([])
   const [isFreeTrail, setIsFreeTrial] = useState(true)
   const { user } = useUser()
+  const facebookUserId = router.query.fb
   // console.log(user);
   const getPageList = async () => {
     try {

@@ -688,6 +688,7 @@ function section
 }
 .nosidebar-wrapper {
   min-height: calc(100vh - 144px);
+  min-height: 100vh;
   padding: 120px 0 80px 0;
   position: relative;
   transition: all 0.4s ease;

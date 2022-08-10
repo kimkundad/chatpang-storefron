@@ -7,19 +7,17 @@ import { Modal } from 'react-bootstrap'
 import axios from '../api/axios'
 // import Login from './login'
 export default function Home() {
+  const router = useRouter()
   const [isShow, setIsShow] = useState(false)
-
   const onShowWarning = () => {
     setIsShow(!isShow)
   }
 
   const onLogin = async () => {
-    try {
-      const res = await axios.get('/facebook/auth')
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+    //*got ot new tap
+    window.open('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/auth')
+    //*stay same page
+    // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/auth')
   }
 
   return (

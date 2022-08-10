@@ -2,34 +2,39 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/dist/client/router'
 import { Upload, Button, Avatar } from 'antd'
 
-import useUser from '../../../Hooks/useUser'
-import Image from 'next/image'
-import axios from '../../api/axios'
+import useUser from '../../Hooks/useUser'
+import axios from '../api/axios'
 
 const Register = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  // const { userData } = router.query
-  //! did not use
-  // const  userData  = {
-  //     name:'test',
-  //     email:'test@gmail.com',
-  //     phoneno:'0123456789',
-  //     imgProfile:undefined
-  // }
-  const [name, setName] = useState(user?.user.name)
-  const [email, setEmail] = useState(user?.user.email)
-  const [phoneno, setPhoneno] = useState(user?.user.phoneno)
-  // const [ imageObj, setImageObj ] =useState(null)
-  const [imageURL, setImageURL] = useState(user?.user.imgProfile === undefined ? undefined : user.user.imgProfile)
+  const facebookUserId = router.query.fb
+  console.log(facebookUserId)
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phoneno, setPhoneno] = useState('')
+  const [note, setNote] = useState('')
+  const [imageURL, setImageURL] = useState(undefined)
 
   const onSubmit = async (e) => {
     e.preventDefault()
+
+    const registerData = {
+      facebookId: facebookUserId,
+      email: email,
+      name: name,
+      tel: phoneno,
+      note: note,
+      picture: imageURL,
+    }
+
     try {
-      user.user.phoneNo = phoneno
-      console.log(user)
-      await setUserData({ ...user, user: user.user })
-      router.push('/user/packages')
+      //*register user then go to login user after that keep token in user context
+      const res = await axios.post(`/public/facebook-users/${facebookUserId}/register`,registerData)
+      if (res.data.data === 'Success') {
+        router.replace(`/login/?fb=${facebookUserId}`)
+      }
     } catch (error) {
       console.log(error)
       router.push('/user')
@@ -47,14 +52,34 @@ const Register = () => {
   //     setImageURL(undefined)
   // }
 
-  function getBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = (error) => reject(error)
-    })
+  // function getBase64(file) {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader()
+  //     reader.readAsDataURL(file)
+  //     reader.onload = () => resolve(reader.result)
+  //     reader.onerror = (error) => reject(error)
+  //   })
+  // }
+
+  const getFacebookUserData = async () => {
+    try {
+      const res  = await axios.get(`public/facebook-users/${facebookUserId}`)
+      const { email, name, tel, picture, note } = res.data.data
+      setEmail(email)
+      setName(name)
+      setPhoneno(tel)
+      setNote(note)
+      setImageURL(picture)
+      await setUserData({ ...user,user:res.data.data, facebookUserId : facebookUserId })
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  useEffect(() => {
+    getFacebookUserData()
+  }, [])
+  
   return (
     <div className="nosidebar-wrapper">
       <div className="text-center">

@@ -6,6 +6,8 @@ export const AppContextProvider = ({children}) => {
     const [user, setUserData] = useState({
         isLogin:false,
         user:{},
+        accessToken:'',
+        facebookUserId:'',
         package:{},
         payment:{},
         selectedPage:[]

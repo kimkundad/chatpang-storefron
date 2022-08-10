@@ -4,11 +4,9 @@ import Header from './Header'
 
 const Layout = ({ children }) => {
   return children ? (
-    <div className='main-wrapper'>
+    <div className="main-wrapper">
       <Header />
-      <main>
-      {children}
-      </main>
+      <main>{children}</main>
       <Footer />
     </div>
   ) : (
