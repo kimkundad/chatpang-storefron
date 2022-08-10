@@ -62,6 +62,7 @@ const Register = () => {
   // }
 
   const getFacebookUserData = async () => {
+    console.log(facebookUserId);
     try {
       const res  = await axios.get(`/public/facebook-users/${facebookUserId}`)
       console.log(res.data.data);
@@ -78,8 +79,8 @@ const Register = () => {
   }
 
   useEffect(() => {
-    getFacebookUserData()
-  }, [])
+    facebookUserId && getFacebookUserData()
+  }, [facebookUserId])
   
   return (
     <div className="nosidebar-wrapper">
