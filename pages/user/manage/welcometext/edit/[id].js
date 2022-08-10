@@ -44,7 +44,7 @@ const Edit = () => {
       messages: details,
       name: campaignName,
       page: pageID,
-      facebookUser: 'string',
+      facebookUser: user.facebookUserId,
     }
 
     // console.log(data)

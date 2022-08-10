@@ -205,7 +205,7 @@ const Chatbot = () => {
   const getChatbotList = async () => {
     //id from pageId
     try {
-      const res = await axios.get(`/campaigns/${pageID}/facebook-user`, {
+      const res = await axios.get(`/campaigns/${user.facebookUserId}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
@@ -216,7 +216,7 @@ const Chatbot = () => {
   }
 
   useEffect(() => {
-    getChatbotList()
+    user.facebookUserId && getChatbotList()
   }, [])
   return (
     <div className="page-wrapper">

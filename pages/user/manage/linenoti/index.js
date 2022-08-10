@@ -59,7 +59,7 @@ const Linenoti = () => {
       // lineAccessToken: lineAccessToken,
       // lineTimer: lineTimer,
 
-      facebookUser: 'string',
+      facebookUser: user.facebookUserId,
       token: lineAccessToken,
       name: lineName,
       duration: lineTimer,
@@ -182,7 +182,7 @@ const Linenoti = () => {
   //*get line list
   const getLineList = async () => {
     try {
-      const res = await axios.get(`/public/line-notifications/${id}/facebook-user`, {
+      const res = await axios.get(`/public/line-notifications/${user.facebookUserId}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data.notifications);
@@ -192,7 +192,7 @@ const Linenoti = () => {
     }
   }
   useEffect(() => {
-    getLineList()
+    user.facebookUserId && getLineList()
   }, [])
   return (
     <div className="page-wrapper">

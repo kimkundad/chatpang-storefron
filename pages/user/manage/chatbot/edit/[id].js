@@ -66,7 +66,7 @@ const Edit = () => {
       likeComment: isLikeComment,
       replySamePerson: isDuplicateComment,
       hideComment: isHideComment,
-      facebookUser: facebookUserId,
+      facebookUser: user.facebookUserId,
     }
     // console.log(data)
     try {

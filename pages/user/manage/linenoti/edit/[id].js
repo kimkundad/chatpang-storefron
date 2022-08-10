@@ -29,7 +29,7 @@ console.log(id);
       // lineAccessToken: lineAccessToken,
       // lineTimer: lineTimer,
 
-      facebookUser: 'string',
+      facebookUser: user.facebookUserId,
       token: lineAccessToken,
       name: lineName,
       duration: lineTimer,

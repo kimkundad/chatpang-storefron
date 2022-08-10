@@ -48,7 +48,7 @@ const Edit = () => {
       messages: details,
       images: imgs,
       name: campaignName,
-      facebookUser: facebookUserId,
+      facebookUser: user.facebookUserId,
     }
     try {
       const res = await axios.put(`/auto-replies/${id}`, data, {

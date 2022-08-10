@@ -122,7 +122,7 @@ const Welcometext = () => {
   const getReceptionList = async () => {
     //id from facebookUserId
     try {
-      const res = await axios.get(`/greeting-messages/${id}/facebook-user`, {
+      const res = await axios.get(`/greeting-messages/${user.facebookUserId}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
@@ -133,7 +133,7 @@ const Welcometext = () => {
   }
 
   useEffect(() => {
-    getReceptionList()
+    user.facebookUserId && getReceptionList()
   }, [])
   return (
     <div className="page-wrapper">

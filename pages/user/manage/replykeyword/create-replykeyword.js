@@ -49,7 +49,7 @@ const CreateReplyKeyword = () => {
       messages: details,
       images: imgs,
       name: campaignName,
-      facebookUser: 'string',
+      facebookUser: user.facebookUserId,
     }
     try {
       const res = await axios.post('/auto-replies', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })

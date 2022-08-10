@@ -214,7 +214,7 @@ const Replykeyword = () => {
   const getKeywordsList = async () => {
     //id from pageId
     try {
-      const res = await axios.get(`/auto-replies/${pageID}/facebook-user`, {
+      const res = await axios.get(`/auto-replies/${user.facebookUserId}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
@@ -225,7 +225,7 @@ const Replykeyword = () => {
   }
 
   useEffect(() => {
-    getKeywordsList()
+    user.facebookUserId && getKeywordsList()
   }, [])
   return (
     <div className="page-wrapper">
