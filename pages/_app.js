@@ -9,7 +9,6 @@ import Layout from '../components/Layout'
 import { AppContextProvider } from '../context/AppContextProvider'
 
 function MyApp({ Component, pageProps, ...appProps }) {
-  console.log(appProps.router.pathname)
   return (
     <AppContextProvider>
       {['/login'].includes(appProps.router.pathname) ? (

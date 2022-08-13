@@ -92,7 +92,7 @@ export default function Home() {
   async function getPackages() {
     try {
       const res = await axios('/public/packages')
-      console.log(res.data.data.results);
+      // console.log(res.data.data.results)
       setPackages(res.data.data.results)
     } catch (error) {
       console.log(error)
@@ -106,12 +106,12 @@ export default function Home() {
     }
   }
 
- async function getQuestions() {
+  async function getQuestions() {
     try {
       const res = await axios('/public/questions')
       setQuestions(res.data.data.results)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
@@ -151,7 +151,7 @@ export default function Home() {
   }, [])
   return (
     <>
-      <div className="container container-fluid m-0 p-0 mx-auto">
+      <div className="w-100 m-0 p-0">
         {/* Section 1 */}
         <section
           className="d-flex flex-column-reverse flex-md-row row-cols-2"
@@ -166,7 +166,6 @@ export default function Home() {
               className="video-yt"
               allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
               allowFullScreen
-              // style={{ height: '100%', width: '100%', maxHeight: '518px' }}
             />
           </div>
           <div className="col-12 col-md-6 py-5 py-md-0 flex-column align-items-center justify-content-center d-flex">
@@ -175,8 +174,6 @@ export default function Home() {
               ผู้ช่วยตอบแชทเก่ง! <br />
               ของแม่ค้าออนไลน์
             </div>
-            {/* <div className="display-4 display-sm-2">ผู้ช่วยตอบแชทเก่ง!</div> */}
-            {/* <h2 className="fst-italic fw-normal">ของแม่ค้าออนไลน์</h2> */}
             <Button onClick={() => router.push('/user')} className="btn custom-index-btn rounded-pill">
               สนใจเริ่มใช้งาน
             </Button>
@@ -184,14 +181,11 @@ export default function Home() {
         </section>
 
         {/* Section 2 */}
-        {/* <sections id="about" className="d-flex">
-        ABOUT
-        </sections> */}
         <section className="d-flex flex-column flex-md-row py-5 py-md-0" id="about">
-          <div className="col-6 col-md-8 d-flex flex-column align-items-center justify-content-center ">
-            <div className="d-flex">
-              <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '160px' }} />
-              <div className="display-4 display-md-4">
+          <div className="col-12 col-md-8 d-flex flex-column align-items-center justify-content-center ">
+            <div className="d-flex flex-md-row align-items-center justify-content-center">
+              <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
+              <div className="display-6 text-center display-md-4">
                 ไม่พลาดทุกแชทของลูกค้า
                 <br />
                 ด้วยข้อความอัตโนมัติ
@@ -212,15 +206,13 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="col-6 col-md-4 d-flex align-items-center justify-content-center">
+          <div className="col-6 col-md-4 d-none d-md-flex align-items-center justify-content-center">
             <img src="/images/landing-page/about-image.svg" style={{ width: '100%', maxWidth: '780px' }} />
           </div>
         </section>
 
         {/* Section 3 */}
-        <section className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
-        id="function"
-        >
+        <section className="d-flex flex-column align-items-center py-5" id="function">
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
             <div className="text-section-header">Chatpang ทำอะไรได้บ้าง ?</div>
@@ -260,7 +252,7 @@ export default function Home() {
 
         {/* Section 4 */}
         <section
-          className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
+          className="d-flex flex-column align-items-center py-5"
           id="review"
           // id='benefit'
         >
@@ -274,14 +266,23 @@ export default function Home() {
               {reviews.map((val, index) => (
                 <div key={index} className="flex flex-column p-3">
                   {/* <img src="/images/landing-page/placeholder-video.svg" className="w-100" /> */}
-                  <div className='ratio ratio-4x3'>
-                    {val.video_url !==  null ? <Player
-                      width="100%"
-                      height="100%"
-                      url={val.video_url}
-                      className="video-yt"
-                      style={{ borderRadius: '20px !important' }}
-                    />: <div className='mx-auto text-center' style={{ borderRadius: '20px !important', fontSize:'clamp(1rem, 1rem + 1.5vw, 2.5rem)' }}>NO VDO</div>}
+                  <div className="ratio ratio-4x3">
+                    {val.video_url !== null ? (
+                      <Player
+                        width="100%"
+                        height="100%"
+                        url={val.video_url}
+                        className="video-yt"
+                        style={{ borderRadius: '20px !important' }}
+                      />
+                    ) : (
+                      <div
+                        className="mx-auto text-center"
+                        style={{ borderRadius: '20px !important', fontSize: 'clamp(1rem, 1rem + 1.5vw, 2.5rem)' }}
+                      >
+                        NO VDO
+                      </div>
+                    )}
                   </div>
                   {/* <iframe
                     src="https://www.youtube.com/embed/QIjZn_fiS3M"
@@ -303,7 +304,7 @@ export default function Home() {
                       style={{
                         width: '60px',
                         height: '60px',
-                        objectFit:'fill',
+                        objectFit: 'fill',
                         left: 0,
                         right: 0,
                         marginLeft: 'auto',
@@ -327,10 +328,7 @@ export default function Home() {
         </section>
 
         {/* Section 5 */}
-        <section
-          className="d-flex flex-column align-items-center py-5 py-md-0 my-5"
-          id="questions"
-        >
+        <section className="d-flex flex-column align-items-center py-5" id="questions">
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
             <div className="text-section-header">คำถามที่พบบ่อย</div>
@@ -341,13 +339,17 @@ export default function Home() {
           </div>
 
           <div className="mt-3 w-100 my-auto">
-            {questions?.length === 0 ? <div className='text-center'>ไม่มีข้อมูล</div> : <QAContainer data={questions} />}
+            {questions?.length === 0 ? (
+              <div className="text-center">ไม่มีข้อมูล</div>
+            ) : (
+              <QAContainer data={questions} />
+            )}
           </div>
         </section>
 
         {/* Section 6 */}
         <section
-          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 py-5 my-5"
+          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 py-5"
           id="packages"
         >
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
@@ -368,41 +370,45 @@ export default function Home() {
 
         {/* Section 7 */}
         <section
-          className="d-flex flex-column flex-md-row row-cols-2 p-2 p-md-0 h-100 align-items-center"
-          style={{ minHeight: 'calc(80vh)' }}
+          className="d-flex flex-column flex-md-row align-items-center justify-content-center h-100 py-5 py-md-0 py-5"
+          // style={{ minHeight: 'calc(80vh)' }}
           id="contract"
         >
-          <div className="col-12 col-md-6 d-flex flex-column ms-md-5">
-            <u className="display-5">ติดต่อสอบถามเพิ่มเติม</u>
-            <div className="d-flex" style={{ marginTop: '24px' }}>
-              <img src="/images/landing-page/location.png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4 fs-4">
-                บริษัท บีทีวาย มาเก็ตติ้ง จำกัด
-                <br />
-                169/93 หมู่บ้านอรินสิริ@ข้าวหลาม
-                <br />
-                ต.ห้วยกะปิ อ.เมือง จ.ชลบุรี 20000
+          <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <div>
+              <u className="display-5">ติดต่อสอบถามเพิ่มเติม</u>
+              <div className="d-flex" style={{ marginTop: '24px' }}>
+                <img src="/images/landing-page/location.png" style={{ width: '24px', height: '24px' }} />
+                <div className="ms-4 fs-4">
+                  บริษัท บีทีวาย มาเก็ตติ้ง จำกัด
+                  <br />
+                  169/93 หมู่บ้านอรินสิริ@ข้าวหลาม
+                  <br />
+                  ต.ห้วยกะปิ อ.เมือง จ.ชลบุรี 20000
+                </div>
               </div>
-            </div>
-            <div className="d-flex" style={{ marginTop: '16px' }}>
-              <img src="/images/landing-page/call.png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4 fs-4">087 135 2410 (คุณต๊อป)</div>
-            </div>
-            <div className="d-flex" style={{ marginTop: '16px' }}>
-              <img src="/images/landing-page/line .png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4 fs-4">@chatpang</div>
-            </div>
-            <div className="d-flex" style={{ marginTop: '16px' }}>
-              <img src="/images/landing-page/email.svg" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4 fs-4">chatpang@gmail.com</div>
-            </div>
-            <div className="d-flex" style={{ marginTop: '16px' }}>
-              <img src="/images/landing-page/timer.png" style={{ width: '24px', height: '24px' }} />
-              <div className="ms-4 fs-4">ทุกวัน 9.00 - 23.00</div>
+              <div className="d-flex" style={{ marginTop: '16px' }}>
+                <img src="/images/landing-page/call.png" style={{ width: '24px', height: '24px' }} />
+                <div className="ms-4 fs-4">087 135 2410 (คุณต๊อป)</div>
+              </div>
+              <div className="d-flex" style={{ marginTop: '16px' }}>
+                <img src="/images/landing-page/line .png" style={{ width: '24px', height: '24px' }} />
+                <div className="ms-4 fs-4">@chatpang</div>
+              </div>
+              <div className="d-flex" style={{ marginTop: '16px' }}>
+                <img src="/images/landing-page/email.svg" style={{ width: '24px', height: '24px' }} />
+                <div className="ms-4 fs-4">chatpang@gmail.com</div>
+              </div>
+              <div className="d-flex" style={{ marginTop: '16px' }}>
+                <img src="/images/landing-page/timer.png" style={{ width: '24px', height: '24px' }} />
+                <div className="ms-4 fs-4">ทุกวัน 9.00 - 23.00</div>
+              </div>
             </div>
           </div>
           <div className="col-12 col-md-6 py-5 py-md-0 d-flex flex-column align-items-center justify-content-center">
-            <img src="/images/landing-page/qr-code.svg" style={{ width: '250px' }} />
+            <div>
+            <img src="/images/landing-page/qr-code.svg" style={{ width: '100%' }} />
+            </div>
             <div className="d-flex mt-4 gap-3">
               <img src="/images/landing-page/facebook-round.svg" style={{ width: '42px' }} />
               <img src="/images/landing-page/line-round.svg" style={{ width: '42px' }} />

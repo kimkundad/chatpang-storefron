@@ -95,7 +95,8 @@ const Header = () => {
       !pathName.includes('/user/register')&&
       !pathName.includes('/user/changepackage')&&
       !pathName.includes('/user/contactus')&&
-      !pathName.includes('/user/packages')
+      !pathName.includes('/user/packages')&&
+      !pathName.includes('/register')
     ) {
       return (
         <div className="collapse navbar-collapse align-content-end" id="navbarNavAltMarkup">
@@ -108,35 +109,35 @@ const Header = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className='customHeaderItem' activeClass='active' spy smooth to="function" offset={-100}>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="function" offset={-60}>
                 {/* <span className={`customHeaderItem ${current === '2' && 'active'}`}> */}
                 ฟังก์ชั่น
                 {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link className='customHeaderItem' activeClass='active' spy smooth to="review" offset={-100}>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="review" offset={-60}>
                 {/* <span className={`customHeaderItem ${current === '3' && 'active'}`}> */}
                 รีวิวจากลูกค้า
                 {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link className='customHeaderItem' activeClass='active' spy smooth to="questions" offset={-100}>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="questions" offset={-60}>
                 {/* <span className={`customHeaderItem ${current === '4' && 'active'}`}> */}
                 คำถามที่พบบ่อย
                 {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link className='customHeaderItem' activeClass='active' spy smooth to="packages" offset={-100}>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="packages" offset={-60}>
                 {/* <span className={`customHeaderItem ${current === '5' && 'active'}`}> */}
                 แพ็คเกจ
                 {/* </span> */}
               </Link>
             </li>
             <li className="nav-item">
-              <Link className='customHeaderItem' activeClass='active' spy smooth to="contract" offset={-100}>
+              <Link className='customHeaderItem' activeClass='active' spy smooth to="contract" offset={-60}>
                 {/* <span className={`customHeaderItem ${current === '6' && 'active'}`}> */}
                 ติดต่อเรา
                 {/* </span> */}
@@ -179,7 +180,7 @@ const Header = () => {
     }
   }
   return (
-    <header className="position-fixed w-100 top-0" style={{ zIndex: '1000' }}>
+    <div className="position-fixed w-100 top-0" style={{ zIndex: '1000' }}>
       <nav className="customHeader navbar navbar-expand-lg navbar-dark shadow-sm">
         <div className="container-xl">
           <Link
@@ -189,8 +190,13 @@ const Header = () => {
               router.push('/')
             }}
             className="navbar-brand"
-          >
+          > 
+          <div className='d-md-block d-none'>
             <img src="/images/logo/newLogo.png" style={{ maxWidth: '209px' }} alt="logo" />
+          </div>
+          <div className='d-block d-md-none'>
+            <img src="/images/logo/textLogo.png" style={{ maxWidth: '160px' }} alt="logo" />
+          </div>
           </Link>
           {/* <div className='sideBarToggle d-md-none d-sm-block me-3' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >
             <FontAwesomeIcon icon={faBars} /> 
@@ -253,42 +259,42 @@ const Header = () => {
         <div className="position-absolute bg-white vw-100 shadow">
           <ul className="navbar-nav px-4 py-3">
             <li className="nav-item fs-2">
-              <Link activeClass="active" to="about" offset={-110}>
+              <Link activeClass="active" to="about" offset={-90}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   เกี่ยวกับ
                 </button>
               </Link>
             </li>
             <li className="nav-item fs-2">
-              <Link to="benefit" offset={-200}>
+              <Link to="function" offset={-90}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   ฟังก์ชั่น
                 </button>
               </Link>
             </li>
             <li className="nav-item fs-2">
-              <Link to="review" offset={-120}>
+              <Link to="review" offset={-90}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   รีวิวจากลูกค้า
                 </button>
               </Link>
             </li>
             <li className="nav-item fs-2">
-              <Link to="questions" offset={-140}>
+              <Link to="questions" offset={-90}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   คำถามที่พบบ่อย
                 </button>
               </Link>
             </li>
             <li className="nav-item fs-2">
-              <Link to="packages" offset={-100}>
+              <Link to="packages" offset={-90}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   แพ็คเกจ
                 </button>
               </Link>
             </li>
             <li className="nav-item fs-2">
-              <Link to="contract" offset={-180}>
+              <Link to="contract" offset={-90}>
                 <button className="btn" onClick={() => setModalMobile(false)}>
                   ติดต่อเรา
                 </button>
@@ -299,7 +305,7 @@ const Header = () => {
       ) : (
         <></>
       )}
-    </header>
+    </div>
   )
 }
 

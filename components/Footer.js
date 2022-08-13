@@ -9,10 +9,10 @@ import LOGO from '../resources/imgs/newLogo.png'
 import { Link } from 'react-scroll'
 const Footer = () => {
   return (
-    <div className="footer">
-      {/* <img className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" /> */}
+    <div id='footer' className="footer">
+      <Image className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" layout='fill' />
       <div className="row footer-container">
-        <div className="col-md-4 col-6 d-flex flex-column align-items-center justify-content-end mb-3">
+        <div className="col-md-4 col-12 d-flex flex-column align-items-center justify-content-end mb-3">
           <Image src={LOGO} width="240" height="80" alt="logo" />
           <div className="footer-title">ผู้ช่วยตอบแชทเก่ง</div>
           <div className="footer-sub-title">สำหรับแม่ค้าออนไลน์</div>
@@ -64,23 +64,23 @@ const Footer = () => {
             <div className="link">บทความ</div>
           </Link>
         </div>
-        <div className="col-md-2 footer-padding col-12 d-flex flex-column align-items-center">
+        <div className="col-md-2 footer-padding col-6 d-flex flex-column align-items-center">
           <strong>ติดต่อเรา</strong>
-          <div className='contact-container'>
-            <Image className='bg' width={200} height={40} src="/images/bg/Asset_11.png" alt="asset" />
-            <div className='text-in-img'>Chatpang</div>
+          <div className="contact-container">
+            <Image className="bg" width={200} height={40} src="/images/bg/Asset_11.png" alt="asset" />
+            <div className="text-in-img">Chatpang</div>
           </div>
-          <div className='contact-container'>
-            <Image className='bg' width={200} height={40} src="/images/bg/Asset_9.png" alt="asset" />
-            <div className='text-in-img'>@Chatpang</div>
+          <div className="contact-container">
+            <Image className="bg" width={200} height={40} src="/images/bg/Asset_9.png" alt="asset" />
+            <div className="text-in-img">@Chatpang</div>
           </div>
-          <div className='contact-container'>
-            <Image className='bg' width={200} height={40} src="/images/bg/Asset_10.png" alt="asset" />
-            <div className='text-in-img'>Chatpang</div>
+          <div className="contact-container">
+            <Image className="bg" width={200} height={40} src="/images/bg/Asset_10.png" alt="asset" />
+            <div className="text-in-img">Chatpang</div>
           </div>
-          <div className='contact-container'>
-            <Image className='bg' width={200} height={40} src="/images/bg/Asset_8.png" alt="asset" />
-            <div className='text-in-img'>087-1352410</div>
+          <div className="contact-container">
+            <Image className="bg" width={200} height={40} src="/images/bg/Asset_8.png" alt="asset" />
+            <div className="text-in-img">087-1352410</div>
           </div>
         </div>
       </div>

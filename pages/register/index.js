@@ -62,10 +62,8 @@ const Register = () => {
   // }
 
   const getFacebookUserData = async () => {
-    console.log(facebookUserId);
     try {
       const res  = await axios.get(`/public/facebook-users/${facebookUserId}`)
-      console.log(res.data.data);
       const { email, name, tel, picture, note } = res.data.data
       setEmail(email)
       setName(name)
@@ -116,7 +114,7 @@ const Register = () => {
                 className="custonRegisterImput text-secondary border-secondary"
                 id="name"
                 type="text"
-                disabled
+                autoFocus
               />
             </div>
           </div>
@@ -129,7 +127,6 @@ const Register = () => {
                 className="custonRegisterImput text-secondary border-secondary"
                 id="email"
                 type="email"
-                disabled
               />
             </div>
           </div>
