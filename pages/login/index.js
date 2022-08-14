@@ -11,7 +11,7 @@ console.log(userId);
     const login = async () => {
       try {
         const res = await axios.post(`/public/facebook-users/${userId}/login`)
-        setUserData({...user,accessToken: res.data.access_token})
+        setUserData({...user,accessToken: res.data.access_token, userId: userId})
         if (!res.data.access_token) {
           router.replace('/')
         }
@@ -25,20 +25,10 @@ console.log(userId);
       }
     }
 
-    const getFacebookUserData = async () => {
-      try {
-        const res  = await axios.get(`/public/facebook-users/${userId}`)
-        const { facebook_id } = res.data.data
-        await setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    
 
     useEffect(() => {
       userId && login()
-      userId && getFacebookUserData()
-
     }, [userId])
     
   return (
