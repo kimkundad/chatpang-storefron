@@ -8,14 +8,14 @@ import axios from '../api/axios'
 const Register = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  const facebookUserId = router.query.fb
-  console.log(facebookUserId)
+  const userId = router.query.fb
+  console.log(userId)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phoneno, setPhoneno] = useState('')
   const [note, setNote] = useState('')
-  // const [facebookUserId, setFacebookUserId] = useState(router.query.fb || '')
+  const [facebookUserId, setFacebookUserId] = useState('')
   const [imageURL, setImageURL] = useState(undefined)
 
   const onSubmit = async (e) => {
@@ -32,9 +32,9 @@ const Register = () => {
 
     try {
       //*register user then go to login user after that keep token in user context
-      const res = await axios.post(`/public/facebook-users/${facebookUserId}/register`,registerData)
+      const res = await axios.post(`/public/facebook-users/${userId}/register`,registerData)
       if (res.data.data === 'Success') {
-        router.replace(`/login/?fb=${facebookUserId}`)
+        router.replace(`/login/?fb=${userId}`)
       }
     } catch (error) {
       console.log(error)
@@ -65,14 +65,14 @@ const Register = () => {
   const getFacebookUserData = async () => {
     try {
       const res  = await axios.get(`/public/facebook-users/${facebookUserId}`)
-      const { email, name, tel, picture, note } = res.data.data
+      const { email, name, tel, picture, note, facebook_id } = res.data.data
       setEmail(email)
       setName(name)
       setPhoneno(tel)
       setNote(note)
       setImageURL(picture)
-
-      await setUserData({ ...user,user:res.data.data, facebookUserId : facebookUserId })
+      setFacebookUserId(facebook_id)
+      await setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
     } catch (error) {
       console.log(error);
     }

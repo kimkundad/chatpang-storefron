@@ -6,11 +6,11 @@ import axios from '../api/axios'
 const Login = () => {
     const router = useRouter()
     const {user, setUserData} = useUser()
-    const facebookUserId = router.query.fb
+    const userId = router.query.fb
 
     const login = async () => {
       try {
-        const res = await axios.post(`/public/facebook-users/${user.facebookUserId}/login`)
+        const res = await axios.post(`/public/facebook-users/${userId}/login`)
         setUserData({...user,accessToken: res.data.access_token})
         if (!res.data.access_token) {
           router.replace('/')

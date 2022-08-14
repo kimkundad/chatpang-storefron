@@ -84,7 +84,7 @@ const Sidebar = () => {
       >
         <div className="sidebar-inner">
           <div className="sidebar-menu">
-            {packageInfo ? (
+            {Object.values(packageInfo).length === 0 ? (
               <div className="text-center">NO DATA</div>
             ) : (
               <div className="sidePackageInfo">
