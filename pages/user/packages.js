@@ -75,6 +75,7 @@ const Packages = () => {
   const getFacebookUserData = async () => {
     try {
       const res  = await axios.get(`/public/facebook-users/${user.userId}`)
+      console.log(res.data);
       const { facebook_id } = res.data.data
       await setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
     } catch (error) {
@@ -83,7 +84,7 @@ const Packages = () => {
   }
   useEffect(()=>{
     user.userId && getFacebookUserData()
-  },[user.userId])
+  },[])
   useEffect(() => {
     getPackages()
   }, [])
