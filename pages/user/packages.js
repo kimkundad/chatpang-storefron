@@ -59,7 +59,9 @@ const Packages = () => {
     }
     // console.log(userOrder);
     try {
-      const res = await axios.post(`public/orders`, userOrder , { header: { Authorization: `Bearer ${user.accessToken}` } })
+      const res = await axios.post(`/public/orders`, userOrder, {
+        header: { Authorization: `Bearer ${user.accessToken}` },
+      })
       await setUserData({ ...user, package: pack[0], order: res.data.data })
       router.push('/user/payment/paymentoptions')
     } catch (error) {
