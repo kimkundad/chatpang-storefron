@@ -7,7 +7,7 @@ const Login = () => {
     const router = useRouter()
     const {user, setUserData} = useUser()
     const userId = router.query.fb
-
+console.log(userId);
     const login = async () => {
       try {
         const res = await axios.post(`/public/facebook-users/${userId}/login`)
@@ -26,7 +26,7 @@ const Login = () => {
     }
 
     useEffect(() => {
-      login()
+      userId && login()
     }, [])
     
   return (
