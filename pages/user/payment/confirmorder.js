@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Stepper from '../../../components/Stepper'
 import { Checkbox, Divider } from 'antd'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import sampleSlip from '../../../resources/imgs/slip.jpg'
 import useUser from '../../../Hooks/useUser'
@@ -26,60 +26,69 @@ const Confirmorder = () => {
     return date
   }
   const onsubmit = async () => {
-    const signupData = {
-      userId: user?.user?.userId,
-      name: user?.user?.name,
-      email: user?.user?.email,
-      imgProfile: user?.user?.imgProfile,
-      facebookToken: user?.user?.facebookToken,
-      paymentData: [
-        {
-          id: user?.payment?._id,
-          endAt: await getEndDate(),
-          name: user?.package?.name,
-          price: user?.package?.price,
-          type: 'card',
-        },
-      ],
-      packageData: [
-        {
-          id: user?.package?._id,
-          endAt: await getEndDate(),
-        },
-      ],
-      cardName: user?.reqPayment?.name,
-      cardNo: user?.reqPayment?.number,
-      cardMonth: user?.reqPayment?.month,
-      cardYear: user?.reqPayment?.year,
-      cardCode: user?.reqPayment?.code
-    }
-    // console.log(signupData)
-    const createPageData = {
-      pageId: user?.pages[0]?.id,
-      userId: user?.user?.userId,
-      pageName: user?.pages[0]?.name,
-      pageAccessToken: user?.pages[0]?.access_token,
-      pageImageUrl: user?.pages[0]?.picture?.data?.url,
-    }
-    // console.log(createPageData)
-    try {
-      const signupinfo = await axios.post('/user/signup', signupData)
-      // console.log(signupinfo);
-      const creatPageinfo = await axios.post('/pages', createPageData, {
-        headers: { Authorization: 'Bearer ' + signupinfo?.data?.accessToken },
-      })
-      // console.log(creatPageinfo);
-      setUserData({
-        ...user,
-        accessToken: signupinfo.data?.accessToken,
-        user: signupinfo.data?.data,
-      })
-      router.push('/user/info/pagemanagement')
-    } catch (error) {
-      console.log(error)
-    }
+    // const signupData = {
+    //   userId: user?.user?.userId,
+    //   name: user?.user?.name,
+    //   email: user?.user?.email,
+    //   imgProfile: user?.user?.imgProfile,
+    //   facebookToken: user?.user?.facebookToken,
+    //   paymentData: [
+    //     {
+    //       id: user?.payment?._id,
+    //       endAt: await getEndDate(),
+    //       name: user?.package?.name,
+    //       price: user?.package?.price,
+    //       type: 'card',
+    //     },
+    //   ],
+    //   packageData: [
+    //     {
+    //       id: user?.package?._id,
+    //       endAt: await getEndDate(),
+    //     },
+    //   ],
+    //   cardName: user?.reqPayment?.name,
+    //   cardNo: user?.reqPayment?.number,
+    //   cardMonth: user?.reqPayment?.month,
+    //   cardYear: user?.reqPayment?.year,
+    //   cardCode: user?.reqPayment?.code
+    // }
+    // // console.log(signupData)
+    // const createPageData = {
+    //   pageId: user?.pages[0]?.id,
+    //   userId: user?.user?.userId,
+    //   pageName: user?.pages[0]?.name,
+    //   pageAccessToken: user?.pages[0]?.access_token,
+    //   pageImageUrl: user?.pages[0]?.picture?.data?.url,
+    // }
+    // // console.log(createPageData)
+    // try {
+    //   const signupinfo = await axios.post('/user/signup', signupData)
+    //   // console.log(signupinfo);
+    //   const creatPageinfo = await axios.post('/pages', createPageData, {
+    //     headers: { Authorization: 'Bearer ' + signupinfo?.data?.accessToken },
+    //   })
+    //   // console.log(creatPageinfo);
+    //   setUserData({
+    //     ...user,
+    //     accessToken: signupinfo.data?.accessToken,
+    //     user: signupinfo.data?.data,
+    //   })
+    router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+      // router.push('/user/info/pagemanagement')
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
-  return (
+
+  // const getUserData = async () => {
+  //   try {
+  //     const res = await axios.get(``)
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+    return (
     <div className="page-wrapper">
       <div className="container-fluid">
         <div className="row">
@@ -99,9 +108,13 @@ const Confirmorder = () => {
             <div className="col-lg-8 col-8 text-start">
               <strong className="text-secondary">รายละเอียดการชำระเงิน</strong>
               <div className="ps-3">
-                <p className="mb-0">{`${
-                  user?.payment?.type === 'card' ? 'ชำระด้วยบัตรเครดิต' : 'ชำระด้วย QR code'
-                }`}</p>
+                <p className="mb-0">
+                {/* {`${
+                  user?.payment?.type === 'card' ? 'ชำระด้วยบัตรเครดิต' : 
+                  'ชำระด้วย QR code'
+                }`} */}
+                ชำระด้วย QR code
+                </p>
                 {/* <span>หมายเลข:{`${user?.payment?.type}`}</span> */}
               </div>
             </div>
@@ -136,11 +149,11 @@ const Confirmorder = () => {
                 <tbody>
                   <tr>
                     <td>
-                      {`${user?.package?.name} ราคา ${user?.package?.price} บาท / เดือน`}
+                      {`${user?.package?.name} ราคา ${user?.order?.package?.price} บาท / เดือน`}
                       <br />
-                      {`ใช้งานได้ ${user?.pages?.length !== null ? user?.pages?.length : 0} เพจ`}
+                      {`ใช้งานได้ ${user?.order?.package?.page_limit !== null ? user?.order?.package?.page_limit : 0} เพจ`}
                     </td>
-                    <td className="text-end">{`${user?.package?.price} บาท`}</td>
+                    <td className="text-end">{`${user?.order?.package?.price} บาท`}</td>
                   </tr>
                 </tbody>
               </table>
@@ -153,17 +166,18 @@ const Confirmorder = () => {
                 <tbody>
                   <tr>
                     <th>ราคารวม:</th>
-                    <td className="text-end p-0">{`${user?.package?.price} บาท`}</td>
+                    <td className="text-end p-0">{`${user?.order?.package?.price} บาท`}</td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <th>ภาษี (7%)</th>
                     <td className="text-end p-0">{`${(user?.package?.price * 7) / 100} บาท`}</td>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <th>ราคาสุทธิ:</th>
-                    <td className="text-end p-0">{`${
+                    <td className="text-end p-0">{user?.order?.package?.price} บาท</td>
+                    {/* <td className="text-end p-0">{`${
                       parseInt(user?.package?.price) + parseInt((user?.package?.price * 7) / 100)
-                    } บาท`}</td>
+                    } บาท`}</td> */}
                   </tr>
                 </tbody>
               </table>

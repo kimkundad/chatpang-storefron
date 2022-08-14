@@ -22,11 +22,11 @@ const Packages = () => {
       const res = await axios('/public/packages')
       setData(res.data.data.results)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
   function setSelectedPackage(id) {
-    console.log(id);
+    console.log(id)
     if (selected === id) {
       setSelected(null)
     } else {
@@ -34,15 +34,43 @@ const Packages = () => {
     }
   }
 
-  const onSubmit = async () => {
-    const pack = data.filter(item => item.id === selected)
+  const onNext = async () => {
+    const pack = data.filter((item) => item.id === selected)
     // user.package = pack[0].item
-    await setUserData({...user,package:pack[0]})
-    router.push('/user/payment/paymentoptions')
+    //create Order
+    const userOrder = {
+      facebookUser: user.facebookUserId,
+      payment: {
+        amount: pack[0].price,
+        paidDate: Date.now(),
+        channel: 'GBPrimePay',
+      },
+      package: {
+        _id: pack[0].id,
+        name: pack[0].name,
+        price: pack[0].price,
+        quotaLimit: pack[0].quota_limit,
+        pageLimit: pack[0].page_limit,
+        lineNotificationLimit: pack[0].line_notification_limit,
+        days: pack[0].days,
+      },
+      discount: 0,
+      net: pack[0].price,
+    }
+    // console.log(userOrder);
+    try {
+      const res = await axios.post(`public/orders`, userOrder , { header: { Authorization: `Bearer ${user.accessToken}` } })
+      await setUserData({ ...user, package: pack[0], order: res.data.data })
+      router.push('/user/payment/paymentoptions')
+    } catch (error) {
+      console.log(error)
+    }
+
+    // await setUserData({ ...user, package: pack[0] })
   }
-  useEffect(()=>{
+  useEffect(() => {
     getPackages()
-  },[])
+  }, [])
   return (
     <div className="nosidebar-wrapper">
       <div className="container-fluid">
@@ -52,13 +80,13 @@ const Packages = () => {
           </div>
         </div>
         {/* <div className="row justify-content-center mt-5"> */}
-          <div className="col-md-12 cardPriceContainer">
-            <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage} />
-          </div>
+        <div className="col-md-12 cardPriceContainer">
+          <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage} />
+        </div>
         {/* </div> */}
         <div className="row justify-content-center">
           <div style={{ width: '40%' }} className="col-12 d-flex justify-content-md-end justify-content-center mt-5">
-            <button onClick={() => onSubmit()} className="customBTN" disabled={selected===0?true:false}>
+            <button onClick={() => onNext()} className="customBTN" disabled={selected === 0 ? true : false}>
               ต่อไป
             </button>
           </div>

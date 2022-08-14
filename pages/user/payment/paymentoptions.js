@@ -1,21 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import Stepper from '../../../components/Stepper'
 import Credit from './credit'
 import QRcode from './QRcode'
 import useUser from '../../../Hooks/useUser'
+import axios from '../../api/axios'
 
 const Paymentoptions = () => {
   const router = useRouter()
-  const { user } = useUser()
-  const [method, setMethod] = useState(false) //false = credit, true= qrcode
+  const { user, setUserData } = useUser()
+  const [method, setMethod] = useState(true) //false = credit, true= qrcode
   // console.log(user)
+  // console.log(user.package)
   const onChangeMethod = (e) => {
     setMethod(!method)
     // console.log(e.target.name)
   }
 
+  const getOrderData = async () => {
+    try {
+      const res = await axios.get(`/public/orders/${user.order.id}`, { headers: { Authorization: `Bearer ${user.accessToken}` } })
+      setUserData({...user,order:res.data.data})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(()=>{
+    getOrderData()
+  },[])
   return (
     <div className="nosidebar-wrapper">
       <div className="container container-fluid">
@@ -31,9 +44,11 @@ const Paymentoptions = () => {
               Credit card / Debit card
             </label>
           </div>
-          <div style={{fontSize:"1.5rem"}} className="col-md-3 col-12 text-center">
-            <input type="checkbox" id="method2" name="method" onClick={()=>onChangeMethod()} checked={method}/>
-            <label className='ms-2' htmlFor="method2">QR CODE</label>
+          <div style={{ fontSize: '1.5rem' }} className="col-md-3 col-12 text-center">
+            <input type="checkbox" id="method2" name="method" onClick={() => onChangeMethod()} checked={method} />
+            <label className="ms-2" htmlFor="method2">
+              QR CODE
+            </label>
           </div>
         </div>
         {method ? <QRcode /> : <Credit />}

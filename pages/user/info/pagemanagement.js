@@ -26,7 +26,7 @@ const Pagemanagement = () => {
 
     //* check Free trail 15 days
   const checkFreeTrial = () => {
-    return user?.user?.status === 'freetrial' && user?.user?.status === 'inactive'
+    return user?.status === 'inactive'
   }
   const column = [
     {

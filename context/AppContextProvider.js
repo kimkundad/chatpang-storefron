@@ -8,6 +8,7 @@ export const AppContextProvider = ({children}) => {
         user:{},
         accessToken:'',
         facebookUserId:'',
+        order:{},
         package:{},
         payment:{},
         selectedPage:[]

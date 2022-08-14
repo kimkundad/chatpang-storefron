@@ -15,6 +15,7 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [phoneno, setPhoneno] = useState('')
   const [note, setNote] = useState('')
+  // const [facebookUserId, setFacebookUserId] = useState(router.query.fb || '')
   const [imageURL, setImageURL] = useState(undefined)
 
   const onSubmit = async (e) => {
@@ -70,6 +71,7 @@ const Register = () => {
       setPhoneno(tel)
       setNote(note)
       setImageURL(picture)
+
       await setUserData({ ...user,user:res.data.data, facebookUserId : facebookUserId })
     } catch (error) {
       console.log(error);
