@@ -17,7 +17,7 @@ const QRcode = () => {
   const selectedPackage = user.package
 
   const onSubmit = async () => {
-    setIsSubmit(!isSubmit)
+    // setIsSubmit(!isSubmit)
     // const date = new Date()
     // const data = {
     //   facebookUser: user.facebookUserId,
@@ -48,11 +48,11 @@ const QRcode = () => {
   }
 
   const RenderQRCode = () => {
-    if (isSubmit) {
+    if (qrcode) {
       return (
         <div className="row justify-content-center">
           <div className="col-md-4 d-flex qrcodeImg flex-column">
-          {qrcode && <Image
+          <Image
               text={qrcode}
               options={{
                 type: 'image/jpeg',
@@ -67,7 +67,7 @@ const QRcode = () => {
                 },
               }}
               alt="qrcode"
-            />}
+            />
             <div className="text-end">
               <button onClick={() => router.back}>ย้อนกลับ</button>
               <button className="ms-2" onClick={() => router.push('/user/payment/confirmorder')}>
