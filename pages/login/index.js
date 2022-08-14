@@ -27,7 +27,7 @@ console.log(userId);
 
     useEffect(() => {
       userId && login()
-    }, [])
+    }, [userId])
     
   return (
     <div className="nosidebar-wrapper text-center">ระบกำลัง redirect ไปที่หน้าการจัดการ</div>
