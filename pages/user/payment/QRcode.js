@@ -13,7 +13,7 @@ const QRcode = () => {
   const router = useRouter()
   const [isSubmit, setIsSubmit] = useState(false)
   const { Image } = useQRCode()
-  const [qrcode, setQrcode] = useState('tse')
+  const [qrcode, setQrcode] = useState('')
   const selectedPackage = user.package
 
   const onSubmit = async () => {
@@ -39,12 +39,12 @@ const QRcode = () => {
     //   net: selectedPackage.price,
     // }
     // console.log(data);
-    // try {
-    //   const qrcode = await axios.get(`public/orders-payment/${user.order.id}/qrcode`)
-    //   setQrcode(qrcode.data.data.qrcode)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      const qrcode = await axios.get(`public/orders-payment/${user.order.id}/qrcode`)
+      setQrcode(qrcode.data.data.qrcode)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const RenderQRCode = () => {
