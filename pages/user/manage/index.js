@@ -11,11 +11,11 @@ const Index = () => {
   const [checkList, setCheckList] = useState([])
   const [data, setData] = useState([])
   const onCheckAll = async () => {
-    setCheckList(!checkAll ? data?.map(item=> item.id) : [])
+    setCheckList(!checkAll ? data?.map((item) => item.id) : [])
     setCheckAll(!checkAll)
-   await setUserData({
+    await setUserData({
       ...user,
-      selectedPage:!checkAll ? [...data] : []
+      selectedPage: !checkAll ? [...data] : [],
     })
   }
 
@@ -24,18 +24,20 @@ const Index = () => {
     // console.log(id)
     if (checkList.indexOf(id) === -1) {
       await setCheckList([...checkList, id])
-      const item = data?.filter(item => item.id === id)
+      const item = data?.filter((item) => item.id === id)
       // console.log(item);
       user.selectedPage.push(item[0])
     } else {
       await setCheckList((prev) => prev.filter((v) => v !== id))
-      user.selectedPage.filter(item => item.id!== id)
+      user.selectedPage.filter((item) => item.id !== id)
     }
   }
 
   const getPageList = async () => {
     try {
-      const res = await axios.get(`/public/facebook-pages/${user.facebookUserId}/facebook-user`, { headers: { Authorization: 'Bearer ' + user?.accessToken } })
+      const res = await axios.get(`/public/facebook-pages/${user.facebookUserId}/facebook-user`, {
+        headers: { Authorization: 'Bearer ' + user?.accessToken },
+      })
       // console.log(res.data)
       // const arr = res.data.pages.map((item) => item.item)
       setData(res.data.data.results)
@@ -53,7 +55,12 @@ const Index = () => {
           <tr key={index}>
             <td>{item.name}</td>
             <td>
-              <input type="checkbox" name={item.id} onClick={(e) => onCheck(e)} checked={checkList?.includes(item?.pageId)} />
+              <input
+                type="checkbox"
+                name={item.id}
+                onClick={(e) => onCheck(e)}
+                checked={checkList?.includes(item?.pageId)}
+              />
             </td>
           </tr>
         )
@@ -61,10 +68,9 @@ const Index = () => {
     }
   }
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getPageList()
-  },[])
+  }, [])
   return (
     <div className="page-wrapper">
       <div className="container container-fluid">

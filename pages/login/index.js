@@ -15,16 +15,30 @@ console.log(userId);
         if (!res.data.access_token) {
           router.replace('/')
         }
-        if (!user.user?.order) {
-          res.data.access_token && router.replace('/user/packages')
-        } else {
+        console.log(!res.data.data?.order);
+        if (res.data.data?.order !== null) {
           res.data.access_token && router.replace('/user/manage')
+        } else {
+          res.data.access_token && router.replace('/user/packages')
         }
       } catch (error) {
         console.log(error);
       }
     }
 
+    const getFacebookUserData = async () => {
+      try {
+        const res  = await axios.get(`/public/facebook-users/${userId}`)
+        console.log(res.data);
+        const { facebook_id } = res.data.data
+        await setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    useEffect(()=>{
+      userId && getFacebookUserData()
+    },[userId])
     
 
     useEffect(() => {
