@@ -40,7 +40,7 @@ const Packages = () => {
     const date = new Date()
     //create Order
     const userOrder = {
-      facebookUser: user.id,
+      facebookUser: user.user.id,
       payment: {
         amount: pack[0].price,
         paidDate: date.toLocaleDateString(),
