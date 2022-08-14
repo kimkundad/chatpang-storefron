@@ -79,8 +79,8 @@ const Register = () => {
   }
 
   useEffect(() => {
-    facebookUserId && getFacebookUserData()
-  }, [facebookUserId])
+    userId && getFacebookUserData()
+  }, [userId])
   
   return (
     <div className="nosidebar-wrapper">

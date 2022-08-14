@@ -8,7 +8,7 @@ import useUser from '../../../Hooks/useUser'
 const Index = () => {
   const { user, setUserData } = useUser()
   const [checkAll, setCheckAll] = useState(false)
-  const [checkList, setCheckList] = useState(user?.selectedPage.length !== 0 ? user?.selectedPag?.map(item => item.pageId) : [])
+  const [checkList, setCheckList] = useState([])
   const [data, setData] = useState([])
   const onCheckAll = async () => {
     setCheckList(!checkAll ? data?.map(item=> item.id) : [])
@@ -24,12 +24,12 @@ const Index = () => {
     // console.log(id)
     if (checkList.indexOf(id) === -1) {
       await setCheckList([...checkList, id])
-      const item = data?.filter(item => item.pageId === id)
+      const item = data?.filter(item => item.id === id)
       // console.log(item);
       user.selectedPage.push(item[0])
     } else {
       await setCheckList((prev) => prev.filter((v) => v !== id))
-      user.selectedPage.filter(item => item.pageId!== id)
+      user.selectedPage.filter(item => item.id!== id)
     }
   }
 
@@ -37,8 +37,8 @@ const Index = () => {
     try {
       const res = await axios.get(`/public/facebook-pages/${user.facebookUserId}/facebook-user`, { headers: { Authorization: 'Bearer ' + user?.accessToken } })
       // console.log(res.data)
-      const arr = res.data.pages.map((item) => item.item)
-      setData(arr)
+      // const arr = res.data.pages.map((item) => item.item)
+      setData(res.data.data.results)
       // console.log(arr)
     } catch (error) {
       console.log(error)
@@ -51,9 +51,9 @@ const Index = () => {
       return data.map((item, index) => {
         return (
           <tr key={index}>
-            <td>{item.pageName}</td>
+            <td>{item.name}</td>
             <td>
-              <input type="checkbox" name={item.pageId} onClick={(e) => onCheck(e)} checked={checkList?.includes(item?.pageId)} />
+              <input type="checkbox" name={item.id} onClick={(e) => onCheck(e)} checked={checkList?.includes(item?.pageId)} />
             </td>
           </tr>
         )
