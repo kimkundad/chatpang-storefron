@@ -11,7 +11,7 @@ console.log(userId);
     const login = async () => {
       try {
         const res = await axios.post(`/public/facebook-users/${userId}/login`)
-        setUserData({...user,accessToken: res.data.access_token, userId: userId})
+        setUserData({...user,accessToken: res.data.access_token, userId: userId, isLogin: true})
         if (!res.data.access_token) {
           router.replace('/')
         }

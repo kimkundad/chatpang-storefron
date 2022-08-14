@@ -17,30 +17,8 @@ const QRcode = () => {
   const selectedPackage = user.package
 
   const onSubmit = async () => {
-    // setIsSubmit(!isSubmit)
-    // const date = new Date()
-    // const data = {
-    //   facebookUser: user.facebookUserId,
-    //   payment: {
-    //     amount: selectedPackage.price,
-    //     paidDate: Date.now(),
-    //     channel: 'GBPrimePay',
-    //   },
-    //   package: {
-    //     _id: selectedPackage.id,
-    //     name: selectedPackage.name,
-    //     price: selectedPackage.price,
-    //     quotaLimit: selectedPackage.quota_limit,
-    //     pageLimit: selectedPackage.page_limit,
-    //     lineNotificationLimit: selectedPackage.line_notification_limit,
-    //     days: selectedPackage.days,
-    //   },
-    //   discount: 0,
-    //   net: selectedPackage.price,
-    // }
-    // console.log(data);
     try {
-      const qrcode = await axios.get(`public/orders-payment/${user.order.id}/qrcode`)
+      const qrcode = await axios.get(`public/orders-payment/${user.user.order.id}/qrcode`)
       setQrcode(qrcode.data.data.qrcode)
     } catch (error) {
       console.log(error)

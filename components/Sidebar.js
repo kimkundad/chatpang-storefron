@@ -13,7 +13,7 @@ const Sidebar = () => {
   const [packageInfo, setPackageInfo] = useState({})
 
   // const packageInfo = user.order.package
-  const latestOrderId = user?.order?.id || ''
+  const latestOrderId = user?.user?.order?.id || ''
   let pathName = router.pathname
 
   const isActive = (path) => {
