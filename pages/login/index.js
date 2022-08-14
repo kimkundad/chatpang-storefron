@@ -12,10 +12,13 @@ const Login = () => {
       try {
         const res = await axios.post(`/public/facebook-users/${user.facebookUserId}/login`)
         setUserData({...user,accessToken: res.data.access_token})
+        if (!res.data.access_token) {
+          router.replace('/')
+        }
         if (!user.user?.order) {
-          router.replace('/user/packages')
+          res.data.access_token && router.replace('/user/packages')
         } else {
-          router.replace('/user/manage')
+          res.data.access_token && router.replace('/user/manage')
         }
       } catch (error) {
         console.log(error);
