@@ -13,7 +13,7 @@ const QRcode = () => {
   const router = useRouter()
   const [isSubmit, setIsSubmit] = useState(false)
   const { Image } = useQRCode()
-  const [qrcode, setQrcode] = useState('')
+  const [qrcode, setQrcode] = useState('tst')
   const selectedPackage = user.package
 
   const onSubmit = async () => {
@@ -51,6 +51,8 @@ const QRcode = () => {
     if (qrcode) {
       return (
         <div className="row justify-content-center">
+            <span className='text-center mt-3'>SCAN QR_CODE ด้วยแอพพลิเคชั่นธนาคารของท่าน</span>
+
           <div className="col-md-4 d-flex qrcodeImg flex-column">
           <Image
               text={qrcode}
