@@ -59,15 +59,15 @@ const Packages = () => {
       net: pack[0].price,
     }
     console.log(userOrder);
-    // try {
-    //   const res = await axios.post(`/public/orders`, userOrder, {
-    //     headers: { Authorization: `Bearer ${user.accessToken}` },
-    //   })
-    //   await setUserData({ ...user, package: pack[0], order: res.data.data })
-    //   router.push('/user/payment/paymentoptions')
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      const res = await axios.post(`/public/orders`, userOrder, {
+        headers: { Authorization: `Bearer ${user.accessToken}` },
+      })
+      await setUserData({ ...user, package: pack[0], order: res.data.data })
+      router.push('/user/payment/paymentoptions')
+    } catch (error) {
+      console.log(error)
+    }
 
     // await setUserData({ ...user, package: pack[0] })
   }
