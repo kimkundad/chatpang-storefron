@@ -61,7 +61,6 @@ const Header = () => {
   const userDropDown = () => {
     if (user.isLogin) {
       return (
-        // <AppContext.Consumer>
         <Dropdown overlay={menu} trigger={['click']} className="fw-bold fs-4 d-flex align-items-center ms-3">
           <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
             {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
@@ -69,7 +68,6 @@ const Header = () => {
             <FontAwesomeIcon icon={faAngleDown} />
           </a>
         </Dropdown>
-        // </AppContext.Consumer>
       )
     } else {
       return (
@@ -182,7 +180,7 @@ const Header = () => {
   return (
     <div className="position-fixed w-100 top-0" style={{ zIndex: '1000' }}>
       <nav className="customHeader navbar navbar-expand-lg navbar-dark shadow-sm">
-        <div className="container-xl">
+        <div className="navContainer">
           <Link
             to="/"
             onClick={() => {
@@ -191,67 +189,15 @@ const Header = () => {
             }}
             className="navbar-brand"
           > 
-          <div className='d-md-block d-none'>
-            <img src="/images/logo/newLogo.png" style={{ maxWidth: '209px' }} alt="logo" />
+          <div style={{width:'30vw'}} className='d-md-block d-none'>
+            <img src="/images/logo/newLogo.png" style={{ maxWidth: '50%' }} alt="logo" />
           </div>
           <div className='d-block d-md-none'>
-            <img src="/images/logo/textLogo.png" style={{ maxWidth: '160px' }} alt="logo" />
+            <img src="/images/logo/textLogo.png" style={{ maxWidth: '40%' }} alt="logo" />
           </div>
           </Link>
-          {/* <div className='sideBarToggle d-md-none d-sm-block me-3' style={{cursor:"pointer"}} onClick={onShowSideBarMenu} >
-            <FontAwesomeIcon icon={faBars} /> 
-          </div> */}
-          {/* <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <img
-              src="/images/hamburger-menu.svg"
-              onClick={() => setModalMobile(!modalMobile)}
-              style={{ width: '24px' }}
-            />
-          </button> */}
           {renderBTNNavbar()}
           {renderMenuNav()}
-          {/* <div className="collapse navbar-collapse align-content-end" id="navbarNavAltMarkup">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link to="about" offset={-40}>
-                  <button className="btn btn-primary">เกี่ยวกับ</button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="benefit" offset={-220}>
-                  <button className="btn btn-primary">ฟังก์ชั่น</button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="review" offset={-140}>
-                  <button className="btn btn-primary">รีวิวจากลูกค้า</button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="questions" offset={-140}>
-                  <button className="btn btn-primary">คำถามที่พบบ่อย</button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="packages" offset={-120}>
-                  <button className="btn btn-primary">แพ็คเกจ</button>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="contract" offset={-150}>
-                  <button className="btn btn-primary">ติดต่อเรา</button>
-                </Link>
-              </li>
-            </ul>
-          </div> */}
         </div>
       </nav>
 

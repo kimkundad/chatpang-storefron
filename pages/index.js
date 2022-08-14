@@ -130,7 +130,7 @@ export default function Home() {
       star.push(i)
     }
     return (
-      <div>
+      <div className="review-content-rating">
         {star.map((obj) => {
           return <FontAwesomeIcon style={{ color: 'yellow', margin: '0 2px' }} key={obj} icon={faStar} />
         })}
@@ -158,18 +158,17 @@ export default function Home() {
           // style={{ minHeight: 'calc(100vh - 104px)' }}
           id="home"
         >
-          <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+          <div className="home-video-container col-12 col-md-6 d-flex align-items-center justify-content-center">
             <iframe
               src="https://www.youtube.com/embed/QIjZn_fiS3M"
-              width="100%"
-              height="100%"
-              className="video-yt"
+              // className="video-yt"
+              className="responsive-iframe"
               allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>
           <div className="col-12 col-md-6 py-5 py-md-0 flex-column align-items-center justify-content-center d-flex">
-            <img src="/images/logo/newLogo.png" style={{ width: '100%', maxWidth: '980px' }} />
+            <img className="home-logo" src="/images/logo/newLogo.png" />
             <div className="index-text">
               ผู้ช่วยตอบแชทเก่ง! <br />
               ของแม่ค้าออนไลน์
@@ -182,42 +181,42 @@ export default function Home() {
 
         {/* Section 2 */}
         <section className="d-flex flex-column flex-md-row py-5 py-md-0" id="about">
-          <div className="col-12 col-md-8 d-flex flex-column align-items-center justify-content-center ">
-            <div className="d-flex flex-md-row align-items-center justify-content-center">
-              <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
-              <div className="display-6 text-center display-md-4">
+          <div className="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div className="d-flex flex-md-row align-items-center justify-content-center w-100">
+              <img src="/images/logo/miniLogo.png" style={{ width: '25%' }} />
+              <div className="text-section-subheader text-center">
                 ไม่พลาดทุกแชทของลูกค้า
                 <br />
                 ด้วยข้อความอัตโนมัติ
               </div>
             </div>
-            <div className="d-flex flex-column mt-5">
+            <div className="d-flex flex-column mt-5 w-100 align-items-center">
               <div className="d-flex align-items-center gap-1">
-                <img src="/images/landing-page/bullet-point.svg" style={{ width: '80px' }} />
-                <div className="ms-2 display-6 display-md-4">ตอบคอมเม้นต์อัตโนมัติ</div>
+                <img src="/images/landing-page/bullet-point.svg" style={{ width: '6vw' }} />
+                <div className="ms-2 about-text">ตอบคอมเม้นต์อัตโนมัติ</div>
               </div>
               <div className="d-flex align-items-center gap-1 mt-3">
-                <img src="/images/landing-page/bullet-point.svg" style={{ width: '80px' }} />
-                <div className="ms-2  display-6 display-md-4">ดึงคอมเม้นต์เข้า Inbox</div>
+                <img src="/images/landing-page/bullet-point.svg" style={{ width: '6vw' }} />
+                <div className="ms-2 about-text">ดึงคอมเม้นต์เข้า Inbox</div>
               </div>
               <div className="d-flex align-items-center gap-1 mt-3">
-                <img src="/images/landing-page/bullet-point.svg" style={{ width: '80px' }} />
-                <div className="ms-2  display-6 display-md-4">แจ้งเตือนแชทจาก LINE</div>
+                <img src="/images/landing-page/bullet-point.svg" style={{ width: '6vw' }} />
+                <div className="ms-2 about-text">แจ้งเตือนแชทจาก LINE</div>
               </div>
             </div>
           </div>
-          <div className="col-6 col-md-4 d-none d-md-flex align-items-center justify-content-center">
-            <img src="/images/landing-page/about-image.svg" style={{ width: '100%', maxWidth: '780px' }} />
+          <div className="col-6 col-md-6 d-none d-md-flex align-items-center justify-content-center">
+            <img className="about-img" src="/images/landing-page/about-image.svg" />
           </div>
         </section>
 
         {/* Section 3 */}
         <section className="d-flex flex-column align-items-center py-5" id="function">
-          <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
+          <div className="d-flex section-padding-top flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
             <div className="text-section-header">Chatpang ทำอะไรได้บ้าง ?</div>
           </div>
-          <div className="text-center fs-2">
+          <div className="text-center">
             รวม 5 ฟังก์ชั่นของ <span className="text-secondary">Chatpang</span> ที่จะช่วยให้คุณตอบแชทกับลูกค้าได้ในทันที
           </div>
           <div
@@ -225,25 +224,22 @@ export default function Home() {
             style={{ marginTop: '56px', gridAutoRows: '1fr' }}
           >
             {featureData.map((val, index) => (
-              <div className="px-3 mt-5 h-100" key={index}>
-                <div
-                  className="px-2 pb-3 position-relative border-grey100 border rounded-3 d-flex flex-column align-items-center shadow-sm"
-                  style={{ paddingTop: '56px', height: '180px' }}
-                >
+              <div className="px-3 mt-5" key={index}>
+                <div className="px-2 function-containers pb-3 position-relative border-grey100 border rounded-3 d-flex flex-column align-items-center shadow-sm">
                   <img
                     src={val.img}
                     className="position-absolute m-auto"
                     style={{
-                      maxWidth: '80px',
+                      maxWidth: '20%',
                       left: 0,
                       right: 0,
                       marginLeft: 'auto',
                       marginRight: 'auto',
-                      top: '-40px',
+                      top: '-20%',
                     }}
                   />
-                  <div className=" fw-bold fs-2">{val.title}</div>
-                  <div className="text-center text-break fs-4">{val.subTitle}</div>
+                  <div className=" fw-bold function-text-header">{val.title}</div>
+                  <div className="text-center text-break function-text-body">{val.subTitle}</div>
                 </div>
               </div>
             ))}
@@ -256,8 +252,8 @@ export default function Home() {
           id="review"
           // id='benefit'
         >
-          <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
+          <div className="d-flex section-padding-top flex-column flex-md-row align-items-center justify-content-center">
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '150px' }} />
             <div className="text-section-header">รีวิวจากลูกค้า</div>
           </div>
 
@@ -267,7 +263,7 @@ export default function Home() {
                 <div key={index} className="flex flex-column p-3">
                   {/* <img src="/images/landing-page/placeholder-video.svg" className="w-100" /> */}
                   <div className="ratio ratio-4x3">
-                    {val.video_url !== null ? (
+                    {val.video_url ? (
                       <Player
                         width="100%"
                         height="100%"
@@ -295,30 +291,28 @@ export default function Home() {
                     style={{ height: '100%', width: '100%', maxHeight: '518px' }}
                   /> */}
                   <div
-                    className="bg-grey50 shadow px-3 pt-4 pb-3 border rounded-3 position-relative"
+                    className="bg-grey50 shadow px-3 pt-4 pb-1 border rounded-3 position-relative"
                     style={{ marginTop: '4em' }}
                   >
-                    <img
-                      src={val.picture}
-                      className="position-absolute m-auto"
-                      style={{
-                        width: '60px',
-                        height: '60px',
-                        objectFit: 'fill',
-                        left: 0,
-                        right: 0,
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                        top: '-40px',
-                        borderRadius: '50px',
-                      }}
-                    />
+                      <img
+                        src={val.picture}
+                        className="review-content-picture"
+                        // style={{
+                        //   width: '60px',
+                        //   height: '60px',
+                        //   objectFit: 'fill',
+                        //   left: 0,
+                        //   right: 0,
+                          // marginLeft: 'auto',
+                          // marginRight: 'auto',
+                        //   top: '-40px',
+                        //   borderRadius: '50px',
+                        // }}
+                      />
                     <div className=" d-flex flex-column align-items-center">
-                      <div>{val.name}</div>
+                      <div className="review-content-name">{val.name}</div>
                       {renderRating(val.rate)}
-                      <div style={{ minHeight: '50px', fontSize: '1.2rem' }} className="text-center">
-                        {renderReviewDetail(val.description)}
-                      </div>
+                      <div className="review-content-body text-center">{renderReviewDetail(val.description)}</div>
                     </div>
                   </div>
                 </div>
@@ -329,11 +323,11 @@ export default function Home() {
 
         {/* Section 5 */}
         <section className="d-flex flex-column align-items-center py-5" id="questions">
-          <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
+          <div className="d-flex section-padding-top flex-column flex-md-row align-items-center justify-content-center">
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '150px' }} />
             <div className="text-section-header">คำถามที่พบบ่อย</div>
           </div>
-          <div className="text-center fs-2">
+          <div className="text-center question-subheader">
             รวมคำถามที่เราได้รับมาบ่อยๆ หากมีปัญหาอะไรเพิ่มเติมสามารถติดต่อได้ที่{' '}
             <span className="text-secondary">LINE : @chatpang</span>
           </div>
@@ -349,11 +343,11 @@ export default function Home() {
 
         {/* Section 6 */}
         <section
-          className="d-flex flex-column align-items-center justify-content-center h-100 py-5 py-md-0 py-5"
+          className="d-flex flex-column align-items-center justify-content-center py-5"
           id="packages"
         >
-          <div className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '72px' }} />
+          <div className="d-flex section-padding-top flex-column flex-md-row align-items-center justify-content-center">
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '150px' }} />
             <div className="text-section-header">แพ็คเกจสุดคุ้ม!</div>
           </div>
 
@@ -407,7 +401,7 @@ export default function Home() {
           </div>
           <div className="col-12 col-md-6 py-5 py-md-0 d-flex flex-column align-items-center justify-content-center">
             <div>
-            <img src="/images/landing-page/qr-code.svg" style={{ width: '100%' }} />
+              <img src="/images/landing-page/qr-code.svg" style={{ width: '100%' }} />
             </div>
             <div className="d-flex mt-4 gap-3">
               <img src="/images/landing-page/facebook-round.svg" style={{ width: '42px' }} />
