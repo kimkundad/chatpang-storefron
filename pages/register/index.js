@@ -64,7 +64,7 @@ const Register = () => {
 
   const getFacebookUserData = async () => {
     try {
-      const res  = await axios.get(`/public/facebook-users/${facebookUserId}`)
+      const res  = await axios.get(`/public/facebook-users/${userId}`)
       const { email, name, tel, picture, note, facebook_id } = res.data.data
       setEmail(email)
       setName(name)
