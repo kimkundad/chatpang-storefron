@@ -28,7 +28,7 @@ const Sidebar = () => {
 
   const getOrderById = async () => {
     try {
-      const res = await axios.get(`/public/order/${latestOrderId}`, {
+      const res = await axios.get(`/public/orders/${latestOrderId}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       setPackageInfo(res.data.data)

@@ -35,7 +35,7 @@ const Index = () => {
 
   const getPageList = async () => {
     try {
-      const res = await axios.get('/pages', { headers: { Authorization: 'Bearer ' + user?.accessToken } })
+      const res = await axios.get(`/public/facebook-pages/${user.facebookUserId}/facebook-user`, { headers: { Authorization: 'Bearer ' + user?.accessToken } })
       // console.log(res.data)
       const arr = res.data.pages.map((item) => item.item)
       setData(arr)

@@ -783,7 +783,7 @@ function section
   /* min-height: 756px; */
   min-height: calc(100vh - 144px);
 
-  padding: 120px 0 80px 0;
+  padding: 180px 0 80px 0;
   position: relative;
   transition: all 0.4s ease;
   font-size: min(1.5rem, 3vw);
