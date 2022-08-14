@@ -13,7 +13,7 @@ const QRcode = () => {
   const router = useRouter()
   const [isSubmit, setIsSubmit] = useState(false)
   const { Image } = useQRCode()
-  const [qrcode, setQrcode] = useState('tst')
+  const [qrcode, setQrcode] = useState('')
   const selectedPackage = user.package
 
   const onSubmit = async () => {

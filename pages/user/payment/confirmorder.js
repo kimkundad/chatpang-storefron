@@ -74,8 +74,8 @@ const Confirmorder = () => {
     //     accessToken: signupinfo.data?.accessToken,
     //     user: signupinfo.data?.data,
     //   })
-    router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
-      // router.push('/user/info/pagemanagement')
+    // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+      router.push('/user/info/pagemanagement')
     // } catch (error) {
     //   console.log(error)
     // }
