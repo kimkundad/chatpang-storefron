@@ -25,8 +25,26 @@ console.log(userId);
       }
     }
 
+    const getFacebookUserData = async () => {
+      try {
+        const res  = await axios.get(`/public/facebook-users/${userId}`)
+        const { email, name, tel, picture, note, facebook_id } = res.data.data
+        setEmail(email)
+        setName(name)
+        setPhoneno(tel)
+        setNote(note)
+        setImageURL(picture)
+        setFacebookUserId(facebook_id)
+        await setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     useEffect(() => {
       userId && login()
+      userId && getFacebookUserData()
+
     }, [userId])
     
   return (
