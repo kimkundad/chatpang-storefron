@@ -37,12 +37,13 @@ const Packages = () => {
   const onNext = async () => {
     const pack = data.filter((item) => item.id === selected)
     // user.package = pack[0].item
+    const date = new Date()
     //create Order
     const userOrder = {
       facebookUser: user.facebookUserId,
       payment: {
         amount: pack[0].price,
-        paidDate: Date.now(),
+        paidDate: date.toLocaleDateString(),
         channel: 'GBPrimePay',
       },
       package: {
@@ -58,15 +59,15 @@ const Packages = () => {
       net: pack[0].price,
     }
     console.log(userOrder);
-    try {
-      const res = await axios.post(`/public/orders`, userOrder, {
-        headers: { Authorization: `Bearer ${user.accessToken}` },
-      })
-      await setUserData({ ...user, package: pack[0], order: res.data.data })
-      router.push('/user/payment/paymentoptions')
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   const res = await axios.post(`/public/orders`, userOrder, {
+    //     headers: { Authorization: `Bearer ${user.accessToken}` },
+    //   })
+    //   await setUserData({ ...user, package: pack[0], order: res.data.data })
+    //   router.push('/user/payment/paymentoptions')
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
     // await setUserData({ ...user, package: pack[0] })
   }
