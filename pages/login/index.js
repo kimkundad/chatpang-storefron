@@ -11,7 +11,7 @@ const Login = () => {
     const login = async () => {
       try {
         const res = await axios.post(`/public/facebook-users/${user.facebookUserId}/login`)
-        setUserData({...user,accessToken: res.data.data.access_token})
+        setUserData({...user,accessToken: res.data.access_token})
         if (!user.user?.order) {
           router.replace('/user/packages')
         } else {

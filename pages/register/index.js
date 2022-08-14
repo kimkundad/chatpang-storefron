@@ -154,7 +154,7 @@ const Register = () => {
                 ยกเลิก
               </button>
               <button type="submit" className="customeRegisterBtn">
-                เข้าระบบ
+                ลงทะเบียน
               </button>
             </div>
           </div>
