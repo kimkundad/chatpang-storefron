@@ -26,7 +26,7 @@ console.log(userId);
       }
     }
 
-    const getFacebookUserData = async () => {
+    const getFacebookUserData = async (cb) => {
       try {
         const res  = await axios.get(`/public/facebook-users/${userId}`)
         console.log(res.data);
@@ -35,15 +35,16 @@ console.log(userId);
       } catch (error) {
         console.log(error);
       }
+      cb()
     }
     useEffect(()=>{
-      userId && getFacebookUserData()
+      userId && getFacebookUserData(login())
     },[userId])
     
 
-    useEffect(() => {
-      userId && login()
-    }, [userId])
+    // useEffect(() => {
+    //   userId && login()
+    // }, [userId])
     
   return (
     <div className="nosidebar-wrapper text-center">ระบกำลัง redirect ไปที่หน้าการจัดการ</div>
