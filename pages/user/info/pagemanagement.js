@@ -9,30 +9,35 @@ const Pagemanagement = () => {
   const router = useRouter()
   const [data, setData] = useState([])
   const [isFreeTrail, setIsFreeTrial] = useState(true)
-  const { user } = useUser()
+  const { user, setUserData } = useUser()
+  const [quotaInfo, setQuotaInfo] = useState({})
   const facebookUserId = router.query.fb
-  // console.log(user);
-  const getPageList = async () => {
+  console.log(data);
+  const getQuotaInfo = async () => {
     try {
-      const res = await axios.get('/pages', { headers: { Authorization: 'Bearer ' + user?.accessToken } })
-      // console.log(res.data);
-      const arr = res.data.pages.map(item => item.item)
-      setData(arr)
+      const res = await axios.get(`/public/purchases/${user?.user?.id}/quota`, {
+        headers: { Authorization: 'Bearer ' + user?.accessToken },
+      })
+      console.log(res.data);
+      // const arr = res.data.pages.map((item) => item.item)
+      // setData(arr)
+      setQuotaInfo(res.data.data)
       // console.log(arr);
     } catch (error) {
       console.log(error)
     }
   }
 
-    //* check Free trail 15 days
+  //* check Free trail 15 days
   const checkFreeTrial = () => {
-    return user?.status === 'inactive'
+    setIsFreeTrial(user?.order.state !== 'paid')
+    // return user?.user.status === 'inactive'
   }
   const column = [
     {
-      title: <strong className="fs-4">เพจของคุณ ({data.length})</strong>,
-      dataIndex: 'pageName',
-      key: 'pageName',
+      title: <strong className="fs-4">เพจของคุณ ({data?.length})</strong>,
+      dataIndex: 'name',
+      key: 'name',
       render: (text) => <p className="fs-5">{text}</p>,
     },
     {
@@ -43,14 +48,57 @@ const Pagemanagement = () => {
     },
     {
       title: <strong className="fs-4">เงื่อนไขทั้งหมด</strong>,
-      dataIndex: 'conditions',
-      key: 'conditions',
-      render: (text) => <p className="fs-5">{text}</p>,
+      dataIndex: 'tasks',
+      key: 'tasks',
+      render: (text) => <p className="fs-5">{text.length}</p>,
     },
   ]
 
+  const getAuthPages = () => {
+    console.log("click");
+    window.open('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+    // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages',{ shallow: true })
+  }
+
+  const getPurchaseData = async () => {
+    try {
+      const res3 = await axios.get(`/public/purchases/${user.user.id}/facebook-user`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      const res = await axios.get(`/public/orders/${user.user.id}/facebook-user`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      const res1 = await axios.get(`/public/order-histories/${user.user.id}/facebook-user`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      const res2 = await axios.get(`/public/orders/${user.user.order.id}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
+        headers: { Authorization: 'Bearer ' + user?.accessToken },
+      })
+      console.log(res3.data);
+     await setUserData({
+        ...user,
+        order:res2.data.data,
+        orders:res.data.data.results,
+        purchases:res3.data.data,
+        orderHistory:res1.data.data.results,
+        pages:res4.data.data.results
+      })
+      setData(res4.data.data.results)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    // getUserInfo()
+    getPurchaseData()
+  },[])
+
   useEffect(() => {
-    getPageList()
+    getQuotaInfo()
     checkFreeTrial()
   }, [])
   return (
@@ -59,8 +107,16 @@ const Pagemanagement = () => {
         <div className="row">
           <div className="col-12">
             <div className="numberComment d-flex flex-column justify-content-center align-items-center">
-              <strong>0 / 100</strong>
-              <span>คอมเม้นต์วันนี้</span>
+              {quotaInfo ? (
+                <>
+                  <strong>
+                    {quotaInfo.total_current_reply} / {quotaInfo.total_quota_limit}
+                  </strong>
+                  <span>คอมเม้นต์วันนี้</span>
+                </>
+              ) : (
+                <span>ไม่มีข้อมูล</span>
+              )}
             </div>
           </div>
           <div className="col-12">
@@ -69,6 +125,7 @@ const Pagemanagement = () => {
               className="my-4 d-flex justify-content-center align-items-center"
               type="primary"
               icon={<SettingOutlined />}
+              onClick={()=> getAuthPages()}
               disabled={isFreeTrail}
             >
               เพิ่มหรือลบเพจ

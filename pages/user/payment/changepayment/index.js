@@ -40,11 +40,12 @@ const [isSuccess, setIsSuccess] = useState({
               Credit card / Debit card
             </label>
           </div>
-          {/* //!hide qr code */}
-          {/* <div style={{fontSize:"1.5rem"}} className="col-md-3 col-12 text-center">
-            <input type="checkbox" id="method2" name="method" onClick={()=>onChangeMethod()} checked={method}/>
-            <label className='ms-2' htmlFor="method2">QR CODE</label>
-          </div> */}
+          <div style={{ fontSize: '1.5rem' }} className="col-md-3 col-12 text-center">
+            <input type="checkbox" id="method2" name="method" onClick={() => onChangeMethod()} checked={method} />
+            <label className="ms-2" htmlFor="method2">
+              QR CODE
+            </label>
+          </div>
         </div>
         {method ? <QRcode /> : <Credit setIsSuccess={setIsSuccess} />}
       </div>

@@ -8,36 +8,40 @@ import moment from 'moment';
 const Accountmanagement = () => {
   const { TabPane } = Tabs;
   const { user, setUserData } = useUser()
-  const getUserInfo = async () => {
-    try {
-      const res = await axios.get(`/user/getUser/${user?.user?._id}`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
-      })
+
+  // const getUserInfo = async () => {
+    // try {
+      // const res  = await axios.get(`/public/facebook-users/${user.user.id}`)
       // console.log(res.data);
-      const latestPaymentId = res.data.paymentData[res.data.paymentData.length - 1].id
-      const latestPackageId = res.data.packageData[res.data.packageData.length - 1].id
-      const latestPackageEndAt = res.data.packageData[res.data.packageData.length - 1].endAt
-     await getInfo(latestPaymentId,latestPackageId,latestPackageEndAt)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const getInfo = async (id,idPack,latestPackageEndAt) => {
+      // const latestPaymentId = res.data.paymentData[res.data.paymentData.length - 1].id
+      // const latestPackageId = res.data.packageData[res.data.packageData.length - 1].id
+      // const latestPackageEndAt = res.data.packageData[res.data.packageData.length - 1].endAt
+    //  await getInfo(latestPaymentId,latestPackageId,latestPackageEndAt)
+    // } catch (error) {
+      // console.log(error)
+    // }
+  // }
+  const getPurchaseData = async () => {
     try {
-      const res = await axios.get(`/payments/${id}`, {
+      const res3 = await axios.get(`/public/purchases/${user.user.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      const resPack = await axios.get(`/packages/${idPack}`, {
-              headers: { Authorization: `Bearer ${user?.accessToken}` },
-            })
-      // console.log(user);
-      // console.log(resPack.data);
-      resPack.data.periodOfUse = moment(moment(latestPackageEndAt) - moment()).format('DD')
-      resPack.data.exp = moment(latestPackageEndAt).format('DD/MM/YYYY')
+      const res = await axios.get(`/public/orders/${user.user.id}/facebook-user`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      const res1 = await axios.get(`/public/order-histories/${user.user.id}/facebook-user`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      const res2 = await axios.get(`/public/orders/${user.user.order.id}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      console.log(res3.data);
      await setUserData({
         ...user,
-        payment:res.data,
-        package:resPack.data
+        order:res2.data.data,
+        orders:res.data.data.results,
+        purchases:res3.data.data,
+        orderHistory:res1.data.data.results
       })
     } catch (error) {
       console.log(error)
@@ -45,7 +49,8 @@ const Accountmanagement = () => {
   }
 
   useEffect(()=>{
-    getUserInfo()
+    // getUserInfo()
+    getPurchaseData()
   },[])
 
   return (
@@ -56,7 +61,7 @@ const Accountmanagement = () => {
                 <MemberDetails />
               </TabPane>
               <TabPane tab="รายละเอียดการชำระเงิน" key="2">
-                <strong className='fs-5'>สถานะสมาชิกของคุณ</strong>
+                <strong className='fs-2'>สถานะสมาชิกของคุณ</strong>
                 <PaymentDetails />
               </TabPane>
           </Tabs>

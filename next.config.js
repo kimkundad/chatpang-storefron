@@ -9,16 +9,16 @@ const nextConfig = {
   // async redirects(){
   //   return[
   //     {
-  //       source:'/register/:fb',
-  //       destination:'/user/register/:fb',
+  //       source:'/pages',
+  //       destination:`/login/?fb=`,
   //       permanent:true
   //     },
-  //     {
-  //       source:'/login/:fb',
-  //       destination:'/user/info/pagemanagement/:fb',
-  //       permanent:true
-  //     }
-  //   ]
+      // {
+      //   source:'/login/:fb',
+      //   destination:'/user/info/pagemanagement/:fb',
+      //   permanent:true
+      // }
+    // ]
   // }
 }
 

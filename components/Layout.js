@@ -7,11 +7,11 @@ import { useEffect } from 'react'
 
 const Layout = ({ children }) => {
   const route = useRouter()
-  const accessToken = true
-  // const accessToken = localStorage.getItem('accessToken')
+  const userId = true
+  // const userId = localStorage.getItem('userId') || ''
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!userId) {
       console.log('render')
       route.replace('/')
     }

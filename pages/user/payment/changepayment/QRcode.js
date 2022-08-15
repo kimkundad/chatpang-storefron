@@ -4,8 +4,10 @@ import Image from 'next/image'
 import { useRouter } from 'next/dist/client/router'
 
 import QRCode from '../../../../resources/imgs/qrcash.0a134114.png'
+import useUser from '../../../../Hooks/useUser'
 const QRcode = () => {
   const router = useRouter()
+  const { user } = useUser()
   const [isSubmit, setIsSubmit] = useState(false)
 
   const onSubmit = () => {

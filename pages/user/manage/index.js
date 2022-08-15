@@ -4,12 +4,14 @@ import { Checkbox } from 'antd'
 import Sidebar from '../../../components/Sidebar'
 import axios from '../../api/axios'
 import useUser from '../../../Hooks/useUser'
+import { Link } from 'react-scroll'
 
 const Index = () => {
   const { user, setUserData } = useUser()
   const [checkAll, setCheckAll] = useState(false)
   const [checkList, setCheckList] = useState([])
   const [data, setData] = useState([])
+
   const onCheckAll = async () => {
     setCheckList(!checkAll ? data?.map((item) => item.id) : [])
     setCheckAll(!checkAll)
@@ -34,13 +36,15 @@ const Index = () => {
   }
 
   const getPageList = async () => {
+    // console.log(user);
     try {
-      const res = await axios.get(`/public/facebook-pages/${user.facebookUserId}/facebook-user`, {
+      const res = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      // console.log(res.data)
+      console.log(res.data)
       // const arr = res.data.pages.map((item) => item.item)
       setData(res.data.data.results)
+      setUserData({...user,pages:res.data.data.results})
       // console.log(arr)
     } catch (error) {
       console.log(error)
@@ -48,7 +52,7 @@ const Index = () => {
   }
   const renderData = () => {
     if (data?.length === 0) {
-      return <p>ไม่มีข้อมูล</p>
+      return <><p>ไม่มีข้อมูล</p><Link classID='text-info' href='/user/info/pagemanagement' >คลิ้กเพื่อเพิ่มเพจ</Link></> 
     } else {
       return data.map((item, index) => {
         return (
@@ -59,7 +63,7 @@ const Index = () => {
                 type="checkbox"
                 name={item.id}
                 onClick={(e) => onCheck(e)}
-                checked={checkList?.includes(item?.pageId)}
+                checked={checkList?.includes(item?.id)}
               />
             </td>
           </tr>

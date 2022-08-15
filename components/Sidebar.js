@@ -39,33 +39,7 @@ const Sidebar = () => {
   const getExp = () => {
     return moment(packageInfo?.expire_date).format('DD/MM/YYYY')
   }
-  // const getPackageInfo = async () => {
-  //   try {
-  //     if (user?.user?.packageData !== undefined) {
-  //       const latestPack = user?.user?.packageData.length - 1
-  //       const res = await axios.get(`/packages/${user?.user?.packageData[latestPack].id}`,{headers:{Authorization: 'Bearer ' + user?.accessToken}})
-  //       const data = res.data
-  //       data.periodOfUse = moment(moment(user?.user?.packageData[latestPack].endAt) - moment()).format('DD')
-  //       data.exp = moment(user?.user?.packageData[latestPack].endAt).format('DD/MM/YYYY')
-  //       // console.log(data);
-  //      await setUserData({
-  //         ...user,
-  //         package:data
-  //       })
-  //       // setPackageInfo(data)
-  //     } else {
-  //       // setPackageInfo({})
-  //     }
-  //   } catch (error) {
-  //       console.log(error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   if (Object.values(user?.package).length === 0) {
-  //     getPackageInfo()
-  //   }
-  // }, [user?.package])
+ 
   useEffect(()=>{
     latestOrderId && getOrderById()
   },[])
@@ -88,7 +62,7 @@ const Sidebar = () => {
               <div className="text-center">NO DATA</div>
             ) : (
               <div className="sidePackageInfo">
-                <div style={{ color: 'black' }} className="cardTitle">
+                <div style={{ color: 'black' }} className="sidePackage-title">
                   {packageInfo?.package?.name}
                 </div>
                 <div className="packInfo">

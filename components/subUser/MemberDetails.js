@@ -4,15 +4,16 @@ import { useRouter } from 'next/router'
 import moment from 'moment'
 import useUser from '../../Hooks/useUser'
 import axios from '../../pages/api/axios'
+import Link from 'next/link'
 
 const MemberDetails = () => {
   const router = useRouter()
   const { user } = useUser()
 
   const renderExp = () => {
-    if (user?.user?.paymentData) {
-      return moment(user?.user?.paymentData[0]?.endAt)?.format('DD/MM/YYYY')
-    }else{
+    if (user?.purchases) {
+      return moment(user?.purchases[0]?.expire_date).add(1, 'M').format('DD/MM/YYYY')
+    } else {
       return 'N/A'
     }
   }
@@ -20,23 +21,28 @@ const MemberDetails = () => {
     <div className="row mt-4 invoice-item p-3" style={{ width: '100%' }}>
       <div className="row">
         <div className="col-lg-6 text-start">
-          <strong className="text-secondary fs-4">รายละเอียดสมาชิก</strong>
+          <strong className="text-secondary fs-1">รายละเอียดสมาชิก</strong>
           <div className="ps-3">
-            <p className="mb-0 fs-5">อีเมล : {user?.payment?.customerEmail}</p>
-            <p className="mb-0 fs-5">โทรศัพท์ : {user?.payment?.customerTelephone}</p>
+            <p className="mb-0 fs-2">อีเมล : {user?.user?.email}</p>
+            <p className="mb-0 fs-2">โทรศัพท์ : {user?.user?.tel}</p>
           </div>
         </div>
         <Divider />
         <div className="row">
           <div className="col-lg-6 text-start">
-            <strong className="text-secondary fs-4">การชำระเงิน</strong>
-            <div className="ps-3">
-              <p className="mb-0 fs-5">{user?.payment?.type === 'card' ? 'ชำระด้วยบัตรเครดิต / เดบิต' : 'ชำระด้วยการแสกน QR code'}</p>
+            <strong className="text-secondary fs-1">การชำระเงิน</strong>
+            <div className="ps-3 fs-2">
+              {/* <p className="mb-0 fs-5">{user?.payment?.type === 'card' ? 'ชำระด้วยบัตรเครดิต / เดบิต' : 'ชำระด้วยการแสกน QR code'}</p> */}
+              ชำระด้วยการแสกน QR code
             </div>
           </div>
           <div className="col-lg-6 text-end">
             <div className="ps-3">
-              <p style={{ cursor: 'pointer' }} onClick={()=> router.push('/user/payment/changepayment')} className="text-primary mb-0 fs-5">
+              <p
+                style={{ cursor: 'pointer' }}
+                onClick={() => router.push('/user/payment/changepayment')}
+                className="text-primary mb-0 fs-3"
+              >
                 แก้ไขข้อมูลการชำระเงิน
               </p>
             </div>
@@ -45,13 +51,19 @@ const MemberDetails = () => {
         <Divider />
         <div className="row">
           <div className="col-lg-6 text-start">
-            <strong className="text-secondary fs-4">รายละเอียดแพ็คเกจ</strong>
+            <strong className="text-secondary fs-1">รายละเอียดแพ็คเกจ</strong>
             <div className="ps-3">
-              <p className="mb-0 fs-5">
-                {user?.package?.name} ราคา {user?.payment?.amount} บาท / เดือน
-                <br />
-                วันที่เรียกเก็บครั้งต่อไปของคุณคือ {renderExp()}
-              </p>
+              {user?.order?.state === 'paid' ? (
+                <p className="mb-0 fs-2">
+                  {user?.order?.package?.name} ราคา {user?.order?.package?.price} บาท / เดือน
+                  <br />
+                  วันที่เรียกเก็บครั้งต่อไปของคุณคือ {renderExp()}
+                </p>
+              ) : (
+                <Link href="/user/payment/paymentoptions">
+                  <p className="text-danger mb-0 fs-3">ท่านยังไม่ได้ชำระเงินคลิ้กที่นี่เพื่อชำระเงิน</p>
+                </Link>
+              )}
             </div>
           </div>
           <div className="col-lg-6 text-end">
@@ -59,7 +71,7 @@ const MemberDetails = () => {
               <p
                 onClick={() => router.push('/user/changepackage')}
                 style={{ cursor: 'pointer' }}
-                className="text-primary mb-0 fs-5"
+                className="text-primary mb-0 fs-3"
               >
                 เปลี่ยนแพ็คเกจ
               </p>
@@ -69,7 +81,7 @@ const MemberDetails = () => {
         <Divider />
         <div className="row">
           <div className="col-lg-12 text-end">
-            <button className="btn btn-secondary">ยกเลิกการเป็นสมาชิก</button>
+            <button className="btn btn-secondary fs-3">ยกเลิกการเป็นสมาชิก</button>
           </div>
         </div>
       </div>

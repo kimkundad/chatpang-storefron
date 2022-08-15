@@ -403,6 +403,13 @@ main section
   background-color: var(--mainCBlack);
   font-size: min(1rem, 3vw);
 }
+.sidePackage-title{
+  font-size: 2vw;
+  margin: 0 auto;
+  padding: 8px 16px;
+  border-radius: 30px;
+  background-color: var(--mainCRed_1);
+}
 .packInfo {
   display: flex;
   flex-direction: column;
@@ -411,6 +418,10 @@ main section
   font-size: min(1.5rem, 4vw);
   /* padding-right: 16px; */
 }
+.ant-tabs-tab-btn {
+  font-size: 2vw;
+}
+
 /*-----------------
 	about
 -----------------------*/

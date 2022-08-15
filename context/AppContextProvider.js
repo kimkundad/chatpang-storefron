@@ -9,9 +9,13 @@ export const AppContextProvider = ({children}) => {
         accessToken:'',
         facebookUserId:'',
         order:{},
-        package:{},
-        payment:{},
-        selectedPage:[]
+        orders:{},
+        orderHistory:[],
+        package:[],
+        purchases:[],
+        pages:[],
+        selectedPage:[],
+        userId: ''
     })
     return (
         <AppContext.Provider value={{user,setUserData}}>
