@@ -24,9 +24,9 @@ const Edit = () => {
   const id = router.query.id
   const { TextArea } = Input
 
-  const [pageID, setPageID] = useState('')
-
-  const [img, setImg] = useState([])
+  const [pageID, setPageID] = useState(router.query.pageID)
+  // console.log(pageID);
+  // const [img, setImg] = useState([])
   const [campaignName, setCampaignName] = useState('')
   const [details, setDetails] = useState([''])
 
@@ -44,7 +44,7 @@ const Edit = () => {
       messages: details,
       name: campaignName,
       page: pageID,
-      facebookUser: user.facebookUserId,
+      facebookUser: user?.user?.id,
     }
 
     // console.log(data)
@@ -172,7 +172,7 @@ const Edit = () => {
           <div key={index} className="row g-md-3 createContainer">
             {/* <> */}
             <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
+              <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1 })`}</strong>
             </div>
             <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
               <TextArea

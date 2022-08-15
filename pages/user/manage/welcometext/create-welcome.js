@@ -21,7 +21,7 @@ const CreateWelcome = () => {
   const { user } = useUser()
   const [pageID, setPageID] = useState(router.query.pageId)
   const { TextArea } = Input
-
+// console.log(pageID);
   const [campaignName, setCampaignName] = useState('')
   const [details, setDetails] = useState([''])
   //*check status
@@ -37,7 +37,7 @@ const CreateWelcome = () => {
       messages: details,
       name: campaignName,
       page: pageID,
-      facebookUser: user.facebookUserId,
+      facebookUser: user?.user?.id,
     }
     // console.log(data)
     try {

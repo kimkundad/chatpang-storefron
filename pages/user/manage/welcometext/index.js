@@ -12,7 +12,7 @@ import axios from '../../../api/axios'
 const Welcometext = () => {
   const router = useRouter()
   const { user } = useUser()
-  const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
+  const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
 
   const [selectedItem, setSelectedItem] = useState()
   const [itemList, setItemList] = useState([])
@@ -20,16 +20,16 @@ const Welcometext = () => {
   const [isCheckAll, setIsCheckAll] = useState(false)
 
   const onEdit = (id) => {
-    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id } }, `${router.pathname}/edit/${id}`)
+    router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageID: pageID } }, `${router.pathname}/edit/${id}`)
   }
 
   const onChecked = async (e) => {
     setIsCheckAll(false)
     const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
-      await setItemList([...itemList, newId])
+      setItemList([...itemList, newId])
     } else {
-      await setItemList((prev) => prev.filter((value) => value !== newId))
+      setItemList((prev) => prev.filter((value) => value !== newId))
     }
   }
   //* check user status
@@ -40,12 +40,12 @@ const Welcometext = () => {
     try {
       for (const id of itemList) {
         let temp = data.filter((item) => item.id === id)
-        temp[0].name = '(copy) ' + temp[0].name
+        // temp[0].name = '(copy) ' + temp[0].name
         const copyData = {
           page: temp[0].page,
-          name: temp[0].name,
+          name: '(copy) ' + temp[0].name,
           messages: temp[0].messages,
-          facebookUser: 'string',
+          facebookUser: user?.user?.id,
         }
         // console.log(copyData)
         const res = await axios.post('/greeting-messages', copyData, {
@@ -61,10 +61,6 @@ const Welcometext = () => {
   }
 
   const onDelete = async () => {
-    // const data = {
-    //   isDelete: true,
-    //   deleteAt: new Date(),
-    // }
     try {
       for (const id of itemList) {
         const res = await axios.delete(`/greeting-messages/${id}`, {
@@ -90,7 +86,7 @@ const Welcometext = () => {
     }
   }
   const onSelect = (id) => {
-    console.log(id)
+    // console.log(id)
     setPageID(id)
   }
   const renderTable = () => {
@@ -122,7 +118,7 @@ const Welcometext = () => {
   const getReceptionList = async () => {
     //id from facebookUserId
     try {
-      const res = await axios.get(`/greeting-messages/${user.facebookUserId}/facebook-user`, {
+      const res = await axios.get(`/greeting-messages/${user?.user?.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
@@ -133,7 +129,7 @@ const Welcometext = () => {
   }
 
   useEffect(() => {
-    user.facebookUserId && getReceptionList()
+    user?.user?.id && getReceptionList()
   }, [])
   return (
     <div className="page-wrapper">
