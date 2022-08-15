@@ -9,11 +9,11 @@ import { Link } from 'react-scroll'
 const Index = () => {
   const { user, setUserData } = useUser()
   const [checkAll, setCheckAll] = useState(false)
-  const [checkList, setCheckList] = useState([])
+  const [checkList, setCheckList] = useState(user?.selectedPage?.map(item => item.page_id))
   const [data, setData] = useState([])
 
   const onCheckAll = async () => {
-    setCheckList(!checkAll ? data?.map((item) => item.id) : [])
+    setCheckList(!checkAll ? data?.map((item) => item.page_id) : [])
     setCheckAll(!checkAll)
     await setUserData({
       ...user,
@@ -26,12 +26,13 @@ const Index = () => {
     // console.log(id)
     if (checkList.indexOf(id) === -1) {
       await setCheckList([...checkList, id])
-      const item = data?.filter((item) => item.id === id)
+      const item = data?.filter((item) => item.page_id === id)
       // console.log(item);
       user.selectedPage.push(item[0])
     } else {
       await setCheckList((prev) => prev.filter((v) => v !== id))
-      user.selectedPage.filter((item) => item.id !== id)
+      const temp = user.selectedPage.filter((item) => item.page_id !== id)
+      setUserData({...user,selectedPage : temp})
     }
   }
 
@@ -61,9 +62,9 @@ const Index = () => {
             <td>
               <input
                 type="checkbox"
-                name={item.id}
+                name={item.page_id}
                 onClick={(e) => onCheck(e)}
-                checked={checkList?.includes(item?.id)}
+                checked={checkList?.includes(item?.page_id)}
               />
             </td>
           </tr>

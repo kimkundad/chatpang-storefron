@@ -38,7 +38,7 @@ const Edit = () => {
   const [words, setWords] = useState([])
   const [tags, setTags] = useState([])
   const [hiddenWords, setHiddenWords] = useState([])
-  const [facebookUserId, setFacebookUserId] = useState('')
+  // const [facebookUserId, setFacebookUserId] = useState('')
   //*check status
   const [isSuccess, setIsSuccess] = useState({
     show: false,
@@ -66,7 +66,7 @@ const Edit = () => {
       likeComment: isLikeComment,
       replySamePerson: isDuplicateComment,
       hideComment: isHideComment,
-      facebookUser: user.facebookUserId,
+      facebookUser: user?.user?.id,
     }
     // console.log(data)
     try {
@@ -79,16 +79,16 @@ const Edit = () => {
       setTxtInboxComment(res.data.data.messages.values[0])
       // setFileInboxComment('')
       setIsInboxComment(res.data.data.messages.active)
-      setTxtComment(res.data.data.comment.values[0])
+      setTxtComment(res.data.data.comments.values[0])
       // setFileComment('')
-      setIsComment(res.data.data.comment.active)
+      setIsComment(res.data.data.comments.active)
       setIsLikeComment(res.data.data.like_comment)
       setIsDuplicateComment(res.data.data.reply_same_person)
       setIsHideComment(res.data.data.hide_comment)
       setWords(res.data.data.keywords)
       setTags(res.data.data.hashtags)
       setHiddenWords(res.data.data.hiddens)
-      setFacebookUserId(res.data.data.facebook_user)
+      // setFacebookUserId(res.data.data.facebook_user)
       setIsSuccess({
         show: true,
         isSuccess: true,
@@ -143,22 +143,22 @@ const Edit = () => {
       const res = await axios.get(`/campaigns/${id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      // console.log(res.data)
+      console.log(res.data.data)
       // const data = res.data.data
       setCampaignName(res.data.data.name)
       setTxtInboxComment(res.data.data.messages.values[0])
       // setFileInboxComment('')
       setIsInboxComment(res.data.data.messages.active)
-      setTxtComment(res.data.data.comment.values[0])
+      setTxtComment(res.data.data.comments.values[0])
       // setFileComment('')
-      setIsComment(res.data.data.comment.active)
+      setIsComment(res.data.data.comments.active)
       setIsLikeComment(res.data.data.like_comment)
       setIsDuplicateComment(res.data.data.reply_same_person)
       setIsHideComment(res.data.data.hide_comment)
       setWords(res.data.data.keywords)
       setTags(res.data.data.hashtags)
       setHiddenWords(res.data.data.hiddens)
-      setFacebookUserId(res.data.data.facebook_user)
+      // setFacebookUserId(res.data.data.facebook_user)
     } catch (error) {
       console.log(error)
     }

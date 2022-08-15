@@ -25,7 +25,7 @@ const Header = () => {
 
   const onLogOut = () => {
     localStorage.removeItem('userId')
-    // router.push('/')
+    router.push('/')
     setUserData({ ...user, isLogin: false })
   }
 
@@ -94,7 +94,7 @@ const Header = () => {
         <Dropdown overlay={menu} trigger={['click']} className="fw-bold fs-4 d-flex align-items-center ms-3">
           <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
             {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
-            <span className="mx-2">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+            <span className="mx-2 fs-2">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
             <FontAwesomeIcon icon={faAngleDown} />
           </a>
         </Dropdown>

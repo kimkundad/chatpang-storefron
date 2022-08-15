@@ -12,7 +12,7 @@ import PageDropdown from '../../../../components/PageDropdown'
 const Chatbot = () => {
   const router = useRouter()
   const { user } = useUser()
-  const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
+  const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
 
   const [selectedItem, setSelectedItem] = useState()
   const [itemList, setItemList] = useState([])
@@ -68,8 +68,6 @@ const Chatbot = () => {
     try {
       for (const id of itemList) {
         let temp = data.filter((item) => item.id === id)
-        // console.log(temp[0])
-        // temp[0].campaignName = '(copy) ' + temp[0].campaignName
         const copyData = {
           messages: {
             active: temp[0].messages.active,
@@ -88,17 +86,21 @@ const Chatbot = () => {
           hideComment: temp[0].hide_comment,
           facebookUser: temp[0].facebook_user,
         }
-        // const res = await axios.post('/campaigns', copyData, {
-        //   headers: { Authorization: `Bearer ${user?.accessToken}` },
-        // })
-        // console.log(res.data);
-        // setData([...data, res.data.data])
-        setData([...data, copyData])
-
+        // setData([...data, copyData])
+        setCopyData(copyData)
       }
       setItemList([])
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const setCopyData = async (copyData) => {
+    try {
+      const res = await axios.post('/campaigns', copyData, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
+      setData([...data, res.data.data])
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -139,18 +141,20 @@ const Chatbot = () => {
     setPageID(id)
   }
 
-  const onChangeStatus = async (status, index, id) => {
+  const onChangeStatus = async (index, item) => {
     // console.log(id)
     let temp = [...data]
-    temp[index].status = status ? 'inactive' : 'active'
-    // temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
+    // console.log(item);
+    // temp[index].status = status ? 'inactive' : 'active'
+    temp[index] = item.status === "active" ? await setStatusInActive(item.id) : await setStatusActive(item.id)
     setData(temp)
   }
 
   const setStatusActive = async (id) => {
+    console.log(id);
     try {
       const res = await axios.patch(`/campaigns/${id}/active`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
+        headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
       return res.data.data
     } catch (error) {
@@ -161,7 +165,7 @@ const Chatbot = () => {
   const setStatusInActive = async (id) => {
     try {
       const res = await axios.patch(`/campaigns/${id}/inactive`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
+        headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
       return res.data.data
     } catch (error) {
@@ -186,7 +190,7 @@ const Chatbot = () => {
               type="switch"
               checked={item?.status === 'active'}
               // label={item.status}
-              onClick={() => onChangeStatus(item?.status === 'active', index, item.id)}
+              onClick={() => onChangeStatus(index, item)}
             />
           </td>
           <td>{item?.name}</td>
@@ -205,10 +209,10 @@ const Chatbot = () => {
   const getChatbotList = async () => {
     //id from pageId
     try {
-      const res = await axios.get(`/campaigns/${user.facebookUserId}/facebook-user`, {
+      const res = await axios.get(`/campaigns/${user.user.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      // console.log(res.data)
+      console.log(res.data)
       setData(res.data.data.results)
     } catch (error) {
       console.log(error)
@@ -216,7 +220,7 @@ const Chatbot = () => {
   }
 
   useEffect(() => {
-    user.facebookUserId && getChatbotList()
+    user.user.id && getChatbotList()
   }, [])
   return (
     <div className="page-wrapper">

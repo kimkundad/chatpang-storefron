@@ -65,11 +65,11 @@ const Createbot = () => {
       likeComment: isLikeComment,
       replySamePerson: isDuplicateComment,
       hideComment: isHideComment,
-      facebookUser: 'string',
+      facebookUser: user?.user?.id,
     }
     try {
       const res = await axios.post('/campaigns', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      // console.log(res.data)
+      console.log(res.data)
       setIsSuccess({
         show: true,
         isSuccess: true,
