@@ -26,7 +26,7 @@ const Packages = () => {
     }
   }
   function setSelectedPackage(id) {
-    console.log(id)
+    // console.log(id)
     if (selected === id) {
       setSelected(null)
     } else {

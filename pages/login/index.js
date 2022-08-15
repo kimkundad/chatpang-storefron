@@ -20,7 +20,7 @@ const Login = () => {
         facebookUserId: data.facebook_id,
         accessToken: res.data.access_token,
         userId: userId,
-        package:resp.data.data,
+        package: resp.data.data,
         isLogin: true,
       })
       if (!res.data.access_token) {
@@ -39,7 +39,9 @@ const Login = () => {
 
   const getFacebookUserData = async (cb) => {
     try {
-      localStorage.setItem('userId', userId)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userId', userId)
+      }
       const res = await axios.get(`/public/facebook-users/${userId}`)
       // console.log(res.data.data);
       // const { facebook_id } = res.data.data
@@ -51,6 +53,7 @@ const Login = () => {
   }
   useEffect(() => {
     userId && getFacebookUserData(login)
+    !userId && router.replace('/')
   }, [userId])
 
   // useEffect(() => {

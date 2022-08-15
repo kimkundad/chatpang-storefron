@@ -16,30 +16,7 @@ const Chatbot = () => {
 
   const [selectedItem, setSelectedItem] = useState()
   const [itemList, setItemList] = useState([])
-  const [data, setData] = useState([
-    {
-      id: '62ab6378d8f80aaaa505458b',
-      keywords: ['Hello', 'Makewebbkk'],
-      hashtags: ['#Hello', '#Makewebbkk'],
-      hiddens: ['Hello', 'Makewebbkk'],
-      messages: {
-        active: true,
-        values: ['Hello', 'Makewebbkk'],
-      },
-      comments: {
-        active: true,
-        values: ['Hello', 'Makewebbkk'],
-      },
-      like_comment: false,
-      reply_same_person: false,
-      hide_comment: false,
-      name: 'Test Auto Replies',
-      facebook_user: '62ab6378d8f80aaaa505458b',
-      status: 'active',
-      created_at: '2022-06-16T17:08:08.520+00:00',
-      updated_at: '2022-06-16T17:08:08.520+00:00',
-    },
-  ])
+  const [data, setData] = useState([])
   const [isCheckAll, setIsCheckAll] = useState(false)
 
   const onEdit = (id) => {
@@ -105,10 +82,6 @@ const Chatbot = () => {
   }
 
   const onDelete = async () => {
-    // const data = {
-    //   isDelete: true,
-    //   deleteAt: new Date(),
-    // }
     try {
       for (const id of itemList) {
         const res = await axios.delete(`/campaigns/${id}`, {
@@ -153,9 +126,10 @@ const Chatbot = () => {
   const setStatusActive = async (id) => {
     console.log(id);
     try {
-      const res = await axios.patch(`/campaigns/${id}/active`, {
+      const res = await axios.patch(`/campaigns/${id}/active`,{id:id}, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
+      // console.log(res.data);
       return res.data.data
     } catch (error) {
       console.log(error)
@@ -163,10 +137,12 @@ const Chatbot = () => {
   }
 
   const setStatusInActive = async (id) => {
+    console.log(id);
     try {
-      const res = await axios.patch(`/campaigns/${id}/inactive`, {
+      const res = await axios.patch(`/campaigns/${id}/inactive`,{id:id}, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
+      // console.log(res.data);
       return res.data.data
     } catch (error) {
       console.log(error)

@@ -15,35 +15,15 @@ const Linenoti = () => {
   const { user } = useUser()
   const router = useRouter()
 
-  const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
+  const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
   const [lineName, setLineName] = useState('')
   const [lineAccessToken, setLineAccessToken] = useState('')
   const [lineTimer, setLineTimer] = useState(0)
 
   const { Option } = Select
-  const [timeUnit, setTimeUnit] = useState('s')
+  const [timeUnit, setTimeUnit] = useState('m')
   const [time, setTime] = useState()
-  const [data, setData] = useState([
-    {
-      id: '62ab6378d8f80aaaa505458b',
-      facebook_user: '62ab6378d8f80aaaa505458b',
-      token: 'DVbuTnNDutGiv4p3Nio4pJEvEAm5h7kHgxxxxxxxxxx',
-      name: 'Test Line Notification Group',
-      duration: 30,
-      pages: ['499840260026202', '499840260026202'],
-      status: 'active',
-      created_at: '2022-06-16T17:08:08.520+00:00',
-      updated_at: '2022-06-16T17:08:08.520+00:00',
-      updated_by: {
-        id: '62ab59d8ff4000fa83fe982d',
-        username: 'testAdmin01',
-      },
-      created_by: {
-        id: '62ab59d8ff4000fa83fe982d',
-        username: 'testAdmin01',
-      },
-    },
-  ])
+  const [data, setData] = useState([])
 
   const onEdit = (id) => {
     router.push(
@@ -52,26 +32,24 @@ const Linenoti = () => {
     )
   }
 
-  const onSubmit = async () => {
-    const data = {
-      // pageId: pageID,
-      // lineName: lineName,
-      // lineAccessToken: lineAccessToken,
-      // lineTimer: lineTimer,
-
-      facebookUser: user.facebookUserId,
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const newData = {
+      facebookUser: user?.user?.id,
       token: lineAccessToken,
       name: lineName,
       duration: lineTimer,
       pages: [pageID],
-      status: 'inactive',
+      status: 'active'
     }
-    // console.log(data)
+    console.log(newData)
     try {
-      const res = await axios.post(`/public/line-notifications`, data, {
+      const res = await axios.post(`/public/line-notifications`, newData, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      // console.log(res.data);
+      console.log(res.data);
+      setData([...data,res.data.data])
+      onClearData()
     } catch (error) {
       console.log(error)
     }
@@ -82,9 +60,15 @@ const Linenoti = () => {
     setTime()
   }
 
+  const onClearData = () => {
+    setLineName('')
+    setLineAccessToken('')
+    setLineTimer(0)
+  }
+
   const selectAfter = (
     <Select defaultValue={timeUnit} style={{ width: 100 }} onChange={onChangeTimeUnit}>
-      <Option value="s">วินาที</Option>
+      {/* <Option value="s">วินาที</Option> */}
       <Option value="m">นาที</Option>
       <Option value="h">ชั่วโมง</Option>
     </Select>
@@ -95,13 +79,13 @@ const Linenoti = () => {
     let mili = 0
     switch (timeUnit) {
       case 's':
-        mili = value * 1000
+        mili = value / 60
         break
       case 'm':
-        mili = value * 60 * 1000
+        mili = value 
         break
       case 'h':
-        mili = value * 60 * 60 * 1000
+        mili = value * 60
         break
       default:
         break
@@ -109,17 +93,17 @@ const Linenoti = () => {
     // console.log(mili)
     setLineTimer(mili)
   }
-  const onChangeStatus = async (status, index, id) => {
-    console.log(id)
+  const onChangeStatus = async (index, item) => {
+    // console.log(id)
     let temp = [...data]
     // temp[index].status = status ? 'inactive' : 'active'
-    temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
+    temp[index] = item.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id)
     setData(temp)
   }
 
   const setStatusActive = async (id) => {
     try {
-      const res = await axios.patch(`/public/line-notifications/${id}/active`, {
+      const res = await axios.patch(`/public/line-notifications/${id}/active`,{id:id}, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       return res.data.data
@@ -130,7 +114,7 @@ const Linenoti = () => {
 
   const setStatusInActive = async (id) => {
     try {
-      const res = await axios.patch(`/public/line-notifications/${id}/inactive`, {
+      const res = await axios.patch(`/public/line-notifications/${id}/inactive`,{id:id}, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       return res.data.data
@@ -153,11 +137,11 @@ const Linenoti = () => {
       return (
         <tr key={index}>
           <td>
+          <span>{item?.status}</span>
             <Form.Check
               type="switch"
               checked={item.status === 'active'}
-              label={item.status}
-              onClick={() => onChangeStatus(item.status === 'active', index, item.id)}
+              onClick={() => onChangeStatus(index, item)}
             />
           </td>
           <td className="text-start">{`${index + 1}. ${item?.name}`}</td>
@@ -182,17 +166,17 @@ const Linenoti = () => {
   //*get line list
   const getLineList = async () => {
     try {
-      const res = await axios.get(`/public/line-notifications/${user.facebookUserId}/facebook-user`, {
+      const res = await axios.get(`/public/line-notifications/${user?.user?.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      // console.log(res.data.notifications);
+      console.log(res.data);
       setData(res.data.data.results)
     } catch (error) {
       console.log(error)
     }
   }
   useEffect(() => {
-    user.facebookUserId && getLineList()
+    user?.user?.id && getLineList()
   }, [])
   return (
     <div className="page-wrapper">
@@ -229,10 +213,10 @@ const Linenoti = () => {
                 />
               </div>
               <div className="col-md-12 w-auto d-flex mx-auto lineButtonContainer">
-                <button onClick={() => onSubmit()} className="lineCustomBtn">
+                <button onClick={(e) => onSubmit(e)} className="lineCustomBtn">
                   บันทึก
                 </button>
-                <button className="lineCustomBtn">ยกเลิก</button>
+                <button onClick={()=> onClearData()} className="lineCustomBtn">ยกเลิก</button>
               </div>
               {/* </div> */}
             </div>
@@ -257,7 +241,7 @@ const Linenoti = () => {
                 type="text"
                 id="token"
               />
-              <button className="lineCustomBtn mt-2">บันทึก Token</button>
+              {/* <button className="lineCustomBtn mt-2">บันทึก Token</button> */}
             </div>
           </div>
           <Divider />

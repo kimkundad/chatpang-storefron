@@ -47,7 +47,7 @@ const CreateWelcome = () => {
       // console.log(res.data)
       //set Id for publish 
       const greetingId = res.data.data.id
-      const res1 = await axios.post(`/greeting-messages/${greetingId}/publish`, {
+      const res1 = await axios.post(`/greeting-messages/${greetingId}/publish`,{id:greetingId}, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       setIsSuccess({

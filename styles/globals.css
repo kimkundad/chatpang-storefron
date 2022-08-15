@@ -403,7 +403,7 @@ main section
   background-color: var(--mainCBlack);
   font-size: min(1rem, 3vw);
 }
-.sidePackage-title{
+.sidePackage-title {
   font-size: 2vw;
   margin: 0 auto;
   padding: 8px 16px;
@@ -420,6 +420,12 @@ main section
 }
 .ant-tabs-tab-btn {
   font-size: 2vw;
+}
+.ant-table-cell strong{
+  font-size: 1.5vw !important;
+}
+.ant-table-cell span{
+  font-size: 1.5vw !important;
 }
 
 /*-----------------
@@ -827,10 +833,10 @@ function section
   font-size: 2rem;
   letter-spacing: 2px;
 }
-.facebook-header{
+.facebook-header {
   font-size: 3vw;
 }
-.facebook-body{
+.facebook-body {
   font-size: 2.5vw;
 }
 /*-----------------
@@ -1187,9 +1193,17 @@ table.table td h2 span {
 }
 .lineCustomBtn {
   background-color: var(--mainCRed_1);
+  border: 1px solid var(--mainCBlack);
+  border-radius: 25px;
+  margin: 0 10px;
+  padding: 0 16px;
+  font-size: 2vw;
+}
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+  font-size: 1.5rem;
 }
 .chatCustomBtn,
-.lineCustomBtn,
 .replyCustomBtn {
   border: 1px solid var(--mainCBlack);
   border-radius: 25px;
@@ -1254,7 +1268,7 @@ table.table td h2 span {
 }
 .lineEditButton {
   font-size: 1.5rem;
-  margin: 0 8px;
+  margin: 0 16px;
   cursor: pointer;
 }
 .lineEditButton:nth-last-child(1) {
@@ -1926,7 +1940,7 @@ Upload
   .a-container {
     font-size: 4vw;
   }
-  .facebook-body{
+  .facebook-body {
     font-size: 4.5vw;
     padding: 0 16px;
   }

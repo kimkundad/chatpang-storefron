@@ -132,17 +132,17 @@ const Replykeyword = () => {
     }
   }
 
-  const onChangeStatus = async (status, index, id) => {
+  const onChangeStatus = async (index, item) => {
     // console.log(id)
     let temp = [...data]
     // temp[index].status = status ? 'inactive' : 'active'
-    temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
+    temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id)
     setData(temp)
   }
 
   const setStatusActive = async (id) => {
     try {
-      const res = await axios.patch(`/auto-replies/${id}/active`, {
+      const res = await axios.patch(`/auto-replies/${id}/active`,{id:id}, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       return res.data.data
@@ -153,7 +153,7 @@ const Replykeyword = () => {
 
   const setStatusInActive = async (id) => {
     try {
-      const res = await axios.patch(`/auto-replies/${id}/inactive`, {
+      const res = await axios.patch(`/auto-replies/${id}/inactive`,{id:id}, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       return res.data.data
@@ -194,7 +194,7 @@ const Replykeyword = () => {
                 type="switch"
                 checked={item?.status === 'active'}
                 // label={item.status}
-                onClick={() => onChangeStatus(item?.status === 'active', index, item.id)}
+                onClick={() => onChangeStatus(index, item)}
               />
             </td>
             <td>{item?.name}</td>
@@ -217,7 +217,7 @@ const Replykeyword = () => {
       const res = await axios.get(`/auto-replies/${user?.user?.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      // console.log(res.data)
+      console.log(res.data)
       setData(res.data.data.results)
     } catch (error) {
       console.log(error)

@@ -80,12 +80,11 @@ const Edit = () => {
     let tmpArr = []
     for (const item of imgs) {
       // if (item.type === 'image') {
-        let url = regExURL.test(item) ? item : await getImagePath(item)
-        tmpArr.push(url)
+      let url = regExURL.test(item) ? item : await getImagePath(item)
+      tmpArr.push(url)
       // }
     }
     return tmpArr
-    // setDetails(details)
   }
   const getImagePath = async (file) => {
     const formData = new FormData()
@@ -137,30 +136,18 @@ const Edit = () => {
     setDetails(temArr)
   }
   const onHandleChangeImg = async (e, index) => {
-    // await onUpload(index, e.target.files[0])
-    
-    let temImg = URL.createObjectURL(e.target.files[0])
-    let tempArr1 = [...previewImgs]
-    tempArr1[index] = temImg
-    setPreviewImgs(tempArr1)
-    
     let temArr = [...imgs]
     temArr[index] = e.target.files[0]
+    await onUpload(index, e.target.files[0])
     setImgs(temArr)
   }
-
-  const imgSet = useMemo(() => {
-    let temArr = [...imgs]
-    // setImgs(temArr)
-    return temArr
-  },[imgs])
 
   const handleAddText = () => {
     setDetails([...details, ''])
   }
   const handleAddImage = () => {
     setImgs([...imgs, ''])
-    setPreviewImgs([...previewImgs,''])
+    setPreviewImgs([...previewImgs, ''])
   }
   const onDeleteDetails = (index) => {
     let temp1 = [...details]
@@ -172,106 +159,126 @@ const Edit = () => {
     imgsRef[index].current.click()
   }
   const onInputNext = (index) => {
-    console.log(inputRef)
-    inputRef[index].current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'end',
-    })
+    // console.log(inputRef)
+    index + 1 <= Object.values(inputRef).length - 1 &&
+      inputRef[index + 1].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'end',
+      })
+  }
+  const onInputPrev = (index) => {
+    // console.log(inputRef)
+    index - 1 >= 0 &&
+      inputRef[index - 1].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'end',
+      })
   }
   const onImgNext = (index) => {
     // console.log(inputRef[index].current)
-    imgsRef[index].current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'end',
-    })
+    index + 1 <= Object.values(imgsRef).length - 1 &&
+      imgsRef[index + 1].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'end',
+      })
+  }
+  const onImgPrev = (index) => {
+    // console.log(inputRef[index].current)
+    index - 1 >= 0 &&
+      imgsRef[index - 1].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'end',
+      })
   }
   const renderTextInput = () => {
     return details.map((text, index) => {
       // if (data.type === 'text') {
-        return (
-          <div key={index} className="row g-md-3 createContainer">
-            {/* <> */}
-            <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
-            </div>
-            <div className="col-md-6 col-9 commentInput">
-              <TextArea
-                showCount
-                value={text}
-                onChange={(e) => onHandleChangeDetail(e, index)}
-                maxLength={200}
-                placeholder="พิมพ์ข้อความที่นี้..."
-                autoSize={{ minRows: 4, maxRows: 6 }}
-              />
-            </div>
-            <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
-              <div className="h-auto d-flex flex-column me-4">
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronUp} />
-                </span>
-                <span>
-                  <FontAwesomeIcon onClick={() => onInputNext(index)} icon={faCircleChevronDown} />
-                </span>
-              </div>
-              <div className="replyDeleteBTN">
-                <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
-                </span>
-              </div>
-            </div>
-            {/* </> */}
+      return (
+        <div key={index} className="row g-md-3 createContainer">
+          {/* <> */}
+          <div className="col-md-3 col-xs-12 commentHeader">
+            <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
           </div>
-        )
+          <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
+            <TextArea
+              showCount
+              value={text}
+              onChange={(e) => onHandleChangeDetail(e, index)}
+              maxLength={200}
+              placeholder="พิมพ์ข้อความที่นี้..."
+              autoSize={{ minRows: 4, maxRows: 6 }}
+            />
+          </div>
+          <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+            <div className="h-auto d-flex flex-column me-4">
+              <span>
+                <FontAwesomeIcon onClick={() => onInputPrev(index)} icon={faCircleChevronUp} />
+              </span>
+              <span>
+                <FontAwesomeIcon onClick={() => onInputNext(index)} icon={faCircleChevronDown} />
+              </span>
+            </div>
+            <div className="replyDeleteBTN">
+              <span style={{ color: 'red' }}>
+                <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+              </span>
+            </div>
+          </div>
+          {/* </> */}
+        </div>
+      )
       // }
     })
   }
   const renderImageInput = () => {
-    return imgSet.map((img, index) => {
+    return imgs.map((img, index) => {
       // if (data.type === 'image') {
-        return (
-          <div key={index} className="row g-md-3 createContainer">
-            <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
-            </div>
-            <div className="col-md-6 col-9 commentInput">
-              {img[index] !== undefined ? (
-                <div onClick={() => onClearImg(index)} className="uploadIMG">
-                  <img width={100} src={previewImgs[index]} alt="img" />
-                  <span>ลบรูป</span>
-                </div>
-              ) : (
-                <>
-                  <input
-                    type="file"
-                    ref={imgsRef[index]}
-                    className="inputfile"
-                    onChange={(e) => onHandleChangeImg(e, index)}
-                  />
-                  <label onClick={() => handleClickFileInput(index)} htmlFor="file">
-                    อัพโหลดรูป
-                  </label>
-                </>
-              )}
-            </div>
-            <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
-              <div className="d-flex flex-column me-4">
-                <span>
-                  <FontAwesomeIcon icon={faCircleChevronUp} />
-                </span>
-                <span>
-                  <FontAwesomeIcon onClick={() => onImgNext(index)} icon={faCircleChevronDown} />
-                </span>
+      return (
+        <div key={index} className="row g-md-3 createContainer">
+          <div className="col-md-3 col-xs-12 commentHeader">
+            <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
+          </div>
+          <div className="col-md-6 col-9 commentInput">
+            {img !== '' ? (
+              <div onClick={() => onClearImg(index)} className="uploadIMG">
+                <img width={100} src={previewImgs[index]} alt="img" />
+                <span>ลบรูป</span>
               </div>
-              <div className="replyDeleteBTN">
-                <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon onClick={() => onDeleteImg(index)} icon={faTrashAlt} />
-                </span>
-              </div>
+            ) : (
+              <>
+                <input
+                  type="file"
+                  ref={imgsRef[index]}
+                  className="inputfile"
+                  onChange={(e) => onHandleChangeImg(e, index)}
+                />
+                <label onClick={() => handleClickFileInput(index)} htmlFor="file">
+                  อัพโหลดรูป
+                </label>
+              </>
+            )}
+          </div>
+          <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+            <div className="d-flex flex-column me-4">
+              <span>
+                <FontAwesomeIcon onClick={() => onImgPrev(index)} icon={faCircleChevronUp} />
+              </span>
+              <span>
+                <FontAwesomeIcon onClick={() => onImgNext(index)} icon={faCircleChevronDown} />
+              </span>
+            </div>
+            <div className="replyDeleteBTN">
+              <span style={{ color: 'red' }}>
+                <FontAwesomeIcon onClick={() => onDeleteImg(index)} icon={faTrashAlt} />
+              </span>
             </div>
           </div>
-        )
+        </div>
+      )
       // }
     })
   }
@@ -365,7 +372,7 @@ const Edit = () => {
               <strong className="me-3">Keywords</strong>
             </div>
             <div className="col-md-4">
-                  <TagsInput tags={keywordName} setTags={setKeywordName} />
+              <TagsInput tags={keywordName} setTags={setKeywordName} />
               {/* <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} /> */}
             </div>
           </div>

@@ -12,29 +12,25 @@ import useUser from '../../../../../Hooks/useUser'
 
 const Edit = () => {
   const router = useRouter()
+  const { user } = useUser()
 
-  const [pageID, setPageID] = useState('')
+  const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
   const [lineName, setLineName] = useState('')
   const [lineAccessToken, setLineAccessToken] = useState('')
   const [lineTimer, setLineTimer] = useState(0)
   const { Option } = Select
-  const [timeUnit, setTimeUnit] = useState('s')
+  const [timeUnit, setTimeUnit] = useState('m')
   const [time, setTime] = useState()
   const id = router.query.id
-console.log(id);
+// console.log(id);
   const onSubmit = async () => {
     const data = {
-      // pageId: pageID,
-      // lineName: lineName,
-      // lineAccessToken: lineAccessToken,
-      // lineTimer: lineTimer,
-
-      facebookUser: user.facebookUserId,
+      facebookUser: user?.user?.id,
       token: lineAccessToken,
       name: lineName,
       duration: lineTimer,
-      pages: [pageID],
-      status: 'inactive',
+      pages: pageID,
+      status: 'active',
     }
     // console.log(data)
     try {
@@ -54,7 +50,7 @@ console.log(id);
 
   const selectAfter = (
     <Select defaultValue={timeUnit} style={{ width: 100 }} onChange={onChangeTimeUnit}>
-      <Option value="s">วินาที</Option>
+      {/* <Option value="s">วินาที</Option> */}
       <Option value="m">นาที</Option>
       <Option value="h">ชั่วโมง</Option>
     </Select>
@@ -91,9 +87,10 @@ console.log(id);
       })
       // console.log(res.data.notifications);
       // setData(res.data.data.results)
-      let data = res.data.data.results
+      let data = res.data.data
       setLineName(data.name)
       setLineTimer(data.duration)
+      setTime(data.duration)
       setPageID(data.pages)
       setLineAccessToken(data.token)
     } catch (error) {
@@ -170,7 +167,7 @@ console.log(id);
                 type="text"
                 id="token"
               />
-              <button className="lineCustomBtn mt-2">บันทึก Token</button>
+              {/* <button className="lineCustomBtn mt-2">บันทึก Token</button> */}
             </div>
           </div>
           <Divider />
