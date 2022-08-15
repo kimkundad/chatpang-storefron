@@ -38,22 +38,17 @@ const CreateReplyKeyword = () => {
     e.preventDefault()
     await convertToImagePath()
 
-    // const data = {
-    //   pageId: pageID,
-    //   campaignName: campaignName,
-    //   keywordName: keywordName,
-    //   keywordDetail: details,
-    // }
     const data = {
       keywords: keywordName,
       messages: details,
-      images: imgs,
+      images: await convertToImagePath(),
       name: campaignName,
-      facebookUser: user.facebookUserId,
+      facebookUser: user?.user?.id,
     }
+    console.log(data)
     try {
       const res = await axios.post('/auto-replies', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      // console.log(res.data)
+      console.log(res.data)
       setIsSuccess({
         show: true,
         isSuccess: true,
@@ -90,7 +85,8 @@ const CreateReplyKeyword = () => {
       let url = await getImagePath(img)
       tmpArr.push(url)
     }
-    setImgs(tmpArr)
+    // setImgs(tmpArr)
+    return tmpArr
   }
   const getImagePath = async (file) => {
     const formData = new FormData()

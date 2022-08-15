@@ -11,7 +11,7 @@ import axios from '../../../api/axios'
 const Replykeyword = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  const [pageID, setPageID] = useState(user?.selectedPage[0]?.pageId)
+  const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
   const [itemList, setItemList] = useState([])
   const [data, setData] = useState([
     {
@@ -66,9 +66,9 @@ const Replykeyword = () => {
     setIsCheckAll(false)
     const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
-      await setItemList([...itemList, newId])
+       setItemList([...itemList, newId])
     } else {
-      await setItemList((prev) => prev.filter((value) => value !== newId))
+       setItemList((prev) => prev.filter((value) => value !== newId))
     }
   }
   //* check user status
@@ -82,7 +82,7 @@ const Replykeyword = () => {
         // console.log(temp[0])
         // temp[0].name = '(copy) ' + temp[0].name
         const copyData = {
-          facebookUser: temp[0].facebook_user,
+          facebookUser: user?.user?.id,
           keywords: temp[0].keywords,
           name: '(copy) ' + temp[0].name,
           messages: temp[0].messages,
@@ -135,8 +135,8 @@ const Replykeyword = () => {
   const onChangeStatus = async (status, index, id) => {
     // console.log(id)
     let temp = [...data]
-    temp[index].status = status ? 'inactive' : 'active'
-    // temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
+    // temp[index].status = status ? 'inactive' : 'active'
+    temp[index] = status ? await setStatusInActive(id) : await setStatusActive(id)
     setData(temp)
   }
 
@@ -214,7 +214,7 @@ const Replykeyword = () => {
   const getKeywordsList = async () => {
     //id from pageId
     try {
-      const res = await axios.get(`/auto-replies/${user.facebookUserId}/facebook-user`, {
+      const res = await axios.get(`/auto-replies/${user?.user?.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
@@ -225,7 +225,7 @@ const Replykeyword = () => {
   }
 
   useEffect(() => {
-    user.facebookUserId && getKeywordsList()
+    user?.user?.id && getKeywordsList()
   }, [])
   return (
     <div className="page-wrapper">

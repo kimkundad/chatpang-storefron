@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef } from 'react'
+import React, { useEffect, useState, createRef, useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPlus,
@@ -36,19 +36,12 @@ const Edit = () => {
   })
   const onSubmit = async (e) => {
     e.preventDefault()
-    await convertToImagePath()
-    // const data = {
-    //   campaignName: campaignName,
-    //   keywordName: keywordName,
-    //   keywordDetail: details,
-    // }
-    // console.log(data)
     const data = {
       keywords: keywordName,
       messages: details,
-      images: imgs,
+      images: await convertToImagePath(),
       name: campaignName,
-      facebookUser: user.facebookUserId,
+      facebookUser: user?.user?.id,
     }
     try {
       const res = await axios.put(`/auto-replies/${id}`, data, {
@@ -84,12 +77,15 @@ const Edit = () => {
   const convertToImagePath = async () => {
     //check already a img link by check https
     const regExURL = /https?:\/\//
+    let tmpArr = []
     for (const item of imgs) {
       // if (item.type === 'image') {
-        item = regExURL.test(item) ? item : await getImagePath(item)
+        let url = regExURL.test(item) ? item : await getImagePath(item)
+        tmpArr.push(url)
       // }
     }
-    setDetails(details)
+    return tmpArr
+    // setDetails(details)
   }
   const getImagePath = async (file) => {
     const formData = new FormData()
@@ -141,11 +137,24 @@ const Edit = () => {
     setDetails(temArr)
   }
   const onHandleChangeImg = async (e, index) => {
+    // await onUpload(index, e.target.files[0])
+    
+    let temImg = URL.createObjectURL(e.target.files[0])
+    let tempArr1 = [...previewImgs]
+    tempArr1[index] = temImg
+    setPreviewImgs(tempArr1)
+    
     let temArr = [...imgs]
     temArr[index] = e.target.files[0]
-    await onUpload(index, e.target.files[0])
     setImgs(temArr)
   }
+
+  const imgSet = useMemo(() => {
+    let temArr = [...imgs]
+    // setImgs(temArr)
+    return temArr
+  },[imgs])
+
   const handleAddText = () => {
     setDetails([...details, ''])
   }
@@ -219,7 +228,7 @@ const Edit = () => {
     })
   }
   const renderImageInput = () => {
-    return imgs.map((img, index) => {
+    return imgSet.map((img, index) => {
       // if (data.type === 'image') {
         return (
           <div key={index} className="row g-md-3 createContainer">
@@ -229,7 +238,7 @@ const Edit = () => {
             <div className="col-md-6 col-9 commentInput">
               {img[index] !== undefined ? (
                 <div onClick={() => onClearImg(index)} className="uploadIMG">
-                  <img width={100} src={img[index]} alt="img" />
+                  <img width={100} src={previewImgs[index]} alt="img" />
                   <span>ลบรูป</span>
                 </div>
               ) : (
@@ -288,7 +297,8 @@ const Edit = () => {
       setKeywordName(data.keywords)
       setDetails(data.messages)
       setImgs(data.images)
-      setFacebookUserId(data.facebook_user)
+      setPreviewImgs(data.images)
+      // setFacebookUserId(data.facebook_user)
       // await setImgFirstTime(data.keywordDetail)
     } catch (error) {
       console.log(error)
@@ -305,6 +315,10 @@ const Edit = () => {
   useEffect(() => {
     getKeywordSettingById()
   }, [])
+
+  // useEffect(() => {
+
+  // })
   return (
     <div className="page-wrapper">
       {isSuccess.show && (
