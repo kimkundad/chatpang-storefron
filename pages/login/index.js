@@ -22,7 +22,7 @@ const Login = () => {
   const login = async (data) => {
     let packageCurr = {}
     try {
-      if (data.order === null) {
+      if (data.order !== null) {
         const resp = await axios.get(`public/packages/${data.order.package.id}`)
         packageCurr = resp.data.data
       }
