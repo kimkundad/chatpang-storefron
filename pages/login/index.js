@@ -49,13 +49,9 @@ const Login = () => {
   }
 
   const getFacebookUserData = async (cb) => {
-    let id = ''
     console.log(userId);
     try {
       const res = await axios.get(`/public/facebook-users/${userId}`)
-      // console.log(res.data.data);
-      // const { facebook_id } = res.data.data
-      // setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
       cb(res.data.data)
     } catch (error) {
       console.log(error)
