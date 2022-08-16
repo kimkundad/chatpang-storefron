@@ -35,7 +35,7 @@ const Accountmanagement = () => {
       const res2 = await axios.get(`/public/orders/${user.user.order.id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res3.data);
+      // console.log(res3.data);
      await setUserData({
         ...user,
         order:res2.data.data,
@@ -50,7 +50,7 @@ const Accountmanagement = () => {
 
   useEffect(()=>{
     // getUserInfo()
-    getPurchaseData()
+    user.user.id && getPurchaseData()
   },[])
 
   return (

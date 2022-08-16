@@ -8,17 +8,17 @@ import useUser from '../../../Hooks/useUser'
 const Pagemanagement = () => {
   const router = useRouter()
   const [data, setData] = useState([])
-  const [isFreeTrail, setIsFreeTrial] = useState(true)
+  const [isAddAble, setIsAddAble] = useState(true)
   const { user, setUserData } = useUser()
   const [quotaInfo, setQuotaInfo] = useState({})
-  const facebookUserId = router.query.fb
-  console.log(data);
+  // const facebookUserId = router.query.fb
+  // console.log(data);
   const getQuotaInfo = async () => {
     try {
       const res = await axios.get(`/public/purchases/${user?.user?.id}/quota`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      console.log(res.data);
+      // console.log(res.data);
       // const arr = res.data.pages.map((item) => item.item)
       // setData(arr)
       setQuotaInfo(res.data.data)
@@ -28,9 +28,9 @@ const Pagemanagement = () => {
     }
   }
 
-  //* check Free trail 15 days
-  const checkFreeTrial = () => {
-    setIsFreeTrial(user?.order.state !== 'paid')
+  //* check able to add more than 1 page
+  const checkAddPage = () => {
+    setIsAddAble( 1 <= user?.user?.pages)
     // return user?.user.status === 'inactive'
   }
   const column = [
@@ -56,9 +56,10 @@ const Pagemanagement = () => {
 
   const getAuthPages = () => {
     console.log("click");
-    window.open('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+    // window.open('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
     // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages',{ shallow: true })
   }
+  // console.log(user);
 
   const getPurchaseData = async () => {
     try {
@@ -77,7 +78,7 @@ const Pagemanagement = () => {
       const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      console.log(res3.data);
+      // console.log(res3.data);
      await setUserData({
         ...user,
         order:res2.data.data,
@@ -87,19 +88,15 @@ const Pagemanagement = () => {
         pages:res4.data.data.results
       })
       setData(res4.data.data.results)
+      checkAddPage()
     } catch (error) {
       console.log(error)
     }
   }
 
-  useEffect(()=>{
-    // getUserInfo()
-    getPurchaseData()
-  },[])
-
   useEffect(() => {
     getQuotaInfo()
-    checkFreeTrial()
+    getPurchaseData()
   }, [])
   return (
     <div className="page-wrapper">
@@ -126,7 +123,7 @@ const Pagemanagement = () => {
               type="primary"
               icon={<SettingOutlined />}
               onClick={()=> getAuthPages()}
-              disabled={isFreeTrail}
+              disabled={isAddAble}
             >
               เพิ่มหรือลบเพจ
             </Button>

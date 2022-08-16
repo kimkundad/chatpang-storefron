@@ -9,7 +9,7 @@ import { Link } from 'react-scroll'
 const Index = () => {
   const { user, setUserData } = useUser()
   const [checkAll, setCheckAll] = useState(false)
-  const [checkList, setCheckList] = useState(user?.selectedPage?.map(item => item.page_id))
+  const [checkList, setCheckList] = useState(user?.selectedPage?.map((item) => item.page_id))
   const [data, setData] = useState([])
 
   const onCheckAll = async () => {
@@ -32,7 +32,7 @@ const Index = () => {
     } else {
       await setCheckList((prev) => prev.filter((v) => v !== id))
       const temp = user.selectedPage.filter((item) => item.page_id !== id)
-      setUserData({...user,selectedPage : temp})
+      setUserData({ ...user, selectedPage: temp })
     }
   }
 
@@ -42,35 +42,31 @@ const Index = () => {
       const res = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      console.log(res.data)
-      // const arr = res.data.pages.map((item) => item.item)
+      const res2 = await axios.get(`/public/orders/${user.user.order.id}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
       setData(res.data.data.results)
-      setUserData({...user,pages:res.data.data.results})
-      // console.log(arr)
+      setUserData({ ...user, order: res2.data.data, pages: res.data.data.results })
     } catch (error) {
       console.log(error)
     }
   }
   const renderData = () => {
-    if (data?.length === 0) {
-      return <><p>ไม่มีข้อมูล</p><Link classID='text-info' href='/user/info/pagemanagement' >คลิ้กเพื่อเพิ่มเพจ</Link></> 
-    } else {
-      return data.map((item, index) => {
-        return (
-          <tr key={index}>
-            <td>{item.name}</td>
-            <td>
-              <input
-                type="checkbox"
-                name={item.page_id}
-                onClick={(e) => onCheck(e)}
-                checked={checkList?.includes(item?.page_id)}
-              />
-            </td>
-          </tr>
-        )
-      })
-    }
+    return data.map((item, index) => {
+      return (
+        <tr key={index}>
+          <td>{item.name}</td>
+          <td>
+            <input
+              type="checkbox"
+              name={item.page_id}
+              onClick={(e) => onCheck(e)}
+              defaultChecked={checkList?.includes(item?.page_id)}
+            />
+          </td>
+        </tr>
+      )
+    })
   }
 
   useEffect(() => {
@@ -97,11 +93,18 @@ const Index = () => {
           </div>
           <div className="row">
             <div className="col-xs-12 col-md-8 mx-auto d-flex">
-              {/* <Checkbox.Group  onChange={onCheck} > */}
-              <Table bordered hover style={{ minWidth: '60%' }}>
-                <tbody>{renderData()}</tbody>
-              </Table>
-              {/* </Checkbox.Group> */}
+              {data?.length === 0 ? (
+                <div className="mx-auto">
+                  <span>ไม่มีข้อมูล</span>
+                  <Link className="text-info" to="/user/info/pagemanagement">
+                    คลิ้กเพื่อเพิ่มเพจ
+                  </Link>
+                </div>
+              ) : (
+                <Table bordered hover style={{ minWidth: '60%' }}>
+                  <tbody>{renderData()}</tbody>
+                </Table>
+              )}
             </div>
           </div>
         </div>

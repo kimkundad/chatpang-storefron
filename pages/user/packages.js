@@ -58,12 +58,12 @@ const Packages = () => {
       discount: 0,
       net: pack[0].price,
     }
-    console.log(userOrder);
+    // console.log(userOrder);
     try {
       const res = await axios.post(`/public/orders`, userOrder, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
       })
-      console.log(res.data);
+      // console.log(res.data);
       await setUserData({ ...user, package: pack[0], order: res.data.data })
       router.push('/user/payment/paymentoptions')
     } catch (error) {
@@ -75,7 +75,7 @@ const Packages = () => {
   const getFacebookUserData = async () => {
     try {
       const res  = await axios.get(`/public/facebook-users/${user.userId}`)
-      console.log(res.data);
+      // console.log(res.data);
       const { facebook_id } = res.data.data
       await setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
     } catch (error) {

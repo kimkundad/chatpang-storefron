@@ -9,8 +9,6 @@ import axios from '../../api/axios'
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  //! did not use
-  // const [previewSlip, setPreviewSlip] = useState(false)
 
   function onChecked(e) {
     console.log(`check = ${e.target.checked}`)
@@ -20,74 +18,9 @@ const Confirmorder = () => {
   //   setPreviewSlip(false)
   // }
 
-  const getEndDate = async () => {
-    let date = new Date()
-    date.setDate(date.getDate() + 30)
-    return date
-  }
   const onsubmit = async () => {
-    // const signupData = {
-    //   userId: user?.user?.userId,
-    //   name: user?.user?.name,
-    //   email: user?.user?.email,
-    //   imgProfile: user?.user?.imgProfile,
-    //   facebookToken: user?.user?.facebookToken,
-    //   paymentData: [
-    //     {
-    //       id: user?.payment?._id,
-    //       endAt: await getEndDate(),
-    //       name: user?.package?.name,
-    //       price: user?.package?.price,
-    //       type: 'card',
-    //     },
-    //   ],
-    //   packageData: [
-    //     {
-    //       id: user?.package?._id,
-    //       endAt: await getEndDate(),
-    //     },
-    //   ],
-    //   cardName: user?.reqPayment?.name,
-    //   cardNo: user?.reqPayment?.number,
-    //   cardMonth: user?.reqPayment?.month,
-    //   cardYear: user?.reqPayment?.year,
-    //   cardCode: user?.reqPayment?.code
-    // }
-    // // console.log(signupData)
-    // const createPageData = {
-    //   pageId: user?.pages[0]?.id,
-    //   userId: user?.user?.userId,
-    //   pageName: user?.pages[0]?.name,
-    //   pageAccessToken: user?.pages[0]?.access_token,
-    //   pageImageUrl: user?.pages[0]?.picture?.data?.url,
-    // }
-    // // console.log(createPageData)
-    // try {
-    //   const signupinfo = await axios.post('/user/signup', signupData)
-    //   // console.log(signupinfo);
-    //   const creatPageinfo = await axios.post('/pages', createPageData, {
-    //     headers: { Authorization: 'Bearer ' + signupinfo?.data?.accessToken },
-    //   })
-    //   // console.log(creatPageinfo);
-    //   setUserData({
-    //     ...user,
-    //     accessToken: signupinfo.data?.accessToken,
-    //     user: signupinfo.data?.data,
-    //   })
-    // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
       router.push('/user/info/pagemanagement')
-    // } catch (error) {
-    //   console.log(error)
-    // }
   }
-
-  // const getUserData = async () => {
-  //   try {
-  //     const res = await axios.get(``)
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
     return (
     <div className="page-wrapper">
       <div className="container-fluid">

@@ -18,7 +18,7 @@ const QRcode = () => {
 
   const onSubmit = async () => {
     try {
-      const qrcode = await axios.get(`public/orders-payment/${user.user.order.id}/qrcode`)
+      const qrcode = await axios.get(`public/orders-payment/${user.order.id}/qrcode`)
       setQrcode(qrcode.data.data.qrcode)
     } catch (error) {
       console.log(error)
@@ -50,7 +50,7 @@ const QRcode = () => {
             />
             <div className="text-end">
               <button onClick={() => router.back}>ย้อนกลับ</button>
-              <button className="ms-2" onClick={() => router.push('/user/payment/confirmorder')}>
+              <button className="ms-2" onClick={() => router.push('/user/changepackage/confirmorder')}>
                 ต่อไป
               </button>
             </div>

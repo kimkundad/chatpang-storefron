@@ -11,7 +11,6 @@ const Sidebar = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [packageInfo, setPackageInfo] = useState({})
-
   // const packageInfo = user.order.package
   const latestOrderId = user?.user?.order?.id || ''
   let pathName = router.pathname
@@ -31,13 +30,18 @@ const Sidebar = () => {
       const res = await axios.get(`/public/orders/${latestOrderId}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
+
       setPackageInfo(res.data.data)
     } catch (error) {
       console.log(error)
     }
   }
   const getExp = () => {
-    return moment(packageInfo?.expire_date).format('DD/MM/YYYY')
+    return moment(user?.user?.expire_date).format('DD/MM/YYYY')
+  }
+
+  const getRemainDate =() => {
+    return moment(user?.user?.expire_date).diff(moment.now(),'days')
   }
  
   useEffect(()=>{
@@ -67,7 +71,7 @@ const Sidebar = () => {
                 </div>
                 <div className="packInfo">
                   <span>{packageInfo?.package?.price} บาท/เดือน</span>
-                  <span>ใช้งานได้ {packageInfo?.package?.days} วัน</span>
+                  <span>ใช้งานได้ {getRemainDate()} วัน</span>
                   <span>หมดอายุ</span>
                   <span>{getExp()}</span>
                 </div>

@@ -36,7 +36,7 @@ const Header = () => {
       items={[
         {
           label: (
-            <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/manage')}>
+            user?.order?.state === 'paid' && <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/manage')}>
               หน้าหลัก
             </span>
           ),
@@ -44,7 +44,7 @@ const Header = () => {
         },
         {
           label: (
-            <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push(`/user/edit/${user?.user?.id}`)}>
+            user?.order?.state === 'paid' && <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push(`/user/edit/${user?.user?.id}`)}>
               แก้ไขข้อมูลส่วนตัว
             </span>
           ),
@@ -52,7 +52,7 @@ const Header = () => {
         },
         {
           label: (
-            <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/info/pagemanagement')}>
+            user?.order?.state === 'paid' && <span style={{ fontSize: 'min(1.5rem,3vw)',  }} onClick={() => router.push('/user/info/pagemanagement')}>
               จัดการเพจ
             </span>
           ),

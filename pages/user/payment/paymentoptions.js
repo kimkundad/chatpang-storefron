@@ -11,8 +11,6 @@ const Paymentoptions = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [method, setMethod] = useState(true) //false = credit, true= qrcode
-  // console.log(user)
-  // console.log(user.package)
   const onChangeMethod = (e) => {
     setMethod(!method)
     // console.log(e.target.name)

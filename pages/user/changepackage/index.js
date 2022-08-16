@@ -60,16 +60,16 @@ const Index = () => {
       net: pack[0].price,
     }
     console.log(userOrder)
-    // try {
-    //   const res = await axios.post(`/public/orders`, userOrder, {
-    //     headers: { Authorization: `Bearer ${user.accessToken}` },
-    //   })
-    //   console.log(res.data)
-    //   await setUserData({ ...user, package: pack[0], order: res.data.data })
+    try {
+      const res = await axios.post(`/public/orders`, userOrder, {
+        headers: { Authorization: `Bearer ${user.accessToken}` },
+      })
+      console.log(res.data)
+      await setUserData({ ...user, package: pack[0], order: res.data.data })
       router.push('/user/changepackage/paymentoptions')
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    } catch (error) {
+      console.log(error)
+    }
 
     // await setUserData({ ...user, package: pack[0] })
   }

@@ -12,7 +12,7 @@ const Login = () => {
     if (userId !== undefined) {
       localStorage.setItem('userId', userId)
       // id = userId
-    }else{
+    } else {
       userId = localStorage.getItem('userId')
     }
   }
@@ -39,9 +39,13 @@ const Login = () => {
       if (!res.data.access_token) {
         router.replace('/')
       }
-      // console.log(!res.data.data?.order)
-      if (res.data.data?.order !== null) {
-        res.data.access_token && router.replace('/user/manage')
+      // console.log(data.order)
+      if (data?.order !== null) {
+        if (data.order?.state === 'paid') {
+          res.data.access_token && router.replace('/user/manage')
+        } else {
+          res.data.access_token && router.replace('/user/payment/paymentoptions')
+        }
       } else {
         res.data.access_token && router.replace('/user/packages')
       }
@@ -52,7 +56,7 @@ const Login = () => {
   }
 
   const getFacebookUserData = async (cb) => {
-    console.log(userId);
+    // console.log(userId)
     try {
       const res = await axios.get(`/public/facebook-users/${userId}`)
       cb(res.data.data)

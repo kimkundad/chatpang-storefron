@@ -18,7 +18,7 @@ const QRcode = () => {
 
   const onSubmit = async () => {
     try {
-      const qrcode = await axios.get(`public/orders-payment/${user.user.order.id}/qrcode`)
+      const qrcode = await axios.get(`public/orders-payment/${user.order.id}/qrcode`)
       setQrcode(qrcode.data.data.qrcode)
     } catch (error) {
       console.log(error)
