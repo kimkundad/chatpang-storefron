@@ -56,7 +56,7 @@ const Login = () => {
       // console.log(res.data.data);
       // const { facebook_id } = res.data.data
       // setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
-      cb(res.data.data, id)
+      cb(res.data.data)
     } catch (error) {
       console.log(error)
       router.replace('/')
