@@ -416,6 +416,7 @@ main section
   justify-content: center;
   align-items: center;
   font-size: min(1.5rem, 4vw);
+  width: 70%;
   /* padding-right: 16px; */
 }
 .ant-tabs-tab-btn {

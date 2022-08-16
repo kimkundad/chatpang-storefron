@@ -7,7 +7,17 @@ const Login = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   // const userId = router.query.fb || window.localStorage.getItem('userId')
-  const userId = router.query.fb
+  let userId = router.query.fb
+
+  if (typeof window !== 'undefined') {
+    if (userId !== undefined) {
+      localStorage.setItem('userId', userId)
+      // id = userId
+    }else{
+      userId = localStorage.getItem('userId')
+    }
+  }
+
   // localStorage.setItem('userId', userId)
   // console.log(userId);
   const login = async (data) => {
@@ -34,31 +44,28 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error)
+      router.replace('/')
     }
   }
 
   const getFacebookUserData = async (cb) => {
+    let id = ''
+    console.log(userId);
     try {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('userId', userId)
-      }
       const res = await axios.get(`/public/facebook-users/${userId}`)
       // console.log(res.data.data);
       // const { facebook_id } = res.data.data
       // setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
-      cb(res.data.data)
+      cb(res.data.data, id)
     } catch (error) {
       console.log(error)
+      router.replace('/')
     }
   }
   useEffect(() => {
-    userId && getFacebookUserData(login)
-    !userId && router.replace('/')
+    userId !== undefined && getFacebookUserData(login)
+    // !userId && router.replace('/')
   }, [userId])
-
-  // useEffect(() => {
-  //   userId && login()
-  // }, [userId])
 
   return <div className="nosidebar-wrapper text-center">ระบกำลัง redirect ไปที่หน้าการจัดการ</div>
 }

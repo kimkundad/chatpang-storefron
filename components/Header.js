@@ -24,7 +24,9 @@ const Header = () => {
   }
 
   const onLogOut = () => {
-    localStorage.removeItem('userId')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('userId')
+    }
     router.push('/')
     setUserData({ ...user, isLogin: false })
   }
