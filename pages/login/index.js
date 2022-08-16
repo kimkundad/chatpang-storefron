@@ -6,7 +6,6 @@ import axios from '../api/axios'
 const Login = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  // const userId = router.query.fb || window.localStorage.getItem('userId')
   let userId = router.query.fb
 
   if (typeof window !== 'undefined') {
@@ -21,8 +20,12 @@ const Login = () => {
   // localStorage.setItem('userId', userId)
   // console.log(userId);
   const login = async (data) => {
+    let packageCurr = {}
     try {
-      const resp = await axios.get(`public/packages/${data.order.package.id}`)
+      if (data.order === null) {
+        const resp = await axios.get(`public/packages/${data.order.package.id}`)
+        packageCurr = resp.data.data
+      }
       const res = await axios.post(`/public/facebook-users/${userId}/login`)
       setUserData({
         ...user,
@@ -30,13 +33,13 @@ const Login = () => {
         facebookUserId: data.facebook_id,
         accessToken: res.data.access_token,
         userId: userId,
-        package: resp.data.data,
+        package: packageCurr,
         isLogin: true,
       })
       if (!res.data.access_token) {
         router.replace('/')
       }
-      console.log(!res.data.data?.order)
+      // console.log(!res.data.data?.order)
       if (res.data.data?.order !== null) {
         res.data.access_token && router.replace('/user/manage')
       } else {
