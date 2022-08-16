@@ -52,7 +52,7 @@ const Login = () => {
     let id = ''
     console.log(userId);
     try {
-      const res = !userId && await axios.get(`/public/facebook-users/${userId}`)
+      const res = await axios.get(`/public/facebook-users/${userId}`)
       // console.log(res.data.data);
       // const { facebook_id } = res.data.data
       // setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
@@ -63,7 +63,7 @@ const Login = () => {
     }
   }
   useEffect(() => {
-    userId !== undefined && getFacebookUserData(login)
+    userId !== undefined && userId !== null && getFacebookUserData(login)
     // !userId && router.replace('/')
   }, [userId])
 
