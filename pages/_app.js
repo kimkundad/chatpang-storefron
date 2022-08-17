@@ -7,18 +7,24 @@ import 'react-bootstrap-tagsinput/dist/index.css'
 
 import Layout from '../components/Layout'
 import { AppContextProvider } from '../context/AppContextProvider'
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps, ...appProps }) {
   return (
-    <AppContextProvider>
-      {['/login'].includes(appProps.router.pathname) ? (
-        <Component {...pageProps} />
-      ) : (
-        <Layout>
+    <>
+    <Head>
+      <title>Chat Pang ผู้ช่วยตอบแชทเก่ง!</title>
+    </Head>
+      <AppContextProvider>
+        {['/login'].includes(appProps.router.pathname) ? (
           <Component {...pageProps} />
-        </Layout>
-      )}
-    </AppContextProvider>
+        ) : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
+      </AppContextProvider>
+    </>
   )
 }
 
