@@ -11,15 +11,43 @@ import { useQRCode } from 'next-qrcode'
 const QRcode = () => {
   const { user } = useUser()
   const router = useRouter()
-  const [isSubmit, setIsSubmit] = useState(false)
+  const [isPending, setIsPending] = useState(false)
+  const [isDuplicate, setIsDuplicate] = useState(false)
   const { Image } = useQRCode()
   const [qrcode, setQrcode] = useState('')
   const selectedPackage = user.package
 
   const onSubmit = async () => {
+    // console.log(user.order);
+
     try {
-      const qrcode = await axios.get(`public/orders-payment/${user.order.id}/qrcode`)
-      setQrcode(qrcode.data.data.qrcode)
+      const qrcode = await axios.get(`public/orders-payment/${user?.order?.id}/qrcode`)
+      // console.log(qrcode.data);
+      //* check that qr code for this order has been created
+      if (qrcode.data.data.result_code === '90') {
+        setIsDuplicate(true)
+      } else {
+        setQrcode(qrcode.data.data.qrcode)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onNext = async () => {
+    try {
+      const res = await axios.get(`/public/facebook-users/${user.user.id}`)
+      // console.log(res.data.data)
+      //* check payment status
+      if (res.data.data.purchases !== 0) {
+        setUserData({
+          ...user,
+          user: res.data.data,
+        })
+        router.push('/user/changepackage/confirmorder')
+      } else {
+        setIsPending(true)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -29,10 +57,24 @@ const QRcode = () => {
     if (qrcode) {
       return (
         <div className="row justify-content-center">
-            <span className='text-center mt-3'>SCAN QR_CODE ด้วยแอพพลิเคชั่นธนาคารของท่าน</span>
-
+          <span className="text-center mt-3 qrcode-title">SCAN QR_CODE ด้วยแอพพลิเคชั่นธนาคารของท่าน</span>
+          {isPending && (
+            <>
+              <span className="text-center text-danger mt-1 qrcode-details">
+                การจ่ายเงินของท่านยังไม่สมบูรณ์
+                <br /> กรุณาเช็คว่าท่านได้กดยืนยันการจ่ายเงินเรียบร้อยหรือยัง
+              </span>
+              {/* <br /> */}
+              {/* <div className='w-md-50 w-75'> */}
+              <span className="text-start  text-md-center text-danger mt-1 qrcode-details">
+                1. ถ้ายังกรุณาทำการยืนยันการจ่ายเงินให้เรียบร้อยแล้ว กด <strong>ต่อไป</strong> อีกครั้ง <br />
+                2. ถ้าเรียบร้อยเเล้วกรุณา ติดต่อ คนดูแลระบบ{' '}
+              </span>
+              {/* </div> */}
+            </>
+          )}
           <div className="col-md-4 d-flex qrcodeImg flex-column">
-          <Image
+            <Image
               text={qrcode}
               options={{
                 type: 'image/jpeg',
@@ -50,7 +92,7 @@ const QRcode = () => {
             />
             <div className="text-end">
               <button onClick={() => router.back}>ย้อนกลับ</button>
-              <button className="ms-2" onClick={() => router.push('/user/payment/confirmorder')}>
+              <button className="ms-2" onClick={() => onNext()}>
                 ต่อไป
               </button>
             </div>
@@ -60,23 +102,33 @@ const QRcode = () => {
     } else {
       return (
         <div className="row justify-content-center">
+          {isDuplicate && (
+            <div className="col-md-12 d-flex justify-content-center text-center">
+              <span className="text-danger">
+                ออเดอร์นี้ได้เคยสร้าง QR code แล้ว ไม่สามารถสร้างได้อีก
+                <br />
+                กรุณาเลือกแพ็คเกจเเล้วทำการจ่ายเงินใหม่
+              </span>
+            </div>
+          )}
           <div className="col-md-6 d-flex qrcodeInput">
-            {/* <input type="text" /> */}
             <button className="btn btn-outline-secondary" onClick={() => router.back()}>
               ย้อนกลับ
             </button>
-            <button onClick={() => onSubmit()}>สร้าง QR CODE</button>
+            {isDuplicate ? (
+              <button onClick={() => router.replace('/user/packages')}>ไปหน้าเลือกแพ็คเกจ</button>
+            ) : (
+              <button onClick={() => onSubmit()}>สร้าง QR CODE</button>
+            )}
           </div>
         </div>
       )
     }
   }
   return (
-    // <div className="page-wrapper">
-    // <div className="content">
     <>
       <div className="row justify-content-center">
-        <div className="col-md-3 col-10 text-center qrcodeDetail mx-auto">
+        <div className="col-md-6 col-10 text-center qrcodeDetail mx-auto">
           <p>รายละเอียดการชำระเงิน</p>
           <Divider />
           <p>Package : {selectedPackage?.name}</p>
@@ -85,8 +137,6 @@ const QRcode = () => {
       </div>
       {RenderQRCode()}
     </>
-    // </div>
-    // </div>
   )
 }
 

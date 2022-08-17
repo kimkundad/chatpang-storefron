@@ -16,12 +16,10 @@ const Login = () => {
       userId = localStorage.getItem('userId')
     }
   }
-
-  // localStorage.setItem('userId', userId)
-  // console.log(userId);
   const login = async (data) => {
     let packageCurr = {}
     try {
+      //* To check that user create order if have get package information for make payment
       if (data.order !== null) {
         const resp = await axios.get(`public/packages/${data.order.package.id}`)
         packageCurr = resp.data.data
@@ -35,12 +33,15 @@ const Login = () => {
         userId: userId,
         package: packageCurr,
         isLogin: true,
+        order:data.order
       })
       if (!res.data.access_token) {
         router.replace('/')
       }
       // console.log(data.order)
+      //*To check that user create order yet 
       if (data?.order !== null) {
+        //* to check user make payment yet 
         if (data.order?.state === 'paid') {
           res.data.access_token && router.replace('/user/manage')
         } else {
@@ -56,7 +57,6 @@ const Login = () => {
   }
 
   const getFacebookUserData = async (cb) => {
-    // console.log(userId)
     try {
       const res = await axios.get(`/public/facebook-users/${userId}`)
       cb(res.data.data)

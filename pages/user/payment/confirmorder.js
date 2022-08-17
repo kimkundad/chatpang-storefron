@@ -12,9 +12,9 @@ const Confirmorder = () => {
   //! did not use
   // const [previewSlip, setPreviewSlip] = useState(false)
 
-  function onChecked(e) {
-    console.log(`check = ${e.target.checked}`)
-  }
+  // function onChecked(e) {
+  //   console.log(`check = ${e.target.checked}`)
+  // }
   //! did not use
   // function handleCancel() {
   //   setPreviewSlip(false)
@@ -23,7 +23,7 @@ const Confirmorder = () => {
   const onsubmit = async () => {
     router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
   }
-    return (
+  return (
     <div className="page-wrapper">
       <div className="container-fluid">
         <div className="row">
@@ -31,24 +31,24 @@ const Confirmorder = () => {
             <Stepper step="2" />
           </div>
         </div>
-        <div style={{ width: '50%' }} className="row m-auto">
+        {/* <div style={{ width: '50%' }} className="row m-auto">
           <div className="col-lg-12 d-flex justify-content-start">
             <Checkbox className="fs-3" onChange={onChecked}>
               รับสลิป
             </Checkbox>
           </div>
-        </div>
+        </div> */}
         <div className="row m-auto mt-4 invoice-item p-3">
           <div className="row">
             <div className="col-lg-8 col-8 text-start">
               <strong className="text-secondary">รายละเอียดการชำระเงิน</strong>
               <div className="ps-3">
                 <p className="mb-0">
-                {/* {`${
+                  {/* {`${
                   user?.payment?.type === 'card' ? 'ชำระด้วยบัตรเครดิต' : 
                   'ชำระด้วย QR code'
                 }`} */}
-                ชำระด้วย QR code
+                  ชำระด้วย QR code
                 </p>
                 {/* <span>หมายเลข:{`${user?.payment?.type}`}</span> */}
               </div>
@@ -86,7 +86,9 @@ const Confirmorder = () => {
                     <td>
                       {`${user?.package?.name} ราคา ${user?.order?.package?.price} บาท / เดือน`}
                       <br />
-                      {`ใช้งานได้ ${user?.order?.package?.page_limit !== null ? user?.order?.package?.page_limit : 0} เพจ`}
+                      {`ใช้งานได้ ${
+                        user?.order?.package?.page_limit !== null ? user?.order?.package?.page_limit : 0
+                      } เพจ`}
                     </td>
                     <td className="text-end">{`${user?.order?.package?.price} บาท`}</td>
                   </tr>
@@ -125,7 +127,7 @@ const Confirmorder = () => {
               ย้อนกลับ
             </span>
             <button onClick={() => onsubmit()} className="customBTN">
-              ยืนยัน
+              ต่อไป
             </button>
           </div>
         </div>
