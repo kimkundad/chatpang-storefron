@@ -96,9 +96,9 @@ const Index = () => {
               {data?.length === 0 ? (
                 <div className="mx-auto">
                   <span>ไม่มีข้อมูล</span>
-                  <Link className="text-info" to="/user/info/pagemanagement">
+                  {/* <Link className="text-info" spy={false} href="/user/info/pagemanagement">
                     คลิ้กเพื่อเพิ่มเพจ
-                  </Link>
+                  </Link> */}
                 </div>
               ) : (
                 <Table bordered hover style={{ minWidth: '60%' }}>

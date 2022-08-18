@@ -297,17 +297,6 @@ export default function Home() {
                       <img
                         src={val.picture}
                         className="review-content-picture"
-                        // style={{
-                        //   width: '60px',
-                        //   height: '60px',
-                        //   objectFit: 'fill',
-                        //   left: 0,
-                        //   right: 0,
-                          // marginLeft: 'auto',
-                          // marginRight: 'auto',
-                        //   top: '-40px',
-                        //   borderRadius: '50px',
-                        // }}
                       />
                     <div className=" d-flex flex-column align-items-center">
                       <div className="review-content-name">{val.name}</div>

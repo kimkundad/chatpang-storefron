@@ -12,7 +12,7 @@ const Pagemanagement = () => {
   const { user, setUserData } = useUser()
   const [quotaInfo, setQuotaInfo] = useState({})
   // const facebookUserId = router.query.fb
-  // console.log(data);
+  console.log(user)
   const getQuotaInfo = async () => {
     try {
       const res = await axios.get(`/public/purchases/${user?.user?.id}/quota`, {
@@ -30,7 +30,7 @@ const Pagemanagement = () => {
 
   //* check able to add more than 1 page
   const checkAddPage = () => {
-    setIsAddAble( 1 <= user?.user?.pages)
+    setIsAddAble(1 <= user?.user?.pages)
     // return user?.user.status === 'inactive'
   }
   const column = [
@@ -55,9 +55,13 @@ const Pagemanagement = () => {
   ]
 
   const getAuthPages = () => {
-    console.log("click");
+    console.log('click')
     // window.open('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
-    // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages',{ shallow: true })
+    router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+  }
+
+  const onAddPage = () => {
+    console.log("add pages");
   }
   // console.log(user);
 
@@ -79,13 +83,13 @@ const Pagemanagement = () => {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
       // console.log(res3.data);
-     await setUserData({
+      await setUserData({
         ...user,
-        order:res2.data.data,
-        orders:res.data.data.results,
-        purchases:res3.data.data,
-        orderHistory:res1.data.data.results,
-        pages:res4.data.data.results
+        order: res2.data.data,
+        orders: res.data.data.results,
+        purchases: res3.data.data,
+        orderHistory: res1.data.data.results,
+        pages: res4.data.data.results,
       })
       setData(res4.data.data.results)
       checkAddPage()
@@ -117,16 +121,28 @@ const Pagemanagement = () => {
             </div>
           </div>
           <div className="col-12">
-            <Button
-              style={{ fontSize: '1.5rem', height: 'fit-content', width: '190px' }}
-              className="my-4 d-flex justify-content-center align-items-center"
-              type="primary"
-              icon={<SettingOutlined />}
-              onClick={()=> getAuthPages()}
-              disabled={isAddAble}
-            >
-              เพิ่มหรือลบเพจ
-            </Button>
+            {user?.user?.pages !== 0 ? (
+              <Button
+                style={{ fontSize: '1.5rem', height: 'fit-content', width: '190px' }}
+                className="my-4 d-flex justify-content-center align-items-center"
+                type="primary"
+                icon={<SettingOutlined />}
+                onClick={() => onAddPage()}
+                disabled={isAddAble}
+              >
+                เพิ่มหรือลบเพจ
+              </Button>
+            ) : (
+              <Button
+                style={{ fontSize: '1.5rem', height: 'fit-content', width: 'auto' }}
+                className="my-4 d-flex justify-content-center align-items-center"
+                type="primary"
+                icon={<SettingOutlined />}
+                onClick={() => getAuthPages()}
+              >
+                ขออนุญาตเข้าถึงเพจจาก Facebook
+              </Button>
+            )}
           </div>
           <span className="text-secondary fs-5">กดเลือกเพจทำการตั้งค่าการตอบคอมเม้นต์ และดึงคอมเม้นต์เข้า inbox</span>
         </div>
