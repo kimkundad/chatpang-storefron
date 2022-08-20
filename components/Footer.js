@@ -56,7 +56,7 @@ const Footer = () => {
         </div>
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>บริษัท</strong>
-          <Link href="/">
+          <Link href="/tos">
             <div className="link">เงื่อนไขการใช้งาน</div>
           </Link>
 

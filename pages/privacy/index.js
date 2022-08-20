@@ -222,8 +222,8 @@ const index = () => {
         </div>
         <p>
           หากมีข้อสงสัยใดเกี่ยวกับนโยบายความเป็นส่วนตัวนี้ ผู้ใช้งานสามารถสอบถามได้ที่{' '}
-          {/* <a href="mailto:sarunyhot@gmail.com">sarunyhot@gmail.com</a> */}
-          <span> 087-1352410</span>
+          <a href="mailto:chatpang@gmail.com">chatpang@gmail.com</a>
+          {/* <span> 087-1352410</span> */}
         </p>
       </div>
     </div>
