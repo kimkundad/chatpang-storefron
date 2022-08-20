@@ -87,9 +87,9 @@ const index = () => {
         <p>
         169/93 หมู่บ้านอรินสิริ@ข้าวหลาม ต.ห้วยกะปิ อ.เมือง จ.ชลบุรี 20000</p>
         <p>
-          อีเมล <a href="mailto:chatpang@gmail.com">chatpang@gmail.com</a>
+          อีเมล <a href="mailto:chatpang@gmail.com">development.bty@gmail.com</a>
         </p>
-        {/* <p>ทะเบียนพาณิชย์เลขที่ 0105563063720</p> */}
+        <p>ทะเบียนพาณิชย์เลขที่ 0205564034862</p>
       </div>
     </div>
   )

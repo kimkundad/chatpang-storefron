@@ -380,7 +380,7 @@ export default function Home() {
               </div>
               <div className="d-flex" style={{ marginTop: '16px' }}>
                 <img src="/images/landing-page/email.svg" style={{ width: '24px', height: '24px' }} />
-                <div className="ms-4 fs-4">chatpang@gmail.com</div>
+                <div className="ms-4 fs-4">development.bty@gmail.com</div>
               </div>
               <div className="d-flex" style={{ marginTop: '16px' }}>
                 <img src="/images/landing-page/timer.png" style={{ width: '24px', height: '24px' }} />
