@@ -6,7 +6,9 @@ import Image from 'next/image'
 import BG from '../resources/imgs/footer_bg.png'
 import LOGO from '../resources/imgs/newLogo.png'
 // import Link from 'next/link'
-import { Link } from 'react-scroll'
+// import { Link } from 'react-scroll'
+import Link from 'next/link'
+
 const Footer = () => {
   return (
     <div id='footer' className="footer">
@@ -24,43 +26,47 @@ const Footer = () => {
         </div>
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>บริการ</strong>
-          <Link to="about">
-            <div className="link">เกี่ยวกับเรา</div>
+          <Link href="about">
+            <div className="link">
+            เกี่ยวกับเรา
+            </div>
           </Link>
 
-          <Link to="function">
+          <Link href="function">
             <div className="link">ฟังก์ชั่น</div>
           </Link>
 
-          <Link to="review">
+          <Link href="review">
             <div className="link">รีวิวจากลูกค้า</div>
           </Link>
         </div>
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>ซัพพอร์ต</strong>
-          <Link to="#">
+          <Link href="#">
             <div className="link">คู่มือการใช้งาน</div>
           </Link>
 
-          <Link to="/">
+          <Link href="/">
             <div className="link">ฟังก์ชั่น</div>
           </Link>
 
-          <Link to="/">
+          <Link href="/">
             <div className="link">รีวิวจากลูกค้า</div>
           </Link>
         </div>
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>บริษัท</strong>
-          <Link to="/">
+          <Link href="/">
             <div className="link">เงื่อนไขการใช้งาน</div>
           </Link>
 
-          <Link to="/">
-            <div className="link">นโยบายความเป็นส่วนตัว</div>
+          <Link href="/privacy">
+            <div className="link">
+            นโยบายความเป็นส่วนตัว
+            </div>
           </Link>
 
-          <Link to="/">
+          <Link href="/">
             <div className="link">บทความ</div>
           </Link>
         </div>

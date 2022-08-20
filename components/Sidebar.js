@@ -10,11 +10,11 @@ import moment from 'moment'
 const Sidebar = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  const [packageInfo, setPackageInfo] = useState({})
-  // const packageInfo = user.order.package
-  const latestOrderId = user?.user?.order?.id || ''
+  // const [packageInfo, setPackageInfo] = useState({})
+  const packageInfo = user.package
+  // const latestOrderId = user?.user?.order?.id || ''
   let pathName = router.pathname
-
+// console.log(user);
   const isActive = (path) => {
     const n = '/user/manage'.length
 
@@ -25,17 +25,17 @@ const Sidebar = () => {
     }
   }
 
-  const getOrderById = async () => {
-    try {
-      const res = await axios.get(`/public/orders/${latestOrderId}`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
-      })
+  // const getOrderById = async () => {
+  //   try {
+  //     const res = await axios.get(`/public/orders/${latestOrderId}`, {
+  //       headers: { Authorization: `Bearer ${user?.accessToken}` },
+  //     })
 
-      setPackageInfo(res.data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //     setPackageInfo(res.data.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   const getExp = () => {
     return moment(user?.user?.expire_date).format('DD/MM/YYYY')
   }
@@ -44,9 +44,9 @@ const Sidebar = () => {
     return moment(user?.user?.expire_date).diff(moment.now(),'days')
   }
  
-  useEffect(()=>{
-    latestOrderId && getOrderById()
-  },[])
+  // useEffect(()=>{
+  //   latestOrderId && getOrderById()
+  // },[user.user])
   return (
     <div className="sidebar">
       <Scrollbars
@@ -67,10 +67,10 @@ const Sidebar = () => {
             ) : (
               <div className="sidePackageInfo">
                 <div style={{ color: 'black' }} className="sidePackage-title">
-                  {packageInfo?.package?.name}
+                  {packageInfo?.name}
                 </div>
                 <div className="packInfo">
-                  <span>{packageInfo?.package?.price} บาท/เดือน</span>
+                  <span>{packageInfo?.price} บาท/เดือน</span>
                   <span>ใช้งานได้ {getRemainDate()} วัน</span>
                   <span>หมดอายุ</span>
                   <span>{getExp()}</span>

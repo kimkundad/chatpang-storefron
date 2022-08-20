@@ -42,12 +42,12 @@ const Linenoti = () => {
       pages: [pageID],
       status: 'active'
     }
-    console.log(newData)
+    // console.log(newData)
     try {
       const res = await axios.post(`/public/line-notifications`, newData, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data);
+      // console.log(res.data);
       setData([...data,res.data.data])
       onClearData()
     } catch (error) {
@@ -169,7 +169,7 @@ const Linenoti = () => {
       const res = await axios.get(`/public/line-notifications/${user?.user?.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data);
+      // console.log(res.data);
       setData(res.data.data.results)
     } catch (error) {
       console.log(error)

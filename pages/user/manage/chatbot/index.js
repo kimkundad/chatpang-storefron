@@ -188,7 +188,7 @@ const Chatbot = () => {
       const res = await axios.get(`/campaigns/${user.user.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res.data)
+      // console.log(res.data)
       setData(res.data.data.results)
     } catch (error) {
       console.log(error)

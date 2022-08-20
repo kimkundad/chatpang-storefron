@@ -791,7 +791,7 @@ function section
 .nosidebar-wrapper {
   /* min-height: calc(100vh - 144px); */
   min-height: 100vh;
-  padding: 180px 0 80px 0;
+  padding: 140px 0 80px 0;
   position: relative;
   transition: all 0.4s ease;
   font-size: min(2rem, 3vw);
@@ -802,7 +802,7 @@ function section
   /* min-height: 756px; */
   min-height: calc(100vh - 144px);
 
-  padding: 180px 0 80px 0;
+  padding: 140px 0 80px 0;
   position: relative;
   transition: all 0.4s ease;
   font-size: min(1.5rem, 3vw);
@@ -1622,7 +1622,7 @@ FOOTER
   /* width: 100%; */
   bottom: 0;
   height: 420px;
-  z-index: 1200;
+  z-index: 20;
   /* background-image: url("/images/bg/footer_bg.png"); */
   /* background-size: 100% 100%; */
 }
@@ -1635,7 +1635,7 @@ FOOTER
   position: absolute;
   bottom: 0;
   width: 100%;
-  z-index: -10;
+  z-index: -20;
 }
 .footer-title {
   font-weight: 600;
@@ -1659,7 +1659,10 @@ FOOTER
 }
 .footer-padding .link {
   cursor: pointer;
+  position: relative;
+  z-index: 200;
   /* width: 100%; */
+
   text-align: left;
   font-size: min(1.4rem, 5vw);
   /* padding: 5px; */
