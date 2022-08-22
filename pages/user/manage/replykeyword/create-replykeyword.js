@@ -24,7 +24,7 @@ const CreateReplyKeyword = () => {
   const { TextArea } = Input
 
   const [imgs, setImgs] = useState([''])
-  const [previewImgs, setPreviewImgs] = useState([])
+  const [previewImgs, setPreviewImgs] = useState([''])
   const [campaignName, setCampaignName] = useState('')
   const [keywordName, setKeywordName] = useState([])
   const [details, setDetails] = useState([''])
@@ -45,10 +45,10 @@ const CreateReplyKeyword = () => {
       name: campaignName,
       facebookUser: user?.user?.id,
     }
-    console.log(data)
+    // console.log(data)
     try {
       const res = await axios.post('/auto-replies', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      console.log(res.data)
+      // console.log(res.data)
       setIsSuccess({
         show: true,
         isSuccess: true,
@@ -120,6 +120,10 @@ const CreateReplyKeyword = () => {
     acc[index] = createRef()
     return acc
   }, {})
+  const imgsInputRef = imgs.reduce((acc, value, index) => {
+    acc[index] = createRef()
+    return acc
+  }, {})
   const onUpload = async (index, file) => {
     let temImg = URL.createObjectURL(file)
     let tempArr = [...previewImgs]
@@ -169,7 +173,7 @@ const CreateReplyKeyword = () => {
   }
   const handleClickFileInput = (index) => {
     // console.log(inputRef[index])
-    imgsRef[index].current.click()
+    imgsInputRef[index].current.click()
   }
   const onInputNext = (index) => {
     // console.log(inputRef)
@@ -199,6 +203,7 @@ const CreateReplyKeyword = () => {
       })
   }
   const onImgPrev = (index) => {
+    // console.log(imgsRef);
     // console.log(inputRef[index].current)
     index - 1 >= 0 &&
       imgsRef[index - 1].current.scrollIntoView({
@@ -255,17 +260,17 @@ const CreateReplyKeyword = () => {
           <div className="col-md-3 col-xs-12 commentHeader">
             <strong className="ms-md-3 me-auto me-md-0">รูป {imgs?.length > 1 && `(${index + 1})`}</strong>
           </div>
-          <div className="col-md-6 col-9 commentInput">
+          <div ref={imgsRef[index]} className="col-md-6 col-9 commentInput">
             {img !== '' ? (
               <div onClick={() => onClearImg(index)} className="uploadIMG">
-                <img width={100} src={previewImgs[index]} alt="img" />
+                <img src={previewImgs[index]} alt="img" />
                 <span>ลบรูป</span>
               </div>
             ) : (
               <>
                 <input
                   type="file"
-                  ref={imgsRef[index]}
+                  ref={imgsInputRef[index]}
                   className="inputfile"
                   onChange={(e) => onHandleChangeImg(e, index)}
                 />

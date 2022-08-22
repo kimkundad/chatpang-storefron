@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faEye, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { Avatar, Divider, InputNumber, Select } from 'antd'
-import { Table, Form } from 'react-bootstrap'
+import { Table, Form, Alert } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 
 
@@ -15,7 +15,7 @@ const Linenoti = () => {
   const { user } = useUser()
   const router = useRouter()
 
-  const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
+  const [pageID, setPageID] = useState([...user?.pages.map(page => page.page_id)])
   const [lineName, setLineName] = useState('')
   const [lineAccessToken, setLineAccessToken] = useState('')
   const [lineTimer, setLineTimer] = useState(0)
@@ -24,6 +24,13 @@ const Linenoti = () => {
   const [timeUnit, setTimeUnit] = useState('m')
   const [time, setTime] = useState()
   const [data, setData] = useState([])
+
+  //*check status
+  const [isSuccess, setIsSuccess] = useState({
+    show: false,
+    isSuccess: false,
+    text: '',
+  })
 
   const onEdit = (id) => {
     router.push(
@@ -39,7 +46,7 @@ const Linenoti = () => {
       token: lineAccessToken,
       name: lineName,
       duration: lineTimer,
-      pages: [pageID],
+      pages: pageID,
       status: 'active'
     }
     // console.log(newData)
@@ -49,10 +56,30 @@ const Linenoti = () => {
       })
       // console.log(res.data);
       setData([...data,res.data.data])
+      setIsSuccess({
+        show: true,
+        isSuccess: true,
+        text: 'เพิ่มกลุ่มไลน์สำเร็จ',
+      })
       onClearData()
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data.message)
+      setIsSuccess({
+        show: true,
+        isSuccess: false,
+        text: error.response.data.message,
+      })
+      handleNotify()
     }
+  }
+  const handleNotify = () => {
+    setTimeout(() => {
+      setIsSuccess({
+        show: false,
+        isSuccess: false,
+        text: '',
+      })
+    }, 2000)
   }
   const onChangeTimeUnit = (value) => {
     // console.log(value)
@@ -175,11 +202,18 @@ const Linenoti = () => {
       console.log(error)
     }
   }
+
+  
   useEffect(() => {
     user?.user?.id && getLineList()
   }, [])
   return (
     <div className="page-wrapper">
+     {isSuccess.show && (
+        <Alert className="text-center" variant={isSuccess.isSuccess ? 'success' : 'danger'}>
+          <span>{isSuccess.text}</span>
+        </Alert>
+      )}
       <div className="content container-fluid">
         <Sidebar />
         <div className="userpage-wrapper text-center">

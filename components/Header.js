@@ -3,7 +3,7 @@ import { Link } from 'react-scroll'
 import { useRouter } from 'next/router'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faAngleDown, faUser } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../Hooks/useUser'
 import { Dropdown, Menu, Avatar } from 'antd'
 
@@ -35,24 +35,24 @@ const Header = () => {
     <Menu
       items={[
         {
-          label: (
-            user?.order?.state === 'paid' && <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/manage')}>
+          label: user?.order?.state === 'paid' && (
+            <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/manage')}>
               หน้าหลัก
             </span>
           ),
           key: 0,
         },
         {
-          label: (
-            user?.order?.state === 'paid' && <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push(`/user/edit/${user?.user?.id}`)}>
+          label: user?.order?.state === 'paid' && (
+            <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push(`/user/edit/${user?.user?.id}`)}>
               แก้ไขข้อมูลส่วนตัว
             </span>
           ),
           key: 1,
         },
         {
-          label: (
-            user?.order?.state === 'paid' && <span style={{ fontSize: 'min(1.5rem,3vw)',  }} onClick={() => router.push('/user/info/pagemanagement')}>
+          label: user?.order?.state === 'paid' && (
+            <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/info/pagemanagement')}>
               จัดการเพจ
             </span>
           ),
@@ -96,7 +96,8 @@ const Header = () => {
         <Dropdown overlay={menu} trigger={['click']} className="fw-bold fs-4 d-flex align-items-center ms-3">
           <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
             {/* {userData.image ? <Avatar src={<img src={userData.image} alt="profile"/>} style={{ width: 50 }} /> : <FontAwesomeIcon icon={faCircleUser} />} */}
-            <span className="mx-2 fs-2">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+            <span className="mx-2 fs-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+            <FontAwesomeIcon className='me-2 d-block d-md-none' icon={faUser}/>
             <FontAwesomeIcon icon={faAngleDown} />
           </a>
         </Dropdown>
@@ -126,7 +127,7 @@ const Header = () => {
       !pathName.includes('/user/changepackage') &&
       !pathName.includes('/user/contactus') &&
       !pathName.includes('/user/packages') &&
-      !pathName.includes('/register')&&
+      !pathName.includes('/register') &&
       !pathName.includes('/user/edit')
     ) {
       return (
@@ -178,13 +179,14 @@ const Header = () => {
         </div>
       )
     } else {
-      return <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-none d-sm-block">{userDropDown()}</ul>
+      return <ul className="navbar-nav ms-auto mb-2 mb-lg-0">{userDropDown()}</ul>
     }
   }
 
   const renderBTNNavbar = () => {
     if (!pathName.includes('user')) {
       return (
+        // <div>
         <button
           className="navbar-toggler"
           type="button"
@@ -201,18 +203,19 @@ const Header = () => {
             alt="menu"
           />
         </button>
+        // </div>
       )
     } else {
       return (
-        <div className="sideBarToggle d-md-none d-sm-block" style={{ cursor: 'pointer' }} onClick={onShowSideBarMenu}>
-          <FontAwesomeIcon icon={faBars} />
-        </div>
+          <div className="sideBarToggle d-md-none d-sm-block" style={{ cursor: 'pointer' }} onClick={onShowSideBarMenu}>
+            <FontAwesomeIcon icon={faBars} />
+          </div>
       )
     }
   }
   return (
     <div className="position-fixed w-100 top-0" style={{ zIndex: '1000' }}>
-      <nav className="customHeader navbar navbar-expand-lg navbar-dark shadow-sm">
+      <nav className="customHeader navbar navbar-expand-lg  navbar-dark shadow-sm">
         <div className="navContainer">
           <Link
             to="/"
@@ -220,7 +223,7 @@ const Header = () => {
               setCurrent('')
               router.push('/')
             }}
-            className="navbar-brand"
+            className="navbar-brand-cus"
           >
             <div style={{ width: '30vw' }} className="d-md-block d-none">
               <img src="/images/logo/newLogo.png" style={{ maxWidth: '50%' }} alt="logo" />

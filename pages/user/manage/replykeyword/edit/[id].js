@@ -27,7 +27,7 @@ const Edit = () => {
   const [campaignName, setCampaignName] = useState('')
   const [keywordName, setKeywordName] = useState([])
   const [details, setDetails] = useState([''])
-  const [facebookUserId, setFacebookUserId] = useState('')
+  // const [facebookUserId, setFacebookUserId] = useState('')
   //*check status
   const [isSuccess, setIsSuccess] = useState({
     show: false,
@@ -107,6 +107,10 @@ const Edit = () => {
     acc[index] = createRef()
     return acc
   }, {})
+  const imgsInputRef = imgs.reduce((acc, value, index) => {
+    acc[index] = createRef()
+    return acc
+  }, {})
   const onUpload = async (index, file) => {
     let temImg = URL.createObjectURL(file)
     let tempArr = [...previewImgs]
@@ -156,7 +160,7 @@ const Edit = () => {
   }
   const handleClickFileInput = (index) => {
     // console.log(inputRef[index])
-    imgsRef[index].current.click()
+    imgsInputRef[index].current.click()
   }
   const onInputNext = (index) => {
     // console.log(inputRef)
@@ -242,17 +246,17 @@ const Edit = () => {
           <div className="col-md-3 col-xs-12 commentHeader">
             <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
           </div>
-          <div className="col-md-6 col-9 commentInput">
+          <div ref={imgsRef[index]} className="col-md-6 col-9 commentInput">
             {img !== '' ? (
               <div onClick={() => onClearImg(index)} className="uploadIMG">
-                <img width={100} src={previewImgs[index]} alt="img" />
+                <img src={previewImgs[index]} alt="img" />
                 <span>ลบรูป</span>
               </div>
             ) : (
               <>
                 <input
                   type="file"
-                  ref={imgsRef[index]}
+                  ref={imgsInputRef[index]}
                   className="inputfile"
                   onChange={(e) => onHandleChangeImg(e, index)}
                 />
@@ -299,7 +303,7 @@ const Edit = () => {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       const data = res.data.data
-      // console.log(res.data)
+      console.log(res.data)
       setCampaignName(data.name)
       setKeywordName(data.keywords)
       setDetails(data.messages)

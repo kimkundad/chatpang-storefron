@@ -172,6 +172,10 @@ textarea.form-control {
 .navContainer {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.navbar-brand-cus{
+  width: 50%;
 }
 .navActive {
   background: #000000;
@@ -318,11 +322,11 @@ main section
 
 .sidebar {
   background-color: var(--mainCWhite);
-  bottom: 0;
+  /* bottom: 0; */
   left: 0;
   /* margin-top: 5px; */
   position: absolute;
-  top: 100px;
+  top: 5vw;
   transition: all 0.2s ease-in-out 0s;
   width: 240px;
   height: 100vh;
@@ -621,7 +625,7 @@ chatbot section
 }
 .commentInput {
   max-width: 450px;
-  height: 240px;
+  height: auto;
 }
 .toggleCommentOptions {
   display: flex;
@@ -1032,15 +1036,17 @@ table.table td h2 span {
 .navContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 0 4%;
 }
 .customHeader {
   background: var(--mainCRed_1);
+  /* min-height: 5vh; */
 }
 .customHeaderItem {
-  /* font-size: min(2rem, 2vw); */
-  font-size: 1.5vw;
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
+  /* font-size: 1.5vw; */
   padding: 8px 16px;
   margin: 0 5px;
   border-radius: 50px;
@@ -1112,13 +1118,14 @@ table.table td h2 span {
   border: 1px solid #888;
   margin: 16px 0;
   overflow: hidden;
-  height: 230px;
+  height: auto;
   display: grid;
   place-items: center;
 }
-.uploadIMG img {
-  width: 100%;
-  object-fit: contain;
+.uploadIMG img{
+  max-width: 90%;
+  max-height: 90%;
+  /* object-fit: contain; */
   cursor: pointer;
   opacity: 1;
   position: relative;
@@ -1593,6 +1600,14 @@ QA container
   position: absolute;
   left: 0;
 }
+.contact-us{
+  padding-left: 240px;
+  min-height: 60vh;
+  font-size: clamp(1.5rem,5vw, 2rem);
+}
+.contact-us h2{
+  font-size: clamp(2rem,5vw, 3rem);
+}
 /*------------
 FOOTER
 ------------*/
@@ -1755,7 +1770,8 @@ Upload
 }
 @media (max-width: 991.98px) {
   .page-wrapper,
-  .userpage-wrapper {
+  .userpage-wrapper,
+  .contact-us {
     margin-left: 0;
     padding-left: 0;
     padding-right: 0;
@@ -1800,6 +1816,9 @@ Upload
   }
   .qrcode-details{
     font-size: 5vw;
+  }
+  .sidebar {
+    top: 8vw;  
   }
 }
 @media (max-width: 767.98px) {
@@ -1967,11 +1986,14 @@ Upload
     font-size: 4.5vw;
     padding: 0 16px;
   }
+  .sidebar {
+    top: 10vw;  
+  }
 }
 @media (max-width: 575.98px) {
-  /* .page-wrapper > .content {
-    padding: 0.9375rem 0.9375rem 0;
-  } */
+  .page-wrapper{
+    min-height: 95vh;
+  }
   .page-header .breadcrumb {
     display: none;
   }

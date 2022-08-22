@@ -9,7 +9,7 @@ import { Link } from 'react-scroll'
 const Index = () => {
   const { user, setUserData } = useUser()
   const [checkAll, setCheckAll] = useState(false)
-  const [checkList, setCheckList] = useState(user?.selectedPage?.map((item) => item.page_id))
+  const [checkList, setCheckList] = useState(user?.pages?.map((item) => item.page_id))
   const [data, setData] = useState([])
 
   const onCheckAll = async () => {

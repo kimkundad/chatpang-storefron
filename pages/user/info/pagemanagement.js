@@ -12,7 +12,7 @@ const Pagemanagement = () => {
   const { user, setUserData } = useUser()
   const [quotaInfo, setQuotaInfo] = useState({})
   // const facebookUserId = router.query.fb
-  console.log(user)
+  // console.log(user)
   const getQuotaInfo = async () => {
     try {
       const res = await axios.get(`/public/purchases/${user?.user?.id}/quota`, {
