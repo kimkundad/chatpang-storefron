@@ -10,6 +10,7 @@ const Packages = () => {
   const { user, setUserData } = useUser()
   const [selected, setSelected] = useState(0)
   const [data, setData] = useState([])
+  const [isError, setIsError] = useState(false)
   function setSelectedPackage(id) {
     if (selected === id) {
       setSelected(0)
@@ -27,6 +28,7 @@ const Packages = () => {
   }
   function setSelectedPackage(id) {
     // console.log(id)
+    setIsError(false)
     if (selected === id) {
       setSelected(null)
     } else {
@@ -58,15 +60,16 @@ const Packages = () => {
       discount: 0,
       net: pack[0].price,
     }
-    console.log(userOrder);
+    console.log(userOrder)
     try {
       const res = await axios.post(`/public/orders`, userOrder, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
       })
-      console.log(res.data);
+      console.log(res.data)
       await setUserData({ ...user, package: pack[0], order: res.data.data })
       router.push('/user/payment/paymentoptions')
     } catch (error) {
+      setIsError(true)
       console.log(error)
     }
 
@@ -74,17 +77,17 @@ const Packages = () => {
   }
   const getFacebookUserData = async () => {
     try {
-      const res  = await axios.get(`/public/facebook-users/${user.userId}`)
+      const res = await axios.get(`/public/facebook-users/${user.userId}`)
       // console.log(res.data);
       const { facebook_id } = res.data.data
-      await setUserData({ ...user,user:res.data.data, facebookUserId : facebook_id })
+      await setUserData({ ...user, user: res.data.data, facebookUserId: facebook_id })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     user.userId && getFacebookUserData()
-  },[])
+  }, [])
   useEffect(() => {
     getPackages()
   }, [])
@@ -96,11 +99,12 @@ const Packages = () => {
             <Stepper step="0" />
           </div>
         </div>
-        {/* <div className="row justify-content-center mt-5"> */}
+        {isError&&<div className="col-12 text-center">
+          <span className="text-danger">ไม่สามารถสร้างออเดอร์ได้ ลองล็อคอินอีกครั้ง หรือ ติดต่อแอดมิน</span>
+        </div>}
         <div className="col-md-12 cardPriceContainer">
           <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage} />
         </div>
-        {/* </div> */}
         <div className="row justify-content-center">
           <div style={{ width: '40%' }} className="col-12 d-flex justify-content-md-end justify-content-center mt-5">
             <button onClick={() => onNext()} className="customBTN" disabled={selected === 0 ? true : false}>

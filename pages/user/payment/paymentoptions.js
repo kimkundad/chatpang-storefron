@@ -37,7 +37,7 @@ const Paymentoptions = () => {
         </div>
         <div className="row justify-content-center">
           <div style={{ fontSize: '1.5rem' }} className="col-md-3 col-12 text-center">
-            <input type="checkbox" id="method1" name="card" onClick={(e) => onChangeMethod(e)} checked={!method} />
+            <input type="checkbox" id="method1" name="card" onClick={(e) => onChangeMethod(e)} checked={!method} disabled={true}/>
             <label className="ms-2" htmlFor="method1">
               Credit card / Debit card
             </label>
