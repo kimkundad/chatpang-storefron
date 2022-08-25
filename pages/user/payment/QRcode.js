@@ -9,7 +9,7 @@ import axios from '../../api/axios'
 import { useQRCode } from 'next-qrcode'
 
 const QRcode = () => {
-  const { user } = useUser()
+  const { user, setUserData } = useUser()
   const router = useRouter()
   const [isPending, setIsPending] = useState(false)
   const [isDuplicate, setIsDuplicate] = useState(false)
