@@ -30,7 +30,7 @@ const Pagemanagement = () => {
 
   //* check able to add more than 1 page
   const checkAddPage = () => {
-    setIsAddAble(1 <= user?.user?.pages)
+    setIsAddAble(1 < user?.user?.pages)
     // return user?.user.status === 'inactive'
   }
   const column = [

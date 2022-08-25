@@ -169,24 +169,7 @@ textarea.form-control {
 .input-group .form-control {
   height: 40px;
 }
-.navContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.navbar-brand-cus{
-  width: 50%;
-}
-.navActive {
-  background: #000000;
-  width: fit-content;
-  height: fit-content;
-  padding: 5px 32px;
-  color: #fff;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-}
+
 /* .nav .open > a,
 .nav .open > a:focus,
 .nav .open > a:hover {
@@ -1035,6 +1018,24 @@ table.table td h2 span {
 -----------------------*/
 .navContainer {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-brand-cus{
+  width: 30%;
+}
+.navActive {
+  background: #000000;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 32px;
+  color: #fff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+.navContainer {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -1045,7 +1046,7 @@ table.table td h2 span {
   /* min-height: 5vh; */
 }
 .customHeaderItem {
-  font-size: clamp(1.2rem, 1.5vw, 2rem);
+  font-size: clamp(1.5rem, 1.8vw, 2rem);
   /* font-size: 1.5vw; */
   padding: 8px 16px;
   margin: 0 5px;

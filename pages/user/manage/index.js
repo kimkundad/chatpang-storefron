@@ -47,6 +47,7 @@ const Index = () => {
       })
       setData(res.data.data.results)
       setUserData({ ...user, order: res2.data.data, pages: res.data.data.results })
+      setCheckList(res?.data?.data?.results?.map(item => item.page_id))
     } catch (error) {
       console.log(error)
     }

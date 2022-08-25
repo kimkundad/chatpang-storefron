@@ -59,7 +59,7 @@ const Index = () => {
       discount: 0,
       net: pack[0].price,
     }
-    console.log(userOrder)
+    // console.log(userOrder)
     try {
       const res = await axios.post(`/public/orders`, userOrder, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
@@ -70,22 +70,7 @@ const Index = () => {
     } catch (error) {
       console.log(error)
     }
-
-    // await setUserData({ ...user, package: pack[0] })
   }
-  // const getFacebookUserData = async () => {
-  //   try {
-  //     const res = await axios.get(`/public/facebook-users/${user.userId}`)
-  //     console.log(res.data)
-  //     const { facebook_id } = res.data.data
-  //     await setUserData({ ...user, user: res.data.data, facebookUserId: facebook_id })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // useEffect(() => {
-  //   user.userId && getFacebookUserData()
-  // }, [])
   useEffect(() => {
     getPackages()
   }, [])
