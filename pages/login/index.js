@@ -43,7 +43,12 @@ const Login = () => {
       if (data?.order !== null) {
         //* to check user make payment yet 
         if (data.order?.state === 'paid') {
-          res.data.access_token && router.replace('/user/manage')
+          //* to check user get auth pages by facebook yet
+          if (data?.pages === 0) {
+            res.data.access_token && router.replace('/user/info/pagemanagement')
+          } else {
+            res.data.access_token && router.replace('/user/manage')
+          }
         } else {
           res.data.access_token && router.replace('/user/payment/paymentoptions')
         }
