@@ -35,23 +35,23 @@ const QRcode = () => {
   }
 
   const onNext = async () => {
-    // try {
-    //   const res = await axios.get(`/public/facebook-users/${user.user.id}`)
-    //   // console.log(res.data.data)
-    //   //* check payment status
-    //   if (res.data.data.purchases !== 0) {
-    //     setUserData({
-    //       ...user,
-    //       user: res.data.data,
-    //     })
-    //     router.push('/user/payment/confirmorder')
-    //   } else {
-    //     setIsPending(true)
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    // }
-    router.push('/user/payment/confirmorder')
+    try {
+      const res = await axios.get(`/public/facebook-users/${user.user.id}`)
+      // console.log(res.data.data)
+      //* check payment status
+      if (res.data.data.purchases !== 0) {
+        setUserData({
+          ...user,
+          user: res.data.data,
+        })
+        router.push('/user/payment/confirmorder')
+      } else {
+        setIsPending(true)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    // router.push('/user/payment/confirmorder')
   }
 
   const RenderQRCode = () => {

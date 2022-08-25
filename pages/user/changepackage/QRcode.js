@@ -48,7 +48,7 @@ const QRcode = () => {
     } catch (error) {
       console.log(error)
     }
-    router.push('/user/changepackage/confirmorder')
+    // router.push('/user/changepackage/confirmorder')
   }
   const RenderQRCode = () => {
     if (qrcode) {
