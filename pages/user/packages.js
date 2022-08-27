@@ -5,14 +5,13 @@ import Stepper from '../../components/Stepper'
 import CardPrice from '../../components/CardPrice'
 import axios from '../api/axios'
 import useUser from '../../Hooks/useUser'
+import moment from 'moment'
 const Packages = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [selected, setSelected] = useState(0)
   const [data, setData] = useState([])
   const [isError, setIsError] = useState(false)
-
-  console.log(user);
 
   function setSelectedPackage(id) {
     if (selected === id) {
@@ -42,13 +41,14 @@ const Packages = () => {
   const onNext = async () => {
     const pack = data.filter((item) => item.id === selected)
     // user.package = pack[0].item
-    const date = new Date()
+    // const date = new Date()
     //create Order
     const userOrder = {
       facebookUser: user.user.id,
       payment: {
         amount: pack[0].price,
-        paidDate: date.toLocaleDateString(),
+        // paidDate: date.toLocaleDateString(),
+        paidDate: moment().format("DD/MM/YYYY"),
         channel: 'GBPrimePay',
       },
       package: {
