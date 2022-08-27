@@ -47,8 +47,9 @@ const Packages = () => {
       facebookUser: user.user.id,
       payment: {
         amount: pack[0].price,
+        paidDate: date.toLocaleDateString(),
         // paidDate: date.toLocaleDateString(),
-        paidDate: moment().format("DD/MM/YYYY"),
+        paidDate: moment(),
         channel: 'GBPrimePay',
       },
       package: {
