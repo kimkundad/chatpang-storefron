@@ -34,12 +34,13 @@ const Pagemanagement = () => {
     // return user?.user.status === 'inactive'
   }
 
-  const onDeletePage = (id) => {
+  const onDeletePage = async (id) => {
     try {
-      const res = axios.delete(`/public/facebook-pages/${id}`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      const res = await axios.delete(`/public/facebook-pages/${id}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` }
       })
       console.log(res);
+      getPurchaseData()
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +142,7 @@ const Pagemanagement = () => {
             </div>
           </div>
           <div className="col-12">
-            {user?.user?.pages !== 0 ? (
+            {/* {user?.user?.pages !== 0 ? ( */}
               <Button
                 style={{ fontSize: '1.5rem', height: 'fit-content', width: '190px' }}
                 className="my-4 d-flex justify-content-center align-items-center"
@@ -152,7 +153,7 @@ const Pagemanagement = () => {
               >
                 เพิ่มหรือลบเพจ
               </Button>
-            ) : (
+            {/* ) : (
               <Button
                 style={{ fontSize: '1.5rem', height: 'fit-content', width: 'auto' }}
                 className="my-4 d-flex justify-content-center align-items-center"
@@ -162,7 +163,7 @@ const Pagemanagement = () => {
               >
                 ขออนุญาตเข้าถึงเพจจาก Facebook
               </Button>
-            )}
+            )} */}
           </div>
           <span className="text-secondary fs-5">กดเลือกเพจทำการตั้งค่าการตอบคอมเม้นต์ และดึงคอมเม้นต์เข้า inbox</span>
         </div>
