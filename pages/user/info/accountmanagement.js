@@ -55,7 +55,7 @@ const Accountmanagement = () => {
 
   return (
     <div className='page-wrapper'>
-      <div className='content ' style={{margin:"0 150px"}}>
+      <div className='content'>
           <Tabs size='large' defaultActiveKey='1'>
               <TabPane tab="รายละเอียดสมาชิก" key="1">
                 <MemberDetails />

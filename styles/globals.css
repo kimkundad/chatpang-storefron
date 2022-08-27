@@ -1534,6 +1534,9 @@ custom button
 /*-------------
 	invoice
 --------------*/
+.content{
+  margin: 0 10vw;
+}
 .invoice-item {
   width: 50%;
   /* height: 300px; */
@@ -1924,6 +1927,9 @@ Upload
   }
   .invoice-item {
     width: 80%;
+  }
+  .content{
+    margin: 0 4vw;
   }
   .cardContainer {
     min-height: 0px;

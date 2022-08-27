@@ -11,6 +11,9 @@ const Packages = () => {
   const [selected, setSelected] = useState(0)
   const [data, setData] = useState([])
   const [isError, setIsError] = useState(false)
+
+  console.log(user);
+
   function setSelectedPackage(id) {
     if (selected === id) {
       setSelected(0)

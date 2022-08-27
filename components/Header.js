@@ -223,6 +223,7 @@ const Header = () => {
               setCurrent('')
               router.push('/')
             }}
+            disabled={router.pathname.includes('/user')}
             className="navbar-brand-cus"
           >
             <div style={{ width: '30vw' }} className="d-md-block d-none">
