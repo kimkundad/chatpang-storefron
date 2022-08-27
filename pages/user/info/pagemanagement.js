@@ -33,6 +33,18 @@ const Pagemanagement = () => {
     setIsAddAble(1 < user?.user?.pages)
     // return user?.user.status === 'inactive'
   }
+
+  const onDeletePage = (id) => {
+    try {
+      const res = axios.delete(`/public/facebook-pages/${id}`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      })
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
   const column = [
     {
       title: <strong className="fs-4">เพจของคุณ ({data?.length})</strong>,
@@ -52,6 +64,12 @@ const Pagemanagement = () => {
       key: 'tasks',
       render: (text) => <p className="fs-5">{text.length}</p>,
     },
+    {
+      title: <strong className="fs-4">จัดการ</strong>,
+      dataIndex: 'id',
+      key: 'id',
+      render: (text) => <p onClick={()=>onDeletePage(text)} className="fs-5 text-danger">ลบ</p>,
+    },
   ]
 
   const getAuthPages = () => {
@@ -62,6 +80,8 @@ const Pagemanagement = () => {
 
   const onAddPage = () => {
     console.log("add pages");
+    router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+
   }
   // console.log(user);
 
@@ -82,7 +102,7 @@ const Pagemanagement = () => {
       const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      // console.log(res3.data);
+      console.log(res4.data);
       await setUserData({
         ...user,
         order: res2.data.data,
