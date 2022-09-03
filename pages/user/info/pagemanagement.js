@@ -59,17 +59,17 @@ const Pagemanagement = () => {
       key: 'comments',
       render: (text) => <p className="fs-5">{text}</p>,
     },
-    {
-      title: <strong className="fs-4">เงื่อนไขทั้งหมด</strong>,
-      dataIndex: 'tasks',
-      key: 'tasks',
-      render: (text) => <p className="fs-5">{text.length}</p>,
-    },
+    // {
+    //   title: <strong className="fs-4">เงื่อนไขทั้งหมด</strong>,
+    //   dataIndex: 'tasks',
+    //   key: 'tasks',
+    //   render: (text) => <p className="fs-5">{text.length}</p>,
+    // },
     {
       title: <strong className="fs-4">จัดการ</strong>,
       dataIndex: 'id',
       key: 'id',
-      render: (text) => <p onClick={()=>onDeletePage(text)} className="fs-5 text-danger">ลบ</p>,
+      render: (text) => <p style={{cursor:'pointer'}} onClick={()=>onDeletePage(text)} className="fs-5 text-danger">ลบ</p>,
     },
   ]
 

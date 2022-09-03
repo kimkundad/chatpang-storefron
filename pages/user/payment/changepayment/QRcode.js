@@ -22,7 +22,7 @@ const QRcode = () => {
             <Image src={QRCode} alt="qrcode" />
             <div className='text-end'>
               <button onClick={() => router.back}>ย้อนกลับ</button>
-              <button className='ms-2' onClick={() => router.push('/user/payment/confirmorder')}>ต่อไป</button>
+              <button className='ms-2' onClick={() => router.push('/user/changepayment/confirmorder')}>ต่อไป</button>
             </div>
           </div>
         </div>
