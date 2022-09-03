@@ -10,7 +10,7 @@ const Login = () => {
 
   console.log(userId);
   if (typeof window !== 'undefined') {
-    if (userId !== undefined) {
+    if (userId) {
       localStorage.setItem('userId', userId)
       // id = userId
     } else {
