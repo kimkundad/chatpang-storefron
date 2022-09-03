@@ -2,7 +2,7 @@ const path = require('path')
 
 let id = ''
 if (typeof window !== 'undefined') {
- id = localStorage.setItem('userId', userId)
+ id = localStorage.getItem('userId')
 }
 
 /** @type {import('next').NextConfig} */

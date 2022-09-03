@@ -8,6 +8,7 @@ const Login = () => {
   const { user, setUserData } = useUser()
   let userId = router.query.fb
 
+  console.log(userId);
   if (typeof window !== 'undefined') {
     if (userId !== undefined) {
       localStorage.setItem('userId', userId)
