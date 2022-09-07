@@ -103,7 +103,7 @@ const Pagemanagement = () => {
       const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      console.log(res4.data);
+      // console.log(res4.data);
       await setUserData({
         ...user,
         order: res2.data.data,
@@ -149,7 +149,7 @@ const Pagemanagement = () => {
                 type="primary"
                 icon={<SettingOutlined />}
                 onClick={() => onAddPage()}
-                disabled={isAddAble}
+                // disabled={isAddAble}
               >
                 เพิ่มหรือลบเพจ
               </Button>

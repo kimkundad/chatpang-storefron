@@ -304,7 +304,7 @@ main section
 -----------------------*/
 
 .sidebar {
-  background-color: var(--mainCWhite);
+  /* background-color: var(--mainCWhite); */
   /* bottom: 0; */
   left: 0;
   /* margin-top: 5px; */
@@ -315,7 +315,7 @@ main section
   height: 100vh;
   z-index: 1;
   /* border-top-right-radius: 20px; */
-  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.2);
   overflow-y: hidden;
 }
 .sidebar.open {
@@ -409,10 +409,10 @@ main section
 .ant-tabs-tab-btn {
   font-size: 2vw;
 }
-.ant-table-cell strong{
+.ant-table-cell strong {
   font-size: 1.5vw !important;
 }
-.ant-table-cell span{
+.ant-table-cell span {
   font-size: 1.5vw !important;
 }
 
@@ -462,7 +462,8 @@ Landing
 #review,
 #questions,
 #packages,
-#contract {
+#contract,
+.page-wrapper {
   /* min-height: 900px; */
   min-height: 100vh;
   /* height: 900px; */
@@ -1021,7 +1022,7 @@ table.table td h2 span {
   align-items: center;
   justify-content: space-between;
 }
-.navbar-brand-cus{
+.navbar-brand-cus {
   width: 30%;
 }
 .navActive {
@@ -1123,7 +1124,7 @@ table.table td h2 span {
   display: grid;
   place-items: center;
 }
-.uploadIMG img{
+.uploadIMG img {
   max-width: 90%;
   max-height: 90%;
   /* object-fit: contain; */
@@ -1327,10 +1328,10 @@ table.table td h2 span {
   border-radius: 10px;
   width: 100%;
 }
-.qrcode-title{
+.qrcode-title {
   font-size: 3vw;
 }
-.qrcode-title{
+.qrcode-title {
   font-size: 2vw;
 }
 /*------------
@@ -1534,7 +1535,7 @@ custom button
 /*-------------
 	invoice
 --------------*/
-.content{
+.content {
   margin: 0 10vw;
 }
 .invoice-item {
@@ -1604,13 +1605,13 @@ QA container
   position: absolute;
   left: 0;
 }
-.contact-us{
+.contact-us {
   padding-left: 240px;
   min-height: 60vh;
-  font-size: clamp(1.5rem,5vw, 2rem);
+  font-size: clamp(1.5rem, 5vw, 2rem);
 }
-.contact-us h2{
-  font-size: clamp(2rem,5vw, 3rem);
+.contact-us h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
 }
 /*------------
 FOOTER
@@ -1748,7 +1749,7 @@ Upload
   .a-container {
     font-size: 1.5vw;
   }
-  .qrcode-title{
+  .qrcode-title {
     font-size: 2vw;
   }
 }
@@ -1768,7 +1769,7 @@ Upload
   .a-container {
     font-size: 1.5vw;
   }
-  .qrcode-title{
+  .qrcode-title {
     font-size: 3vw;
   }
 }
@@ -1815,14 +1816,14 @@ Upload
   .function-containers {
     min-height: 200px;
   }
-  .qrcode-title{
+  .qrcode-title {
     font-size: 5vw;
   }
-  .qrcode-details{
+  .qrcode-details {
     font-size: 5vw;
   }
   .sidebar {
-    top: 8vw;  
+    top: 8vw;
   }
 }
 @media (max-width: 767.98px) {
@@ -1928,7 +1929,7 @@ Upload
   .invoice-item {
     width: 80%;
   }
-  .content{
+  .content {
     margin: 0 4vw;
   }
   .cardContainer {
@@ -1994,11 +1995,11 @@ Upload
     padding: 0 16px;
   }
   .sidebar {
-    top: 10vw;  
+    top: 10vw;
   }
 }
 @media (max-width: 575.98px) {
-  .page-wrapper{
+  .page-wrapper {
     min-height: 95vh;
   }
   .page-header .breadcrumb {

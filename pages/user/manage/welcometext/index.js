@@ -92,7 +92,6 @@ const Welcometext = () => {
   const renderTable = () => {
     return data.map((item, index) => {
       return (
-        // item?.status && (
         <tr key={index}>
           <td>
             <input
@@ -116,7 +115,6 @@ const Welcometext = () => {
     })
   }
   const getReceptionList = async () => {
-    //id from facebookUserId
     try {
       const res = await axios.get(`/greeting-messages/${user?.user?.id}/facebook-user`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
@@ -169,7 +167,6 @@ const Welcometext = () => {
                 <FontAwesomeIcon className="me-2" icon={faCopy} />
                 สร้างซ้ำ
               </span>
-              {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
               <span
                 style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onDelete}

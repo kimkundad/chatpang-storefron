@@ -63,7 +63,7 @@ const Sidebar = () => {
         <div className="sidebar-inner">
           <div className="sidebar-menu">
             {Object.values(packageInfo).length === 0 ? (
-              <div className="text-center">NO DATA</div>
+              <div className="sidePackageInfo"><p className='m-auto' >ไม่มีข้อมูล</p></div>
             ) : (
               <div className="sidePackageInfo">
                 <div style={{ color: 'black' }} className="sidePackage-title">

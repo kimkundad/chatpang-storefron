@@ -13,48 +13,9 @@ const Replykeyword = () => {
   const { user, setUserData } = useUser()
   const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
   const [itemList, setItemList] = useState([])
-  const [data, setData] = useState([
-    {
-      id: '62ab6378d8f80aaaa505458b',
-      keywords: ['Hello', 'Makewebbkk'],
-      messages: ['Hello', 'Makewebbkk'],
-      images: ['https://makewebbkk.com', 'https://makewebbkk.com'],
-      name: 'Test Auto Replies',
-      facebook_user: '62ab6378d8f80aaaa505458b',
-      status: 'active',
-      created_at: '2022-06-16T17:08:08.520+00:00',
-      updated_at: '2022-06-16T17:08:08.520+00:00',
-      updated_by: {
-        id: '62ab59d8ff4000fa83fe982d',
-        username: 'testAdmin01',
-      },
-      created_by: {
-        id: '62ab59d8ff4000fa83fe982d',
-        username: 'testAdmin01',
-      },
-    },
-    {
-      id: '62ab6378d8f80aaaa505457a',
-      keywords: ['Hello', 'Makewebbkk'],
-      messages: ['Hello', 'Makewebbkk'],
-      images: ['https://makewebbkk.com', 'https://makewebbkk.com'],
-      name: 'Test 2 Auto Replies',
-      facebook_user: '62ab6378d8f80aaaa505458b',
-      status: 'active',
-      created_at: '2022-06-16T17:08:08.520+00:00',
-      updated_at: '2022-06-16T17:08:08.520+00:00',
-      updated_by: {
-        id: '62ab59d8ff4000fa83fe982d',
-        username: 'testAdmin01',
-      },
-      created_by: {
-        id: '62ab59d8ff4000fa83fe982d',
-        username: 'testAdmin01',
-      },
-    },
-  ])
+  const [data, setData] = useState([])
   const [isCheckAll, setIsCheckAll] = useState(false)
-  
+
   const onEdit = (id) => {
     router.push(
       { pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id } },
@@ -66,9 +27,9 @@ const Replykeyword = () => {
     setIsCheckAll(false)
     const newId = e.target.name
     if (itemList.indexOf(newId) === -1) {
-       setItemList([...itemList, newId])
+      setItemList([...itemList, newId])
     } else {
-       setItemList((prev) => prev.filter((value) => value !== newId))
+      setItemList((prev) => prev.filter((value) => value !== newId))
     }
   }
   //* check user status
@@ -94,7 +55,6 @@ const Replykeyword = () => {
         // console.log(res.data)
         setData([...data, res.data.data])
         // setData([...data, copyData])
-
       }
       setItemList([])
     } catch (error) {
@@ -142,9 +102,13 @@ const Replykeyword = () => {
 
   const setStatusActive = async (id) => {
     try {
-      const res = await axios.patch(`/auto-replies/${id}/active`,{id:id}, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
-      })
+      const res = await axios.patch(
+        `/auto-replies/${id}/active`,
+        { id: id },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        }
+      )
       return res.data.data
     } catch (error) {
       console.log(error)
@@ -153,9 +117,13 @@ const Replykeyword = () => {
 
   const setStatusInActive = async (id) => {
     try {
-      const res = await axios.patch(`/auto-replies/${id}/inactive`,{id:id}, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
-      })
+      const res = await axios.patch(
+        `/auto-replies/${id}/inactive`,
+        { id: id },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        }
+      )
       return res.data.data
     } catch (error) {
       console.log(error)
@@ -179,38 +147,37 @@ const Replykeyword = () => {
   const renderTable = () => {
     return data.map((item, index) => {
       return (
-          <tr key={index}>
-            <td>
-              <input
-                type="checkbox"
-                name={item?.id}
-                checked={itemList.includes(item?.id)}
-                onClick={(e) => onChecked(e)}
-              />
-            </td>
-            <td>
-              <span>{item?.status}</span>
-              <Form.Check
-                type="switch"
-                checked={item?.status === 'active'}
-                // label={item.status}
-                onClick={() => onChangeStatus(index, item)}
-              />
-            </td>
-            <td>{item?.name}</td>
-            <td>
-              <div>
-                <span onClick={() => onEdit(item.id)} className="userEditButton">
-                  แก้ไข
-                </span>
-              </div>
-            </td>
-          </tr>
+        <tr key={index}>
+          <td>
+            <input
+              type="checkbox"
+              name={item?.id}
+              checked={itemList.includes(item?.id)}
+              onClick={(e) => onChecked(e)}
+            />
+          </td>
+          <td>
+            <span>{item?.status}</span>
+            <Form.Check
+              type="switch"
+              checked={item?.status === 'active'}
+              // label={item.status}
+              onClick={() => onChangeStatus(index, item)}
+            />
+          </td>
+          <td>{item?.name}</td>
+          <td>
+            <div>
+              <span onClick={() => onEdit(item.id)} className="userEditButton">
+                แก้ไข
+              </span>
+            </div>
+          </td>
+        </tr>
       )
     })
   }
 
-  
   const getKeywordsList = async () => {
     //id from pageId
     try {

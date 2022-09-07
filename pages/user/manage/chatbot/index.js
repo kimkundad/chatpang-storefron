@@ -118,7 +118,6 @@ const Chatbot = () => {
     // console.log(id)
     let temp = [...data]
     // console.log(item);
-    // temp[index].status = status ? 'inactive' : 'active'
     temp[index] = item.status === "active" ? await setStatusInActive(item.id) : await setStatusActive(item.id)
     setData(temp)
   }
@@ -219,7 +218,6 @@ const Chatbot = () => {
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
               <span
-                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={() => router.push({ pathname: `${router.pathname}/create-bot`, query: { pageId: pageID } })}
                 className="userButton"
               >
@@ -227,16 +225,13 @@ const Chatbot = () => {
                 สร้างแคมเปญ
               </span>
               <span
-                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onCopy}
                 className="userButton"
               >
                 <FontAwesomeIcon className="me-2" icon={faCopy} />
                 สร้างซ้ำ
               </span>
-              {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
               <span
-                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onDelete}
                 className="userButton"
               >

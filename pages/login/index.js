@@ -6,9 +6,7 @@ import axios from '../api/axios'
 const Login = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  let userId = router.query.fb
-
-  console.log(userId);
+  let userId = router.query.facebookUserId
   if (typeof window !== 'undefined') {
     if (userId) {
       localStorage.setItem('userId', userId)

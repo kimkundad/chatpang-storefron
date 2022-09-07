@@ -33,6 +33,7 @@ const Manuel = () => {
                     muted={true}
                     className='w-auto my-4'
                     />
+                    
                   </div>
                 </div>
               {/* </div> */}
