@@ -6,7 +6,7 @@ import axios from '../api/axios'
 const Login = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  let userId = router.query.facebookUserId
+  let userId = router.query.fb
   if (typeof window !== 'undefined') {
     if (userId) {
       localStorage.setItem('userId', userId)
@@ -37,7 +37,7 @@ const Login = () => {
       if (!res.data.access_token) {
         router.replace('/')
       }
-      // console.log(data.order)
+      console.log(data.order)
       //*To check that user create order yet 
       if (data?.order !== null) {
         //* to check user make payment yet 
@@ -60,6 +60,7 @@ const Login = () => {
     }
   }
 
+  console.log(userId);
   const getFacebookUserData = async (cb) => {
     try {
       const res = await axios.get(`/public/facebook-users/${userId}`)
@@ -74,7 +75,7 @@ const Login = () => {
     // !userId && router.replace('/')
   }, [userId])
 
-  return <div className="nosidebar-wrapper text-center">ระบกำลัง redirect ไปที่หน้าการจัดการ</div>
+  return <div className="nosidebar-wrapper text-center">ระบบกำลัง redirect ไปที่หน้าการจัดการ</div>
 }
 
 export default Login
