@@ -60,7 +60,6 @@ const Login = () => {
     }
   }
 
-  console.log(userId);
   const getFacebookUserData = async (cb) => {
     try {
       const res = await axios.get(`/public/facebook-users/${userId}`)
@@ -72,7 +71,6 @@ const Login = () => {
   }
   useEffect(() => {
     userId !== undefined && userId !== null && getFacebookUserData(login)
-    // !userId && router.replace('/')
   }, [userId])
 
   return <div className="nosidebar-wrapper text-center">ระบบกำลัง redirect ไปที่หน้าการจัดการ</div>

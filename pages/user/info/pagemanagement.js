@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Table } from 'antd'
+import { Button } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
 import axios from '../../api/axios'
 import useUser from '../../../Hooks/useUser'
+import { Table, Form, ToastContainer } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import CusToasts from '../../../components/CusToasts'
 
 const Pagemanagement = () => {
   const router = useRouter()
@@ -11,6 +15,11 @@ const Pagemanagement = () => {
   const [isAddAble, setIsAddAble] = useState(true)
   const { user, setUserData } = useUser()
   const [quotaInfo, setQuotaInfo] = useState({})
+
+  const [show, setShow] = useState(false)
+  const [toastData, setToastData] = useState({ type: 'Light', text: '' })
+  const toggleShow = () => setShow(!show)
+
   // const facebookUserId = router.query.fb
   // console.log(user)
   const getQuotaInfo = async () => {
@@ -37,52 +46,18 @@ const Pagemanagement = () => {
   const onDeletePage = async (id) => {
     try {
       const res = await axios.delete(`/public/facebook-pages/${id}`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` }
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res);
+      console.log(res)
       getPurchaseData()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-    
-  }
-  const column = [
-    {
-      title: <strong className="fs-4">เพจของคุณ ({data?.length})</strong>,
-      dataIndex: 'name',
-      key: 'name',
-      render: (text) => <p className="fs-5">{text}</p>,
-    },
-    {
-      title: <strong className="fs-4">คอมเม้นต์</strong>,
-      dataIndex: 'comments',
-      key: 'comments',
-      render: (text) => <p className="fs-5">{text}</p>,
-    },
-    // {
-    //   title: <strong className="fs-4">เงื่อนไขทั้งหมด</strong>,
-    //   dataIndex: 'tasks',
-    //   key: 'tasks',
-    //   render: (text) => <p className="fs-5">{text.length}</p>,
-    // },
-    {
-      title: <strong className="fs-4">จัดการ</strong>,
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <p style={{cursor:'pointer'}} onClick={()=>onDeletePage(text)} className="fs-5 text-danger">ลบ</p>,
-    },
-  ]
-
-  const getAuthPages = () => {
-    console.log('click')
-    // window.open('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
-    router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
   }
 
   const onAddPage = () => {
-    console.log("add pages");
+    console.log('add pages')
     router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
-
   }
   // console.log(user);
 
@@ -103,7 +78,7 @@ const Pagemanagement = () => {
       const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      // console.log(res4.data);
+      console.log(res4.data)
       await setUserData({
         ...user,
         order: res2.data.data,
@@ -118,16 +93,95 @@ const Pagemanagement = () => {
       console.log(error)
     }
   }
+  const renderTable = () => {
+    return data.map((item, index) => {
+      return (
+        <tr key={index}>
+          <td className="text-center">
+            <span>{item?.status}</span>
+            <Form.Check
+              type="switch"
+              checked={item?.status === 'active'}
+              // label={item.status}
+              onClick={() => onChangeStatus(index, item)}
+            />
+          </td>
+          <td>{item?.name}</td>
+          {/* <td>{item?.name}</td> */}
+          <td>
+            <div>
+              {/* <span onClick={() => onDeletePage(item.id)} className="userEditButton"> */}
+              <FontAwesomeIcon style={{ cursor: 'pointer' }} className="text-danger" icon={faTrash} />
+              {/* </span> */}
+            </div>
+          </td>
+        </tr>
+      )
+    })
+  }
+
+  const onChangeStatus = async (index, item) => {
+    // console.log(id)
+    let temp = [...data]
+    // temp[index].status = status ? 'inactive' : 'active'
+    temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id)
+    setData(temp)
+  }
+
+  const setStatusActive = async (id) => {
+    try {
+      const res = await axios.patch(
+        `/public/facebook-pages/${id}/active`,
+        { id: id },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        }
+      )
+      setToastData({ type: 'Light', text: 'อัพเดตสถานะเป็น active' })
+      toggleShow()
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+      setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' })
+    }
+  }
+
+  const setStatusInActive = async (id) => {
+    try {
+      const res = await axios.patch(
+        `/public/facebook-pages/${id}/inactive`,
+        { id: id },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        }
+      )
+      setToastData({ type: 'Light', text: 'อัพเดตสถานะเป็น Inactive' })
+      toggleShow()
+      return res.data.data
+    } catch (error) {
+      console.log(error)
+      setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' })
+    }
+  }
 
   useEffect(() => {
-    getQuotaInfo()
-    getPurchaseData()
+    let isCancel = false
+    if (!isCancel) {
+      getQuotaInfo()
+      getPurchaseData()
+    }
+    return () => {
+      isCancel = true
+    }
   }, [])
   return (
     <div className="page-wrapper">
-      <div className="content" style={{ margin: '0 150px' }}>
+      <div className="content">
         <div className="row">
           <div className="col-12">
+            <ToastContainer position="top-end" className="toast-container">
+              <CusToasts show={show} toggleShow={toggleShow} type={toastData.type} text={toastData.text} />
+            </ToastContainer>
             <div className="numberComment d-flex flex-column justify-content-center align-items-center">
               {quotaInfo ? (
                 <>
@@ -143,16 +197,16 @@ const Pagemanagement = () => {
           </div>
           <div className="col-12">
             {/* {user?.user?.pages !== 0 ? ( */}
-              <Button
-                style={{ fontSize: '1.5rem', height: 'fit-content', width: '190px' }}
-                className="my-4 d-flex justify-content-center align-items-center"
-                type="primary"
-                icon={<SettingOutlined />}
-                onClick={() => onAddPage()}
-                // disabled={isAddAble}
-              >
-                เพิ่มหรือลบเพจ
-              </Button>
+            <Button
+              style={{ fontSize: '1.5rem', height: 'fit-content', width: '190px' }}
+              className="my-4 d-flex justify-content-center align-items-center"
+              type="primary"
+              icon={<SettingOutlined />}
+              onClick={() => onAddPage()}
+              // disabled={isAddAble}
+            >
+              เพิ่มหรือลบเพจ
+            </Button>
             {/* ) : (
               <Button
                 style={{ fontSize: '1.5rem', height: 'fit-content', width: 'auto' }}
@@ -169,7 +223,18 @@ const Pagemanagement = () => {
         </div>
         <div className="row">
           <div className="table-responsive">
-            <Table dataSource={data} columns={column} bordered />
+            {/* <Table dataSource={data} columns={column} bordered /> */}
+            <Table bordered>
+              <thead>
+                <tr>
+                  <th className="text-center">สถานะ</th>
+                  <th>เพจของคุณ ({data?.length})</th>
+                  {/* <th>คอมเม้นต์</th> */}
+                  <th>จัดการ</th>
+                </tr>
+              </thead>
+              <tbody>{renderTable()}</tbody>
+            </Table>
           </div>
         </div>
       </div>

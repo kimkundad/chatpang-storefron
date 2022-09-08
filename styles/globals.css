@@ -235,6 +235,13 @@ main section
   border: none !important;
   color: #000 !important;
 }
+.toast-container{
+  margin-top: 7vw;
+  margin-right: 1.5vw;
+}
+.toast-content{
+  font-size: clamp(1rem, calc(1rem, 5vw), 2rem);
+}
 /*-----------------
 	Tags-input
 -----------------------*/
@@ -790,7 +797,7 @@ function section
   /* min-height: 756px; */
   min-height: calc(100vh - 144px);
 
-  padding: 140px 0 80px 0;
+  /* padding: 140px 0 80px 0; */
   position: relative;
   transition: all 0.4s ease;
   font-size: min(1.5rem, 3vw);
@@ -1825,6 +1832,10 @@ Upload
   .sidebar {
     top: 8vw;
   }
+  .toast-container{
+    margin-top: 10vw;
+    margin-right: 1.5vw;
+  }
 }
 @media (max-width: 767.98px) {
   body {
@@ -1996,6 +2007,18 @@ Upload
   }
   .sidebar {
     top: 10vw;
+  }
+  .toast-container{
+    margin-top: 14vw;
+    margin-right: 1.5vw;
+  }
+  .numberComment {
+    padding: 14px;
+    width: 120px;
+    height: 120px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 10px;
   }
 }
 @media (max-width: 575.98px) {
