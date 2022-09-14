@@ -37,7 +37,7 @@ const Login = () => {
       if (!res.data.access_token) {
         router.replace('/')
       }
-      console.log(data.order)
+      // console.log(data.order)
       //*To check that user create order yet 
       if (data?.order !== null) {
         //* to check user make payment yet 

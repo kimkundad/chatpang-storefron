@@ -48,7 +48,7 @@ const Pagemanagement = () => {
       const res = await axios.delete(`/public/facebook-pages/${id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
-      console.log(res)
+      // console.log(res)
       getPurchaseData()
     } catch (error) {
       console.log(error)
@@ -78,7 +78,7 @@ const Pagemanagement = () => {
       const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
         headers: { Authorization: 'Bearer ' + user?.accessToken },
       })
-      console.log(res4.data)
+      // console.log(res4.data)
       await setUserData({
         ...user,
         order: res2.data.data,
@@ -111,7 +111,7 @@ const Pagemanagement = () => {
           <td>
             <div>
               {/* <span onClick={() => onDeletePage(item.id)} className="userEditButton"> */}
-              <FontAwesomeIcon style={{ cursor: 'pointer' }} className="text-danger" icon={faTrash} />
+              <FontAwesomeIcon onClick={() => onDeletePage(item.id)} style={{ cursor: 'pointer' }} className="text-danger" icon={faTrash} />
               {/* </span> */}
             </div>
           </td>
