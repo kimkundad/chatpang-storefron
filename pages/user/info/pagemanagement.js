@@ -48,10 +48,14 @@ const Pagemanagement = () => {
       const res = await axios.delete(`/public/facebook-pages/${id}`, {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
+      setToastData({ type: 'Light', text: 'ลบเรียบร้อย' })
+      toggleShow()
       // console.log(res)
       getPurchaseData()
     } catch (error) {
       console.log(error)
+      setToastData({ type: 'Danger', text: 'ลบไม่สำเร็จ' })
+      toggleShow()
     }
   }
 
@@ -143,6 +147,7 @@ const Pagemanagement = () => {
     } catch (error) {
       console.log(error)
       setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' })
+      toggleShow()
     }
   }
 
@@ -161,6 +166,7 @@ const Pagemanagement = () => {
     } catch (error) {
       console.log(error)
       setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' })
+      toggleShow()
     }
   }
 
