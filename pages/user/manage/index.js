@@ -55,7 +55,7 @@ const Index = () => {
   const renderData = () => {
     return data.map((item, index) => {
       return (
-        <tr key={index}>
+        item?.status ==="active"&&<tr key={index}>
           <td>{item.name}</td>
           <td>
             <input
