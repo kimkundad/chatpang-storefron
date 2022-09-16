@@ -26,7 +26,7 @@ const Register = () => {
       facebookId: facebookUserId,
       email: email,
       name: name,
-      tel: phoneno,
+      tel: phoneno.toString(),
       note: note,
       picture: imageURL,
     }
