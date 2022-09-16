@@ -119,7 +119,10 @@ const QRcode = () => {
             {isDuplicate ? (
               <button onClick={() => router.replace('/user/packages')}>ไปหน้าเลือกแพ็คเกจ</button>
             ) : (
+              <>
               <button onClick={() => onSubmit()}>สร้าง QR CODE</button>
+              <button onClick={() => router.replace('/user/info/pagemanagement')}>SKIP FOR TEST USER</button>
+              </>
             )}
           </div>
         </div>

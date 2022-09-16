@@ -13,7 +13,8 @@ const Register = () => {
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [phoneno, setPhoneno] = useState('')
+  //*Added for test by facebook
+  const [phoneno, setPhoneno] = useState('0812345678')
   const [note, setNote] = useState('')
   const [facebookUserId, setFacebookUserId] = useState('')
   const [imageURL, setImageURL] = useState(undefined)
@@ -147,6 +148,9 @@ const Register = () => {
                 required
               />
             </div>
+          </div>
+          <div className='row'>
+            <span className='mx-auto text-center text-danger'>For test user please click &quot;ลงทะเบียน&quot; button without input anything</span>
           </div>
           <div className="registerBtnContainer row justify-content-center mt-5 mx-auto">
             <div className="col-lg-12 d-flex justify-content-center">
