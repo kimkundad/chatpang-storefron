@@ -8,7 +8,7 @@ import useUser from '../../../Hooks/useUser'
 import axios from '../../api/axios'
 
 const Paymentoptions = () => {
-  const router = useRouter()
+  // const router = useRouter()
   const { user, setUserData } = useUser()
   const [method, setMethod] = useState(true) //false = credit, true= qrcode
   const onChangeMethod = (e) => {

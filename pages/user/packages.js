@@ -40,15 +40,11 @@ const Packages = () => {
 
   const onNext = async () => {
     const pack = data.filter((item) => item.id === selected)
-    // user.package = pack[0].item
-    // const date = new Date()
-    //create Order
+
     const userOrder = {
       facebookUser: user.user.id,
       payment: {
         amount: pack[0].price,
-        // paidDate: date.toLocaleDateString(),
-        // paidDate: date.toLocaleDateString(),
         paidDate: moment(),
         channel: 'GBPrimePay',
       },
@@ -64,7 +60,7 @@ const Packages = () => {
       discount: 0,
       net: pack[0].price,
     }
-    console.log(userOrder)
+    // console.log(userOrder)
     try {
       const res = await axios.post(`/public/orders`, userOrder, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
