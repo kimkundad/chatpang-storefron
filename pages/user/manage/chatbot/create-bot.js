@@ -69,7 +69,7 @@ const Createbot = () => {
     }
     try {
       const res = await axios.post('/campaigns', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } })
-      console.log(res.data)
+      // console.log(res.data)
       setIsSuccess({
         show: true,
         isSuccess: true,

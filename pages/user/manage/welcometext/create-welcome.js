@@ -21,7 +21,7 @@ const CreateWelcome = () => {
   const { user } = useUser()
   const [pageID, setPageID] = useState(router.query.pageId)
   const { TextArea } = Input
-// console.log(pageID);
+  // console.log(pageID);
   const [campaignName, setCampaignName] = useState('')
   const [details, setDetails] = useState([''])
   //*check status
@@ -45,11 +45,15 @@ const CreateWelcome = () => {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
-      //set Id for publish 
+      //set Id for publish
       const greetingId = res.data.data.id
-      const res1 = await axios.post(`/greeting-messages/${greetingId}/publish`,{id:greetingId}, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` },
-      })
+      const res1 = await axios.post(
+        `/greeting-messages/${greetingId}/publish`,
+        { accessToken: user?.accessToken },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        }
+      )
       setIsSuccess({
         show: true,
         isSuccess: true,
@@ -122,7 +126,7 @@ const CreateWelcome = () => {
   const onHandleChangeDetail = async (e, index) => {
     let temArr = [...details]
     // if (temArr[index].type === 'text') {
-      temArr[index] = e.target.value
+    temArr[index] = e.target.value
     // } else {
     //   const file = e.target.files[0]
     //   console.log(file)
@@ -149,55 +153,57 @@ const CreateWelcome = () => {
   // }
   const onClickNext = (index) => {
     // console.log(inputRef[index].current)
-    index + 1 <= Object.values(inputRef).length - 1 &&inputRef[index + 1].current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'end',
-    })
+    index + 1 <= Object.values(inputRef).length - 1 &&
+      inputRef[index + 1].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'end',
+      })
   }
   const onClickPrev = (index) => {
-    index - 1 >= 0 &&inputRef[index - 1].current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'start',
-    })
+    index - 1 >= 0 &&
+      inputRef[index - 1].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'start',
+      })
   }
   const renderTextInput = () => {
     return details.map((text, index) => {
-        return (
-          <div key={index} className="row g-md-3 createContainer">
-            {/* <> */}
-            <div className="col-md-3 col-xs-12 commentHeader">
-              <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
-            </div>
-            <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
-              <TextArea
-                showCount
-                value={text}
-                onChange={(e) => onHandleChangeDetail(e, index)}
-                maxLength={200}
-                placeholder="พิมพ์ข้อความที่นี้..."
-                autoSize={{ minRows: 4, maxRows: 6 }}
-              />
-            </div>
-            <div className="col-md-2 col-2 d-flex justify-content-center align-items-start align-items-md-center replyKeywordBtn">
-              <div className="h-auto d-flex flex-column me-4">
-                <span>
-                  <FontAwesomeIcon onClick={() => onClickPrev(index)} icon={faCircleChevronUp} />
-                </span>
-                <span>
-                  <FontAwesomeIcon onClick={() => onClickNext(index)} icon={faCircleChevronDown} />
-                </span>
-              </div>
-              <div className="">
-                <span style={{ color: 'red' }}>
-                  <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
-                </span>
-              </div>
-            </div>
-            {/* </> */}
+      return (
+        <div key={index} className="row g-md-3 createContainer">
+          {/* <> */}
+          <div className="col-md-3 col-xs-12 commentHeader">
+            <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
           </div>
-        )
+          <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
+            <TextArea
+              showCount
+              value={text}
+              onChange={(e) => onHandleChangeDetail(e, index)}
+              maxLength={200}
+              placeholder="พิมพ์ข้อความที่นี้..."
+              autoSize={{ minRows: 4, maxRows: 6 }}
+            />
+          </div>
+          <div className="col-md-2 col-2 d-flex justify-content-center align-items-start align-items-md-center replyKeywordBtn">
+            <div className="h-auto d-flex flex-column me-4">
+              <span>
+                <FontAwesomeIcon onClick={() => onClickPrev(index)} icon={faCircleChevronUp} />
+              </span>
+              <span>
+                <FontAwesomeIcon onClick={() => onClickNext(index)} icon={faCircleChevronDown} />
+              </span>
+            </div>
+            <div className="">
+              <span style={{ color: 'red' }}>
+                <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+              </span>
+            </div>
+          </div>
+          {/* </> */}
+        </div>
+      )
     })
   }
   // const renderImageInput = () => {
@@ -293,9 +299,7 @@ const CreateWelcome = () => {
             </div>
           </div>
           <Divider />
-          <div className='text-container'>
-          {renderTextInput()}
-          </div>
+          <div className="text-container">{renderTextInput()}</div>
           {/* can not according to facebook greeting function */}
           {/* <Divider />
           {renderImageInput()} */}
