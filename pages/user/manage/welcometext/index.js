@@ -12,7 +12,7 @@ import axios from '../../../api/axios'
 const Welcometext = () => {
   const router = useRouter()
   const { user } = useUser()
-  const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id)
+  const [pageID, setPageID] = useState(user?.pages[0]?.page_id)
 
   const [selectedItem, setSelectedItem] = useState()
   const [itemList, setItemList] = useState([])
