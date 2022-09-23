@@ -55,6 +55,7 @@ const CreateWelcome = () => {
           headers: { Authorization: `Bearer ${user?.accessToken}` },
         }
       )
+      console.log(res1.data);
       setIsSuccess({
         show: true,
         isSuccess: true,
