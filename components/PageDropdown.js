@@ -11,7 +11,7 @@ const PageDropdown = (onSelect) => {
     } else {
       return user?.pages.map((item, index) => {
         return (
-          <option key={index} value={item?.page_id}>
+          item?.status ==="active"&&<option key={index} value={item?.page_id}>
             {item?.name}
           </option>
         )
