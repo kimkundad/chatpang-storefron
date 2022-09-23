@@ -47,14 +47,14 @@ const CreateWelcome = () => {
       // console.log(res.data)
       //set Id for publish
       //*Error 500
-      // const greetingId = res.data.data.id
-      // const res1 = await axios.post(
-      //   `/greeting-messages/${greetingId}/publish`,
-      //   { accessToken: user?.accessToken },
-      //   {
-      //     headers: { Authorization: `Bearer ${user?.accessToken}` },
-      //   }
-      // )
+      const greetingId = res.data.data.id
+      const res1 = await axios.post(
+        `/greeting-messages/${greetingId}/publish`,
+        { accessToken: user?.accessToken },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        }
+      )
       setIsSuccess({
         show: true,
         isSuccess: true,
