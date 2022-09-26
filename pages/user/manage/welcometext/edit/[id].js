@@ -54,6 +54,14 @@ const Edit = () => {
         headers: { Authorization: `Bearer ${user?.accessToken}` },
       })
       // console.log(res.data)
+      const greetingId = res.data.data.id
+      const res1 = await axios.post(
+        `/greeting-messages/${greetingId}/publish`,
+        { accessToken: user?.accessToken },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` },
+        }
+      )
       setIsSuccess({
         show: true,
         isSuccess: true,
