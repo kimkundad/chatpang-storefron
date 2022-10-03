@@ -240,7 +240,20 @@ main section
   margin-right: 1.5vw;
 }
 .toast-content{
-  font-size: clamp(1rem, calc(1rem, 5vw), 2rem);
+  font-size: clamp(1rem, calc(1rem, 5vw), 3.5rem);
+}
+/*-----------
+ERROR section
+------------*/
+.error-text{
+  font-size: clamp(2rem, 5vw, 5rem);
+  color: var(--mainCRed_2);
+}
+.error-btn{
+  border: none;
+  padding:8px 32px;
+  border-radius: 20px;
+  background-color: var(--subCGray_2);
 }
 /*-----------------
 	Tags-input

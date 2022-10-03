@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps, ...appProps }) {
       <title>Chat Pang ผู้ช่วยตอบแชทเก่ง!</title>
     </Head>
       <AppContextProvider>
-        {['/login'].includes(appProps.router.pathname) ? (
+        {['/login'].includes(appProps.router.pathname) || ['/error'].includes(appProps.router.pathname) ? (
           <Component {...pageProps} />
         ) : (
           <Layout>
