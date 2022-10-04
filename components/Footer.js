@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLine, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faLocationDot, faPhone, faEnvelope, faStopwatch } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
-import BG from '../resources/imgs/footer_bg.png'
-import LOGO from '../resources/imgs/newLogo.png'
+import BG from '../public/images/bg/footer_bg.png'
+import LOGO from '../public/imgs/newLogo.png'
 // import Link from 'next/link'
 // import { Link } from 'react-scroll'
 import Link from 'next/link'
@@ -12,7 +12,7 @@ import Link from 'next/link'
 const Footer = () => {
   return (
     <div id='footer' className="footer">
-      <Image className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" layout='fill' />
+      <Image className="footer-bg" src={BG} alt="bg" layout='fill' />
       <div className="row footer-container">
         <div className="col-md-4 col-12 d-flex flex-column align-items-center justify-content-end mb-3">
           <Image src={LOGO} width="240" height="80" alt="logo" />
