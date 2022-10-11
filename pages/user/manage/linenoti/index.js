@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faEye, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
-import { Avatar, Divider, InputNumber, Select } from 'antd'
+import { Divider, InputNumber, Select } from 'antd'
 import { Table, Form, Alert } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 
@@ -275,7 +275,6 @@ const Linenoti = () => {
                 type="text"
                 id="token"
               />
-              {/* <button className="lineCustomBtn mt-2">บันทึก Token</button> */}
             </div>
           </div>
           <Divider />

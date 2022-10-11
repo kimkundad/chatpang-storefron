@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faChevronLeft, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
-import { Avatar, Divider, InputNumber, Select } from 'antd'
+import { faChevronLeft, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { Divider, InputNumber, Select } from 'antd'
 
 import Sidebar from '../../../../../components/Sidebar'
 import PageDropdown from '../../../../../components/PageDropdown'

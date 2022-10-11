@@ -40,8 +40,6 @@ const Replykeyword = () => {
     try {
       for (const id of itemList) {
         let temp = data.filter((item) => item.id === id)
-        // console.log(temp[0])
-        // temp[0].name = '(copy) ' + temp[0].name
         const copyData = {
           facebookUser: user?.user?.id,
           keywords: temp[0].keywords,
@@ -54,7 +52,6 @@ const Replykeyword = () => {
         })
         // console.log(res.data)
         setData([...data, res.data.data])
-        // setData([...data, copyData])
       }
       setItemList([])
     } catch (error) {
@@ -63,10 +60,6 @@ const Replykeyword = () => {
   }
 
   const onDelete = async () => {
-    // const data = {
-    //   isDelete: true,
-    //   deleteAt: new Date(),
-    // }
     try {
       for (const id of itemList) {
         const res = await axios.delete(`/auto-replies/${id}`, {
@@ -95,7 +88,6 @@ const Replykeyword = () => {
   const onChangeStatus = async (index, item) => {
     // console.log(id)
     let temp = [...data]
-    // temp[index].status = status ? 'inactive' : 'active'
     temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id)
     setData(temp)
   }
@@ -129,17 +121,6 @@ const Replykeyword = () => {
       console.log(error)
     }
   }
-
-  // const onDelete = async (id) => {
-  //   try {
-  //     const res = await axios.delete(`/public/auto-replies/${id}`, {
-  //       headers: { Authorization: `Bearer ${user?.accessToken}` },
-  //     })
-  //     setData([...data.filter((item) => item.id !== id)])
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
   const onSelect = (id) => {
     // console.log(id)
     setPageID(id)
@@ -212,7 +193,6 @@ const Replykeyword = () => {
           <div className="row">
             <div className="col d-flex justify-content-center my-2">
               <span
-                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={() =>
                   router.push({ pathname: `${router.pathname}/create-replykeyword`, query: { pageId: pageID } })
                 }
@@ -222,16 +202,13 @@ const Replykeyword = () => {
                 สร้างแคมเปญ
               </span>
               <span
-                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onCopy}
                 className="userButton"
               >
                 <FontAwesomeIcon className="me-2" icon={faCopy} />
                 สร้างซ้ำ
               </span>
-              {/* <span className='userButton'><FontAwesomeIcon className='me-2' icon={faPenToSquare} />แก้ไข</span> */}
               <span
-                // style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                 onClick={onDelete}
                 className="userButton"
               >

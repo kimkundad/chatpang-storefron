@@ -14,7 +14,6 @@ const Welcometext = () => {
   const { user } = useUser()
   const [pageID, setPageID] = useState(user?.pages[0]?.page_id)
 
-  const [selectedItem, setSelectedItem] = useState()
   const [itemList, setItemList] = useState([])
   const [data, setData] = useState([])
   const [isCheckAll, setIsCheckAll] = useState(false)
@@ -40,7 +39,6 @@ const Welcometext = () => {
     try {
       for (const id of itemList) {
         let temp = data.filter((item) => item.id === id)
-        // temp[0].name = '(copy) ' + temp[0].name
         const copyData = {
           page: temp[0].page,
           name: '(copy) ' + temp[0].name,
@@ -138,8 +136,6 @@ const Welcometext = () => {
             <div className="row">
               <div className="col-md-12 d-flex justify-content-center">
                 <span className="text-uppercase userDropdown">
-                  {/* <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
-                  Board pang */}
                   <PageDropdown onSelect={onSelect} />
                 </span>
               </div>

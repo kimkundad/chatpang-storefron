@@ -14,7 +14,6 @@ const Manuel = () => {
         <div className='content container-fluid'>
             <Sidebar />
             <div className='userpage-wrapper'>
-              {/* <div className="page-header"> */}
                 <div className="row">
                   <div className="col-md-6 manuelOpContainer order-xs-1">
                     <strong className="page-title">วิธีการใช้งาน</strong>
@@ -36,8 +35,6 @@ const Manuel = () => {
                     
                   </div>
                 </div>
-              {/* </div> */}
-              {/* content */}
             </div>
         </div>
     </div>

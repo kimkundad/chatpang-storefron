@@ -69,7 +69,6 @@ export default function Home() {
   async function getPackages() {
     try {
       const res = await axios('/public/packages')
-      // console.log(res.data.data.results)
       setPackages(res.data.data.results)
     } catch (error) {
       console.log(error)
@@ -132,13 +131,11 @@ export default function Home() {
         {/* Section 1 */}
         <section
           className="d-flex flex-column-reverse flex-md-row row-cols-2"
-          // style={{ minHeight: 'calc(100vh - 104px)' }}
           id="home"
         >
           <div className="home-video-container col-12 col-md-6 d-flex align-items-center justify-content-center">
             <iframe
               src="https://www.youtube.com/embed/QIjZn_fiS3M"
-              // className="video-yt"
               className="responsive-iframe"
               allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
               allowFullScreen
@@ -238,7 +235,6 @@ export default function Home() {
             <Carousel responsive={responsive}>
               {reviews.map((val, index) => (
                 <div key={index} className="flex flex-column p-3">
-                  {/* <img src="/images/landing-page/placeholder-video.svg" className="w-100" /> */}
                   <div className="ratio ratio-4x3">
                     {val.video_url ? (
                       <Player
@@ -257,16 +253,6 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-                  {/* <iframe
-                    src="https://www.youtube.com/embed/QIjZn_fiS3M"
-                    // src={val.item.linkUrl}
-                    width="100%"
-                    height="100%"
-                    className="video-yt"
-                    allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ height: '100%', width: '100%', maxHeight: '518px' }}
-                  /> */}
                   <div
                     className="bg-grey50 shadow px-3 pt-4 pb-1 border rounded-3 position-relative"
                     style={{ marginTop: '4em' }}
@@ -331,7 +317,6 @@ export default function Home() {
         {/* Section 7 */}
         <section
           className="d-flex flex-column flex-md-row align-items-center justify-content-center h-100 py-5 py-md-0 py-5"
-          // style={{ minHeight: 'calc(80vh)' }}
           id="contract"
         >
           <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">

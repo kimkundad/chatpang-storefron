@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
-import { Checkbox } from 'antd'
 import Sidebar from '../../../components/Sidebar'
 import axios from '../../api/axios'
 import useUser from '../../../Hooks/useUser'
-import { Link } from 'react-scroll'
 
 const Index = () => {
   const { user, setUserData } = useUser()
@@ -97,9 +95,6 @@ const Index = () => {
               {data?.length === 0 ? (
                 <div className="mx-auto">
                   <span>ไม่มีข้อมูล</span>
-                  {/* <Link className="text-info" spy={false} href="/user/info/pagemanagement">
-                    คลิ้กเพื่อเพิ่มเพจ
-                  </Link> */}
                 </div>
               ) : (
                 <Table bordered hover style={{ minWidth: '60%' }}>

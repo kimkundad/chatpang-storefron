@@ -9,7 +9,6 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { Divider, Input } from 'antd'
-import { InputTags } from 'react-bootstrap-tagsinput'
 
 import { useRouter } from 'next/router'
 import Sidebar from '../../../../../components/Sidebar'

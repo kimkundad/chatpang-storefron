@@ -23,9 +23,6 @@
   box-sizing: border-box;
   font-family: 'DB ADMAN X', sans-serif;
 }
-html {
-  /* height: 100%; */
-}
 body {
   background-color: var(--subCGray_1);
   color: var(--subCGray_2);
@@ -59,13 +56,6 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
-/* ::-webkit-scrollbar{
-  width: 15px;
-}
-::-webkit-scrollbar-thumb{
-  border-radius: 20px;
-  background: var(--mainCRed_2);
-} */
 .form-control {
   border: 1px solid var(--subCGray_1);
   box-shadow: none;
@@ -170,12 +160,6 @@ textarea.form-control {
   height: 40px;
 }
 
-/* .nav .open > a,
-.nav .open > a:focus,
-.nav .open > a:hover {
-	background-color: rgba(0, 0, 0, 0.1);
-	border-color: rgba(0, 0, 0, 0.1);
-} */
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -220,12 +204,6 @@ main section
   text-align: center;
   /* letter-spacing: 1rem; */
 }
-/* .video-yt {
-  height: 500px;
-  width: 960px;
-  margin: auto;
-  border-radius: 20px;
-} */
 .custom-index-btn {
   font-weight: 600 !important;
   font-size: 2.5vw !important;
@@ -265,8 +243,6 @@ ERROR section
   min-height: 48px;
   width: 100%;
   padding: 0 8px;
-  /* border: 1px solid rgb(214, 216, 218);
-   */
   border: 1px solid var(--mainCBlack);
   border-radius: 10px;
 }
@@ -324,17 +300,13 @@ ERROR section
 -----------------------*/
 
 .sidebar {
-  /* background-color: var(--mainCWhite); */
-  /* bottom: 0; */
   left: 0;
-  /* margin-top: 5px; */
   position: absolute;
   top: 5vw;
   transition: all 0.2s ease-in-out 0s;
   width: 240px;
   height: 100vh;
   z-index: 1;
-  /* border-top-right-radius: 20px; */
   box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.2);
   overflow-y: hidden;
 }
@@ -370,7 +342,6 @@ ERROR section
   color: #9e9e9e;
   display: flex;
   font-size: 14px;
-  /* opacity: 1; */
   padding: 5px 15px;
   white-space: nowrap;
   justify-content: center;
@@ -424,7 +395,6 @@ ERROR section
   align-items: center;
   font-size: min(1.5rem, 4vw);
   width: 70%;
-  /* padding-right: 16px; */
 }
 .ant-tabs-tab-btn {
   font-size: 2vw;
@@ -442,7 +412,6 @@ ERROR section
 .aboutContainer {
   display: flex;
   flex-direction: column;
-  /* align-items: end; */
   justify-content: center;
 }
 .aboutTopicContainer:last-child {
@@ -484,10 +453,7 @@ Landing
 #packages,
 #contract,
 .page-wrapper {
-  /* min-height: 900px; */
   min-height: 100vh;
-  /* height: 900px; */
-  /* height: 100vh; */
   background-image: url('/images/bg/bg.jpg');
   background-size: 100% 100%;
   padding: 120px 64px;
@@ -597,7 +563,6 @@ register section
 chatbot section
 ------*/
 .text-container {
-  /* background: red; */
   max-height: 550px;
   overflow-y: scroll;
 }
@@ -607,8 +572,6 @@ chatbot section
   display: flex;
   justify-content: center;
   width: 100%;
-  /* overflow-y: scroll; */
-  /* scroll-behavior: smooth; */
 }
 .ant-input {
   font-size: min(2rem, 3vw) !important;
@@ -731,7 +694,6 @@ function section
 -----------------------*/
 .reviewContainer {
   overflow-x: hidden;
-  /* max-width: 75% !important; */
   max-width: 1060px !important;
   margin: 0 auto;
   padding: 0 100px;
@@ -741,7 +703,6 @@ function section
   align-items: center;
 }
 .reviewCard {
-  /* background: #377dff; */
   height: 100%;
   width: fit-content;
   display: flex;
@@ -791,13 +752,10 @@ function section
 -----------------------*/
 
 .main-wrapper {
-  /* width: 100%; */
-  /* height: calc(100vh - 144px); set at 900 - footer height */
   min-height: 100vh; /*set at 900 - footer height*/
   position: relative;
 }
 .nosidebar-wrapper {
-  /* min-height: calc(100vh - 144px); */
   min-height: 100vh;
   padding: 140px 0 80px 0;
   position: relative;
@@ -805,12 +763,7 @@ function section
   font-size: min(2rem, 3vw);
 }
 .page-wrapper {
-  /* margin-left: 240px; */
-  /*set at 900 - footer height*/
-  /* min-height: 756px; */
   min-height: calc(100vh - 144px);
-
-  /* padding: 140px 0 80px 0; */
   position: relative;
   transition: all 0.4s ease;
   font-size: min(1.5rem, 3vw);
@@ -1064,11 +1017,9 @@ table.table td h2 span {
 }
 .customHeader {
   background: var(--mainCRed_1);
-  /* min-height: 5vh; */
 }
 .customHeaderItem {
   font-size: clamp(1.5rem, 1.8vw, 2rem);
-  /* font-size: 1.5vw; */
   padding: 8px 16px;
   margin: 0 5px;
   border-radius: 50px;
@@ -1147,7 +1098,6 @@ table.table td h2 span {
 .uploadIMG img {
   max-width: 90%;
   max-height: 90%;
-  /* object-fit: contain; */
   cursor: pointer;
   opacity: 1;
   position: relative;
@@ -1195,11 +1145,6 @@ table.table td h2 span {
 .lineDetail span {
   font-size: 1.2rem;
 }
-/* .lineButtonContainer{
-	position: absolute;
-	top: -30px;
-	left: 65%;
-} */
 .chatButtonContainer button {
   font-size: min(2.5rem, 3vw);
 }
@@ -1243,7 +1188,6 @@ table.table td h2 span {
   font-size: 1.2rem;
 }
 .chatWording {
-  /* background: red; */
   min-width: 60%;
   font-size: min(1.5rem, 4vw);
 }
@@ -1253,11 +1197,6 @@ table.table td h2 span {
 .chatWordInput {
   min-width: 60%;
 }
-/* .chatWordInput input {
-  border: 1px solid var(--mainCBlack);
-  border-radius: 10px;
-  width: 100%;
-} */
 .lineTokenHeader {
   text-align: left;
   font-size: 1.5rem;
@@ -1265,7 +1204,6 @@ table.table td h2 span {
 }
 .lineTokenHeader span:last-child {
   font-size: 1rem;
-  /* margin-left: 4rem; */
   margin: auto 0;
   cursor: pointer;
 }
@@ -1400,10 +1338,8 @@ li.breadcrumb-item {
   font-size: 1.5rem;
   display: grid;
   place-items: center;
-  /* height: 55px; */
   padding-left: 35px;
   position: relative;
-  /* width: fit-content; */
   outline: 1px solid black;
 }
 li.breadcrumb-item div {
@@ -1436,18 +1372,6 @@ li.breadcrumb-item.active:not(:last-child)::after {
   width: 0;
   z-index: 50;
 }
-/* li.breadcrumb-item:not(:last-child)::after{
-	border-left: 15px solid #fff;
-	border-top: 15px solid transparent;
-	border-bottom: 15px solid transparent;
-	content: "";
-	height: 0;
-	left: 100%;
-	position: absolute;
-	top: 13.5px;
-	width: 0;
-	z-index: 50;
-} */
 li.breadcrumb-item:not(:first-child) {
   border-left: none;
 }
@@ -1455,14 +1379,11 @@ li.breadcrumb-item:not(:first-child) {
 	Card
 -----------------------*/
 .cardPriceContainer {
-  /* max-width: 90%; */
-  /* overflow-x: scroll; */
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
-  /* padding-left: 450px; */
 }
 .cardContainer {
   box-shadow: 0px 2px 10px 4px rgba(0, 0, 0, 0.25);
@@ -1474,9 +1395,6 @@ li.breadcrumb-item:not(:first-child) {
   min-height: 450px;
   padding: 0 0 1% 0;
 }
-/* .cardBody{
-	border-radius: 2rem !important;
-} */
 .bestSellTag {
   position: absolute;
   right: 8px;
@@ -1520,7 +1438,6 @@ li.breadcrumb-item:not(:first-child) {
   font-style: italic;
 }
 .selectBtnCustom {
-  /* position: absolute; */
   width: 60%;
   height: fit-content;
   padding: 5px 10px;
@@ -1560,7 +1477,6 @@ custom button
 }
 .invoice-item {
   width: 50%;
-  /* height: 300px; */
   border: 1px solid #c4c4c4;
   border-radius: 10px;
   position: relative;
@@ -1636,40 +1552,17 @@ QA container
 /*------------
 FOOTER
 ------------*/
-/* .uploadIMG {
-  position: relative;
-  border-radius: 10px;
-  border: 1px solid #888;
-  margin: 16px 0;
-  overflow: hidden;
-  height: 230px;
-  display: grid;
-  place-items: center;
-}
-.uploadIMG img {
-  width: 100%;
-  object-fit: contain;
-  cursor: pointer;
-  opacity: 1;
-  position: relative;
-  z-index: 4;
-} */
-
 .footer {
   display: flex;
   justify-content: space-between;
   position: relative;
-  /* width: 100%; */
   bottom: 0;
   height: 420px;
   z-index: 20;
-  /* background-image: url("/images/bg/footer_bg.png"); */
-  /* background-size: 100% 100%; */
 }
 .footer-container {
   padding: 16px 5%;
   width: 100%;
-  /* margin: 0 auto; */
 }
 .footer-bg {
   position: absolute;
@@ -1701,12 +1594,8 @@ FOOTER
   cursor: pointer;
   position: relative;
   z-index: 200;
-  /* width: 100%; */
-
   text-align: left;
   font-size: min(1.4rem, 5vw);
-  /* padding: 5px; */
-  /* margin-top: 10px; */
 }
 .address {
   font-size: 26px;
@@ -1750,7 +1639,6 @@ Upload
   color: black;
   width: 100%;
   height: 100%;
-  /* background-color: black; */
   display: grid;
   place-items: center;
   cursor: pointer; /* "hand" cursor */
@@ -1800,7 +1688,6 @@ Upload
     margin-left: 0;
     padding-left: 0;
     padding-right: 0;
-    /* padding-top: 0; */
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
     transition: all 0.4s ease;

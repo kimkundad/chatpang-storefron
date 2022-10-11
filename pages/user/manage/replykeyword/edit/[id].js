@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef, useMemo } from 'react'
+import React, { useEffect, useState, createRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPlus,
@@ -309,8 +309,6 @@ const Edit = () => {
       setDetails(data.messages)
       setImgs(data.images)
       setPreviewImgs(data.images)
-      // setFacebookUserId(data.facebook_user)
-      // await setImgFirstTime(data.keywordDetail)
     } catch (error) {
       console.log(error)
     }
@@ -326,10 +324,6 @@ const Edit = () => {
   useEffect(() => {
     getKeywordSettingById()
   }, [])
-
-  // useEffect(() => {
-
-  // })
   return (
     <div className="page-wrapper">
       {isSuccess.show && (
@@ -377,7 +371,6 @@ const Edit = () => {
             </div>
             <div className="col-md-4">
               <TagsInput tags={keywordName} setTags={setKeywordName} />
-              {/* <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} /> */}
             </div>
           </div>
           <Divider />

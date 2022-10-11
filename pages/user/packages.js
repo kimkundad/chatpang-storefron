@@ -29,7 +29,6 @@ const Packages = () => {
     }
   }
   function setSelectedPackage(id) {
-    // console.log(id)
     setIsError(false)
     if (selected === id) {
       setSelected(null)
@@ -72,8 +71,6 @@ const Packages = () => {
       setIsError(true)
       console.log(error)
     }
-
-    // await setUserData({ ...user, package: pack[0] })
   }
   const getFacebookUserData = async () => {
     try {

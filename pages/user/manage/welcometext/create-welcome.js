@@ -83,25 +83,6 @@ const CreateWelcome = () => {
       })
     }, 2000)
   }
-  // const convertToImagePath = async () => {
-  //   for (const item of details) {
-  //     if (item.type === 'image') {
-  //       item.name = await getImagePath(item.name)
-  //     }
-  //   }
-  //   setDetails(details)
-  // }
-  // const getImagePath = async (file) => {
-  //   const formData = new FormData()
-  //   formData.append('image', file, file.name)
-  //   try {
-  //     const res = await axios.post('/configs/upload', formData)
-  //     console.log(res.data)
-  //     return res.data.data
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   const onSelect = (id) => {
     // console.log(id)
@@ -114,45 +95,20 @@ const CreateWelcome = () => {
     acc[index] = createRef()
     return acc
   }, {})
-  // const onUpload = async (index, file) => {
-  //   let temObj = { ...img }
-  //   temObj[index] = URL.createObjectURL(file)
-  //   setImg(temObj)
-  // }
-  // const onDeleteImg = async (index) => {
-  //   let temObj = { ...img }
-  //   delete temObj[index]
-  //   setImg(temObj)
-  // }
 
   const onHandleChangeDetail = async (e, index) => {
     let temArr = [...details]
-    // if (temArr[index].type === 'text') {
     temArr[index] = e.target.value
-    // } else {
-    //   const file = e.target.files[0]
-    //   console.log(file)
-    //   await onUpload(index, file)
-    //   temArr[index].name = file
-    // }
     setDetails(temArr)
   }
   const handleAddText = () => {
     setDetails([...details, ''])
   }
-  // const handleAddImage = () => {
-  //   setDetails([...details, { name: '', type: 'image' }])
-  // }
   const onDeleteDetails = (index) => {
     let tempArr = [...details]
     tempArr.splice(index, 1)
     setDetails(tempArr)
-    // onDeleteImg(index)
   }
-  // const handleClickFileInput = (index) => {
-  //   console.log(inputRef[index])
-  //   inputRef[index].current.click()
-  // }
   const onClickNext = (index) => {
     // console.log(inputRef[index].current)
     index + 1 <= Object.values(inputRef).length - 1 &&
@@ -208,53 +164,6 @@ const CreateWelcome = () => {
       )
     })
   }
-  // const renderImageInput = () => {
-  //   return details.map((data, index) => {
-  //     if (data.type === 'image') {
-  //       return (
-  //         <div key={index} className="row g-md-3 createContainer">
-  //           <div className="col-md-3 col-xs-12 commentHeader">
-  //             <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
-  //           </div>
-  //           <div className="col-md-6 col-9 commentInput">
-  //             {img[index] !== undefined ? (
-  //               <div onClick={() => onDeleteImg(index)} className="uploadIMG">
-  //                 <img width={100} src={img[index]} alt="img" />
-  //               </div>
-  //             ) : (
-  //               <>
-  //                 <input
-  //                   type="file"
-  //                   ref={inputRef[index]}
-  //                   className="inputfile"
-  //                   onChange={(e) => onHandleChangeDetail(e, index)}
-  //                 />
-  //                 <label onClick={() => handleClickFileInput(index)} htmlFor="file">
-  //                   อัพโหลดรูป
-  //                 </label>
-  //               </>
-  //             )}
-  //           </div>
-  //           <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
-  //             <div className="d-flex flex-column me-4">
-  //               <span>
-  //                 <FontAwesomeIcon icon={faCircleChevronUp} />
-  //               </span>
-  //               <span>
-  //                 <FontAwesomeIcon icon={faCircleChevronDown} />
-  //               </span>
-  //             </div>
-  //             <div className="replyDeleteBTN">
-  //               <span style={{ color: 'red' }}>
-  //                 <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
-  //               </span>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       )
-  //     }
-  //   })
-  // }
   //* function handle text and image
   return (
     <div className="page-wrapper">

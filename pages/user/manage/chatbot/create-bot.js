@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../../../../components/Sidebar'
 
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { Divider, Input, Switch } from 'antd'
 import useUser from '../../../../Hooks/useUser'
 import axios from '../../../api/axios'

@@ -203,8 +203,6 @@ const CreateReplyKeyword = () => {
       })
   }
   const onImgPrev = (index) => {
-    // console.log(imgsRef);
-    // console.log(inputRef[index].current)
     index - 1 >= 0 &&
       imgsRef[index - 1].current.scrollIntoView({
         behavior: 'smooth',
@@ -352,17 +350,12 @@ const CreateReplyKeyword = () => {
             </div>
             <div className="col-md-4">
               <TagsInput tags={keywordName} setTags={setKeywordName} />
-              {/* <input type="text" name="name" value={keywordName} onChange={(e) => setKeywordName(e.target.value)} /> */}
             </div>
           </div>
           <Divider />
-          {/* <div className="text-container"> */}
           {renderTextInput()}
-          {/* </div> */}
           <Divider />
-          {/* <div className="text-container"> */}
           {renderImageInput()}
-          {/* </div> */}
           <Divider />
           <div className="row g-3 justify-content-center">
             <div className="col-md-4 replyButtonContainer">
