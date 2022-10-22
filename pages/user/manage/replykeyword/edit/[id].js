@@ -39,7 +39,7 @@ const Edit = () => {
     const data = {
       keywords: keywordName,
       messages: details,
-      images: await convertToImagePath(),
+      images:imgs.length === 0 ? [] : await convertToImagePath(),
       name: campaignName,
       facebookUser: user?.user?.id,
     }

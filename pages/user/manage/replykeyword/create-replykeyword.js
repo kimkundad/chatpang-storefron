@@ -36,12 +36,12 @@ const CreateReplyKeyword = () => {
   })
   const onSubmit = async (e) => {
     e.preventDefault()
-    await convertToImagePath()
+    const arrImages = imgs.length === 0 ? [] : await convertToImagePath()
 
     const data = {
       keywords: keywordName,
       messages: details,
-      images: await convertToImagePath(),
+      images: arrImages,
       name: campaignName,
       facebookUser: user?.user?.id,
     }
