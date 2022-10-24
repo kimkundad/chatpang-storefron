@@ -83,15 +83,15 @@ const Register = () => {
   }, [userId])
   
   return (
-    <div className="nosidebar-wrapper">
+    <div id="register" className="nosidebar-wrapper">
       <div className="text-center">
         <h1 className="font-weight-bold">ลงทะเบียนด้วย Facebook</h1>
       </div>
       <div className="container container-fluid">
-        <div className="row justify-content-center text-center mt-5">
+        <div className="row justify-content-center text-center mt-4">
           <div className="col-lg-12 text-center d-flex w-25 flex-column">
             {imageURL !== undefined ? (
-              <img src={imageURL} width="100px" height="100px" className="mx-auto mb-3" alt="profile" />
+              <img src={imageURL} width="100px" height="100px" className="mx-auto" alt="profile" />
             ) : (
               <Avatar
                 style={{ display: 'grid', placeItem: 'center' }}
@@ -100,14 +100,10 @@ const Register = () => {
                 size="large"
               />
             )}
-            {/* //! did not use */}
-            {/* <Upload maxCount={1} className='w-25 mx-auto' onRemove={onRemove} onChange={onUploadImage}>
-                    <Button>เปลี่ยน</Button>
-                </Upload> */}
           </div>
         </div>
         <form onSubmit={(e) => onSubmit(e)}>
-          <div style={{ maxWidth: '400px' }} className="row justify-content-center mt-5 mx-auto">
+          <div style={{ maxWidth: '400px' }} className="row justify-content-center mt-3 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
               <label htmlFor="name">Username </label>
               <input
@@ -120,7 +116,7 @@ const Register = () => {
               />
             </div>
           </div>
-          <div style={{ maxWidth: '400px' }} className="row justify-content-center mt-5 mx-auto">
+          <div style={{ maxWidth: '400px' }} className="row justify-content-center mt-2 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
               <label htmlFor="email">E-mail</label>
               <input
@@ -132,7 +128,7 @@ const Register = () => {
               />
             </div>
           </div>
-          <div style={{ maxWidth: '400px' }} className="row justify-content-center mt-5 mx-auto">
+          <div style={{ maxWidth: '400px' }} className="row justify-content-center mt-2 mx-auto">
             <div className="col-lg-12 d-flex flex-column w-100">
               <label htmlFor="tel">
                 เบอร์โทรศัพท์<span className="text-danger">*</span>{' '}
@@ -151,7 +147,7 @@ const Register = () => {
           <div className='row'>
             <span className='mx-auto text-center text-danger'>For test user please click &quot;ลงทะเบียน&quot; button without input anything</span>
           </div>
-          <div className="registerBtnContainer row justify-content-center mt-5 mx-auto">
+          <div className="registerBtnContainer row justify-content-center mt-2 mx-auto">
             <div className="col-lg-12 d-flex justify-content-center">
               <button onClick={() => router.push('/user/')} className="customeRegisterBtn me-3">
                 ยกเลิก

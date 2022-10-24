@@ -9,7 +9,7 @@ import CardPrice from '../components/CardPrice'
 import Player from 'react-player'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import QAContainer from '../components/QAContainer'
 const featureData = [
   {
@@ -42,20 +42,51 @@ const featureData = [
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 5,
+    items: 3,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 4,
+    items: 3,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 3,
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
   },
+}
+
+const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
+  const {
+    carouselState: { currentSlide },
+  } = rest
+  return (
+    <div className="carousel-button-group">
+      <FontAwesomeIcon
+        icon={faChevronLeft}
+        className={currentSlide === 0 ? 'disable' : ''}
+        onClick={() => previous()}
+      />
+      <FontAwesomeIcon icon={faChevronRight} onClick={() => next()} />
+    </div>
+  )
+}
+const ButtonGroup2 = ({ next, previous, goToSlide, ...rest }) => {
+  const {
+    carouselState: { currentSlide },
+  } = rest
+  return (
+    <div className="carousel-button-group2">
+      <FontAwesomeIcon
+        icon={faChevronLeft}
+        className={currentSlide === 0 ? 'disable' : ''}
+        onClick={() => previous()}
+      />
+      <FontAwesomeIcon icon={faChevronRight} onClick={() => next()} />
+    </div>
+  )
 }
 
 export default function Home() {
@@ -65,6 +96,14 @@ export default function Home() {
 
   const [reviews, setReviews] = useState([])
   const [questions, setQuestions] = useState([])
+
+  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [tel, setTel] = useState('')
+  const [title, setTitle] = useState('')
+  const [messages, setMessages] = useState('')
+  const [agree, setAgree] = useState(false)
 
   async function getPackages() {
     try {
@@ -129,10 +168,7 @@ export default function Home() {
     <>
       <div className="w-100 m-0 p-0">
         {/* Section 1 */}
-        <section
-          className="d-flex flex-column-reverse flex-md-row row-cols-2"
-          id="home"
-        >
+        <section className="d-flex flex-column-reverse flex-md-row row-cols-2" id="home">
           <div className="home-video-container col-12 col-md-6 d-flex align-items-center justify-content-center">
             <iframe
               src="https://www.youtube.com/embed/QIjZn_fiS3M"
@@ -144,7 +180,7 @@ export default function Home() {
           <div className="col-12 col-md-6 py-5 py-md-0 flex-column align-items-center justify-content-center d-flex">
             <img className="home-logo" src="/images/logo/newLogo.png" />
             <div className="index-text">
-              ผู้ช่วยตอบแชทเก่ง! <br />
+              ผู้ช่วยตอบแชทคนเก่ง! <br />
               ของแม่ค้าออนไลน์
             </div>
             <Button onClick={() => router.push('/user')} className="btn custom-index-btn rounded-pill">
@@ -154,7 +190,7 @@ export default function Home() {
         </section>
 
         {/* Section 2 */}
-        <section className="d-flex flex-column flex-md-row py-5 py-md-0" id="about">
+        <section className="d-flex flex-column flex-md-row py-3 py-md-0" id="about">
           <div className="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
             <div className="d-flex flex-md-row align-items-center justify-content-center w-100">
               <img src="/images/logo/miniLogo.png" style={{ width: '25%' }} />
@@ -165,16 +201,16 @@ export default function Home() {
               </div>
             </div>
             <div className="d-flex flex-column mt-5 w-100 align-items-center">
-              <div className="d-flex align-items-center gap-1">
-                <img src="/images/landing-page/bullet-point.svg" style={{ width: '6vw' }} />
+              <div className="d-flex align-items-center gap-2">
+                <img src="/images/landing-page/bullet-point.svg" style={{ width: '42px' }} />
                 <div className="ms-2 about-text">ตอบคอมเม้นต์อัตโนมัติ</div>
               </div>
-              <div className="d-flex align-items-center gap-1 mt-3">
-                <img src="/images/landing-page/bullet-point.svg" style={{ width: '6vw' }} />
+              <div className="d-flex align-items-center gap-2 mt-5">
+                <img src="/images/landing-page/bullet-point.svg" style={{ width: '42px' }} />
                 <div className="ms-2 about-text">ดึงคอมเม้นต์เข้า Inbox</div>
               </div>
-              <div className="d-flex align-items-center gap-1 mt-3">
-                <img src="/images/landing-page/bullet-point.svg" style={{ width: '6vw' }} />
+              <div className="d-flex align-items-center gap-2 mt-5">
+                <img src="/images/landing-page/bullet-point.svg" style={{ width: '42px' }} />
                 <div className="ms-2 about-text">แจ้งเตือนแชทจาก LINE</div>
               </div>
             </div>
@@ -187,31 +223,22 @@ export default function Home() {
         {/* Section 3 */}
         <section className="d-flex flex-column align-items-center py-5" id="function">
           <div className="d-flex section-padding-top flex-column flex-md-row align-items-center justify-content-center">
-            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '130px' }} />
+            <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '110px' }} />
             <div className="text-section-header">Chatpang ทำอะไรได้บ้าง ?</div>
           </div>
-          <div className="text-center">
-            รวม 5 ฟังก์ชั่นของ <span className="text-secondary">Chatpang</span> ที่จะช่วยให้คุณตอบแชทกับลูกค้าได้ในทันที
+          <div className="function-subtitle text-center">
+            รวม 5 ฟังก์ชั่นของ <span>Chatpang</span> ที่จะช่วยให้คุณตอบแชทกับลูกค้าได้ในทันที
           </div>
           <div
             className="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center"
-            style={{ marginTop: '56px', gridAutoRows: '1fr' }}
+            style={{ gridAutoRows: '1fr' }}
           >
             {featureData.map((val, index) => (
-              <div className="px-3 mt-5" key={index}>
-                <div className="px-2 function-containers pb-3 position-relative border-grey100 border rounded-3 d-flex flex-column align-items-center shadow-sm">
-                  <img
-                    src={val.img}
-                    className="position-absolute m-auto"
-                    style={{
-                      maxWidth: '20%',
-                      left: 0,
-                      right: 0,
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
-                      top: '-20%',
-                    }}
-                  />
+              <div className="mt-5 mt-lg-3" key={index}>
+                <div className="function-containers">
+                  <div className="icon">
+                    <img src={val.img} alt="function-icon" />
+                  </div>
                   <div className=" fw-bold function-text-header">{val.title}</div>
                   <div className="text-center text-break function-text-body">{val.subTitle}</div>
                 </div>
@@ -231,8 +258,14 @@ export default function Home() {
             <div className="text-section-header">รีวิวจากลูกค้า</div>
           </div>
 
-          <div className="h-100 w-100 px-0 px-md-5 my-auto">
-            <Carousel responsive={responsive}>
+          <div className="h-100 w-100 px-0 px-md-5 my-auto review-user-container">
+            <Carousel
+              responsive={responsive}
+              arrows={false}
+              renderButtonGroupOutside={true}
+              customButtonGroup={<ButtonGroup />}
+              infinite={true}
+            >
               {reviews.map((val, index) => (
                 <div key={index} className="flex flex-column p-3">
                   <div className="ratio ratio-4x3">
@@ -253,14 +286,34 @@ export default function Home() {
                       </div>
                     )}
                   </div>
+                  {/* <div
+                    className="bg-grey50 shadow px-3 pt-4 pb-1 border rounded-3 position-relative"
+                    style={{ marginTop: '4em' }}
+                  >
+                    <img src={val.picture} className="review-content-picture" />
+                    <div className=" d-flex flex-column align-items-center">
+                      <div className="review-content-name">{val.name}</div>
+                      {renderRating(val.rate)}
+                      <div className="review-content-body text-center">{renderReviewDetail(val.description)}</div>
+                    </div>
+                  </div> */}
+                </div>
+              ))}
+            </Carousel>
+            <Carousel
+              responsive={responsive}
+              arrows={false}
+              renderButtonGroupOutside={true}
+              customButtonGroup={<ButtonGroup2 />}
+              infinite={true}
+            >
+              {reviews.map((val, index) => (
+                <div key={index} className="flex flex-column p-3">
                   <div
                     className="bg-grey50 shadow px-3 pt-4 pb-1 border rounded-3 position-relative"
                     style={{ marginTop: '4em' }}
                   >
-                      <img
-                        src={val.picture}
-                        className="review-content-picture"
-                      />
+                    <img src={val.picture} className="review-content-picture" />
                     <div className=" d-flex flex-column align-items-center">
                       <div className="review-content-name">{val.name}</div>
                       {renderRating(val.rate)}
@@ -294,10 +347,7 @@ export default function Home() {
         </section>
 
         {/* Section 6 */}
-        <section
-          className="d-flex flex-column align-items-center justify-content-center py-5"
-          id="packages"
-        >
+        <section className="d-flex flex-column align-items-center justify-content-center py-5" id="packages">
           <div className="d-flex section-padding-top flex-column flex-md-row align-items-center justify-content-center">
             <img src="/images/logo/miniLogo.png" style={{ width: '100%', maxWidth: '150px' }} />
             <div className="text-section-header">แพ็คเกจสุดคุ้ม!</div>
@@ -319,7 +369,7 @@ export default function Home() {
           className="d-flex flex-column flex-md-row align-items-center justify-content-center h-100 py-5 py-md-0 py-5"
           id="contract"
         >
-          <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+          <div className="col-12 col-md-4 d-flex flex-column justify-content-center align-items-center">
             <div>
               <u className="display-5">ติดต่อสอบถามเพิ่มเติม</u>
               <div className="d-flex" style={{ marginTop: '24px' }}>
@@ -350,7 +400,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-6 py-5 py-md-0 d-flex flex-column align-items-center justify-content-center">
+          <div className="col-12 col-md-4 py-5 py-md-0 d-flex flex-column align-items-center justify-content-center">
             <div>
               <img src="/images/landing-page/qr-code.svg" style={{ width: '100%' }} />
             </div>
@@ -360,6 +410,99 @@ export default function Home() {
               <img src="/images/landing-page/ig-round.svg" style={{ width: '42px' }} />
               <img src="/images/landing-page/youtube-round.svg" style={{ width: '42px' }} />
             </div>
+          </div>
+          <div className="col-12 col-md-4 msg-container">
+            <h4>ส่งข้อความถึงเรา</h4>
+            <div className="input-container">
+              <label htmlFor="name">
+                ชื่อ<span className="text-danger">*</span>
+              </label>
+              <input
+                id="name"
+                type="text"
+                placeholder="ระบุชื่อ"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="lastname">
+                นามสกุล<span className="text-danger">*</span>
+              </label>
+              <input
+                id="lastname"
+                type="text"
+                placeholder="ระบุนามสกุล"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="email">
+                E-mail<span className="text-danger">*</span>
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="ระบุ E-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="tel">
+                เบอร์โทรศัพท์<span className="text-danger">*</span>
+              </label>
+              <input
+                id="tel"
+                type="tel"
+                placeholder="ระบุเบอร์โทรศัพท์"
+                value={tel}
+                onChange={(e) => setTel(e.target.value)}
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="title">
+                เรื่องที่ติดต่อ<span className="text-danger">*</span>
+              </label>
+              <input
+                id="title"
+                type="text"
+                placeholder="ระบุเรื่องที่ติดต่อ"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="messages">
+                ข้อความ<span className="text-danger">*</span>
+              </label>
+              <textarea
+                id="messages"
+                value={messages}
+                onChange={(e) => setMessages(e.target.value)}
+                maxLength={600}
+                className="messages-input"
+                name="messages"
+                rows={6}
+                placeholder="ระบุข้อความ"
+              />
+              <span className="ms-auto">{messages.length}/600</span>
+            </div>
+            <div>
+              <input
+                className="me-3"
+                type="checkbox"
+                name="agree"
+                value={agree}
+                onChange={() => setAgree(!agree)}
+                checked={agree}
+              />
+              <span className='text-decoration-underline'>
+                ยินยอมให้ทางบริษัทเก็บข้อมูลตาม<b>นโยบายข้อมูลส่วนบุคคล</b>
+              </span>
+            </div>
+            <button className='submit-msg-btn'>ส่งข้อความ</button>
           </div>
         </section>
       </div>

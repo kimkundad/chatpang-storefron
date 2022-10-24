@@ -37,9 +37,8 @@ const Packages = () => {
     }
   }
 
-  const onNext = async () => {
-    const pack = data.filter((item) => item.id === selected)
-
+  const onNext = async (id) => {
+    const pack = data.filter((item) => item.id === id)
     const userOrder = {
       facebookUser: user.user.id,
       payment: {
@@ -64,7 +63,7 @@ const Packages = () => {
       const res = await axios.post(`/public/orders`, userOrder, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
       })
-      console.log(res.data)
+      // console.log(res.data)
       await setUserData({ ...user, package: pack[0], order: res.data.data })
       router.push('/user/payment/paymentoptions')
     } catch (error) {
@@ -100,15 +99,15 @@ const Packages = () => {
           <span className="text-danger">ไม่สามารถสร้างออเดอร์ได้ ลองล็อคอินอีกครั้ง หรือ ติดต่อแอดมิน</span>
         </div>}
         <div className="col-md-12 cardPriceContainer">
-          <CardPrice data={data} selected={selected} setSelectedPackage={setSelectedPackage} />
+          <CardPrice data={data} selected={selected} onNext={onNext} />
         </div>
-        <div className="row justify-content-center">
+        {/* <div className="row justify-content-center">
           <div style={{ width: '40%' }} className="col-12 d-flex justify-content-md-end justify-content-center mt-5">
             <button onClick={() => onNext()} className="customBTN" disabled={selected === 0 ? true : false}>
               ต่อไป
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

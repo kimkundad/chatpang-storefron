@@ -11,8 +11,8 @@ import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <div id='footer' className="footer">
-      <Image className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" layout='fill' />
+    <div id="footer" className="footer">
+      <Image className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" layout="fill" />
       <div className="row footer-container">
         <div className="col-md-4 col-12 d-flex flex-column align-items-center justify-content-end mb-3">
           <Image src={LOGO} width="240" height="80" alt="logo" />
@@ -27,9 +27,7 @@ const Footer = () => {
         <div className="col-md-2 footer-padding col-6 d-flex flex-column">
           <strong>บริการ</strong>
           <Link href="about">
-            <div className="link">
-            เกี่ยวกับเรา
-            </div>
+            <div className="link">เกี่ยวกับเรา</div>
           </Link>
 
           <Link href="function">
@@ -61,9 +59,7 @@ const Footer = () => {
           </Link>
 
           <Link href="/privacy">
-            <div className="link">
-            นโยบายความเป็นส่วนตัว
-            </div>
+            <div className="link">นโยบายความเป็นส่วนตัว</div>
           </Link>
 
           <Link href="/">

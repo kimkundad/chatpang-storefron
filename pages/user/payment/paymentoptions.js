@@ -49,7 +49,8 @@ const Paymentoptions = () => {
             </label>
           </div>
         </div>
-        {method ? <QRcode /> : <Credit />}
+        {/* {method ? <QRcode /> : <Credit />} */}
+        <QRcode />
       </div>
     </div>
   )
