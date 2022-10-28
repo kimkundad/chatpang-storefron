@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development next dev -p 3005",
+    "dev": "NODE_ENV=development next dev -p 3001",
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production next start -p $PORT ",
     "heroku-postbuild": "npm run build"
@@ -27,7 +27,7 @@
     "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "next": "^11.1.4",
+    "next": "^13.0.0",
     "next-qrcode": "^2.2.2",
     "next-redux-wrapper": "^7.0.5",
     "path": "^0.12.7",
