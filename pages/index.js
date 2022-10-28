@@ -6,7 +6,6 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import axios from './api/axios'
 import CardPrice from '../components/CardPrice'
-import Player from 'react-player'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
@@ -270,13 +269,15 @@ export default function Home() {
                 <div key={index} className="flex flex-column p-3">
                   <div className="ratio ratio-4x3">
                     {val.video_url ? (
-                      <Player
+                      <iframe
                         width="100%"
                         height="100%"
-                        url={val.video_url}
+                        src={val.video_url.replace('watch?v=','embed/')}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
                         className="video-yt"
-                        style={{ borderRadius: '20px !important' }}
-                      />
+                        style={{ marginLeft: 'auto', marginRight: 'auto' }}
+                      ></iframe>
                     ) : (
                       <div
                         className="mx-auto text-center"
@@ -309,10 +310,7 @@ export default function Home() {
             >
               {reviews.map((val, index) => (
                 <div key={index} className="flex flex-column p-3">
-                  <div
-                    className="bg-grey50 shadow px-3 pt-4 pb-1 border rounded-3 position-relative"
-                    style={{ marginTop: '4em' }}
-                  >
+                  <div className="review-container">
                     <img src={val.picture} className="review-content-picture" />
                     <div className=" d-flex flex-column align-items-center">
                       <div className="review-content-name">{val.name}</div>
@@ -498,11 +496,11 @@ export default function Home() {
                 onChange={() => setAgree(!agree)}
                 checked={agree}
               />
-              <span className='text-decoration-underline'>
+              <span className="text-decoration-underline">
                 ยินยอมให้ทางบริษัทเก็บข้อมูลตาม<b>นโยบายข้อมูลส่วนบุคคล</b>
               </span>
             </div>
-            <button className='submit-msg-btn'>ส่งข้อความ</button>
+            <button className="submit-msg-btn">ส่งข้อความ</button>
           </div>
         </section>
       </div>

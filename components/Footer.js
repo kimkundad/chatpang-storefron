@@ -13,10 +13,10 @@ const Footer = () => {
   return (
     <div id="footer" className="footer">
       <Image className="footer-bg" src="/images/bg/footer_bg.png" alt="bg" layout="fill" />
-      <div className="row footer-container">
+      <div className="footer-container">
         <div className="col-md-4 col-12 d-flex flex-column align-items-center justify-content-end mb-3">
           <Image src={LOGO} width="240" height="80" alt="logo" />
-          <div className="footer-title">ผู้ช่วยตอบแชทเก่ง</div>
+          <div className="footer-title">ผู้ช่วยตอบแชทคนเก่ง</div>
           <div className="footer-sub-title">สำหรับแม่ค้าออนไลน์</div>
           <div className="address">
             <div className="company-name">บริษัท บีทีวาย มาเก็ตติ้ง จำกัด</div>
