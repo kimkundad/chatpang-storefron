@@ -8,6 +8,7 @@ import useWindowSize from '../modules/windowSize';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css'
+import 'antd/dist/antd.css'
 
 import { AppContextProvider } from '../context/AppContextProvider';
 
