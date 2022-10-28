@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, shrink-to-fit=no"></meta>
                 {/* Font */}
                 <link rel="stylesheet" type="text/css" href="/font.css"></link>
-                <link rel="shortcut icon" href="images/logo1.ico" />
+                <link rel="shortcut icon" href="/images/logo1.ico" />
                 <title>Chat Pang ผู้ช่วยตอบแชทเก่ง!</title>
             </Head>
             <AppContextProvider>
