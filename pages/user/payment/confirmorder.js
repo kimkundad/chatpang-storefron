@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
-import Stepper from '../../../components/Stepper'
-import { Checkbox, Divider } from 'antd'
-import React, { useState, useEffect } from 'react'
+import Stepper from '../../../components/Stepper/Stepper';
+import Divider from '@mui/material/Divider';
+import React from 'react'
 
-import sampleSlip from '../../../resources/imgs/slip.jpg'
 import useUser from '../../../Hooks/useUser'
-import axios from '../../api/axios'
+
+import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
+import PaymentStyle from './style';
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
@@ -14,8 +15,8 @@ const Confirmorder = () => {
     router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
   }
   return (
-    <div className="page-wrapper">
-      <div className="container-fluid">
+    <MainLayout>
+      <PaymentStyle>
         <div className="row">
           <div className="col-lg-12 d-flex justify-content-center">
             <Stepper step="2" />
@@ -90,8 +91,8 @@ const Confirmorder = () => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </PaymentStyle>
+    </MainLayout>
   )
 }
 

@@ -1,9 +1,9 @@
-import { Divider } from 'antd'
+import Divider from '@mui/material/Divider';
 import React, { useState } from 'react'
 // import Image from 'next/image'
 import { useRouter } from 'next/dist/client/router'
 
-import QRCode from '../../../resources/imgs/qrcash.0a134114.png'
+// import QRCode from '../../../resources/imgs/qrcash.0a134114.png'
 import useUser from '../../../Hooks/useUser'
 import axios from '../../api/axios'
 import { useQRCode } from 'next-qrcode'

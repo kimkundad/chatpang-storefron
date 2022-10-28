@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import useUser from '../../Hooks/useUser'
 import axios from '../api/axios'
 
+import LoginContainerStyle from './style'
+
 const Login = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
@@ -73,7 +75,7 @@ const Login = () => {
     userId !== undefined && userId !== null && getFacebookUserData(login)
   }, [userId])
 
-  return <div className="nosidebar-wrapper text-center">ระบบกำลัง redirect ไปที่หน้าการจัดการ</div>
+  return <LoginContainerStyle>ระบบกำลัง redirect ไปที่หน้าการจัดการ</LoginContainerStyle>
 }
 
 export default Login

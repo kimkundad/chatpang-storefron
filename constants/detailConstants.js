@@ -1,0 +1,32 @@
+export const RANDOM_ARTICLE_LIST = [
+  {
+    articleId: 1,
+    key: 'key_1',
+    header: 'แนะนำ ระบบการจัดการหลังร้านใช้งานง่ายคุ้มค่ากับการลงทุน',
+    content: '<h1>ทดสอบ</h1><div>1</div>',
+    category: 'Online Business',
+    date: 'โพสต์เมื่อ 26 ธันวาคม 2022',
+    timeRead: 'ใช้เวลาอ่านประมาณ 1 นาที',
+    src: '/images/BG/business-woman-arms-up-with-laptop-cardboard-box.jpeg',
+  },
+  {
+    articleId: 2,
+    key: 'key_2',
+    header: 'แนะนำ ระบบการจัดการหลังร้านใช้งานง่ายคุ้มค่ากับการลงทุน',
+    content: '<h1>ทดสอบ</h1><div>2</div>',
+    category: 'Online Business',
+    date: 'โพสต์เมื่อ 26 ธันวาคม 2022',
+    timeRead: 'ใช้เวลาอ่านประมาณ 1 นาที',
+    src: '/images/BG/business-woman-arms-up-with-laptop-cardboard-box.jpeg',
+  },
+  {
+    articleId: 3,
+    key: 'key_3',
+    header: 'แนะนำ ระบบการจัดการหลังร้านใช้งานง่ายคุ้มค่ากับการลงทุน',
+    content: '<div style="text-align: center"><h1 style="font-weight: 600">ทดสอบ</h1><div>3</div><img src="http://qnimate.com/wp-content/uploads/2014/03/images2.jpg"/></div>',
+    category: 'Online Business',
+    date: 'โพสต์เมื่อ 26 ธันวาคม 2022',
+    timeRead: 'ใช้เวลาอ่านประมาณ 1 นาที',
+    src: '/images/BG/business-woman-arms-up-with-laptop-cardboard-box.jpeg',
+  },
+];

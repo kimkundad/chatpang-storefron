@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Divider } from 'antd'
+import Divider from '@mui/material/Divider'
 import { useRouter } from 'next/router'
 import moment from 'moment'
 import useUser from '../../Hooks/useUser'
