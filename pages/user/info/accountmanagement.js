@@ -5,6 +5,9 @@ import PaymentDetails from '../../../components/subUser/PaymentDetails';
 import useUser from '../../../Hooks/useUser';
 import axios from '../../api/axios';
 import moment from 'moment';
+
+import MainLayout from '../../../components/layouts/mainLayout/mainLayout'
+import {AccountManagementStyle} from './style'
 const Accountmanagement = () => {
   const { TabPane } = Tabs;
   const { user, setUserData } = useUser()
@@ -54,8 +57,8 @@ const Accountmanagement = () => {
   },[])
 
   return (
-    <div className='page-wrapper'>
-      <div className='content'>
+    <MainLayout>
+      <AccountManagementStyle>
           <Tabs size='large' defaultActiveKey='1'>
               <TabPane tab="รายละเอียดสมาชิก" key="1">
                 <MemberDetails />
@@ -65,8 +68,8 @@ const Accountmanagement = () => {
                 <PaymentDetails />
               </TabPane>
           </Tabs>
-      </div>
-    </div>
+      </AccountManagementStyle>
+    </MainLayout>
   )
 }
 
