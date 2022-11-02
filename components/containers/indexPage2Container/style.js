@@ -161,7 +161,7 @@ const IndexPage2ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      width: 100px;
+      width: auto;
       height: 100px;
     }
 
@@ -174,7 +174,7 @@ const IndexPage2ContainerStyle = styled.div`
     }
 
     & .text-content {
-      font-size: 18px;
+      font-size: 4vw;
       font-weight: 600;
       padding-top: 3%;
     }
@@ -215,7 +215,7 @@ const IndexPage2ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      width: 100px;
+      width: auto;
       height: 100px;
     }
 
@@ -256,7 +256,7 @@ const IndexPage2ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      width: 100px;
+      width: auto;
       height: 100px;
     }
 
@@ -291,7 +291,7 @@ const IndexPage2ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      width: 120px;
+      width: auto;
       height: 120px;
     }
 

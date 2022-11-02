@@ -68,6 +68,7 @@ const IndexContainerStyle = styled.div`
     .index-text {
       font-weight: 600;
       font-size: 20px;
+      line-height:30px;
     }
     height: auto !important;
 
@@ -97,13 +98,14 @@ const IndexContainerStyle = styled.div`
 
     .video-yt {
       height: 200px;
-      width: 500px;
+      width:97vw;
       margin-top: 10%;
     }
 
     .index-text {
       font-weight: 600;
       font-size: 20px;
+      line-height:30px;
     }
     height: auto !important;
   }
@@ -128,11 +130,13 @@ const IndexContainerStyle = styled.div`
     .index-text {
       font-weight: 600;
       font-size: 29px;
+      line-height:60px;
     }
     height: auto !important;
 
     & .video-yt {
       height: 400px;
+      width:97vw;
       margin: 40px 0px;
     }
   }

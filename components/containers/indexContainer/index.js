@@ -37,7 +37,7 @@ const IndexContainer = React.forwardRef((props, ref) => {
                         // }}
                     >
                         <div className="image-cover-logo" style={{ marginTop: 'auto' }}>
-                            <Image style={{margin:'auto'}} src="/images/logo.png" width={450} />
+                            <Image style={{margin:'auto'}} src="/images/logo.png" fluid />
                         </div>
                         <div
                             className="header text-center"

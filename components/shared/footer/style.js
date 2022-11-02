@@ -317,7 +317,7 @@ const FooterComponentStyle = styled.div`
     background: #fced22;
 
     & .image-cover-logo {
-      width: 480px;
+      width: auto;
       height: 105px;
       margin-left: auto;
       margin-right: auto;
@@ -647,7 +647,7 @@ const FooterComponentStyle = styled.div`
   //xxl extra tablet
   @media screen and (min-width: 1200px) and (max-width: 1919px) {
     & .image-cover-logo {
-      width: 480px;
+      width: auto;
       height: 80px;
       margin-top: 0px;
     }

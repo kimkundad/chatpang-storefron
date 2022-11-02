@@ -16,7 +16,7 @@ html,
 
   h1,h2,h3,h4,h5,h6, *{
     font-family: ${
-      font.FONT_FAMILIES.PRIMARY
+        font.FONT_FAMILIES.PRIMARY
     }, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
   }
 
@@ -58,7 +58,7 @@ html,
       background: ${color.PRIMARY};
       color: ${color.BLACK_COLOR};
       font-family: ${
-        font.FONT_FAMILIES.PRIMARY
+          font.FONT_FAMILIES.PRIMARY
       }, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
       font-size: ${font.FONT_SIZE_PX.BG} !important;
       font-weight: 400;
@@ -182,7 +182,13 @@ html,
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
-
+  .toast-container{
+  margin-top: 7vw;
+  margin-right: 1.5vw;
+}
+.toast-content{
+  font-size: clamp(1rem, calc(1rem, 5vw), 3.5rem);
+}
   //xs mobile
   @media screen and (max-width: 575px) {
     html,

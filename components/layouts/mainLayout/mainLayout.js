@@ -19,13 +19,6 @@ const MainLayout = React.forwardRef(
     const [activeTab, setActiveTab] = useState('');
     const [clickName, setClickName] = useState('');
     const [mainHeight, setMainHeight] = useState(null);
-    const alert = useSelector((state) => state.global.options.alert);
-    const isLoading = useSelector((state) => state.global.options.isLoading);
-    const indexIsLoading = useSelector((state) => state.index.options.isLoading);
-    const dispatch = useDispatch();
-    const closeAlertModal = async () => {
-      await dispatch(closeAlert());
-    };
     const size = useWindowSize();
     
 
@@ -43,12 +36,9 @@ const MainLayout = React.forwardRef(
     }, [navRef, mainRef, navRef.current.offsetHeight, mainRef.current.clientHeight, size, contentRef.current.scrollTop, clickName, navKey, activeTab]);
     return (
       <MainLayoutStyle navbarHeight={navbarHeight} mainHeight={mainHeight} ref={ref}>
-        {alert.open && (
-          <AlertModal open={alert.open} onClose={() => closeAlertModal()} error={!alert.success && alert.open} success={alert.success && alert.open} message={alert.message} />
-        )}
         {/* <DialogLoading open={indexIsLoading} /> */}
         <div className="main" ref={mainRef}>
-          <Navbar ref={navRef} navKey={navKey} screenWidth={size.width} /*handleClick={handleClick}*/ keyActiveTab={activeTab} />
+          <Navbar ref={navRef} navbarHeight={navbarHeight} navKey={navKey} screenWidth={size.width} /*handleClick={handleClick}*/ keyActiveTab={activeTab} />
           <div
             className="content"
             ref={contentRef}

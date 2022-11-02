@@ -105,7 +105,7 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      height: 100px !important;
+      height: auto !important;
       width: 100px !important;
     }
   }
@@ -135,7 +135,7 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      height: 120px !important;
+      height: auto !important;
       width: 120px !important;
     }
 
@@ -155,7 +155,7 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      height: 100px !important;
+      height: auto !important;
       width: 100px !important;
     }
 
@@ -183,7 +183,7 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      height: 100px !important;
+      height: auto !important;
       width: 100px !important;
     }
 
