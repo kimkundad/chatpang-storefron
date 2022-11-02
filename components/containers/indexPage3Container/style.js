@@ -75,7 +75,7 @@ const IndexPage3ContainerStyle = styled.div`
   .video-yt {
     width: 90%;
     height: 620px;
-    margin-top: auto;
+    margin: auto;
   }
 
   //xs mobile
@@ -207,6 +207,7 @@ const IndexPage3ContainerStyle = styled.div`
     .video-yt {
       width: 90%;
       height: 450px;
+      margin:auto;
     }
 
     & .text-header-1 {
@@ -214,8 +215,8 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      height: 60px;
-      width: 60px;
+      height: 100px;
+      width: 140px;
     }
 
     & .profile-icon {

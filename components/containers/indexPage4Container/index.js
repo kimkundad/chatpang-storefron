@@ -23,7 +23,7 @@ const IndexPage4Container = React.forwardRef((props, ref) => {
                 <div className="content-data">
                     <div className="div-w-100">
                         <Grid container direction="row" spacing="2" textAlign="center" alignItems="center" className="header-text-page">
-                            <Grid container item md={12} lg={8} xl={8} sm={12} xs={12} display="block">
+                            <Grid container item md={12} lg={12} xl={12} sm={12} xs={12} display="block">
                                 <Typography variant="h3" style={{ padding: '0px 0px 1%' }}>
                                     {constants.HEADER_TEXT_1}
                                     <span className="price">{constants.HEADER_TEXT_PRICE}</span>
@@ -43,7 +43,7 @@ const IndexPage4Container = React.forwardRef((props, ref) => {
                         </Grid>
 
                         <Grid container direction="row" spacing="2" display="flex" textAlign="center">
-                            <Grid container item md={12} lg={8} xl={8} sm={12} xs={12} display="block">
+                            <Grid container item md={12} lg={12} xl={12} sm={12} xs={12} display="block">
                                 <Button
                                     variant="contained"
                                     size="small"

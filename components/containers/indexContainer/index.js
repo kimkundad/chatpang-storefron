@@ -36,7 +36,7 @@ const IndexContainer = React.forwardRef((props, ref) => {
                         //   paddingLeft: 50,
                         // }}
                     >
-                        <div className="image-cover-logo" style={{ marginTop: 'auto' }}>
+                        <div className="image-cover-logo" style={{ marginTop: '5vw' }}>
                             <Image style={{margin:'auto'}} src="/images/logo.png" fluid />
                         </div>
                         <div

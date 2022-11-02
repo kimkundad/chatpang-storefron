@@ -9,7 +9,7 @@ import { useRouter } from 'next/dist/client/router';
 
 const IndexPage3Container = React.forwardRef((props, ref) => {
     let size = useWindowSize();
-     const router = useRouter();
+    const router = useRouter();
     return (
         <IndexPage3ContainerStyle className="bg-1" navHeight={props.navHeight} screenWidth={size.width} screenHeight={size.height}>
             <div className="app-container">
@@ -35,7 +35,6 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                                 <br />
                                 บรอดแคสต์ทีนึง ก็ได้ค่าระบบคืนแล้วแถมกำไรยังตามมาอีกเรื่อยๆเลยจ้า
                                 <br /> แอดมินน่ารักมากกกกก ถามเยอะแค่ไหน ก็ไม่บ่น
-                                <br /> ไม่เข้าใจตรงไหน ก็ช่วยทำให้ บริการก่อน-หลังการขาย คือดีงานมมากค่ะ"
                             </div>
 
                             <Grid container direction="row" style={{ marginTop: 20 }} alignItems="center" alignContent="center">
@@ -57,20 +56,14 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                             sm={12}
                             md={4}
                             lg={6}
-                            xl={6}
-                            style={{
-                                height: '100%',
-                                marginBottom: { xl: 'auto' },
-                                marginTop: 'auto',
-                            }}>
+                            xl={6}>
                             <iframe
                                 width="100%"
                                 height="100%"
                                 className="video-yt"
                                 src="https://www.youtube.com/embed/QIjZn_fiS3M"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                style={{ marginLeft: 'auto', marginRight: 'auto' }}></iframe>
+                                allowFullScreen></iframe>
                         </Grid>
                     </Grid>
 
@@ -82,9 +75,13 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                         textAlign="center"
                         position="absolute"
                         sx={{ bottom: { lg: '5%', xl: '1%' }, width: size.width >= windowSize.STD_WIDTH ? windowSize.STD_WIDTH : size.width }}>
-                        <Button variant="contained" size="small" className="btn-button review-btn" onClick={() => {
-                          router.replace('/customer-review')
-                        }}>
+                        <Button
+                            variant="contained"
+                            size="small"
+                            className="btn-button review-btn"
+                            onClick={() => {
+                                router.replace('/customer-review');
+                            }}>
                             รีวิวเพิ่มเติม
                         </Button>
                     </Grid>

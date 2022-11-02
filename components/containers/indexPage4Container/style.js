@@ -107,12 +107,12 @@ const IndexPage4ContainerStyle = styled.div`
   .content-data {
     //padding: 3% 50px 50px;
     width: 100%;
-    height: calc((100vh - ${(props) => props.navHeight}px) - 100px) !important;
+    /* height: calc((100vh - ${(props) => props.navHeight}px) - 100px) !important; */
     align-items: center;
     justify-items: center;
     display: flex;
     z-index: 1;
-
+    padding:5vw 0;
     .price {
       color: ${color.RED_COLOR_1} !important;
       font-size: 150% !important;
@@ -150,7 +150,8 @@ const IndexPage4ContainerStyle = styled.div`
 
   //xs mobile
   @media screen and (max-width: 575px) {
-    min-height: 880px !important;
+    /* min-height: 880px !important; */
+    padding:5vw 0;
     .review-btn {
       width: auto;
       margin-top: 20px !important;
@@ -173,8 +174,9 @@ const IndexPage4ContainerStyle = styled.div`
 
     & .content-data {
       width: 100%;
-      min-height: calc(100vh + 170px) !important;
-      align-items: flex-start;
+      /* min-height: calc(100vh + 170px) !important; */
+      height:fit-content;
+      align-items: center;
       padding: 5%;
       position: relative;
 
@@ -236,7 +238,7 @@ const IndexPage4ContainerStyle = styled.div`
     & .content-data {
       width: 100%;
       min-height: calc(100vh + 420px) !important;
-      align-items: flex-start;
+      align-items: center;
       padding: 5%;
       position: relative;
 
@@ -296,7 +298,7 @@ const IndexPage4ContainerStyle = styled.div`
     & .content-data {
       width: 100%;
       min-height: calc(100vh + 150px) !important;
-      align-items: flex-start;
+      align-items: center;
       padding: 5%;
       position: relative;
 
@@ -354,7 +356,7 @@ const IndexPage4ContainerStyle = styled.div`
     & .content-data {
       width: 100%;
       min-height: calc(100vh + 450px) !important;
-      align-items: flex-start;
+      align-items: center;
       padding: 5%;
       position: relative;
 
