@@ -1,15 +1,15 @@
-export const HEADER_TEXT_1 = 'เริ่มต้นเพียง ';
+export const HEADER_TEXT_1 = '';
 export const HEADER_TEXT_2 = ' บาท/เดือน';
-export const HEADER_TEXT_PRICE = '750';
+export const HEADER_TEXT_PRICE = '590';
 
 export const LIST_TEXT = [
   {
     key: 'direct_key_1',
-    text: 'บรอดแคสต์ Facebook Fanpage',
+    text: 'ตอบคอมเม้นต์อัตโนมัติ',
   },
   {
     key: 'direct_key_2',
-    text: 'บรอดแคสต์ Line Official Account',
+    text: 'ดึงคอมเม้นต์เข้า Inbox',
   },
   {
     key: 'direct_key_3',
@@ -17,10 +17,10 @@ export const LIST_TEXT = [
   },
   {
     key: 'direct_key_4',
-    text: 'ใช้งานง่าย ราคาถูก',
+    text: 'ใช้งานได้ 1 เพจ',
   },
   {
     key: 'direct_key_5',
-    text: 'มีแอดมินดูแลหลังการขาย',
+    text: 'แจ้งเตือนไลน์ เมื่อแอดมินไม่ตอบ Inbox',
   },
 ];
