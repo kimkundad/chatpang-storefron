@@ -147,18 +147,13 @@ const NavBar = React.forwardRef((props, ref) => {
         }
     };
 
-
     return (
         <NavbarStyle navbarHeight={ref.current.offsetHeight} screenWidth={props.screenWidth}>
             <AppBar position="fixed" className="navbar" ref={ref}>
                 <div className="app-container">
                     <div className="nav-padding">
-                        <Toolbar
-                            disableGutters
-                            sx={{
-                                display: { xs: 'none', md: 'flex' },
-                                justifyContent: 'space-between',
-                            }}>
+                        <Toolbar disableGutters>
+                        {/* menu when large screen */}
                             <Typography
                                 variant="h6"
                                 noWrap
@@ -169,8 +164,8 @@ const NavBar = React.forwardRef((props, ref) => {
                                 }}>
                                 <Image onClick={() => handleClick('index', '/')} component="div" src="/images/logo.png" className="image-logo" />
                             </Typography>
-
-                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, position: 'absolute' }}>
+                                {/* Menu when small screen */}
+                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
                                 <IconButton
                                     size="large"
                                     aria-label="account of current user"

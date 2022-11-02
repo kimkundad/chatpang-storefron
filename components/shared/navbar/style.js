@@ -34,13 +34,14 @@ const NavbarStyle = styled.nav`
         //max-width: 100%;
         width: ${navbar.LOGO_WIDTH};
         object-fit: cover;
+        margin:0 5vw;
         //margin: auto !important;
     }
 
     .image-logo-2 {
         max-height: 64px;
         //max-width: 100%;
-        width: 60%;
+        width: 80%;
         object-fit: cover;
         margin: auto !important;
     }
@@ -65,7 +66,7 @@ const NavbarStyle = styled.nav`
 
         & .image-logo-2 {
             max-height: 92px;
-            width: 45% !important;
+            width: 60% !important;
             object-fit: cover;
             margin: auto !important;
         }
@@ -81,7 +82,7 @@ const NavbarStyle = styled.nav`
 
         & .image-logo-2 {
             max-height: 92px;
-            width: 40% !important;
+            width: 60% !important;
             object-fit: cover;
             margin: auto !important;
         }
