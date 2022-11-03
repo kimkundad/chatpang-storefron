@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import Stepper from '../../../components/Stepper'
+import Stepper from '../../../components/Stepper/Stepper'
 import { DatePicker, TimePicker, Upload, Modal } from 'antd'
 
 const Slipupload = () => {

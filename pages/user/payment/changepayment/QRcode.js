@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/dist/client/router'
 
-import QRCode from '../../../../resources/imgs/qrcash.0a134114.png'
+// import QRCode from '../../../../resources/imgs/qrcash.0a134114.png'
 import useUser from '../../../../Hooks/useUser'
 const QRcode = () => {
   const router = useRouter()
   const { user } = useUser()
   const [isSubmit, setIsSubmit] = useState(false)
+  const [qrcode, setQrcode] = useState('')
 
   const onSubmit = () => {
     setIsSubmit(!isSubmit)
@@ -19,7 +20,7 @@ const QRcode = () => {
       return (
         <div className="row justify-content-center">
           <div className="col-md-4 d-flex qrcodeImg flex-column">
-            <Image src={QRCode} alt="qrcode" />
+            <Image src={qrcode} alt="qrcode" />
             <div className='text-end'>
               <button onClick={() => router.back}>ย้อนกลับ</button>
               <button className='ms-2' onClick={() => router.push('/user/changepayment/confirmorder')}>ต่อไป</button>
