@@ -15,7 +15,7 @@ const Register = () => {
 
     const { user, setUserData } = useUser();
     const userId = router.query.fb;
-    console.log(userId);
+    // console.log(userId);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -24,27 +24,32 @@ const Register = () => {
     const [facebookUserId, setFacebookUserId] = useState('');
     const [imageURL, setImageURL] = useState(undefined);
 
+    const [error, setError] = useState(false);
+
     const onSubmit = async (e) => {
         e.preventDefault();
+        if (phoneno?.length === 0) {
+            setError(true);
+        } else {
+            const registerData = {
+                facebookId: facebookUserId,
+                email: email,
+                name: name,
+                tel: phoneno + '',
+                note: note,
+                picture: imageURL,
+            };
 
-        const registerData = {
-            facebookId: facebookUserId,
-            email: email,
-            name: name,
-            tel: phoneno + '',
-            note: note,
-            picture: imageURL,
-        };
-
-        try {
-            //*register user then go to login user after that keep token in user context
-            const res = await axios.post(`/public/facebook-users/${userId}/register`, registerData);
-            if (res.data.data === 'Success') {
-                router.replace(`/login/?fb=${userId}`);
+            try {
+                //*register user then go to login user after that keep token in user context
+                const res = await axios.post(`/public/facebook-users/${userId}/register`, registerData);
+                if (res.data.data === 'Success') {
+                    router.replace(`/login/?fb=${userId}`);
+                }
+            } catch (error) {
+                console.log(error);
+                router.push('/user');
             }
-        } catch (error) {
-            console.log(error);
-            router.push('/user');
         }
     };
 
@@ -101,8 +106,10 @@ const Register = () => {
                             {imageURL !== undefined ? (
                                 <img src={imageURL} width="100px" height="100px" className="mx-auto" alt="profile" />
                             ) : (
-                                <div className='m-auto'>
-                                    <Avatar sx={{width:100, height:100}} variant="square">NO PHOTO</Avatar>
+                                <div className="m-auto">
+                                    <Avatar sx={{ width: 100, height: 100 }} variant="square">
+                                        NO PHOTO
+                                    </Avatar>
                                 </div>
                             )}
                         </div>
@@ -138,12 +145,23 @@ const Register = () => {
                                 <label htmlFor="tel">
                                     เบอร์โทรศัพท์<span className="text-danger">*</span>{' '}
                                 </label>
-                                <input value={phoneno} onChange={(e) => setPhoneno(e.target.value)} className="customRegisterInput" id="tel" type="tel" autoFocus required />
+                                <input
+                                    onFocus={() => setError(false)}
+                                    value={phoneno}
+                                    onChange={(e) => setPhoneno(e.target.value)}
+                                    className="customRegisterInput"
+                                    id="tel"
+                                    type="tel"
+                                    autoFocus
+                                    required
+                                />
                             </div>
                         </div>
-                        <div className="row">
-                            <span className="mx-auto text-center text-danger">For test user please click &quot;ลงทะเบียน&quot; button without input anything</span>
-                        </div>
+                        {error && (
+                            <div className="row">
+                                <span className="mx-auto text-center text-danger">กรุณากรอกเบอร์โทรศัพท์</span>
+                            </div>
+                        )}
                         <div className="registerBtnContainer row justify-content-center mt-2 mx-auto">
                             <div className="col-lg-12 d-flex justify-content-center">
                                 <button onClick={() => router.push('/user/')} className="customRegisterBtn me-3">

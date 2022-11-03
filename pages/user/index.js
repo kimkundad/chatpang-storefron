@@ -11,8 +11,8 @@ const UserLogin = (props) => {
     };
 
     return (
-        <MainLayout setNavHeight={setNavHeight}>
-            <UserLoginStyle navHeight={props.navHeight}>
+        <MainLayout  setNavHeight={setNavHeight}>
+            <UserLoginStyle navHeight={navHeight}>
                 <h4 className="text-center facebook-header">เข้าสู่ระบบ</h4>
                 <div className="text-center facebook-body">
                     <button onClick={() => onLogin()} className="btn btn-primary btn-lg my-4 rounded-pill fs-4">

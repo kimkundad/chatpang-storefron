@@ -5,7 +5,7 @@ const UserLoginContainerStyle = styled.div`
     //padding: 5%;
     position: relative;
     z-index: 1;
-
+    padding-top:${(props) => props.navHeight}px;
 .facebook-header{
   font-size: 3vw;
   margin-top: 50px;

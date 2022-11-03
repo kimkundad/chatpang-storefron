@@ -7,6 +7,7 @@ const RegisterContainerStyle = styled.div`
     position: relative;
     z-index: 1;
     margin-top: 20px;
+    padding-top:${(props) => props.navHeight}px;
     .registerBtnContainer button:last-child {
         background:${color.PRIMARY};
     }

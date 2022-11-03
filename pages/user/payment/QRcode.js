@@ -117,9 +117,9 @@ const QRcode = () => {
               <button onClick={() => onSubmit()}>สร้าง QR CODE</button>
               </>
             )}
-            <button onClick={() => router.replace('/user/info/pagemanagement')}>
+            {/* <button onClick={() => router.replace('/user/info/pagemanagement')}>
              SKIP FOR TEST USER
-            </button>
+            </button> */}
           </div>
         </div>
       )
