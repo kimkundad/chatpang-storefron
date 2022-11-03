@@ -159,7 +159,7 @@ const Welcometext = () => {
                 <div className="row">
                     <div className="col-md-8 mx-auto d-flex mt-3">
                         {data?.length === 0 ? (
-                            <p className="mx-auto">ไม่มีข้อมูล กรุณาสร้าง แคมเปญ</p>
+                            <p className="mx-auto noData">ไม่มีข้อมูล กรุณาสร้าง แคมเปญ</p>
                         ) : (
                             <Table bordered>
                                 <thead>

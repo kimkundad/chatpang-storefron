@@ -157,8 +157,8 @@ const Edit = () => {
                             <strong className="text-uppercase">แจ้งเตือนผ่าน Line Notify</strong>
                             <span className="text-secondary">แจ้งเตือนข้อความที่ยังไม่มีคนอ่าน ผ่านทางไลน์กลุ่มรู้จำนวนข้อความที่ค้างไว้ ลูกค้าไม่ต้องรอนาน</span>
                         </div>
-                        <div className="col-md-4 text-end">
-                            <label htmlFor="lineName">ชื่อกลุ่มไลน์</label>
+                        <div className="col-lg-4 d-flex justify-content-lg-end justify-content-center">
+                            <h4 className='me-3 text-md-end my-auto'>ชื่อกลุ่มไลน์</h4>
                         </div>
                         <div className="col-md-4 w-md-70 lineTokenInput  ms-md-auto">
                             <input value={lineName} onChange={(e) => setLineName(e.target.value)} className="mt-2" type="text" name="lineName" id="token" />

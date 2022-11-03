@@ -15,6 +15,8 @@ const ManageStyle = styled.div`
     .vdo-container {
         height: 50vh;
         margin: 4% 0;
+        display:grid;
+        place-items:center;
     }
 
     .price-card-zone {
@@ -32,6 +34,7 @@ const ManageStyle = styled.div`
         position: absolute;
         right: 5%;
         top: calc((100% - 38px) / 2);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
     }
 
     .card-add {
@@ -108,7 +111,7 @@ const ManageStyle = styled.div`
 
     .card-detail {
         overflow-y: auto;
-        min-height: 414px;
+        min-height: 300px;
     }
 
     .price {
@@ -181,7 +184,7 @@ const ManageStyle = styled.div`
         }
 
         & .card-add {
-            width: auto;
+            width: 85%;
         }
 
         & .chat-icon {
@@ -199,7 +202,7 @@ const ManageStyle = styled.div`
         }
 
         & .best-sell {
-            position: unset;
+            /* position: unset; */
             display: flex;
         }
 
@@ -229,6 +232,9 @@ const ManageStyle = styled.div`
                 margin-right: 15px;
             }
         }
+        .ad-container {
+            padding:0 20px;
+        }
     }
 
     //sm tablet
@@ -244,7 +250,7 @@ const ManageStyle = styled.div`
         }
 
         & .card-add {
-            width: auto;
+            width: 85%;
         }
 
         & .btn-button {
@@ -266,11 +272,11 @@ const ManageStyle = styled.div`
 
             & .card-detail {
                 overflow-y: auto;
-                min-height: 400px;
+                min-height: 300px;
             }
 
             & .best-sell {
-                position: unset;
+                /* position: unset; */
                 display: flex;
             }
 
@@ -297,29 +303,32 @@ const ManageStyle = styled.div`
 
         & .card-detail {
             overflow-y: auto;
-            min-height: 500px;
+            min-height: 300px;
         }
 
         & .card-add {
-            width: auto;
+            width: 85%;
         }
 
         & .card-header {
             min-height: 100px;
             & .text-header {
                 display: block;
+                span{
+                    font-size:36px;
+                }
             }
         }
 
         & .best-sell {
-            position: relative;
+            /* position: relative;
             display: block;
             top: unset;
             right: unset;
             padding: 0px;
             width: 65%;
             margin: auto;
-            margin-bottom: 5%;
+            margin-bottom: 5%; */
         }
         .list-text {
             display: block !important;
@@ -361,11 +370,11 @@ const ManageStyle = styled.div`
 
         & .card-detail {
             overflow-y: auto;
-            min-height: 434px;
+            min-height: 300px;
         }
 
         & .card-add {
-            width: auto;
+            width: 85%;
         }
 
         & .card-header {

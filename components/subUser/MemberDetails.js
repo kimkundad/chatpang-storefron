@@ -37,7 +37,7 @@ const MemberDetails = () => {
     }
   }
   return (
-    <div className="row mt-4  mx-auto invoice-item p-3" style={{ width: '100%' }}>
+    <div className="row mt-4  mx-auto invoice-item p-3">
       <div className="row">
         <div className="col-lg-6 text-start">
           <strong className="text-secondary fs-4">รายละเอียดสมาชิก</strong>

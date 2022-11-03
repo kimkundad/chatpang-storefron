@@ -7,6 +7,7 @@ const PriceContainerStyle = styled.div`
   //display: flex;
   position: relative;
   padding: 0px 5%;
+  padding-top:${(props) => (props.navHeight)}px;
   .price-wrapper {
     margin: 0px auto;
     //border: solid;

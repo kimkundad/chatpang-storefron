@@ -4,6 +4,7 @@ import color from '../../../styles/variables/color';
 const ContactUsContainerStyle = styled.div`
   min-height: calc(100vh - ${(props) => props.navHeight}px) !important;
   //padding: 1.5% 3% 2%;
+  padding-top:${(props) => (props.navHeight)}px;
   .space-input {
     padding-left: 50px;
     padding-right: 25px;

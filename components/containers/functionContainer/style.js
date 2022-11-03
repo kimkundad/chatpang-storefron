@@ -3,6 +3,7 @@ import color from '../../../styles/variables/color';
 const FunctionContainerStyle = styled.div`
   min-height: calc(100vh - ${(props) => props.navHeight}px) !important;
   position: relative;
+  padding-top:${(props) => (props.navHeight)}px;
   //display: flex;
   .main-content {
     text-align: center;

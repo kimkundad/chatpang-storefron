@@ -179,11 +179,11 @@ const Createbot = () => {
                 <Divider />
                 <div className="row g-3">
                     {/* <div className='col-md-8 mx-auto chatComment'> */}
-                    <div className="col-md-3 commentHeader">
+                    <div className="col-lg-3 commentHeader">
                         <h5 className="ms-md-3 me-2">ข้อความตอบเข้าอินบ็อกซ์</h5>
                         <Switch style={{ width: 'fit-content' }} size="small" value={isInboxComment} onChange={(e) => setIsInboxComment(!isInboxComment)} />
                     </div>
-                    <div className="col-md-6 commentInput">
+                    <div className="col-lg-7 commentInput">
                         {/* <TextArea
                             showCount
                             value={txtInboxComment}
@@ -200,7 +200,7 @@ const Createbot = () => {
                             rows={4}
                             cols={6}
                         />
-                        <div className='text-secondary text-end'>{txtInboxComment?.length}/200</div>
+                        <div className="text-secondary text-end">{txtInboxComment?.length}/200</div>
                     </div>
                     {/* {img1 ? (
               <div className="col-md-2 uploadComment">
@@ -230,11 +230,11 @@ const Createbot = () => {
                 <Divider />
                 <div className="row text-center g-3">
                     {/* <div className='col-md-8 mx-auto chatComment'> */}
-                    <div className="col-md-3 commentHeader">
+                    <div className="col-lg-3 commentHeader">
                         <h5 className="ms-md-3 me-2">คอมเม้นต์ใต้โพสต์</h5>
                         <Switch style={{ width: 'fit-content' }} size="small" value={isComment} onChange={() => setIsComment(!isComment)} />
                     </div>
-                    <div className="col-md-6 commentInput">
+                    <div className="col-lg-7 commentInput">
                         {/* <TextArea
                             showCount
                             value={txtComment}
@@ -243,15 +243,8 @@ const Createbot = () => {
                             placeholder="พิมพ์ข้อความที่นี้..."
                             autoSize={{ minRows: 4, maxRows: 6 }}
                         /> */}
-                        <textarea
-                            value={txtComment}
-                            onChange={(e) => setTxtComment(e.target.value)}
-                            maxLength={200}
-                            placeholder="พิมพ์ข้อความที่นี้..."
-                            rows={4}
-                            cols={6}
-                        />
-                        <div className='text-secondary text-end'>{txtComment?.length}/200</div>
+                        <textarea value={txtComment} onChange={(e) => setTxtComment(e.target.value)} maxLength={200} placeholder="พิมพ์ข้อความที่นี้..." rows={4} cols={6} />
+                        <div className="text-secondary text-end">{txtComment?.length}/200</div>
                         <div className="toggleCommentOptions">
                             <div>
                                 <Switch size="small" value={isLikeComment} onChange={() => setIsLikeComment(!isLikeComment)} />

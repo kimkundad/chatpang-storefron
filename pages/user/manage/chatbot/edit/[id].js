@@ -210,7 +210,7 @@ const Edit = () => {
                 <Divider />
                 <div className="row g-3">
                     {/* <div className='col-md-8 mx-auto chatComment'> */}
-                    <div className="col-md-3 commentHeader">
+                    <div className="col-lg-3 commentHeader">
                         <h5 className="ms-md-3 me-2">ข้อความตอบเข้าอินบ็อกซ์</h5>
                         <Switch
                             style={{ width: 'fit-content' }}
@@ -220,7 +220,7 @@ const Edit = () => {
                             checked={isInboxComment}
                         />
                     </div>
-                    <div className="col-md-6 commentInput">
+                    <div className="col-lg-7 commentInput">
                         {/* <TextArea
                             showCount
                             value={txtInboxComment}
@@ -266,11 +266,11 @@ const Edit = () => {
                 <Divider />
                 <div className="row text-center g-3">
                     {/* <div className='col-md-8 mx-auto chatComment'> */}
-                    <div className="col-md-3 commentHeader">
+                    <div className="col-lg-3 commentHeader">
                         <h5 className="ms-md-3 me-2">คอมเม้นต์ใต้โพสต์</h5>
                         <Switch style={{ width: 'fit-content' }} size="small" value={isComment} onChange={() => setIsComment(!isComment)} checked={isComment} />
                     </div>
-                    <div className="col-md-6 commentInput">
+                    <div className="col-lg-7 commentInput">
                         {/* <TextArea
                             showCount
                             value={txtComment}

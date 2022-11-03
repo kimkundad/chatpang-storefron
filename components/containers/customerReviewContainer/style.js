@@ -5,6 +5,7 @@ import dimension from '../../../styles/variables/dimension';
 const CustomerReviewStyle = styled.div`
   min-height: calc(100vh - ${(props) => props.navHeight}px) !important;
   position: relative;
+  padding-top:${(props) => (props.navHeight)}px;
   .review-wrapper {
     padding: 2%;
   }

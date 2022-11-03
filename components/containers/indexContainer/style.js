@@ -11,6 +11,7 @@ const IndexContainerStyle = styled.div`
   min-height: ${(props) => (props.screenHeight >= windowSize.STD_HEIGHT ? windowSize.STD_HEIGHT - props.navHeight : props.screenHeight - props.navHeight)}px;
   display: flex;
   //padding: 0px 5%;
+  padding-top:${(props) => (props.navHeight)}px;
   position: relative;
 
   .row-content {

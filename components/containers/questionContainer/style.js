@@ -8,7 +8,7 @@ const QuestionContainerStyle = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-
+  padding-top:${(props) => (props.navHeight)}px;
   .question-wrapper {
     margin: 0px auto;
 

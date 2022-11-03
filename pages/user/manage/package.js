@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, } from 'react';
 // import PriceContainer from '../../../components/containers/priceContainer';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
@@ -35,10 +35,10 @@ const Package = () => {
                         </div>
                     </div>
                 </div>
-                <Container className="price-card-zone" maxWidth="xxl">
+                <Container className="price-card-zone" maxWidth="xl">
                     <Grid container direction="row" columnSpacing={{ sm: 2, md: 4 }} display="flex" textAlign="center" alignContent="center" alignItems="start">
                         {packages.map((item, index) => (
-                            <Grid container item xs={12} sm={4} md={4} lg={4} xl={4} key={index}>
+                            <Grid container item xs={12} sm={6} md={4} lg={4} xl={4} key={index}>
                                 <div className="card-add">
                                     <div className="card-header">
                                         <div className="text-header">

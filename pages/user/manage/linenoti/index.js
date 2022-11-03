@@ -230,10 +230,10 @@ const Linenoti = () => {
                             <strong className="text-uppercase">แจ้งเตือนผ่าน Line Notify</strong>
                             <span className="text-secondary">แจ้งเตือนข้อความที่ยังไม่มีคนอ่าน ผ่านทางไลน์กลุ่มรู้จำนวนข้อความที่ค้างไว้ ลูกค้าไม่ต้องรอนาน</span>
                         </div>
-                        <div className="col-md-4 text-end">
-                            <label htmlFor="lineName">ชื่อกลุ่มไลน์</label>
+                        <div className="col-lg-4 d-flex justify-content-lg-end justify-content-center">
+                            <h4 className='me-3 text-md-end my-auto'>ชื่อกลุ่มไลน์</h4>
                         </div>
-                        <div className="col-md-4 w-md-70 lineTokenInput  ms-md-auto">
+                        <div className="col-lg-4 w-md-70 lineTokenInput mx-auto  ms-md-auto">
                             <input autoFocus value={lineName} onChange={(e) => setLineName(e.target.value)} className="mt-2" type="text" name="lineName" id="token" />
                         </div>
                         <div className="col-md-12 w-auto d-flex mx-auto lineButtonContainer">
@@ -248,18 +248,18 @@ const Linenoti = () => {
                     </div>
                 </div>
                 <Divider />
-                <div className="row ">
-                    <div className="col-md-3 flex-column flex-md-row ms-md-auto lineTokenHeader">
+                <div className="row mx-auto">
+                    <div className="col-lg-3 flex-column flex-md-row ms-md-auto lineTokenHeader">
                         <strong className="d-inline-block">ใส่ Line Token</strong>
                     </div>
-                    <div className="col-md-6 d-flex flex-xs-column lineTokenHeader">
+                    <div className="col-lg-6 d-flex flex-xs-column lineTokenHeader">
                         <span className="text-secondary">
                             <FontAwesomeIcon icon={faExclamationCircle} /> <i>คลิกเพื่อดูวิดีโอการขอ Token</i>{' '}
                         </span>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6 lineTokenInput  mx-md-auto flex-column flex-md-row">
+                    <div className="col-lg-6 lineTokenInput  mx-md-auto flex-column flex-md-row">
                         <input value={lineAccessToken} onChange={(e) => setLineAccessToken(e.target.value)} className="mt-2" type="text" id="token" />
                     </div>
                 </div>

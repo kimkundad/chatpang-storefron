@@ -223,15 +223,8 @@ const CreateReplyKeyword = () => {
                             placeholder="พิมพ์ข้อความที่นี้..."
                             autoSize={{ minRows: 4, maxRows: 6 }}
                         /> */}
-                        <textarea
-                            value={text}
-                            onChange={(e) => onHandleChangeDetail(e, index)}
-                            maxLength={200}
-                            placeholder="พิมพ์ข้อความที่นี้..."
-                            rows={4}
-                            cols={6}
-                        />
-                        <div className='text-secondary text-end'>{details[index]?.length}/200</div>
+                        <textarea value={text} onChange={(e) => onHandleChangeDetail(e, index)} maxLength={200} placeholder="พิมพ์ข้อความที่นี้..." rows={4} cols={6} />
+                        <div className="text-secondary text-end">{details[index]?.length}/200</div>
                     </div>
                     <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="h-auto d-flex flex-column me-4">
@@ -322,8 +315,8 @@ const CreateReplyKeyword = () => {
                 </div>
                 {/* content */}
                 <div className="row g-3">
-                    <div className="col-md-4 text-md-end text-start">
-                        <strong className="me-3">ชื่อแคมเปญ</strong>
+                    <div className="col-md-4 d-flex justify-content-md-end justify-content-center">
+                        <h4 className="me-3 text-md-end my-auto">ชื่อแคมเปญ</h4>
                     </div>
                     <div className="col-md-4 mx-auto chatNameInput">
                         <input type="text" name="name" value={campaignName} onChange={(e) => setCampaignName(e.target.value)} autoFocus={true} />
@@ -336,10 +329,10 @@ const CreateReplyKeyword = () => {
                             ยกเลิก
                         </button>
                     </div>
-                    <div className="col-md-4 text-md-end text-start">
-                        <strong className="me-3">Keywords</strong>
+                    <div className="col-md-4 d-flex justify-content-md-end justify-content-center">
+                        <strong className="me-3 text-md-end my-auto">Keywords</strong>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 px-5 px-md-0">
                         <TagsInput tags={keywordName} setTags={setKeywordName} />
                     </div>
                 </div>
@@ -349,13 +342,13 @@ const CreateReplyKeyword = () => {
                 {renderImageInput()}
                 <Divider />
                 <div className="row g-3 justify-content-center">
-                    <div className="col-md-4 replyButtonContainer">
+                    <div className="col-6 replyButtonContainer">
                         <button onClick={handleAddText} className="replyCustomBtn">
                             <FontAwesomeIcon icon={faPlus} />
                             <span>เพิ่มข้อความ</span>
                         </button>
                     </div>
-                    <div className="col-md-4 text-center replyButtonContainer">
+                    <div className="col-6 text-center replyButtonContainer">
                         <button onClick={handleAddImage} className="replyCustomBtn">
                             <FontAwesomeIcon icon={faPlus} />
                             <span>เพิ่มรูปภาพ</span>

@@ -110,7 +110,7 @@ const CreateWelcome = () => {
             inputRef[index + 1].current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center',
-                inline: 'end',
+                // inline: 'end',
             });
     };
     const onClickPrev = (index) => {
@@ -118,7 +118,7 @@ const CreateWelcome = () => {
             inputRef[index - 1].current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center',
-                inline: 'start',
+                // inline: 'start',
             });
     };
     const renderTextInput = () => {
@@ -126,20 +126,22 @@ const CreateWelcome = () => {
             return (
                 <div key={index} className="row g-md-3 createContainer">
                     {/* <> */}
-                    <div className="col-md-3 col-xs-12 commentHeader">
+                    <div className="col-lg-3 col-xs-12 commentHeader">
                         <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
                     </div>
-                    <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
-                        <TextArea
+                    <div ref={inputRef[index]} className="col-lg-6 col-9 commentInput">
+                        {/* <TextArea
                             showCount
                             value={text}
                             onChange={(e) => onHandleChangeDetail(e, index)}
                             maxLength={200}
                             placeholder="พิมพ์ข้อความที่นี้..."
                             autoSize={{ minRows: 4, maxRows: 6 }}
-                        />
+                        /> */}
+                        <textarea value={text} onChange={(e) => onHandleChangeDetail(e, index)} maxLength={200} placeholder="พิมพ์ข้อความที่นี้..." rows={4} cols={6} />
+                        <div className="text-secondary text-end">{details[index]?.length}/200</div>
                     </div>
-                    <div className="col-md-2 col-2 d-flex justify-content-center align-items-start align-items-md-center replyKeywordBtn">
+                    <div className="col-lg-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="h-auto d-flex flex-column me-4">
                             <span>
                                 <FontAwesomeIcon onClick={() => onClickPrev(index)} icon={faCircleChevronUp} />
@@ -183,8 +185,8 @@ const CreateWelcome = () => {
                 </div>
                 {/* content */}
                 <div className="row g-3 createHeader">
-                    <div className="col-md-4 text-md-end text-start">
-                        <strong className="me-3">ชื่อแคมเปญ</strong>
+                    <div className="col-md-4 d-flex justify-content-md-end justify-content-center">
+                        <h4 className="me-3 text-md-end my-auto">ชื่อแคมเปญ</h4>
                     </div>
                     <div className="col-md-4 mx-auto chatNameInput">
                         <input type="text" name="name" value={campaignName} onChange={(e) => setCampaignName(e.target.value)} autoFocus={true} />

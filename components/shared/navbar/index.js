@@ -43,7 +43,7 @@ const NavBar = React.forwardRef((props, ref) => {
         setAnchorElNav(null);
     };
     const handleOpenSideBar = () => {
-        props.toggleSide()
+        props.toggleSide();
     };
     const handleClick = (name, link) => {
         // props.handleClick(name);
@@ -220,7 +220,7 @@ const NavBar = React.forwardRef((props, ref) => {
                             <Box
                                 sx={{
                                     flexGrow: 1,
-                                    display: 'flex',
+                                    display: { xs: 'none', md: 'flex' },
                                     justifyContent: 'flex-start',
                                     //margin: 'auto',
                                 }}>
@@ -244,6 +244,17 @@ const NavBar = React.forwardRef((props, ref) => {
                                       ))
                                     : userDropDown()}
                             </Box>
+                            {path.includes('user') ? (
+                                <Box
+                                    sx={{
+                                        flexGrow: 1,
+                                        display: { xs: 'flex', md: 'none' },
+                                        justifyContent: 'flex-start',
+                                        //margin: 'auto',
+                                    }}>
+                                    {userDropDown()}
+                                </Box>
+                            ) : null}
                         </Toolbar>
                     </div>
                 </div>

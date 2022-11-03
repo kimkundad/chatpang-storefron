@@ -3,6 +3,7 @@ import color from '../../../styles/variables/color';
 
 const PolicyContainerStyle = styled.div`
   color: ${color.GRAY_COLOR_2};
+  padding-top:${(props) => (props.navHeight)}px;
   .header {
     margin-top: 0px;
     padding: 0px 20px 20px 20px;

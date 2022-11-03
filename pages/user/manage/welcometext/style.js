@@ -20,7 +20,7 @@ const GreetingStyle = styled.div`
 
     .userDropdown > .form-select {
         border: none;
-        font-size: min(1rem, 2vw);
+        font-size: min(1rem, 6vw);
         width: auto;
     }
     .userBackButton:hover {
@@ -40,10 +40,14 @@ const GreetingStyle = styled.div`
         position: absolute;
         left: 10px;
     }
+    .noData {
+        font-size: min(1.5rem, 6vw);
+        color: ${color.RED_COLOR_1};
+    }
     .userButton {
         display: flex;
         align-items: center;
-        font-size: 1.5rem;
+        font-size: min(1rem, 4vw);
         background: ${color.GRAY_COLOR_1};
         width: fit-content;
         height: fit-content;
@@ -76,7 +80,7 @@ const GreetingStyle = styled.div`
         font-size: min(2rem, 3vw);
     }
     .createContainer {
-        font-size: min(2.5rem, 3vw);
+        font-size: min(1.3rem, 3vw);
         height: fit-content;
         display: flex;
         justify-content: center;
@@ -94,8 +98,11 @@ const GreetingStyle = styled.div`
     .chatButtonContainer button {
         font-size: min(2.5rem, 3vw);
     }
-    .chatCustomBtn,
-    .replyCustomBtn {
+    .chatButtonContainer button:first-child {
+        background-color: ${color.PRIMARY};
+    }
+    .replyCustomBtn,
+    .chatCustomBtn {
         border: 1px solid ${color.BLACK_COLOR};
         border-radius: 25px;
         margin: 0 10px;
@@ -145,8 +152,13 @@ const GreetingStyle = styled.div`
         align-items: center;
     }
     .commentInput {
-        max-width: 450px;
+        /* max-width: 450px; */
         height: auto;
+    }
+    .commentInput textarea {
+        width: 100%;
+        padding: 2%;
+        border-radius:20px;
     }
     .toggleCommentOptions {
         display: flex;
@@ -156,6 +168,74 @@ const GreetingStyle = styled.div`
     .toggleCommentOptions div {
         display: flex;
         align-items: center;
+    }
+    //xs mobile
+    @media screen and (max-width: 575px) {
+        .textBTN {
+            display: none;
+        }
+        .chatNameInput {
+            width: 80%;
+        }
+        .commentHeader {
+            height: fit-content;
+            padding-left:50px;
+        }
+        .commentInput {
+            padding: 0px 20px;
+        }
+        .toggleCommentOptions {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            & div {
+                width: 50%;
+            }
+        }
+        .chatWording {
+            padding: 0px 40px;
+        }
+    }
+    //sm tablet
+    @media screen and (min-width: 576px) and (max-width: 767px) {
+        .textBTN {
+            display: none;
+        }
+        .chatNameInput {
+            width: 80%;
+        }
+        .commentHeader {
+            height: fit-content;
+        }
+        .commentInput {
+            padding: 0px 40px;
+        }
+        .toggleCommentOptions {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            & div {
+                width: 50%;
+            }
+        }
+    }
+    //md extra tablet
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+        .commentHeader {
+            height: fit-content;
+        }
+        .commentInput {
+            padding: 0px 40px;
+        }
+    }
+    //xl notebook
+    @media screen and (min-width: 1200px) and (max-width: 1535px) {
+        .commentInput {
+            padding: 0px 40px;
+        }
+    }
+    //xxl notebook
+    @media screen and (min-width: 1920px) {
     }
 `;
 

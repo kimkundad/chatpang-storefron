@@ -6,7 +6,7 @@ import { Image } from 'react-bootstrap';
 
 const AgreementContainer = React.forwardRef((props, ref) => {
   return (
-    <AgreementStyle>
+    <AgreementStyle ref={ref} navHeight={props.navHeight}>
       <Container maxWidth="xl">
         <div className="header">
           <div className="text-center">

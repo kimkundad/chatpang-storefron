@@ -9,7 +9,7 @@ const NavbarStyle = styled.nav`
     color: ${color.BLACK_COLOR};
     height: ${(props) => props.navbarHeight}px;
     position:fixed;
-    z-index:10;
+    z-index:100;
     /* .app-container {
         width: 100%;
     } */

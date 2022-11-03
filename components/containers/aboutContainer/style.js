@@ -5,7 +5,7 @@ const AboutContainerStyle = styled.div`
     //padding: 5%;
     position: relative;
     z-index: 1;
-
+    padding-top:${(props) => (props.navHeight)}px;
     .about-header {
         //margin: auto;
     }

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const AgreementStyle = styled.div`
+padding-top:${(props) => (props.navHeight)}px;
   .header {
     margin-top: 25px;
     padding: 0px 20px 20px 20px;

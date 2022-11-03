@@ -59,7 +59,7 @@ const PaymentDetails = () => {
   }
   return (
     <div className="row mt-4 px-2">
-      <div className="row invoice-item p-3 mx-auto" style={{ width: '100%' }}>
+      <div className="row invoice-item p-3 mx-auto">
         <strong className="text-secondary fs-5">แพ็คเกจของคุณ</strong>
         <div className="col-lg-6 text-start">
           <div className="ps-3">

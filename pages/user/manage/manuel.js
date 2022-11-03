@@ -14,7 +14,7 @@ const Manuel = () => {
         <UserLayout>
             <ManageStyle>
                 <div className="row manuel-container">
-                    <div className="col-md-6 manuelOpContainer order-xs-1">
+                    <div className="col-lg-6 manuelOpContainer order-xs-1">
                         <strong className="page-title">วิธีการใช้งาน</strong>
                         <span style={{ cursor: 'pointer' }} onClick={() => onChangeUrl('https://www.youtube.com/watch?v=1F9_V0ub2H8')} className="manuelButton">
                             การสร้าง Chatbot
@@ -32,7 +32,7 @@ const Manuel = () => {
                             วิธีเพิ่ม ลด เพจ
                         </span>
                     </div>
-                    <div className="col-md-6 col-xs-12 mx-auto order-xs-0">
+                    <div className="vdo-container col-lg-6 col-xs-12 mx-auto text-center order-xs-0">
                         {/* <Player 
                     url={url}
                     width={460}
@@ -42,8 +42,8 @@ const Manuel = () => {
                     className='w-auto my-4'
                     /> */}
                         <iframe
-                            width="460px"
-                            height="320px"
+                            width="80%"
+                            height="60%"
                             className="video-yt"
                             src={url.replace('watch?v=', 'embed/')}
                             allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"

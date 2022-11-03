@@ -6,7 +6,7 @@ import { Image } from 'react-bootstrap';
 
 const PolicyContainer = React.forwardRef((props, ref) => {
   return (
-    <PolicyContainerStyle>
+    <PolicyContainerStyle ref={ref} navHeight={props.navHeight}>
       <Container maxWidth="xl">
         <div className="header">
           <Image src="/images/logo.png"s className="image-cover-logo" />
