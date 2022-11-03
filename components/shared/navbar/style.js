@@ -8,8 +8,8 @@ const NavbarStyle = styled.nav`
     background: ${color.PRIMARY};
     color: ${color.BLACK_COLOR};
     height: ${(props) => props.navbarHeight}px;
-    position:fixed;
-    z-index:100;
+    position: fixed;
+    z-index: 100;
     /* .app-container {
         width: 100%;
     } */
@@ -19,7 +19,7 @@ const NavbarStyle = styled.nav`
 
     .nav-padding {
         padding: 0px 25px;
-        width:100vw;
+        width: 100vw;
     }
 
     .font-set {
@@ -29,13 +29,15 @@ const NavbarStyle = styled.nav`
         line-height: 32.52px;
         text-align: center;
     }
-
+    .user-dropdown {
+        font-size:min(1.2rem, 4vw);
+    }
     .image-logo {
         max-height: ${navbar.LOGO_HEIGHT};
         //max-width: 100%;
         width: ${navbar.LOGO_WIDTH};
         object-fit: cover;
-        margin:0 5vw;
+        margin: 0 5vw;
         //margin: auto !important;
     }
 

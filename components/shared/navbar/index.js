@@ -121,9 +121,9 @@ const NavBar = React.forwardRef((props, ref) => {
     const userDropDown = () => {
         if (user.isLogin) {
             return (
-                <Dropdown overlay={menu} trigger={['click']} className="ms-auto fw-bold fs-4 d-flex align-items-center">
+                <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto fw-bold d-flex align-items-center">
                     <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
-                        <span className="mx-2 fs-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+                        <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
                         <FontAwesomeIcon className="me-2 d-block d-md-none" icon={faUser} />
                         <FontAwesomeIcon icon={faAngleDown} />
                     </a>
@@ -250,7 +250,7 @@ const NavBar = React.forwardRef((props, ref) => {
                                         flexGrow: 1,
                                         display: { xs: 'flex', md: 'none' },
                                         justifyContent: 'flex-start',
-                                        //margin: 'auto',
+                                        width:'fit-content',
                                     }}>
                                     {userDropDown()}
                                 </Box>
