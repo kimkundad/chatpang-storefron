@@ -119,7 +119,7 @@ const NavBar = React.forwardRef((props, ref) => {
     );
 
     const userDropDown = () => {
-        if (!user.isLogin) {
+        if (user.isLogin) {
             return (
                 <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
                     <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
