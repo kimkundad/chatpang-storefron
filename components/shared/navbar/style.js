@@ -8,7 +8,7 @@ const NavbarStyle = styled.nav`
     background: ${color.PRIMARY};
     color: ${color.BLACK_COLOR};
     height: ${(props) => props.navbarHeight}px;
-    position:relative;
+    position:fixed;
     z-index:10;
     /* .app-container {
         width: 100%;
@@ -19,6 +19,7 @@ const NavbarStyle = styled.nav`
 
     .nav-padding {
         padding: 0px 25px;
+        width:100vw;
     }
 
     .font-set {

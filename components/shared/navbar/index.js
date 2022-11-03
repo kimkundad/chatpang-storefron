@@ -42,7 +42,9 @@ const NavBar = React.forwardRef((props, ref) => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-
+    const handleOpenSideBar = () => {
+        props.toggleSide()
+    };
     const handleClick = (name, link) => {
         // props.handleClick(name);
         router.replace(link);
@@ -117,9 +119,9 @@ const NavBar = React.forwardRef((props, ref) => {
     );
 
     const userDropDown = () => {
-        if (user.isLogin) {
+        if (!user.isLogin) {
             return (
-                <Dropdown overlay={menu} trigger={['click']} className="ms-auto fw-bold fs-4 d-flex align-items-center ms-3">
+                <Dropdown overlay={menu} trigger={['click']} className="ms-auto fw-bold fs-4 d-flex align-items-center">
                     <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
                         <span className="mx-2 fs-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
                         <FontAwesomeIcon className="me-2 d-block d-md-none" icon={faUser} />
@@ -153,7 +155,7 @@ const NavBar = React.forwardRef((props, ref) => {
                 <div className="app-container">
                     <div className="nav-padding">
                         <Toolbar disableGutters>
-                        {/* menu when large screen */}
+                            {/* menu when large screen */}
                             <Typography
                                 variant="h6"
                                 noWrap
@@ -164,17 +166,29 @@ const NavBar = React.forwardRef((props, ref) => {
                                 }}>
                                 <Image onClick={() => handleClick('index', '/')} component="div" src="/images/logo.png" className="image-logo" />
                             </Typography>
-                                {/* Menu when small screen */}
-                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleOpenNavMenu}
-                                    color="inherit">
-                                    <MenuIcon />
-                                </IconButton>
+                            {/* Menu when small screen */}
+                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                                {!path.includes('user') ? (
+                                    <IconButton
+                                        size="large"
+                                        aria-label="account of current user"
+                                        aria-controls="menu-appbar"
+                                        aria-haspopup="true"
+                                        onClick={handleOpenNavMenu}
+                                        color="inherit">
+                                        <MenuIcon />
+                                    </IconButton>
+                                ) : (
+                                    <IconButton
+                                        size="large"
+                                        aria-label="account of current user"
+                                        aria-controls="menu-appbar"
+                                        aria-haspopup="true"
+                                        onClick={handleOpenSideBar}
+                                        color="inherit">
+                                        <MenuIcon />
+                                    </IconButton>
+                                )}
                                 <Menu
                                     id="menu-appbar"
                                     anchorEl={anchorElNav}
@@ -206,7 +220,7 @@ const NavBar = React.forwardRef((props, ref) => {
                             <Box
                                 sx={{
                                     flexGrow: 1,
-                                    display: { xs: 'none', md: 'flex' },
+                                    display: 'flex',
                                     justifyContent: 'flex-start',
                                     //margin: 'auto',
                                 }}>

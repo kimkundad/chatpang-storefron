@@ -3,13 +3,16 @@ import color from '../../styles/variables/color';
 
 const SidebarStyle = styled.div`
     left: 0;
-    position: absolute;
-    transition: all 0.2s ease-in-out 0s;
+    position: fixed;
+    transition: all 0.2s ease-in-out 0.3s;
     width: 240px;
     min-height: calc(100vh - ${(props) => props.navbarHeight}px);
-    z-index: 1;
+    top:${(props) => props.navbarHeight + 40}px;
+    z-index: 200;
     box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.2);
     overflow-y: hidden;
+    display:block;
+    background-color:${color.WHITE_COLOR};
     .open {
         width: auto;
         -webkit-transition: all 0.4s ease;
@@ -95,6 +98,19 @@ const SidebarStyle = styled.div`
         align-items: center;
         font-size: min(1.1rem, 2vw);
         width: 70%;
+    }
+    //xs mobile
+    @media screen and (max-width: 575px) {
+        width: 160px;
+        z-index:20;
+        top:${(props) => props.navbarHeight + 8}px;
+    }
+    //sm tablet
+    @media screen and (min-width: 576px) and (max-width: 767px) {}
+     //md extra tablet
+     @media screen and (min-width: 768px) and (max-width: 991px) {}
+     //xl notebook
+    @media screen and (min-width: 1200px) and (max-width: 1535px) {
     }
 `;
 

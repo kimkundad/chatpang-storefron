@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import SidebarStyle from './style';
 
-const Sidebar = () => {
+const Sidebar = React.forwardRef((props, ref) => {
     const router = useRouter();
     const [navbarHeight, setNavbarHeight] = useState(64);
 
@@ -51,17 +51,17 @@ const Sidebar = () => {
     //   latestOrderId && getOrderById()
     // },[user.user])
     return (
-        <SidebarStyle navbarHeight={navbarHeight}>
-            <Scrollbars
+        <SidebarStyle ref={ref} navbarHeight={navbarHeight}>
+            {/* <Scrollbars
                 autoHide
                 autoHideTimeout={1000}
                 autoHideDuration={200}
                 autoHeight
                 autoHeightMin={0}
-                autoHeightMax="95vh"
+                autoHeightMax="100vh"
                 thumbMinSize={30}
                 universal={false}
-                hideTracksWhenNotNeeded={true}>
+                hideTracksWhenNotNeeded={true}> */}
                 <div className="sidebar-inner">
                     <div className="sidebar-menu">
                         {Object.values(packageInfo).length !== 0 ? (
@@ -109,9 +109,9 @@ const Sidebar = () => {
                         </ul>
                     </div>
                 </div>
-            </Scrollbars>
+            {/* </Scrollbars> */}
         </SidebarStyle>
     );
-};
+});
 
 export default Sidebar;
