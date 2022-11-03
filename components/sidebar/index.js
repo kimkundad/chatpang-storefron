@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Scrollbars } from 'react-custom-scrollbars';
 import Link from 'next/link';
 
 import useUser from '../../Hooks/useUser';
