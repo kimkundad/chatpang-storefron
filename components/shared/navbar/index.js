@@ -119,13 +119,13 @@ const NavBar = React.forwardRef((props, ref) => {
     );
 
     const userDropDown = () => {
-        if (user.isLogin) {
+        if (!user.isLogin) {
             return (
-                <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto fw-bold d-flex align-items-center">
+                <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
                     <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
                         <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
-                        <FontAwesomeIcon className="me-2 d-block d-md-none" icon={faUser} />
-                        <FontAwesomeIcon icon={faAngleDown} />
+                        <FontAwesomeIcon className="name-user me-2 d-block d-md-none" icon={faUser} />
+                        <FontAwesomeIcon className="icon-user" icon={faAngleDown} />
                     </a>
                 </Dropdown>
             );
@@ -222,7 +222,7 @@ const NavBar = React.forwardRef((props, ref) => {
                                     flexGrow: 1,
                                     display: { xs: 'none', md: 'flex' },
                                     justifyContent: 'flex-start',
-                                    //margin: 'auto',
+                                    width: 'fit-content',
                                 }}>
                                 {!path.includes('user') && !path.includes('register')
                                     ? pages.map((page) => (
@@ -250,7 +250,6 @@ const NavBar = React.forwardRef((props, ref) => {
                                         flexGrow: 1,
                                         display: { xs: 'flex', md: 'none' },
                                         justifyContent: 'flex-start',
-                                        width:'fit-content',
                                     }}>
                                     {userDropDown()}
                                 </Box>
