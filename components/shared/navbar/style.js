@@ -30,7 +30,7 @@ const NavbarStyle = styled.nav`
         text-align: center;
     }
     .name-user,.icon-user{
-        font-size:min(1rem, 4vw);
+        font-size:min(1rem, 4vw) !important;
     }
     .image-logo {
         max-height: ${navbar.LOGO_HEIGHT};
