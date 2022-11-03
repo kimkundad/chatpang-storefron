@@ -119,7 +119,7 @@ const NavBar = React.forwardRef((props, ref) => {
     );
 
     const userDropDown = () => {
-        if (user.isLogin) {
+        if (!user.isLogin) {
             return (
                 <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
                     <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
@@ -224,25 +224,48 @@ const NavBar = React.forwardRef((props, ref) => {
                                     justifyContent: 'flex-start',
                                     width: 'fit-content',
                                 }}>
-                                {!path.includes('user') && !path.includes('register')
-                                    ? pages.map((page) => (
-                                          <Button
-                                              key={page.key}
-                                              onClick={() => handleClick(page.key, page.link)}
-                                              className="font-set"
-                                              sx={{
-                                                  color: page.key === props.navKey ? color.WHITE_COLOR : color.BLACK_COLOR,
-                                                  display: 'block',
-                                                  fontFamily: font.FONT_FAMILIES.PRIMARY,
-                                                  background: page.key === props.navKey ? color.BLACK_COLOR : 'transparent',
-                                                  borderRadius: 20,
-                                                  padding: '5px 25px',
-                                                  margin: 'auto',
-                                              }}>
-                                              {page.name}
-                                          </Button>
-                                      ))
-                                    : userDropDown()}
+                                {!path.includes('user') && !path.includes('register') ? (
+                                    pages.map((page) => (
+                                        <Button
+                                            key={page.key}
+                                            onClick={() => handleClick(page.key, page.link)}
+                                            className="font-set"
+                                            sx={{
+                                                color: page.key === props.navKey ? color.WHITE_COLOR : color.BLACK_COLOR,
+                                                display: 'block',
+                                                fontFamily: font.FONT_FAMILIES.PRIMARY,
+                                                background: page.key === props.navKey ? color.BLACK_COLOR : 'transparent',
+                                                borderRadius: 20,
+                                                padding: '5px 25px',
+                                                margin: 'auto',
+                                            }}>
+                                            {page.name}
+                                        </Button>
+                                    ))
+                                ) : user.isLogin ? (
+                                    <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
+                                        <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
+                                            <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+                                            <FontAwesomeIcon className="name-user me-2 d-block d-md-none" icon={faUser} />
+                                            <FontAwesomeIcon className="icon-user" icon={faAngleDown} />
+                                        </a>
+                                    </Dropdown>
+                                ) : (
+                                    <Button
+                                        onClick={() => handleClick(pages[0].key, pages[pages.length - 1].link)}
+                                        className="font-set"
+                                        sx={{
+                                            color: pages[pages.length - 1].key === props.navKey ? color.WHITE_COLOR : color.BLACK_COLOR,
+                                            display: 'block',
+                                            fontFamily: font.FONT_FAMILIES.PRIMARY,
+                                            background: pages[pages.length - 1].key === props.navKey ? color.BLACK_COLOR : 'transparent',
+                                            borderRadius: 20,
+                                            padding: '5px 25px',
+                                            marginLeft: 'auto',
+                                        }}>
+                                        {pages[pages.length - 1].name}
+                                    </Button>
+                                )}
                             </Box>
                             {path.includes('user') ? (
                                 <Box
@@ -251,7 +274,30 @@ const NavBar = React.forwardRef((props, ref) => {
                                         display: { xs: 'flex', md: 'none' },
                                         justifyContent: 'flex-start',
                                     }}>
-                                    {userDropDown()}
+                                    {user.isLogin ? (
+                                        <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
+                                            <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
+                                                <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+                                                <FontAwesomeIcon className="name-user me-2 d-block d-md-none" icon={faUser} />
+                                                <FontAwesomeIcon className="icon-user" icon={faAngleDown} />
+                                            </a>
+                                        </Dropdown>
+                                    ) : (
+                                        <Button
+                                            onClick={() => handleClick(pages[0].key, pages[pages.length - 1].link)}
+                                            className="font-set"
+                                            sx={{
+                                                color: pages[pages.length - 1].key === props.navKey ? color.WHITE_COLOR : color.BLACK_COLOR,
+                                                display: 'block',
+                                                fontFamily: font.FONT_FAMILIES.PRIMARY,
+                                                background: pages[pages.length - 1].key === props.navKey ? color.BLACK_COLOR : 'transparent',
+                                                borderRadius: 20,
+                                                padding: '5px 25px',
+                                                marginLeft: 'auto',
+                                            }}>
+                                            {pages[pages.length - 1].name}
+                                        </Button>
+                                    )}
                                 </Box>
                             ) : null}
                         </Toolbar>
