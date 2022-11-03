@@ -16,7 +16,7 @@ const MainLayoutStyle = styled.div`
     /* margin-top: ${(props) => {
       return props.navbarHeight || '64px';
     }}px; */
-    height: calc(100vh - ${(props) => props.navbarHeight}px);
+    height: calc(100vh);
     //max-width: calc(100%);
     overflow-y: auto;
     overflow-x: hidden;

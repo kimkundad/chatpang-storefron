@@ -38,7 +38,7 @@ const GreetingStyle = styled.div`
         color: ${color.PRIMARY};
         cursor: pointer;
         position: absolute;
-        left: 0;
+        left: 10px;
     }
     .userButton {
         display: flex;

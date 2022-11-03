@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import color from '../../../../styles/variables/color';
 
 const KeywordStyle = styled.div`
+    padding-bottom: 50px;
     .page-header {
         margin-bottom: 1.875rem;
         margin-top: 20px;
@@ -38,7 +39,7 @@ const KeywordStyle = styled.div`
         color: ${color.PRIMARY};
         cursor: pointer;
         position: absolute;
-        left: 0;
+        left: 10px;
     }
     .userEditButton {
         width: fit-content;
@@ -83,8 +84,12 @@ const KeywordStyle = styled.div`
         align-items: center;
     }
     .commentInput {
-        max-width: 450px;
+        /* max-width: 450px; */
         height: auto;
+    }
+    .commentInput textarea {
+        width: 100%;
+        padding: 2%;
     }
     .replyKeywordBtn {
         font-size: 1.5rem;
@@ -147,6 +152,7 @@ const KeywordStyle = styled.div`
         border-radius: 10px;
         width: 100%;
     }
+
     .chatButtonContainer button {
         font-size: min(2.5rem, 3vw);
     }

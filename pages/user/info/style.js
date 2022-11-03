@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const InfoStyle = styled.div`
     min-height: calc(95vh - ${(props) => props.navHeight}px) !important;
     position: relative;
-    padding: 0px 5%;
+    padding-right:5%;
+    padding-left:5%;
+    padding-top:120px;
     z-index: 1;
     margin: 20px 10vw 0 10vw;
     .invoice-item {

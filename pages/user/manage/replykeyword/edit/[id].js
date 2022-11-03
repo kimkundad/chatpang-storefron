@@ -203,14 +203,23 @@ const Edit = () => {
                         <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
                     </div>
                     <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
-                        <TextArea
+                        {/* <TextArea
                             showCount
                             value={text}
                             onChange={(e) => onHandleChangeDetail(e, index)}
                             maxLength={200}
                             placeholder="พิมพ์ข้อความที่นี้..."
                             autoSize={{ minRows: 4, maxRows: 6 }}
+                        /> */}
+                        <textarea
+                            value={text}
+                            onChange={(e) => onHandleChangeDetail(e, index)}
+                            maxLength={200}
+                            placeholder="พิมพ์ข้อความที่นี้..."
+                            rows={4}
+                            cols={6}
                         />
+                        <div className='text-secondary text-end'>{details[index]?.length}/200</div>
                     </div>
                     <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="h-auto d-flex flex-column me-4">

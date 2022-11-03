@@ -64,7 +64,7 @@ const Sidebar = React.forwardRef((props, ref) => {
                 hideTracksWhenNotNeeded={true}> */}
                 <div className="sidebar-inner">
                     <div className="sidebar-menu">
-                        {Object.values(packageInfo).length !== 0 ? (
+                        {Object.values(packageInfo).length === 0 ? (
                             <div className="sidePackageInfo">
                                 <p className="m-auto">ไม่มีข้อมูล</p>
                             </div>

@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import color from '../../../../styles/variables/color';
 
 const ChatBotStyle = styled.div`
-margin-top:120px;
-padding-left:10px;
+/* margin-top:120px;
+padding-left:10px; */
     .page-header {
         margin-bottom: 1.875rem;
         margin-top: 20px;
@@ -40,7 +40,7 @@ padding-left:10px;
         color: ${color.PRIMARY};
         cursor: pointer;
         position: absolute;
-        left: 0;
+        left: 10px;
     }
     .userEditButton {
         width: fit-content;
