@@ -85,19 +85,20 @@ const SidebarStyle = styled.div`
         font-size: min(1rem, 3vw);
     }
     .sidePackage-title {
-        font-size: 1.3vw;
+        font-size: min(1rem, 1.5vw);
         margin: 0 auto;
         padding: 8px 16px;
         border-radius: 30px;
         background-color: ${color.PRIMARY};
+        text-align:center;
     }
     .packInfo {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        font-size: min(1.1rem, 2vw);
-        width: 70%;
+        font-size: min(1rem, 1.5vw);
+        width: 90%;
     }
     //xs mobile
     @media screen and (max-width: 575px) {
