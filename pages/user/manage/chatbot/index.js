@@ -158,8 +158,8 @@ const Chatbot = () => {
         return data.map((item, index) => {
             return (
                 <tr key={index}>
-                    <td>
-                        <input type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onClick={(e) => onChecked(e)} />
+                    <td className='text-center' >
+                        <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onClick={(e) => onChecked(e)} />
                     </td>
                     <td>
                         <span>{item?.status}</span>
@@ -239,8 +239,8 @@ const Chatbot = () => {
                             <Table bordered>
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <input onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
+                                        <th className='text-center' >
+                                            <input className='checkbox-customer' onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
                                         </th>
                                         <th>สถานะ</th>
                                         <th>แคมเปญ</th>

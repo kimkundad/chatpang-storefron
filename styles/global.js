@@ -189,6 +189,73 @@ html,
 .toast-content{
   font-size: clamp(1rem, calc(1rem, 5vw), 3.5rem);
 }
+.checkbox-customer{
+  font-size:min(2rem, 4vw);
+}
+.table thead {
+  /* background-color: transparent; */
+  border-bottom: 0;
+  background: ${color.BLACK_COLOR};
+  color: ${color.PRIMARY};
+  letter-spacing: 1.5px;
+}
+.table thead th {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+.table.table-center td,
+.table.table-center th {
+  vertical-align: middle;
+}
+.table-hover tbody tr:hover {
+  background-color: #f6f6f7;
+}
+.table td,
+.table th {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.table-bordered {
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+.table-bordered td:first-child {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.table-bordered td:last-child {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.table-bordered th,
+.table-bordered td {
+  border-color: rgba(0, 0, 0, 0.05);
+}
+.card-table .card-body {
+  padding: 0;
+}
+.table > :not(:first-child) {
+  border-top: 0 !important;
+}
+.card-table .card-body .table > thead > tr > th {
+}
+.card-table .card-body .table tr td:first-child,
+.card-table .card-body .table tr th:first-child {
+  padding-left: 1.5rem;
+}
+.card-table .card-body .table tr td:last-child,
+.card-table .card-body .table tr th:last-child {
+  padding-right: 1.5rem;
+}
+.card-table .table td,
+.card-table .table th {
+  border-top: 1px solid #e2e5e8;
+  padding: 1rem 0.75rem;
+  white-space: nowrap;
+}
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
   //xs mobile
   @media screen and (max-width: 575px) {
     html,
