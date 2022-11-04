@@ -216,7 +216,7 @@ const Chatbot = () => {
                 {/* content */}
 
                 <div className="row">
-                    <div className="col d-flex justify-content-center my-2">
+                    <div className="col-md-8 d-flex justify-content-evenly mx-auto my-2">
                         <span onClick={() => router.push({ pathname: `${router.pathname}/create-bot`, query: { pageId: pageID } })} className="userButton">
                             <FontAwesomeIcon className="me-2" icon={faPlus} />
                             สร้างแคมเปญ

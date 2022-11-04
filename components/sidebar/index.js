@@ -70,7 +70,7 @@ const Sidebar = React.forwardRef((props, ref) => {
                         ) : (
                             <div className="sidePackageInfo">
                                 <div style={{ color: 'black' }} className="sidePackage-title">
-                                    {packageInfo?.name}Test package
+                                    {packageInfo?.name}
                                 </div>
                                 <div className="packInfo">
                                     <span>{packageInfo?.price} บาท/เดือน</span>

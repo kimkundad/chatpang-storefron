@@ -87,7 +87,7 @@ const SidebarStyle = styled.div`
     .sidePackage-title {
         font-size: min(1rem, 1.5vw);
         margin: 0 auto;
-        padding: 8px 16px;
+        padding: 4px 8px;
         border-radius: 30px;
         background-color: ${color.PRIMARY};
         text-align:center;
