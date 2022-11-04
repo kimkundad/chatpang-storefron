@@ -295,7 +295,7 @@ const NavBar = React.forwardRef((props, ref) => {
                                                 <MenuItem
                                                     key={index}
                                                     onClick={() => {
-                                                        setting.link.length === 0 ? onLogOut : router.push(setting.link);
+                                                        setting.link.length === 0 ? onLogOut() : router.push(setting.link);
                                                     }}>
                                                     <Typography textAlign="center">{setting.title}</Typography>
                                                 </MenuItem>
@@ -360,7 +360,7 @@ const NavBar = React.forwardRef((props, ref) => {
                                                     <MenuItem
                                                         key={index}
                                                         onClick={() => {
-                                                            setting.link.length === 0 ? onLogOut : router.push(setting.link);
+                                                            setting.link.length === 0 ? onLogOut() : router.push(setting.link);
                                                         }}>
                                                         <Typography textAlign="center">{setting.title}</Typography>
                                                     </MenuItem>
