@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrashCan, faCopy, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Add, Delete, ContentCopy } from '@mui/icons-material'
-import { Avatar } from 'antd';
 import { Table, Form } from 'react-bootstrap';
 import axios from '../../../api/axios';
 import useUser from '../../../../Hooks/useUser';
@@ -174,9 +171,9 @@ const Chatbot = () => {
                     <td>{item?.name}</td>
                     <td>
                         <div>
-                            <span onClick={() => onEdit(item?.id)} className="userEditButton">
+                            <div onClick={() => onEdit(item?.id)} className="userEditButton">
                                 แก้ไข
-                            </span>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -227,7 +224,7 @@ const Chatbot = () => {
                             สร้างซ้ำ
                         </div>
                         <div onClick={onDelete} className="userButton">
-                            <Delete className="me-2" icon={faTrashCan} />
+                            <Delete className="me-2" />
                             ลบ
                         </div>
                     </div>

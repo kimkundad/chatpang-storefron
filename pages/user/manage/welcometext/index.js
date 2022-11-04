@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrashCan, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { Add, Delete, ContentCopy } from '@mui/icons-material';
 import { Table } from 'react-bootstrap';
 import PageDropdown from '../../../../components/PageDropdown';
 import useUser from '../../../../Hooks/useUser';
@@ -98,9 +97,9 @@ const Welcometext = () => {
                     <td>{item.name}</td>
                     <td>
                         <div>
-                            <span onClick={() => onEdit(item.id)} className="userEditButton">
+                            <div onClick={() => onEdit(item.id)} className="userEditButton">
                                 แก้ไข
-                            </span>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -139,21 +138,21 @@ const Welcometext = () => {
 
                 <div className="row">
                     <div className="col d-flex justify-content-center my-2">
-                        <span
+                        <div
                             style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }}
                             onClick={() => router.push({ pathname: `${router.pathname}/create-welcome`, query: { pageId: pageID } })}
                             className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faPlus} />
+                            <Add className="me-2" />
                             สร้างแคมเปญ
-                        </span>
-                        <span style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }} onClick={onCopy} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faCopy} />
+                        </div>
+                        <div style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }} onClick={onCopy} className="userButton">
+                            <ContentCopy className="me-2" />
                             สร้างซ้ำ
-                        </span>
-                        <span style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }} onClick={onDelete} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faTrashCan} />
+                        </div>
+                        <div style={{ pointerEvents: `${checkFreeTrial() ? 'none' : 'auto'}` }} onClick={onDelete} className="userButton">
+                            <Delete className="me-2" />
                             ลบ
-                        </span>
+                        </div>
                     </div>
                 </div>
                 <div className="row">

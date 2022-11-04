@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrashCan, faCopy } from '@fortawesome/free-solid-svg-icons';
 
+import { Add, Delete, ContentCopy } from '@mui/icons-material'
 import { Table, Form } from 'react-bootstrap';
 import useUser from '../../../../Hooks/useUser';
 import PageDropdown from '../../../../components/PageDropdown';
@@ -143,9 +142,9 @@ const Replykeyword = () => {
                     <td>{item?.name}</td>
                     <td>
                         <div>
-                            <span onClick={() => onEdit(item.id)} className="userEditButton">
+                            <div onClick={() => onEdit(item.id)} className="userEditButton">
                                 แก้ไข
-                            </span>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -184,18 +183,18 @@ const Replykeyword = () => {
                 {/* content */}
                 <div className="row">
                     <div className="col d-flex justify-content-center my-2">
-                        <span onClick={() => router.push({ pathname: `${router.pathname}/create-replykeyword`, query: { pageId: pageID } })} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faPlus} />
+                        <div onClick={() => router.push({ pathname: `${router.pathname}/create-replykeyword`, query: { pageId: pageID } })} className="userButton">
+                            <Add className="me-2" />
                             สร้างแคมเปญ
-                        </span>
-                        <span onClick={onCopy} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faCopy} />
+                        </div>
+                        <div onClick={onCopy} className="userButton">
+                            <ContentCopy className="me-2" />
                             สร้างซ้ำ
-                        </span>
-                        <span onClick={onDelete} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faTrashCan} />
+                        </div>
+                        <div onClick={onDelete} className="userButton">
+                            <Delete className="me-2" />
                             ลบ
-                        </span>
+                        </div>
                     </div>
                 </div>
                 <div className="row">
