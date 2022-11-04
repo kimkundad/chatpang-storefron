@@ -7,10 +7,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+// import Container from '@mui/material/Container';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import color from '../../../styles/variables/color';
 import Image from 'react-bootstrap/Image';
@@ -20,14 +20,16 @@ import navbar from '../../../styles/variables/navbar';
 import * as constants from '../../../constants/indexConstant';
 import { useRouter } from 'next/dist/client/router';
 import useUser from '../../../Hooks/useUser';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faBars, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Dropdown, Menu as MenuAnt } from 'antd';
-
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faAngleDown, faBars, faUser } from '@fortawesome/free-solid-svg-icons';
+// import { Dropdown, Menu as MenuAnt } from 'antd';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PersonIcon from '@mui/icons-material/Person';
 const NavBar = React.forwardRef((props, ref) => {
     const pages = constants.NAV_BAR_KEY;
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [activeKey, setActiveKey] = useState('');
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
     const router = useRouter();
 
     const { user, setUserData } = useUser();
@@ -59,95 +61,112 @@ const NavBar = React.forwardRef((props, ref) => {
         router.push('/');
         setUserData({ ...user, isLogin: false });
     };
-    const menu = (
-        <MenuAnt
-            items={[
-                {
-                    label: user?.order?.state === 'paid' && (
-                        <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/manage')}>
-                            หน้าหลัก
-                        </span>
-                    ),
-                    key: 0,
-                },
-                {
-                    label: user?.order?.state === 'paid' && (
-                        <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push(`/user/edit/${user?.user?.id}`)}>
-                            แก้ไขข้อมูลส่วนตัว
-                        </span>
-                    ),
-                    key: 1,
-                },
-                {
-                    label: user?.order?.state === 'paid' && (
-                        <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/info/pagemanagement')}>
-                            จัดการเพจ
-                        </span>
-                    ),
-                    key: 2,
-                },
-                {
-                    label: (
-                        <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/info/accountmanagement')}>
-                            จัดการบัญชีและสมาชิก
-                        </span>
-                    ),
-                    key: 3,
-                },
 
-                {
-                    label: (
-                        <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/contact')}>
-                            ติดต่อเรา
-                        </span>
-                    ),
-                    key: 4,
-                },
-                {
-                    type: 'divider',
-                },
-                {
-                    label: (
-                        <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={onLogOut}>
-                            ออกจากระบบ
-                        </span>
-                    ),
-                    key: 5,
-                },
-            ]}
-        />
-    );
-
-    const userDropDown = () => {
-        if (!user.isLogin) {
-            return (
-                <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
-                    <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
-                        <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
-                        <FontAwesomeIcon className="name-user me-2 d-block d-md-none" icon={faUser} />
-                        <FontAwesomeIcon className="icon-user" icon={faAngleDown} />
-                    </a>
-                </Dropdown>
-            );
-        } else {
-            return (
-                <Button
-                    onClick={() => handleClick(pages[0].key, pages[pages.length - 1].link)}
-                    className="font-set"
-                    sx={{
-                        color: pages[pages.length - 1].key === props.navKey ? color.WHITE_COLOR : color.BLACK_COLOR,
-                        display: 'block',
-                        fontFamily: font.FONT_FAMILIES.PRIMARY,
-                        background: pages[pages.length - 1].key === props.navKey ? color.BLACK_COLOR : 'transparent',
-                        borderRadius: 20,
-                        padding: '5px 25px',
-                        marginLeft: 'auto',
-                    }}>
-                    {pages[pages.length - 1].name}
-                </Button>
-            );
-        }
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
     };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+    const settings = [
+        { title: 'หน้าหลัก', link: '/user/manage' },
+        { title: 'แก้ไขข้อมูลส่วนตัว', link: `/user/edit/${user?.user?.id}` },
+        { title: 'จัดการเพจ', link: '/user/info/pagemanagement' },
+        { title: 'จัดการบัญชีและสมาชิก', link: '/user/info/accountmanagement' },
+        { title: 'ติดต่อเรา', link: '/contact' },
+        { title: 'ออกจากระบบ', link: '' },
+    ];
+
+    // const menu = (
+    //     <MenuAnt
+    //         items={[
+    //             {
+    //                 label: user?.order?.state === 'paid' && (
+    //                     <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/manage')}>
+    //                         หน้าหลัก
+    //                     </span>
+    //                 ),
+    //                 key: 0,
+    //             },
+    //             {
+    //                 label: user?.order?.state === 'paid' && (
+    //                     <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push(`/user/edit/${user?.user?.id}`)}>
+    //                         แก้ไขข้อมูลส่วนตัว
+    //                     </span>
+    //                 ),
+    //                 key: 1,
+    //             },
+    //             {
+    //                 label: user?.order?.state === 'paid' && (
+    //                     <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/info/pagemanagement')}>
+    //                         จัดการเพจ
+    //                     </span>
+    //                 ),
+    //                 key: 2,
+    //             },
+    //             {
+    //                 label: (
+    //                     <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/user/info/accountmanagement')}>
+    //                         จัดการบัญชีและสมาชิก
+    //                     </span>
+    //                 ),
+    //                 key: 3,
+    //             },
+
+    //             {
+    //                 label: (
+    //                     <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={() => router.push('/contact')}>
+    //                         ติดต่อเรา
+    //                     </span>
+    //                 ),
+    //                 key: 4,
+    //             },
+    //             {
+    //                 type: 'divider',
+    //             },
+    //             {
+    //                 label: (
+    //                     <span style={{ fontSize: 'min(1.5rem,3vw)' }} onClick={onLogOut}>
+    //                         ออกจากระบบ
+    //                     </span>
+    //                 ),
+    //                 key: 5,
+    //             },
+    //         ]}
+    //     />
+    // );
+
+    // const userDropDown = () => {
+    //     if (!user.isLogin) {
+    //         return (
+    //             <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
+    //                 <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
+    //                     <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
+    //                     <FontAwesomeIcon className="name-user me-2 d-block d-md-none" icon={faUser} />
+    //                     <FontAwesomeIcon className="icon-user" icon={faAngleDown} />
+    //                 </a>
+    //             </Dropdown>
+    //         );
+    //     } else {
+    //         return (
+    //             <Button
+    //                 onClick={() => handleClick(pages[0].key, pages[pages.length - 1].link)}
+    //                 className="font-set"
+    //                 sx={{
+    //                     color: pages[pages.length - 1].key === props.navKey ? color.WHITE_COLOR : color.BLACK_COLOR,
+    //                     display: 'block',
+    //                     fontFamily: font.FONT_FAMILIES.PRIMARY,
+    //                     background: pages[pages.length - 1].key === props.navKey ? color.BLACK_COLOR : 'transparent',
+    //                     borderRadius: 20,
+    //                     padding: '5px 25px',
+    //                     marginLeft: 'auto',
+    //                 }}>
+    //                 {pages[pages.length - 1].name}
+    //             </Button>
+    //         );
+    //     }
+    // };
 
     return (
         <NavbarStyle navbarHeight={ref.current.offsetHeight} screenWidth={props.screenWidth}>
@@ -221,7 +240,7 @@ const NavBar = React.forwardRef((props, ref) => {
                                 sx={{
                                     flexGrow: 1,
                                     display: { xs: 'none', md: 'flex' },
-                                    justifyContent: 'flex-start',
+                                    justifyContent: 'flex-end',
                                     width: 'fit-content',
                                 }}>
                                 {!path.includes('user') && !path.includes('register') ? (
@@ -242,14 +261,47 @@ const NavBar = React.forwardRef((props, ref) => {
                                             {page.name}
                                         </Button>
                                     ))
-                                ) : user.isLogin ? (
-                                    <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
-                                        <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
-                                            <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
-                                            <FontAwesomeIcon className="name-user me-2 d-block d-md-none" icon={faUser} />
-                                            <FontAwesomeIcon className="icon-user" icon={faAngleDown} />
-                                        </a>
-                                    </Dropdown>
+                                ) : !user.isLogin ? (
+                                    <div>
+                                        <IconButton
+                                            size="large"
+                                            aria-label="account of current user"
+                                            aria-controls="menu-appbar"
+                                            aria-haspopup="true"
+                                            onClick={handleOpenUserMenu}
+                                            color="inherit"
+                                            sx={{
+                                                fontSize: 'min(1rem, 2vw)',
+                                            }}>
+                                            <Typography textAlign="center">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</Typography>
+                                            <ExpandMoreIcon />
+                                        </IconButton>
+                                        <Menu
+                                            sx={{ mt: '45px' }}
+                                            id="menu-appbar"
+                                            anchorEl={anchorElUser}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={Boolean(anchorElUser)}
+                                            onClose={handleCloseUserMenu}>
+                                            {settings.map((setting, index) => (
+                                                <MenuItem
+                                                    key={index}
+                                                    onClick={() => {
+                                                        setting.link.length === 0 ? onLogOut : router.push(setting.link);
+                                                    }}>
+                                                    <Typography textAlign="center">{setting.title}</Typography>
+                                                </MenuItem>
+                                            ))}
+                                        </Menu>
+                                    </div>
                                 ) : (
                                     <Button
                                         onClick={() => handleClick(pages[0].key, pages[pages.length - 1].link)}
@@ -272,16 +324,49 @@ const NavBar = React.forwardRef((props, ref) => {
                                     sx={{
                                         flexGrow: 1,
                                         display: { xs: 'flex', md: 'none' },
-                                        justifyContent: 'flex-start',
+                                        justifyContent: 'flex-end',
                                     }}>
                                     {user.isLogin ? (
-                                        <Dropdown overlay={menu} trigger={['click']} className="user-dropdown ms-auto d-flex align-items-center">
-                                            <a style={{ textDecoration: 'none', color: 'Black' }} onClick={(e) => e.preventDefault()}>
-                                                <span className="mx-2 d-none d-md-block">{user?.user?.name !== undefined ? user?.user?.name : 'User'}</span>
-                                                <FontAwesomeIcon className="name-user me-2 d-block d-md-none" icon={faUser} />
-                                                <FontAwesomeIcon className="icon-user" icon={faAngleDown} />
-                                            </a>
-                                        </Dropdown>
+                                        <div>
+                                            <IconButton
+                                                size="large"
+                                                aria-label="account of current user"
+                                                aria-controls="menu-appbar"
+                                                aria-haspopup="true"
+                                                onClick={handleOpenUserMenu}
+                                                color="inherit"
+                                                sx={{
+                                                    fontSize: 'min(1rem, 2vw)',
+                                                }}>
+                                                <PersonIcon />
+                                                <ExpandMoreIcon />
+                                            </IconButton>
+                                            <Menu
+                                                sx={{ mt: '45px' }}
+                                                id="menu-appbar"
+                                                anchorEl={anchorElUser}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={Boolean(anchorElUser)}
+                                                onClose={handleCloseUserMenu}>
+                                                {settings.map((setting, index) => (
+                                                    <MenuItem
+                                                        key={index}
+                                                        onClick={() => {
+                                                            setting.link.length === 0 ? onLogOut : router.push(setting.link);
+                                                        }}>
+                                                        <Typography textAlign="center">{setting.title}</Typography>
+                                                    </MenuItem>
+                                                ))}
+                                            </Menu>
+                                        </div>
                                     ) : (
                                         <Button
                                             onClick={() => handleClick(pages[0].key, pages[pages.length - 1].link)}
