@@ -92,6 +92,7 @@ const FunctionPageContainer = React.forwardRef((props, ref) => {
                         <Grid
                             container
                             direction="row"
+                            justifyContent="center"
                             columnSpacing={{ xs: 2, lg: 8 }}
                             rowSpacing={{ xs: 2, lg: 2 }}
                             alignContent="center"

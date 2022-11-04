@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashCan, faCopy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Add, Delete, ContentCopy } from '@mui/icons-material'
 import { Avatar } from 'antd';
 import { Table, Form } from 'react-bootstrap';
 import axios from '../../../api/axios';
@@ -122,7 +123,7 @@ const Chatbot = () => {
     };
 
     const setStatusActive = async (id) => {
-        console.log(id);
+        // console.log(id);
         try {
             const res = await axios.patch(
                 `/campaigns/${id}/active`,
@@ -139,7 +140,7 @@ const Chatbot = () => {
     };
 
     const setStatusInActive = async (id) => {
-        console.log(id);
+        // console.log(id);
         try {
             const res = await axios.patch(
                 `/campaigns/${id}/inactive`,
@@ -217,18 +218,18 @@ const Chatbot = () => {
 
                 <div className="row">
                     <div className="col-md-8 d-flex justify-content-evenly mx-auto my-2">
-                        <span onClick={() => router.push({ pathname: `${router.pathname}/create-bot`, query: { pageId: pageID } })} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faPlus} />
+                        <div onClick={() => router.push({ pathname: `${router.pathname}/create-bot`, query: { pageId: pageID } })} className="userButton">
+                            <Add className="me-2" />
                             สร้างแคมเปญ
-                        </span>
-                        <span onClick={onCopy} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faCopy} />
+                        </div>
+                        <div onClick={onCopy} className="userButton">
+                            <ContentCopy className="me-2" />
                             สร้างซ้ำ
-                        </span>
-                        <span onClick={onDelete} className="userButton">
-                            <FontAwesomeIcon className="me-2" icon={faTrashCan} />
+                        </div>
+                        <div onClick={onDelete} className="userButton">
+                            <Delete className="me-2" icon={faTrashCan} />
                             ลบ
-                        </span>
+                        </div>
                     </div>
                 </div>
                 <div className="row">
