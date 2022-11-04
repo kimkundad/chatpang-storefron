@@ -261,7 +261,7 @@ const NavBar = React.forwardRef((props, ref) => {
                                             {page.name}
                                         </Button>
                                     ))
-                                ) : !user.isLogin ? (
+                                ) : user.isLogin ? (
                                     <div>
                                         <IconButton
                                             size="large"
