@@ -33,7 +33,8 @@ const NavbarStyle = styled.nav`
         font-size:min(1rem, 4vw) !important;
     }
     .image-logo {
-        max-height: ${navbar.LOGO_HEIGHT};
+        /* max-height: ${navbar.LOGO_HEIGHT}; */
+        max-width:200px;
         //max-width: 100%;
         width: ${navbar.LOGO_WIDTH};
         object-fit: cover;

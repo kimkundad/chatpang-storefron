@@ -77,7 +77,7 @@ const FooterComponentStyle = styled.div`
     }
 
     .image-cover-logo {
-        width: 540px;
+        width: auto;
         height: 100px;
         margin-left: auto;
         margin-right: auto;

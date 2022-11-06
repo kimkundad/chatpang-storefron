@@ -4,7 +4,7 @@ import color from '../../../styles/variables/color';
 const ContactUsContainerStyle = styled.div`
   min-height: calc(100vh - ${(props) => props.navHeight}px) !important;
   //padding: 1.5% 3% 2%;
-  padding-top:${(props) => (props.navHeight)}px;
+  padding-top:${(props) => (props.navHeight) - 20}px;
   .space-input {
     padding-left: 50px;
     padding-right: 25px;
@@ -104,10 +104,10 @@ const ContactUsContainerStyle = styled.div`
     font-size: 24px;
     font-weight: 600;
     //margin-right: auto;
-
     .card {
       width: 100%;
       min-height: 300px;
+
       border: solid thin;
       border-radius: 25px;
       background: white;
@@ -303,7 +303,7 @@ const ContactUsContainerStyle = styled.div`
       padding: 0px;
       margin-left: auto;
       margin-right: auto;
-      width: 80%;
+      width: 100%;
       font-size: 22px;
     }
 
