@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit, faEye, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { Divider, InputNumber, Select } from 'antd';
 import { Table, Form, Alert } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+
+import ErrorIcon from '@mui/icons-material/Error';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import PageDropdown from '../../../../components/PageDropdown';
 import axios from '../../../api/axios';
@@ -175,11 +178,11 @@ const Linenoti = () => {
                     </td>
                     <td className="text-start">{`${index + 1}. ${item?.name}`}</td>
                     <td>
-                        {item?.pages?.length} <FontAwesomeIcon icon={faEye} />
+                        {item?.pages?.length} <VisibilityIcon />
                     </td>
                     <td>
-                        <FontAwesomeIcon className="lineEditButton" onClick={() => onEdit(item.id)} icon={faEdit} />
-                        <FontAwesomeIcon className="lineEditButton" onClick={() => onDelete(item.id)} icon={faTrash} />
+                        <ModeEditIcon className="lineEditButton" onClick={() => onEdit(item.id)} />
+                        <DeleteIcon className="lineEditButton" onClick={() => onDelete(item.id)} />
                     </td>
                 </tr>
             );
@@ -254,7 +257,7 @@ const Linenoti = () => {
                     </div>
                     <div className="col-lg-6 d-flex flex-xs-column lineTokenHeader">
                         <span className="text-secondary">
-                            <FontAwesomeIcon icon={faExclamationCircle} /> <i>คลิกเพื่อดูวิดีโอการขอ Token</i>{' '}
+                            <ErrorIcon /> <i>คลิกเพื่อดูวิดีโอการขอ Token</i>{' '}
                         </span>
                     </div>
                 </div>
