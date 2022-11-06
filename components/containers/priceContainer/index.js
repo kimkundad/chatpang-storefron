@@ -52,7 +52,7 @@ const PriceContainer = React.forwardRef((props, ref) => {
                     <Grid ref={headerRef} container direction="row" spacing="2" textAlign="center" display="block" className="header-text-page">
                         <Typography variant="div" display="flex" justifyItems="center" justifyContent="center" alignItems="center">
                             <div style={{ fontSize: 42, fontWeight: 600 }}>
-                                <Image src="/images/miniLogo.png" fluid className="header-icon" />
+                                <Image src="/images/icon/packageLogo.png" fluid className="header-icon" />
                                 {constants.HEADER_PAGE_TEXT}
                                 <div className="text-description">{constants.HEADER_TEXT_1}</div>
                             </div>

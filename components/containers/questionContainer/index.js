@@ -40,7 +40,7 @@ const QuestionContainer = React.forwardRef((props, ref) => {
         <div className="question-wrapper">
           <Grid container direction="row" spacing="2" textAlign="center" display="block" className="header-text-page">
             <Typography variant="h4" display="flex" justifyItems="center" justifyContent="center" alignItems="center">
-              <Image src="/images/miniLogo.png" fluid className="header-icon" />
+              <Image src="/images/icon/questionLogo.png" fluid className="header-icon" />
               {constants.HEADER_PAGE_TEXT}
             </Typography>
           </Grid>

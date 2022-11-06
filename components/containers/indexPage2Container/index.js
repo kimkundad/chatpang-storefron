@@ -21,7 +21,7 @@ const IndexPage2Container = React.forwardRef((props, ref) => {
                                 <div className="text-header-1">
                                     <br />
                                     {constants.HEADER_TEXT_1}
-                                    <Image src="/images/miniLogo.png" fluid className="header-icon" />
+                                    <Image src="/images/icon/6.png" fluid className="header-icon" />
                                 </div>
                                 <Typography variant="h3">{constants.HEADER_TEXT_2}</Typography>
                                 <div className="text-content" style={{ fontStyle: 'italic' }}>

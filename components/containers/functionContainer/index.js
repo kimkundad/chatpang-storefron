@@ -13,7 +13,7 @@ const FunctionPageContainer = React.forwardRef((props, ref) => {
                     <div className="main-content">
                         <Grid container direction="row" spacing="2" textAlign="center" display="block" className="header-text-page">
                             <Typography variant="h4" fontWeight={600} fontSize={'1.7rem'} display="flex" justifyItems="center" justifyContent="center" alignItems="center">
-                                <Image src="/images/miniLogo.png" fluid className="header-icon" />
+                                <Image src="/images/icon/functionLogo.png" fluid className="header-icon" />
                                 {constants.HEADER_TEXT_1}
                             </Typography>
                             <Typography variant="p" className="text-muted">
@@ -33,7 +33,7 @@ const FunctionPageContainer = React.forwardRef((props, ref) => {
                             alignItems="start"
                             sx={{ marginTop: { lg: '2%' }, marginBottom: { lg: '2%' } }}>
                             <Grid item container direction="column" xs={12} sm={12} md={6} lg={4} xl={4} alignContent="center" justifyContent="center">
-                                <CustomCard title={<div>ดึงคอมเม้นต์เข้า INBOX</div>} src="/images/icon/feature-1.svg" srcClass>
+                                <CustomCard title={<div>ดึงคอมเม้นต์เข้า INBOX</div>} src="/images/icon/feature-1.png">
                                     ไม่พลาดทุกคอมเม้นต์
                                     <br />
                                     ที่ลูกค้าสนใจสินค้า
@@ -42,14 +42,14 @@ const FunctionPageContainer = React.forwardRef((props, ref) => {
                                 </CustomCard>
                             </Grid>
                             <Grid item container direction="column" xs={12} sm={12} md={6} lg={4} xl={4} alignContent="center" justifyContent="center">
-                                <CustomCard title="ตอบคอมเม้นต์อัตโนมัติ" src="/images/icon/feature-2.svg">
+                                <CustomCard title="ตอบคอมเม้นต์อัตโนมัติ" src="/images/icon/feature-2.png">
                                     ตั้งค่าตอบทุกคอมเม้นต์อัตโนมัติ
                                     <br />
                                     ตามข้อความที่คุณต้องการ
                                 </CustomCard>
                             </Grid>
                             <Grid item container direction="column" xs={12} sm={12} md={6} lg={4} xl={4} alignContent="center" justifyContent="center">
-                                <CustomCard title="ตอบโพสต์อัตโนมัติ" src="/images/icon/feature-3.svg">
+                                <CustomCard title="ตอบโพสต์อัตโนมัติ" src="/images/icon/feature-3.png">
                                     ตอบทุกคอมเม้นต์ใต้โพส
                                     <br />
                                     ตามข้อความ ที่คุณตั้งไว้
@@ -58,14 +58,14 @@ const FunctionPageContainer = React.forwardRef((props, ref) => {
                                 </CustomCard>
                             </Grid>
                             {/* <Grid item container direction="column" xs={12} sm={12} md={6} lg={4} xl={4} alignContent="center" justifyContent="center">
-                <CustomCard title="ตอบ INBOX อัตโนมัติ" src="/images/icon/feature-4.svg">
+                <CustomCard title="ตอบ INBOX อัตโนมัติ" src="/images/icon/feature-4.png">
                 สร้างข้อความ พูดคุยกับลูกค้า
                   <br />
                   แชทปิดการขายได้ทุกเวลา
                 </CustomCard>
               </Grid>
               <Grid item container direction="column" xs={12} sm={12} md={6} lg={4} xl={4} alignContent="center" justifyContent="center">
-                <CustomCard title="แจ้งเตือนเมื่อไม่มีคนตอบแชท" src="/images/icon/feature-5.svg">
+                <CustomCard title="แจ้งเตือนเมื่อไม่มีคนตอบแชท" src="/images/icon/feature-5.png">
                 ทุกครั้งที่แชท ไม่มีคนตอบเป็นเวลานานๆ
                   <br />
                   จะมีข้อความเเจ้งเตือนไปที่มือถือคุณ
@@ -99,14 +99,14 @@ const FunctionPageContainer = React.forwardRef((props, ref) => {
                             alignItems="center"
                             sx={{ marginTop: { lg: '2%' }, marginBottom: { lg: '2%' } }}>
                             <Grid item container direction="column" xs={12} sm={12} md={6} lg={4} xl={4} alignContent="center" justifyContent="center">
-                                <CustomCard title="ตอบ INBOX อัตโนมัติ" src="/images/icon/feature-4.svg">
+                                <CustomCard title="ตอบ INBOX อัตโนมัติ" src="/images/icon/feature-4.png">
                                     สร้างข้อความ พูดคุยกับลูกค้า
                                     <br />
                                     แชทปิดการขายได้ทุกเวลา
                                 </CustomCard>
                             </Grid>
                             <Grid item container direction="column" xs={12} sm={12} md={6} lg={4} xl={4} alignContent="center" justifyContent="center">
-                                <CustomCard title="แจ้งเตือนเมื่อไม่มีคนตอบแชท" src="/images/icon/feature-5.svg">
+                                <CustomCard title="แจ้งเตือนเมื่อไม่มีคนตอบแชท" src="/images/icon/feature-5.png">
                                     ทุกครั้งที่แชท ไม่มีคนตอบเป็นเวลานานๆ
                                     <br />
                                     จะมีข้อความเเจ้งเตือนไปที่มือถือคุณ

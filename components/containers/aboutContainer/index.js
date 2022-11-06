@@ -11,14 +11,14 @@ const AboutContainer = React.forwardRef((props, ref) => {
                 <Grid container direction="row" spacing="2" textAlign="center" className="header-text-page">
                     <Grid container item direction="column" alignContent="center" xs={12} sm={12} md={6} lg={6} xl={6}>
                     <div className="img-content">
-                        <Image src="images/icon/about-image.svg" fluid/>
+                        <Image src="images/icon/about-image.png" fluid/>
                     </div>
                     </Grid>
                     <Grid container item direction="column" alignContent="center" alignItems="center" className="about-header" xs={12} sm={12} md={6} lg={6} xl={6}>
                         <div className="image-cover-logo">
-                            <Image src="/images/logo.png" width={450} />
+                            <Image src="/images/logo.png" fluid />
                         </div>
-                        <Typography style={{ fontWeight: 600, fontSize: '1.8rem', marginTop: 10 }} variant="h4">
+                        <Typography style={{ fontWeight: 600, fontSize: '1.8rem', marginTop: 20 }} variant="h4">
                             {/* {constants.HEADER_TEXT_1} */}
                             ไม่พลาดทุกแชทของลูกค้า
                             <br />

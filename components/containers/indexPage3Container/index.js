@@ -19,7 +19,7 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                             <div className="header">
                                 <div className="text-header-1">
                                     {constants.HEADER_TEXT_1}
-                                    <Image src="/images/miniLogo.png" fluid className="header-icon" />
+                                    <Image src="/images/icon/13.png" fluid className="header-icon" />
                                 </div>
                                 <Typography variant="h3">{constants.HEADER_TEXT_2}</Typography>
                                 <div className="text-header-1" variant="h5" style={{ whiteSpace: 'normal' }}>
@@ -73,7 +73,7 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                         spacing="2"
                         display="block"
                         textAlign="center"
-                        position="absolute"
+                        // position="absolute"
                         sx={{ bottom: { lg: '5%', xl: '1%' }, width: size.width >= windowSize.STD_WIDTH ? windowSize.STD_WIDTH : size.width }}>
                         <Button
                             variant="contained"

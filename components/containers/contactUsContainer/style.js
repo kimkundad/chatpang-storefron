@@ -43,7 +43,7 @@ const ContactUsContainerStyle = styled.div`
     display: inline-block;
     padding-left: 15px;
     text-align: left;
-    margin: auto 0px;
+    margin: 0px 0px auto 0px;
     font-size: 34px;
   }
 

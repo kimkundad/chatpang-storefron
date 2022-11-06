@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import ContactUsContainerStyle from './style';
 import * as constants from '../../../constants/contactUsConstants';
 import { Image } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import classNames from 'classnames';
 import CoreService from '../../../services/coreService';
 import { callApiSuccess, closeAlert } from '../../../redux/globalRedux/action';
+import axios from 'axios'
 
 const ContactUsContainer = React.forwardRef((props, ref) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const initialValue = {
     firstname: '',
     lastname: '',
@@ -22,8 +23,8 @@ const ContactUsContainer = React.forwardRef((props, ref) => {
   };
   const [errorMsg, setErrorMsg] = useState({});
   const [contactInput, setContactInput] = useState(initialValue);
-  const isLoading = useSelector((state) => state.global.options.isLoading);
-  const alert = useSelector((state) => state.global.options.alert);
+  // const isLoading = useSelector((state) => state.global.options.isLoading);
+  // const alert = useSelector((state) => state.global.options.alert);
   const validateInput = () => {
     let error = {};
     let result = Object.keys(contactInput).map((key) => contactInput[key] !== '' && contactInput[key] !== null && contactInput[key] !== undefined);
@@ -52,7 +53,7 @@ const ContactUsContainer = React.forwardRef((props, ref) => {
     validateInput();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     if (errorMsg.isHaveError) {
       setErrorMsg((prev) => ({
         ...prev,
@@ -71,9 +72,14 @@ const ContactUsContainer = React.forwardRef((props, ref) => {
         checkAgreement: contactInput.checkAgreement,
       };
 
-      let service = new CoreService();
-      let result = service.sendDataToLineNotification(payload);
-      dispatch(callApiSuccess());
+      try {
+        const res = await axios.post('https://boardpang-api.herokuapp.com/line/pushLine',JSON.stringify(payload),{headers:{ 'Content-Type': 'application/json','x-api-version':'1.0.0'}})
+      } catch (error) {
+        console.log(error);
+      }
+      // let service = new CoreService();
+      // let result = service.sendDataToLineNotification(payload);
+      // dispatch(callApiSuccess());
       setContactInput(initialValue);
     }
 
@@ -163,18 +169,18 @@ const ContactUsContainer = React.forwardRef((props, ref) => {
                 </Grid>
               </Grid>
               <Grid container direction="row" justifyItems="center" justifyContent="center" alignItems="end" sx={{ padding: { xs: '50px', md: '10px' } }}>
-                <a target="_blank" href="https://www.facebook.com/broadpangmkt/">
+                {/* <a target="_blank" href="https://www.facebook.com/broadpangmkt/"> */}
                   <Image src="/images/icon/facebook.png" fluid className="icon-social" />
-                </a>
-                <a target="_blank" href="https://lin.ee/wtEcDjy">
+                {/* </a> */}
+                {/* <a target="_blank" href="https://lin.ee/wtEcDjy"> */}
                   <Image src="/images/icon/line.png" fluid className="icon-social" />
-                </a>
-                <a target="_blank" href="https://www.instagram.com/broadpang_/">
+                {/* </a> */}
+                {/* <a target="_blank" href="https://www.instagram.com/broadpang_/"> */}
                   <Image src="/images/icon/instagram.png" fluid className="icon-social" />
-                </a>
-                <a target="_blank" href="https://www.youtube.com/channel/UCghU79wMstfm0MD0XxRzx9g">
+                {/* </a> */}
+                {/* <a target="_blank" href="https://www.youtube.com/channel/UCghU79wMstfm0MD0XxRzx9g"> */}
                   <Image src="/images/icon/youtube.png" fluid className="icon-social" />
-                </a>
+                {/* </a> */}
               </Grid>
             </Grid>
 

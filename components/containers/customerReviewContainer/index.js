@@ -26,7 +26,7 @@ const CustomerReview = React.forwardRef((props, ref) => {
             <div className="app-container">
                 <Grid container direction="row" spacing="2" textAlign="center" display="block" className="header-text-page">
                     <Typography variant="h4" fontWeight={600} fontSize={'1.7rem'} display="flex" justifyItems="center" justifyContent="center" alignItems="center">
-                        <Image src="/images/miniLogo.png" fluid className="header-icon" />
+                        <Image src="/images/icon/reviewLogo.png" fluid className="header-icon" />
                         {constants.HEADER_PAGE_TEXT}
                     </Typography>
                 </Grid>

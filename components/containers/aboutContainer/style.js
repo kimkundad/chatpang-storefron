@@ -21,7 +21,7 @@ const AboutContainerStyle = styled.div`
     .img-content {
         /* width: 600px;
     height: 500px; */
-        width: 80%;
+        width: 90%;
 
         height: calc(100vh - ${(props) => props.navHeight}px) !important;
         object-fit: cover;
@@ -41,13 +41,13 @@ const AboutContainerStyle = styled.div`
         font-size: 37px !important;
         font-weight: 600;
         font-style: italic;
-        margin-top: 9%;
+        margin-top: 5%;
 
         .list-item {
             display: flex;
             align-items: center;
             align-content: center;
-            line-height: 55px;
+            line-height: 45px;
         }
 
         img {

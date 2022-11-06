@@ -37,8 +37,8 @@ const NavbarStyle = styled.nav`
         //max-width: 100%;
         width: ${navbar.LOGO_WIDTH};
         object-fit: cover;
-        margin: 0 5vw;
-        //margin: auto !important;
+        /* margin: 0 5vw; */
+        /* margin: auto !important; */
     }
 
     .image-logo-2 {
