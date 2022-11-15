@@ -1,7 +1,12 @@
 import React, { useState, createRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faChevronLeft, faCircleChevronDown, faCircleChevronUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Divider, Input } from 'antd';
+
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import AddIcon from '@mui/icons-material/Add';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import { Divider } from 'antd';
 import { useRouter } from 'next/router';
 
 import useUser from '../../../../Hooks/useUser';
@@ -15,7 +20,6 @@ const CreateWelcome = () => {
     const router = useRouter();
     const { user } = useUser();
     const [pageID, setPageID] = useState(router.query.pageId);
-    const { TextArea } = Input;
     // console.log(pageID);
     const [campaignName, setCampaignName] = useState('');
     const [details, setDetails] = useState(['']);
@@ -144,15 +148,15 @@ const CreateWelcome = () => {
                     <div className="col-lg-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="h-auto d-flex flex-column me-4">
                             <span>
-                                <FontAwesomeIcon onClick={() => onClickPrev(index)} icon={faCircleChevronUp} />
+                                <KeyboardArrowUpIcon onClick={() => onClickPrev(index)}  />
                             </span>
                             <span>
-                                <FontAwesomeIcon onClick={() => onClickNext(index)} icon={faCircleChevronDown} />
+                                <KeyboardArrowDownIcon onClick={() => onClickNext(index)}/>
                             </span>
                         </div>
                         <div className="">
                             <span style={{ color: 'red' }}>
-                                <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+                                <DeleteIcon onClick={() => onDeleteDetails(index)} />
                             </span>
                         </div>
                     </div>
@@ -174,7 +178,7 @@ const CreateWelcome = () => {
                     <div className="row">
                         <div className="col-md-12 d-flex justify-content-center">
                             <span onClick={() => router.back()} className="userBackButton">
-                                <FontAwesomeIcon className="me-2-md" icon={faChevronLeft} />
+                                <NavigateBeforeIcon className="me-2-md" />
                                 <span className="textBTN">ย้อนกลับ</span>
                             </span>
                             <span className="text-uppercase userDropdown">
@@ -207,7 +211,7 @@ const CreateWelcome = () => {
                 <div className="row g-3 justify-content-center">
                     <div className="col-md-4 replyButtonContainer">
                         <button onClick={handleAddText} className="replyCustomBtn">
-                            <FontAwesomeIcon icon={faPlus} />
+                            <AddIcon />
                             <span>เพิ่มข้อความ</span>
                         </button>
                     </div>

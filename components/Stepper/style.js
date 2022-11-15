@@ -6,14 +6,14 @@ const StepperStyle = styled.div`
     color: ${color.GRAY_COLOR_2};
     font-size: 1rem;
     font-weight: 500;
-    margin-top:20px;
+    margin-top: 20px;
     /* margin-bottom: 0; */
     padding: 0;
     li.breadcrumb-item::before {
         content: '' !important;
     }
     li.breadcrumb-item {
-        background:  ${color.WHITE_COLOR};
+        background: ${color.WHITE_COLOR};
         font-size: 1.5rem;
         display: grid;
         place-items: center;
@@ -53,6 +53,29 @@ const StepperStyle = styled.div`
     }
     li.breadcrumb-item:not(:first-child) {
         border-left: none;
+    }
+    //xs mobile
+    @media screen and (max-width: 575px) {
+        li.breadcrumb-item {
+            font-size: 1rem;
+            padding-left:14px;
+        }
+        li.breadcrumb-item div {
+            padding: 10px  4px 10px 0px;
+        }
+        li.breadcrumb-item div .icon {
+        margin:0 5px;
+        /* font-size:0.8rem; */
+    }
+    }
+    //sm tablet
+    @media screen and (min-width: 576px) and (max-width: 767px) {
+    }
+    //md extra tablet
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+    }
+    //xl notebook
+    @media screen and (min-width: 1200px) and (max-width: 1535px) {
     }
 `;
 

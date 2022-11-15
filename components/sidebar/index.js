@@ -51,16 +51,6 @@ const Sidebar = React.forwardRef((props, ref) => {
     // },[user.user])
     return (
         <SidebarStyle ref={ref} navbarHeight={navbarHeight}>
-            {/* <Scrollbars
-                autoHide
-                autoHideTimeout={1000}
-                autoHideDuration={200}
-                autoHeight
-                autoHeightMin={0}
-                autoHeightMax="100vh"
-                thumbMinSize={30}
-                universal={false}
-                hideTracksWhenNotNeeded={true}> */}
                 <div className="sidebar-inner">
                     <div className="sidebar-menu">
                         {Object.values(packageInfo).length === 0 ? (
@@ -83,6 +73,9 @@ const Sidebar = React.forwardRef((props, ref) => {
                         <ul>
                             <li className={`menu-title ${isActive('') ? 'active' : ''}`}>
                                 <Link href="/user/manage">หน้าหลัก</Link>
+                            </li>
+                            <li className={`menu-title ${isActive('/pagemanagement') ? 'active' : ''}`}>
+                                <Link href="/user/manage/pagemanagement">การจัดการเพจ</Link>
                             </li>
                             <li className={`menu-title ${isActive('/chatbot') || isActive('/chatbot/edit/') || isActive('/chatbot/create-bot') ? 'active' : ''}`}>
                                 <Link href="/user/manage/chatbot">สร้าง chatbot</Link>
@@ -108,7 +101,6 @@ const Sidebar = React.forwardRef((props, ref) => {
                         </ul>
                     </div>
                 </div>
-            {/* </Scrollbars> */}
         </SidebarStyle>
     );
 });

@@ -67,9 +67,9 @@ const GreetingStyle = styled.div`
         place-items: center;
         margin: 0 auto;
         border-radius: 25px;
-        background: var(--mainCBlack);
+        background: ${color.BLACK_COLOR};
         padding: 5px 26px;
-        color: var(--mainCRed_1);
+        color: ${color.PRIMARY};
         cursor: pointer;
     }
     .text-container {

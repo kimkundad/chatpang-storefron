@@ -12,15 +12,15 @@ import ChatBotStyle from './style';
 const Chatbot = () => {
     const router = useRouter();
     const { user } = useUser();
-    const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id);
+    const [pageID, setPageID] = useState(user?.pages[0]?.id);
 
     const [selectedItem, setSelectedItem] = useState();
     const [itemList, setItemList] = useState([]);
     const [data, setData] = useState([]);
     const [isCheckAll, setIsCheckAll] = useState(false);
 
-    const onEdit = (id) => {
-        router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageId: pageID } }, `${router.pathname}/edit/${id}`);
+    const onEdit = (id, page_id) => {
+        router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageId: page_id } }, `${router.pathname}/edit/${id}`);
     };
 
     const onChecked = async (e) => {
@@ -59,6 +59,7 @@ const Chatbot = () => {
                     replySamePerson: temp[0].reply_same_person,
                     hideComment: temp[0].hide_comment,
                     facebookUser: temp[0].facebook_user,
+                    page: temp[0].page,
                 };
                 // setData([...data, copyData])
                 setCopyData(copyData);
@@ -171,7 +172,7 @@ const Chatbot = () => {
                     <td>{item?.name}</td>
                     <td>
                         <div>
-                            <div onClick={() => onEdit(item?.id)} className="userEditButton">
+                            <div onClick={() => onEdit(item?.id, item?.page)} className="userEditButton">
                                 แก้ไข
                             </div>
                         </div>

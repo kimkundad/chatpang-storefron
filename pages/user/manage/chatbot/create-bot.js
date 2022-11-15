@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+
 import { Divider, Input, Switch } from 'antd';
 import useUser from '../../../../Hooks/useUser';
 import axios from '../../../api/axios';
@@ -67,10 +68,11 @@ const Createbot = () => {
             replySamePerson: isDuplicateComment,
             hideComment: isHideComment,
             facebookUser: user?.user?.id,
+            page:pageID,
         };
         try {
             const res = await axios.post('/campaigns', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } });
-            // console.log(res.data)
+            console.log(res.data)
             setIsSuccess({
                 show: true,
                 isSuccess: true,
@@ -109,6 +111,7 @@ const Createbot = () => {
                 isSuccess: false,
                 text: '',
             });
+            router.back();
         }, 2000);
     };
     // const setImageInbox = (e) => {
@@ -148,7 +151,7 @@ const Createbot = () => {
                     <div className="row">
                         <div className="col-md-12 d-flex justify-content-center">
                             <span onClick={() => router.back()} className="userBackButton">
-                                <FontAwesomeIcon className="me-2-md" icon={faChevronLeft} />
+                                <NavigateBeforeIcon className="me-2-md" />
                                 <span className="textBTN">ย้อนกลับ</span>
                             </span>
                             <span className="text-uppercase userDropdown">
@@ -252,7 +255,7 @@ const Createbot = () => {
                             </div>
                             <div>
                                 <Switch size="small" value={isDuplicateComment} onChange={() => setIsDuplicateComment(!isDuplicateComment)} />
-                                <h5 className="ms-3 my-auto">ไม่ตอบซ้ำคนเดิม</h5>
+                                <h5 className="ms-3 my-auto">ตอบซ้ำคนเดิม</h5>
                             </div>
                             <div>
                                 <Switch size="small" value={isHideComment} onChange={() => setIsHideComment(!isHideComment)} />

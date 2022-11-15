@@ -1,5 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faCreditCard, faFileCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import TaskIcon from '@mui/icons-material/Task';
 import StepperStyle from './style';
 const Stepper = (props) => {
     const step = props.step;
@@ -8,19 +9,19 @@ const Stepper = (props) => {
             <ul className="breadcrumb">
                 <li className={`breadcrumb-item ${step === '0' && 'active'}`}>
                     <div>
-                        <FontAwesomeIcon className="icon" icon={faCartShopping} />
+                        <ShoppingCartIcon className="icon" />
                         <span>เลือกแพ็คเกจ</span>
                     </div>
                 </li>
                 <li className={`breadcrumb-item ${step === '1' && 'active'}`}>
                     <div>
-                        <FontAwesomeIcon className="icon" icon={faCreditCard} />
+                        <CreditCardIcon className="icon" />
                         <span>การชำระเงิน</span>
                     </div>
                 </li>
                 <li className={`breadcrumb-item ${step === '2' && 'active'}`}>
                     <div>
-                        <FontAwesomeIcon className="icon" icon={faFileCircleCheck} />
+                        <TaskIcon className="icon" />
                         <span>ยืนยันการสั่งซื้อ</span>
                     </div>
                 </li>

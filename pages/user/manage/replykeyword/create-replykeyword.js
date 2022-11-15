@@ -1,8 +1,12 @@
 import React, { useState, createRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleChevronDown, faCircleChevronUp, faTrashAlt, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { Input, Divider } from 'antd';
+import { Divider } from 'antd';
 import { useRouter } from 'next/router';
+
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import AddIcon from '@mui/icons-material/Add';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import axios from '../../../api/axios';
 import PageDropdown from '../../../../components/PageDropdown';
@@ -16,7 +20,6 @@ const CreateReplyKeyword = () => {
     const router = useRouter();
     const { user } = useUser();
     const [pageID, setPageID] = useState(router.query.pageId);
-    const { TextArea } = Input;
 
     const [imgs, setImgs] = useState(['']);
     const [previewImgs, setPreviewImgs] = useState(['']);
@@ -39,6 +42,7 @@ const CreateReplyKeyword = () => {
             images: arrImages,
             name: campaignName,
             facebookUser: user?.user?.id,
+            page:pageID
         };
         // console.log(data)
         try {
@@ -72,12 +76,13 @@ const CreateReplyKeyword = () => {
                 isSuccess: false,
                 text: '',
             });
+            router.back()
         }, 2000);
     };
     const convertToImagePath = async () => {
         let tmpArr = [];
         for (const img of imgs) {
-            let url = await getImagePath(img);
+            let url = img !== '' ? await getImagePath(img) : '';
             tmpArr.push(url);
         }
         // setImgs(tmpArr)
@@ -215,29 +220,21 @@ const CreateReplyKeyword = () => {
                         <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
                     </div>
                     <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
-                        {/* <TextArea
-                            showCount
-                            value={text}
-                            onChange={(e) => onHandleChangeDetail(e, index)}
-                            maxLength={200}
-                            placeholder="พิมพ์ข้อความที่นี้..."
-                            autoSize={{ minRows: 4, maxRows: 6 }}
-                        /> */}
                         <textarea value={text} onChange={(e) => onHandleChangeDetail(e, index)} maxLength={200} placeholder="พิมพ์ข้อความที่นี้..." rows={4} cols={6} />
                         <div className="text-secondary text-end">{details[index]?.length}/200</div>
                     </div>
                     <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="h-auto d-flex flex-column me-4">
                             <span>
-                                <FontAwesomeIcon onClick={() => onInputPrev(index)} icon={faCircleChevronUp} />
+                                <KeyboardArrowUpIcon onClick={() => onInputPrev(index)} />
                             </span>
                             <span>
-                                <FontAwesomeIcon onClick={() => onInputNext(index)} icon={faCircleChevronDown} />
+                                <KeyboardArrowDownIcon onClick={() => onInputNext(index)}  />
                             </span>
                         </div>
                         <div className="replyDeleteBTN">
                             <span style={{ color: 'red' }}>
-                                <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+                                <DeleteIcon onClick={() => onDeleteDetails(index)} />
                             </span>
                         </div>
                     </div>
@@ -273,15 +270,15 @@ const CreateReplyKeyword = () => {
                     <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="d-flex flex-column me-4">
                             <span>
-                                <FontAwesomeIcon onClick={() => onImgPrev(index)} icon={faCircleChevronUp} />
+                                <KeyboardArrowUpIcon onClick={() => onImgPrev(index)} />
                             </span>
                             <span>
-                                <FontAwesomeIcon onClick={() => onImgNext(index)} icon={faCircleChevronDown} />
+                                <KeyboardArrowDownIcon onClick={() => onImgNext(index)} />
                             </span>
                         </div>
                         <div className="replyDeleteBTN">
                             <span style={{ color: 'red' }}>
-                                <FontAwesomeIcon onClick={() => onDeleteImg(index)} icon={faTrashAlt} />
+                                <DeleteIcon onClick={() => onDeleteImg(index)} />
                             </span>
                         </div>
                     </div>
@@ -304,7 +301,7 @@ const CreateReplyKeyword = () => {
                     <div className="row">
                         <div className="col-md-12 d-flex justify-content-center">
                             <span onClick={() => router.back()} className="userBackButton">
-                                <FontAwesomeIcon className="me-2-md" icon={faChevronLeft} />
+                                <NavigateBeforeIcon className="me-2-md" />
                                 <span className="textBTN">ย้อนกลับ</span>
                             </span>
                             <span className="text-uppercase userDropdown">
@@ -344,13 +341,13 @@ const CreateReplyKeyword = () => {
                 <div className="row g-3 justify-content-center">
                     <div className="col-6 replyButtonContainer">
                         <button onClick={handleAddText} className="replyCustomBtn">
-                            <FontAwesomeIcon icon={faPlus} />
+                            <AddIcon />
                             <span>เพิ่มข้อความ</span>
                         </button>
                     </div>
                     <div className="col-6 text-center replyButtonContainer">
                         <button onClick={handleAddImage} className="replyCustomBtn">
-                            <FontAwesomeIcon icon={faPlus} />
+                            <AddIcon />
                             <span>เพิ่มรูปภาพ</span>
                         </button>
                     </div>

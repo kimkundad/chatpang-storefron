@@ -4,7 +4,8 @@ import color from '../../../styles/variables/color';
 const SelectedPackagesStyle = styled.div`
     min-height: calc(100vh - ${(props) => props.navHeight}px) !important;
     position: relative;
-    padding: 0px 5%;
+    /* padding: 0px 5%; */
+    padding-top:${(props) => props.navHeight}px;
     z-index: 1;
     .cardPriceContainer {
         margin: 0 auto;
@@ -177,7 +178,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: auto;
+            width: 90%;
         }
 
         & .chat-icon {
@@ -240,7 +241,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: auto;
+            width: 80%;
         }
 
         & .btn-button {
@@ -297,7 +298,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: auto;
+            width: 80%;
         }
 
         & .card-header {
@@ -361,7 +362,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: auto;
+            width: 80%;
         }
 
         & .card-header {

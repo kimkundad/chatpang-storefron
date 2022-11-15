@@ -5,7 +5,7 @@ const CustomCardStyle = styled.div`
   border-style: none;
   border-width: thin;
   border-color: ${color.GRAY_COLOR_3};
-  min-height: 100px;
+  min-height: 190px;
   width: 90%;
   padding: 2%;
   position: relative;
@@ -93,7 +93,7 @@ const CustomCardStyle = styled.div`
     border-style: none;
     border-width: thin;
     border-color: ${color.GRAY_COLOR_3};
-    min-height: 100px;
+    min-height: 190px;
     width: 85%;
     position: relative;
     margin-top: 50px;
@@ -118,7 +118,7 @@ const CustomCardStyle = styled.div`
     border-style: none;
     border-width: thin;
     border-color: ${color.GRAY_COLOR_3};
-    min-height: 100px;
+    min-height: 190px;
     width: auto;
     position: relative;
     margin-top: 50px;

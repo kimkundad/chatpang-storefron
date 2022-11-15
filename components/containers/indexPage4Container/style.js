@@ -166,7 +166,7 @@ const IndexPage4ContainerStyle = styled.div`
     }
     & .img-logo-absolute {
       object-fit: fill;
-      width: 100%;
+      width: 30%;
       height: auto !important;
       bottom: 10px;
       opacity: 1;
@@ -229,7 +229,7 @@ const IndexPage4ContainerStyle = styled.div`
     }
     & .img-logo-absolute {
       object-fit: fill;
-      width: 100%;
+      width: 40%;
       height: auto !important;
       bottom: 150px;
       opacity: 1;
@@ -289,9 +289,9 @@ const IndexPage4ContainerStyle = styled.div`
 
     & .img-logo-absolute {
       object-fit: fill;
-      width: 70%;
+      width: 40%;
       height: auto !important;
-      bottom: -50px;
+      bottom: 50px;
       opacity: 1;
     }
 

@@ -12,14 +12,14 @@ import GreetingStyle from './style';
 const Welcometext = () => {
     const router = useRouter();
     const { user } = useUser();
-    const [pageID, setPageID] = useState(user?.pages[0]?.page_id);
+    const [pageID, setPageID] = useState(user?.pages[0]?.id);
 
     const [itemList, setItemList] = useState([]);
     const [data, setData] = useState([]);
     const [isCheckAll, setIsCheckAll] = useState(false);
 
-    const onEdit = (id) => {
-        router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageID: pageID } }, `${router.pathname}/edit/${id}`);
+    const onEdit = (id, page_id) => {
+        router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageID: page_id } }, `${router.pathname}/edit/${id}`);
     };
 
     const onChecked = async (e) => {
@@ -91,13 +91,13 @@ const Welcometext = () => {
         return data.map((item, index) => {
             return (
                 <tr key={index}>
-                    <td>
+                    <td className='text-center'>
                         <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onClick={(e) => onChecked(e)} />
                     </td>
                     <td>{item.name}</td>
                     <td>
                         <div>
-                            <div onClick={() => onEdit(item.id)} className="userEditButton">
+                            <div onClick={() => onEdit(item.id, item.page)} className="userEditButton">
                                 แก้ไข
                             </div>
                         </div>
@@ -163,7 +163,7 @@ const Welcometext = () => {
                             <Table bordered>
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th className='text-center'>
                                             <input className='checkbox-customer' onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
                                         </th>
                                         <th>แคมเปญ</th>

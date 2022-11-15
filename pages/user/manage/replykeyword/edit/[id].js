@@ -1,8 +1,12 @@
 import React, { useEffect, useState, createRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faChevronLeft, faCircleChevronDown, faCircleChevronUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Divider, Input } from 'antd';
+import { Divider } from 'antd';
 import { useRouter } from 'next/router';
+
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import AddIcon from '@mui/icons-material/Add';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import axios from '../../../../api/axios';
 import useUser from '../../../../../Hooks/useUser';
@@ -10,12 +14,14 @@ import { Alert } from 'react-bootstrap';
 import TagsInput from '../../../../../components/tagsinput/TagsInput';
 import UserLayout from '../../../../../components/layouts/userLayout/userLayout';
 import KeywordStyle from '../style';
+import PageDropdown from '../../../../../components/PageDropdown';
 
 const Edit = () => {
     const router = useRouter();
     const { user } = useUser();
     const id = router.query.campaignId;
-    const { TextArea } = Input;
+
+    const [pageID, setPageID] = useState(router.query.pageId);
 
     const [imgs, setImgs] = useState(['']);
     const [previewImgs, setPreviewImgs] = useState([]);
@@ -29,6 +35,12 @@ const Edit = () => {
         isSuccess: false,
         text: '',
     });
+
+    const onSelect = (id) => {
+        // console.log(id);
+        setPageID(id);
+    };
+
     const onSubmit = async (e) => {
         e.preventDefault();
         const data = {
@@ -37,6 +49,7 @@ const Edit = () => {
             images: imgs.length === 0 ? [] : await convertToImagePath(),
             name: campaignName,
             facebookUser: user?.user?.id,
+            page: pageID
         };
         try {
             const res = await axios.put(`/auto-replies/${id}`, data, {
@@ -75,7 +88,7 @@ const Edit = () => {
         let tmpArr = [];
         for (const item of imgs) {
             // if (item.type === 'image') {
-            let url = regExURL.test(item) ? item : await getImagePath(item);
+            let url = regExURL.test(item) ? item : imgs !== '' ? await getImagePath(item) : '';
             tmpArr.push(url);
             // }
         }
@@ -203,14 +216,6 @@ const Edit = () => {
                         <strong className="ms-md-3 me-auto me-md-0">ข้อความ {details?.length > 1 && `(${index + 1})`}</strong>
                     </div>
                     <div ref={inputRef[index]} className="col-md-6 col-9 commentInput">
-                        {/* <TextArea
-                            showCount
-                            value={text}
-                            onChange={(e) => onHandleChangeDetail(e, index)}
-                            maxLength={200}
-                            placeholder="พิมพ์ข้อความที่นี้..."
-                            autoSize={{ minRows: 4, maxRows: 6 }}
-                        /> */}
                         <textarea
                             value={text}
                             onChange={(e) => onHandleChangeDetail(e, index)}
@@ -224,15 +229,15 @@ const Edit = () => {
                     <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="h-auto d-flex flex-column me-4">
                             <span>
-                                <FontAwesomeIcon onClick={() => onInputPrev(index)} icon={faCircleChevronUp} />
+                                <KeyboardArrowUpIcon onClick={() => onInputPrev(index)}/>
                             </span>
                             <span>
-                                <FontAwesomeIcon onClick={() => onInputNext(index)} icon={faCircleChevronDown} />
+                                <KeyboardArrowDownIcon onClick={() => onInputNext(index)} />
                             </span>
                         </div>
                         <div className="replyDeleteBTN">
                             <span style={{ color: 'red' }}>
-                                <FontAwesomeIcon onClick={() => onDeleteDetails(index)} icon={faTrashAlt} />
+                                <DeleteIcon onClick={() => onDeleteDetails(index)} />
                             </span>
                         </div>
                     </div>
@@ -268,15 +273,15 @@ const Edit = () => {
                     <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                         <div className="d-flex flex-column me-4">
                             <span>
-                                <FontAwesomeIcon onClick={() => onImgPrev(index)} icon={faCircleChevronUp} />
+                                <KeyboardArrowUpIcon onClick={() => onImgPrev(index)} />
                             </span>
                             <span>
-                                <FontAwesomeIcon onClick={() => onImgNext(index)} icon={faCircleChevronDown} />
+                                <KeyboardArrowDownIcon onClick={() => onImgNext(index)} />
                             </span>
                         </div>
                         <div className="replyDeleteBTN">
                             <span style={{ color: 'red' }}>
-                                <FontAwesomeIcon onClick={() => onDeleteImg(index)} icon={faTrashAlt} />
+                                <DeleteIcon onClick={() => onDeleteImg(index)} />
                             </span>
                         </div>
                     </div>
@@ -335,8 +340,11 @@ const Edit = () => {
                     <div className="row">
                         <div className="col-md-12 d-flex justify-content-center">
                             <span onClick={() => router.back()} className="userBackButton">
-                                <FontAwesomeIcon className="me-2-md" icon={faChevronLeft} />
+                                <NavigateBeforeIcon className="me-2-md" />
                                 <span className="textBTN">ย้อนกลับ</span>
+                            </span>
+                            <span className="text-uppercase userDropdown">
+                                <PageDropdown defaultValue={pageID} onSelect={onSelect} />
                             </span>
                         </div>
                     </div>
@@ -372,13 +380,13 @@ const Edit = () => {
                 <div className="row g-3 justify-content-center">
                     <div className="col-md-4 replyButtonContainer">
                         <button onClick={handleAddText} className="replyCustomBtn">
-                            <FontAwesomeIcon icon={faPlus} />
+                            <AddIcon />
                             <span>เพิ่มข้อความ</span>
                         </button>
                     </div>
                     <div className="col-md-4 text-center replyButtonContainer">
                         <button onClick={handleAddImage} className="replyCustomBtn">
-                            <FontAwesomeIcon icon={faPlus} />
+                            <AddIcon />
                             <span>เพิ่มรูปภาพ</span>
                         </button>
                     </div>

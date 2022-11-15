@@ -6,9 +6,11 @@ const SidebarStyle = styled.div`
     position: fixed;
     transition: all 0.2s ease-in-out 0.3s;
     width: 240px;
-    min-height: calc(100vh - ${(props) => props.navbarHeight}px);
-    top:${(props) => props.navbarHeight + 40}px;
-    z-index: 200;
+    /* min-height: calc(100vh - ${(props) => props.navbarHeight}px); */
+    min-height: calc(100vh);
+    /* top:${(props) => props.navbarHeight + 40}px; */
+    /* padding-top:${(props) => props.navbarHeight + 20}px; */
+    z-index: 95;
     box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.2);
     overflow-y: hidden;
     display:block;
@@ -79,6 +81,7 @@ const SidebarStyle = styled.div`
         display: flex;
         justify-content: space-between;
         padding: 16px 10px;
+        padding-top:${(props) => props.navbarHeight + 40}px;
         align-items: center;
         color: ${color.WHITE_COLOR};
         background-color: ${color.BLACK_COLOR};

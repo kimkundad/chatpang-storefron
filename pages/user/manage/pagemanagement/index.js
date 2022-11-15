@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
-import axios from '../../api/axios';
-import useUser from '../../../Hooks/useUser';
+import axios from '../../../api/axios';
+import useUser from '../../../../Hooks/useUser';
 import { Table, Form, ToastContainer } from 'react-bootstrap';
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import CusToasts from '../../../components/CusToasts';
+import CusToasts from '../../../../components/CusToasts';
 
-import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
 import InfoStyle from './style';
-import UserLayout from '../../../components/layouts/userLayout/userLayout';
+import UserLayout from '../../../../components/layouts/userLayout/userLayout';
 
 const Pagemanagement = () => {
     const router = useRouter();
@@ -185,7 +184,7 @@ const Pagemanagement = () => {
         };
     }, []);
     return (
-        <MainLayout>
+        <UserLayout>
             <InfoStyle>
                 {/* <div className="content"> */}
                     <div className="row">
@@ -250,7 +249,7 @@ const Pagemanagement = () => {
                     </div>
                 {/* </div> */}
             </InfoStyle>
-        </MainLayout>
+        </UserLayout>
     );
 };
 

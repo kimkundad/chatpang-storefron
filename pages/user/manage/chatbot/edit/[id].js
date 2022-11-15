@@ -1,22 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { Divider, Input, Switch } from 'antd';
+
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+
+import { Divider, Switch } from 'antd';
 import axios from '../../../../api/axios';
 import useUser from '../../../../../Hooks/useUser';
 import { Alert } from 'react-bootstrap';
 import TagsInput from '../../../../../components/tagsinput/TagsInput';
 import UserLayout from '../../../../../components/layouts/userLayout/userLayout';
 import ChatBotStyle from '../style';
+import PageDropdown from '../../../../../components/PageDropdown';
 const Edit = () => {
     const router = useRouter();
     const { user } = useUser();
     const id = router.query.id;
-    const { TextArea } = Input;
     const [pageID, setPageID] = useState(router.query.pageId);
-
     // const [img1, setImg1] = useState('')
     // const [img2, setImg2] = useState('')
     // const hiddenfileInbox = useRef(null)
@@ -68,6 +68,7 @@ const Edit = () => {
             replySamePerson: isDuplicateComment,
             hideComment: isHideComment,
             facebookUser: user?.user?.id,
+            page:pageID,
         };
         // console.log(data)
         try {
@@ -89,6 +90,7 @@ const Edit = () => {
             setWords(res.data.data.keywords);
             setTags(res.data.data.hashtags);
             setHiddenWords(res.data.data.hiddens);
+            setPageID(res.data.data.page);
             // setFacebookUserId(res.data.data.facebook_user)
             setIsSuccess({
                 show: true,
@@ -139,12 +141,16 @@ const Edit = () => {
     //     console.log(error)
     //   }
     // }
+    const onSelect = (id) => {
+        // console.log(id);
+        setPageID(id);
+    };
     const getChatSettingById = async () => {
         try {
             const res = await axios.get(`/campaigns/${id}`, {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
-            console.log(res.data.data);
+            // console.log(res.data.data);
             // const data = res.data.data
             setCampaignName(res.data.data.name);
             setTxtInboxComment(res.data.data.messages.values[0]);
@@ -159,6 +165,7 @@ const Edit = () => {
             setWords(res.data.data.keywords);
             setTags(res.data.data.hashtags);
             setHiddenWords(res.data.data.hiddens);
+            setPageID(res.data.data.page);
             // setFacebookUserId(res.data.data.facebook_user)
         } catch (error) {
             console.log(error);
@@ -180,13 +187,12 @@ const Edit = () => {
                     <div className="row">
                         <div className="col-md-12 d-flex justify-content-center">
                             <span onClick={() => router.back()} className="userBackButton">
-                                <FontAwesomeIcon className="me-2-md" icon={faChevronLeft} />
+                                <NavigateBeforeIcon className="me-2-md" />
                                 <span className="textBTN">ย้อนกลับ</span>
                             </span>
-                            {/* <span className="text-uppercase userDropdown">
-                  <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
-                  
-                </span> */}
+                            <span className="text-uppercase userDropdown">
+                                <PageDropdown defaultValue={pageID} onSelect={onSelect} />
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -221,14 +227,6 @@ const Edit = () => {
                         />
                     </div>
                     <div className="col-lg-7 commentInput">
-                        {/* <TextArea
-                            showCount
-                            value={txtInboxComment}
-                            onChange={(e) => setTxtInboxComment(e.target.value)}
-                            maxLength={200}
-                            placeholder="พิมพ์ข้อความที่นี้..."
-                            autoSize={{ minRows: 4, maxRows: 6 }}
-                        /> */}
                         <textarea
                             value={txtInboxComment}
                             onChange={(e) => setTxtInboxComment(e.target.value)}
@@ -288,7 +286,7 @@ const Edit = () => {
                             </div>
                             <div>
                                 <Switch size="small" value={isDuplicateComment} onChange={() => setIsDuplicateComment(!isDuplicateComment)} checked={isDuplicateComment} />
-                                <h5 className="ms-3 my-auto">ไม่ตอบซ้ำคนเดิม</h5>
+                                <h5 className="ms-3 my-auto">ตอบซ้ำคนเดิม</h5>
                             </div>
                             <div>
                                 <Switch size="small" value={isHideComment} onChange={() => setIsHideComment(!isHideComment)} checked={isHideComment} />
