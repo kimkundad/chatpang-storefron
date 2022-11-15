@@ -39,6 +39,11 @@ const Login = () => {
       if (!res.data.access_token) {
         router.replace('/')
       }
+      if (typeof window !== 'undefined') {
+        if (res.data.access_token) {
+          localStorage.setItem('token', res.data.access_token)
+        }
+      }
       // console.log(data.order)
       //*To check that user create order yet 
       if (data?.order !== null) {

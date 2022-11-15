@@ -113,7 +113,6 @@ const Chatbot = () => {
     };
 
     const onChangeStatus = async (index, item) => {
-        // console.log(id)
         let temp = [...data];
         // console.log(item);
         temp[index] = item.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
@@ -158,7 +157,7 @@ const Chatbot = () => {
             return (
                 <tr key={index}>
                     <td className='text-center' >
-                        <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onClick={(e) => onChecked(e)} />
+                        <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onChange={(e) => onChecked(e)} />
                     </td>
                     <td>
                         <span>{item?.status}</span>
@@ -166,7 +165,7 @@ const Chatbot = () => {
                             type="switch"
                             checked={item?.status === 'active'}
                             // label={item.status}
-                            onClick={() => onChangeStatus(index, item)}
+                            onChange={() => onChangeStatus(index, item)}
                         />
                     </td>
                     <td>{item?.name}</td>

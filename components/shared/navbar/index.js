@@ -71,8 +71,8 @@ const NavBar = React.forwardRef((props, ref) => {
     };
     const settings = [
         { title: 'หน้าหลัก', link: '/user/manage' },
-        // { title: 'แก้ไขข้อมูลส่วนตัว', link: `/user/edit/${user?.user?.id}` },
-        { title: 'จัดการเพจ', link: '/user/info/pagemanagement' },
+        { title: 'แก้ไขข้อมูลส่วนตัว', link: `/user/edit/${user?.user?.id}` },
+        // { title: 'จัดการเพจ', link: '/user/info/pagemanagement' },
         { title: 'จัดการบัญชีและสมาชิก', link: '/user/info/accountmanagement' },
         { title: 'ติดต่อเรา', link: '/contact' },
         { title: 'ออกจากระบบ', link: '' },

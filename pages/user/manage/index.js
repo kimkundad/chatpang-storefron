@@ -70,8 +70,8 @@ const Index = () => {
     };
 
     useEffect(() => {
-        getPageList();
-    }, []);
+        user.userId && getPageList();
+    }, [user.userId]);
     return (
         <UserLayout>
             <ManageStyle>

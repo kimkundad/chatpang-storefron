@@ -92,7 +92,7 @@ const Welcometext = () => {
             return (
                 <tr key={index}>
                     <td className='text-center'>
-                        <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onClick={(e) => onChecked(e)} />
+                        <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onChange={(e) => onChecked(e)} />
                     </td>
                     <td>{item.name}</td>
                     <td>
