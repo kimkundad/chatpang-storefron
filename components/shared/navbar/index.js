@@ -57,6 +57,7 @@ const NavBar = React.forwardRef((props, ref) => {
     const onLogOut = () => {
         if (typeof window !== 'undefined') {
             localStorage.removeItem('userId');
+            localStorage.removeItem('token');
         }
         router.push('/');
         setUserData({ ...user, isLogin: false });
