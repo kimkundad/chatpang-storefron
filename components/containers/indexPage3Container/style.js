@@ -4,11 +4,10 @@ const IndexPage3ContainerStyle = styled.div`
   background: url('/images/BG/bg.jpg') !important;
   object-fit: cover;
   background-position: center;
-  background-position: center;
   //min-height: calc(100vh - ${(props) => props.navHeight}px) !important;
   min-height: ${(props) => (props.screenHeight >= windowSize.STD_HEIGHT ? windowSize.STD_HEIGHT - props.navHeight : props.screenHeight - props.navHeight)}px;
   width:100vw;
-  display: flex;
+  /* display: flex; */
   z-index: 1;
   position: relative;
   overflow: hidden;
@@ -125,7 +124,7 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .index-wrapper {
-      padding: 5% 5% 30%;
+      padding: 5% 5%;
     }
 
     & .profile-text {
@@ -190,7 +189,7 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .index-wrapper {
-      padding: 5% 5% 30%;
+      padding: 5% 5% ;
     }
 
     & .card-review {

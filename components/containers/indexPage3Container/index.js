@@ -72,12 +72,12 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
 
                     <Grid
                         container
-                        direction="row"
+                        // direction="row"
                         spacing="2"
                         display="block"
                         textAlign="center"
                         // position="absolute"
-                        sx={{ bottom: { lg: '5%', xl: '1%' }, width: size.width >= windowSize.STD_WIDTH ? windowSize.STD_WIDTH : size.width }}>
+                        sx={{ bottom: { lg: '5%', xl: '1%' }, width: '100%' }}>
                         <Button
                             variant="contained"
                             size="small"
