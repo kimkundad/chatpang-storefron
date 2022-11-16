@@ -14,7 +14,7 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
         <IndexPage3ContainerStyle className="bg-1" navHeight={props.navHeight} screenWidth={size.width} screenHeight={size.height}>
             <div className="app-container">
                 <div className="index-wrapper">
-                    <Grid container direction="row" spacing="2" columnSpacing={3} justifyContent="center" justifyItems="center">
+                    <Grid direction="row" spacing="2" columnSpacing={3} justifyContent="center" justifyItems="center">
                         <Grid item container xs={12} sm={12} md={8} lg={6} xl={6}>
                             <div className="header">
                                 <div className="text-header-1">
@@ -50,20 +50,23 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                         </Grid>
 
                         <Grid
-                            item
+                            // item
+                            alignContent="center"
+                            alignItems="center"
                             container
                             xs={12}
                             sm={12}
                             md={4}
                             lg={6}
                             xl={6}>
-                            <iframe
-                                width="100%"
-                                height="100%"
-                                className="video-yt"
-                                src="https://www.youtube.com/embed/QIjZn_fiS3M"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen></iframe>
+                            <div className="video-yt mx-auto">
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src="https://www.youtube.com/embed/QIjZn_fiS3M"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen></iframe>
+                            </div>
                         </Grid>
                     </Grid>
 

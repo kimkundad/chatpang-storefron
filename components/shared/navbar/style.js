@@ -91,7 +91,7 @@ const NavbarStyle = styled.nav`
         }
 
         & .image-logo-2 {
-            max-height: 92px;
+            max-height: 100%;
             width: 60% !important;
             object-fit: cover;
             margin: auto !important;

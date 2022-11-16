@@ -225,7 +225,7 @@ const FooterComponentStyle = styled.div`
             //bottom: 10px;
         }
         .image-cover-logo {
-            width: fit-content;
+            width: 100%;
         }
         .footer-content {
             position: unset;

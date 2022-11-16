@@ -81,7 +81,7 @@ const IndexPage3ContainerStyle = styled.div`
   //xs mobile
   @media screen and (max-width: 575px) {
     .video-yt {
-      width: 100%;
+      /* width: 100%; */
       height: 200px;
     }
 
@@ -91,20 +91,21 @@ const IndexPage3ContainerStyle = styled.div`
       width: auto;
     }
 
-    & .card-review {
+    .card-review {
       font-size: 18px;
+      width:100%;
     }
 
-    & .index-wrapper {
+    .index-wrapper {
       padding: 5% 5% 40%;
     }
 
-    & .text-header-1 {
+    .text-header-1 {
       font-size: 32px;
       font-weight: 600;
     }
 
-    & .header-icon {
+    .header-icon {
       height: auto !important;
       width: 100px !important;
     }
