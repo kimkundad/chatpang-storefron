@@ -78,11 +78,11 @@ const Index = () => {
                 <div className="page-header">
                     <div className="row">
                         <div className="mx-auto col-md-12">
-                            <h2 className="page-title">กรุณาเลือกเพจ เพื่อทำการตั้งค่า Chatbot</h2>
+                            <h2 className="page-title">รายชื่อเพจที่สามารถตั้งค่า CHATBOT ได้</h2>
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-10 col-md-6 mx-auto my-3 d-flex">
                         {data?.length === 0 ? null : (
                             <span style={{ cursor: 'pointer' }} onClick={() => onCheckAll()} className="text-info  ms-auto">
@@ -90,7 +90,7 @@ const Index = () => {
                             </span>
                         )}
                     </div>
-                </div>
+                </div> */}
                 <div className="row">
                     <div className="col-xs-12 col-md-8 mx-auto d-flex">
                         {data?.length === 0 ? (

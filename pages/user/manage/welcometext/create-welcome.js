@@ -54,13 +54,14 @@ const CreateWelcome = () => {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
                 }
             );
-            console.log(res1.data);
+            // console.log(res1.data);
             setIsSuccess({
                 show: true,
                 isSuccess: true,
                 text: 'สร้างแคมเปญสำเร็จ',
             });
-            handleNotify();
+          await handleNotify();
+          router.back()
             setCampaignName('');
             setDetails(['']);
         } catch (error) {
@@ -73,7 +74,7 @@ const CreateWelcome = () => {
             handleNotify();
         }
     };
-    const handleNotify = () => {
+    const handleNotify = async () => {
         setTimeout(() => {
             setIsSuccess({
                 show: false,

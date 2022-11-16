@@ -8,9 +8,15 @@ import UserLayout from '../../../components/layouts/userLayout/userLayout';
 import ManageStyle from './style';
 
 import axios from '../../api/axios';
+import { useRouter } from 'next/router';
 const Package = () => {
+    const router = useRouter()
     const [navHeight, setNavHeight] = useState(64);
     const [packages, setPackages] = useState([]);
+
+    const onChangePackage = (packageId) => {
+        router.push({pathname: '/user/changepackage', query:{ packageId : packageId  }},'/user/changepackage')
+    }
 
     async function getPackages() {
         try {
@@ -22,7 +28,7 @@ const Package = () => {
     }
 
     useEffect(() => {
-        getPackages();
+        packages.length === 0 && getPackages();
     }, []);
 
     return (
@@ -65,13 +71,13 @@ const Package = () => {
                                     </div>
 
                                     <div className="card-footer">
-                                        <Link href="#">
+                                        {/* <Link href="#"> */}
                                             <a target="_blank">
-                                                <Button variant="contained" size="small" className="btn-button">
+                                                <Button onClick={()=> onChangePackage(item.id)} variant="contained" size="small" className="btn-button">
                                                     เลือกแพ็คเกจนี้
                                                 </Button>
                                             </a>
-                                        </Link>
+                                        {/* </Link> */}
                                     </div>
                                 </div>
                             </Grid>

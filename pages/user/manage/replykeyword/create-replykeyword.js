@@ -53,11 +53,12 @@ const CreateReplyKeyword = () => {
                 isSuccess: true,
                 text: 'สร้างแคมเปญสำเร็จ',
             });
-            handleNotify();
+            await handleNotify();
             setCampaignName('');
             setKeywordName([]);
             setDetails(['']);
             setImgs(['']);
+            router.back()
         } catch (error) {
             console.log(error);
             setIsSuccess({
@@ -69,14 +70,13 @@ const CreateReplyKeyword = () => {
         }
     };
 
-    const handleNotify = () => {
+    const handleNotify = async () => {
         setTimeout(() => {
             setIsSuccess({
                 show: false,
                 isSuccess: false,
                 text: '',
             });
-            router.back()
         }, 2000);
     };
     const convertToImagePath = async () => {

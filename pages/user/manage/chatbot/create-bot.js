@@ -72,13 +72,13 @@ const Createbot = () => {
         };
         try {
             const res = await axios.post('/campaigns', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } });
-            console.log(res.data)
+            // console.log(res.data)
             setIsSuccess({
                 show: true,
                 isSuccess: true,
                 text: 'สร้างแคมเปญสำเร็จ',
             });
-            handleNotify();
+           await handleNotify();
             setCampaignName('');
             setTxtInboxComment('');
             // setFileInboxComment('')
@@ -92,6 +92,7 @@ const Createbot = () => {
             setWords([]);
             setTags([]);
             setHiddenWords([]);
+            router.back();
             // setImg1('')
             // setImg2('')
         } catch (error) {
@@ -104,14 +105,14 @@ const Createbot = () => {
             handleNotify();
         }
     };
-    const handleNotify = () => {
+    const handleNotify = async () => {
         setTimeout(() => {
             setIsSuccess({
                 show: false,
                 isSuccess: false,
                 text: '',
             });
-            router.back();
+           
         }, 2000);
     };
     // const setImageInbox = (e) => {

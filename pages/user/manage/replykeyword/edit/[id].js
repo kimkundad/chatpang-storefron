@@ -61,7 +61,8 @@ const Edit = () => {
                 isSuccess: true,
                 text: 'แก้ไขแคมเปญสำเร็จ',
             });
-            handleNotify();
+           await handleNotify();
+            router.back();
         } catch (error) {
             console.log(error);
             setIsSuccess({
@@ -72,14 +73,13 @@ const Edit = () => {
             handleNotify();
         }
     };
-    const handleNotify = () => {
+    const handleNotify = async () => {
         setTimeout(() => {
             setIsSuccess({
                 show: false,
                 isSuccess: false,
                 text: '',
             });
-            router.back();
         }, 2000);
     };
     const convertToImagePath = async () => {

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Stepper from '../../../components/Stepper/Stepper';
 import Divider from '@mui/material/Divider';
-import React from 'react'
+import React, { useState } from 'react'
 
 import useUser from '../../../Hooks/useUser'
 
@@ -10,13 +10,14 @@ import PaymentStyle from './style';
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
+  const [navHeight, setNavHeight] = useState(64);
 
   const onsubmit = async () => {
     router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
   }
   return (
     <MainLayout>
-      <PaymentStyle>
+      <PaymentStyle navHeight={navHeight}>
         <div className="row">
           <div className="col-lg-12 d-flex justify-content-center">
             <Stepper step="2" />

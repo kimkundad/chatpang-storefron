@@ -51,7 +51,7 @@ const Login = () => {
         if (data.order?.state === 'paid') {
           //* to check user get auth pages by facebook yet
           if (data?.pages === 0) {
-            res.data.access_token && router.replace('/user/info/pagemanagement')
+            res.data.access_token && router.replace('/user/manage/pagemanagement')
           } else {
             res.data.access_token && router.replace('/user/manage')
           }

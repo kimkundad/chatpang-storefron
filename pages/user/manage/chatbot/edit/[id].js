@@ -97,7 +97,8 @@ const Edit = () => {
                 isSuccess: true,
                 text: 'แก้ไขแคมเปญสำเร็จ',
             });
-            handleNotify();
+           await handleNotify();
+            router.back();
             // console.log(res.data)
         } catch (error) {
             console.log(error);
@@ -110,14 +111,14 @@ const Edit = () => {
         }
     };
 
-    const handleNotify = () => {
+    const handleNotify = async () => {
         setTimeout(() => {
             setIsSuccess({
                 show: false,
                 isSuccess: false,
                 text: '',
             });
-            router.back();
+            
         }, 2000);
     };
     // const setImageInbox = (e) => {

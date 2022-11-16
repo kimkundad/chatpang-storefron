@@ -68,7 +68,7 @@ const QRcode = () => {
               </span>
             </>
           )}
-          <div className="col-md-4 d-flex qrcodeImg flex-column">
+          <div className="col-md-6 d-flex qrcodeImg flex-column">
             <Image
               text={qrcode}
               options={{
@@ -85,7 +85,7 @@ const QRcode = () => {
               }}
               alt="qrcode"
             />
-            <div className="text-end">
+            <div className="text-end qrcodeBtnContainer">
               <button onClick={() => router.back}>ย้อนกลับ</button>
               <button className="ms-2" onClick={() => onNext()}>
                 ต่อไป

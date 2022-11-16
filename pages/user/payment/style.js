@@ -5,6 +5,7 @@ const PaymentStyle = styled.div`
     min-height: calc(95vh - ${(props) => props.navHeight}px) !important;
     position: relative;
     padding: 0px 5%;
+    padding-top:${(props) => props.navHeight + 40}px;
     z-index: 1;
     .qrcodeDetail {
         font-size: 2.5rem;
@@ -14,6 +15,9 @@ const PaymentStyle = styled.div`
     }
     .qrcodeImg {
         width: 250px;
+    }
+    .qrcodeBtnContainer button{
+        font-size:min(1.3rem, 6vw) !important;
     }
     .qrcodeInput {
         width: 100%;

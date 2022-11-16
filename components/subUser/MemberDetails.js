@@ -55,7 +55,7 @@ const MemberDetails = () => {
               ชำระด้วยการแสกน QR code
             </div>
           </div>
-          <div className="col-lg-6 text-end">
+          {/* <div className="col-lg-6 text-end">
             <div className="ps-3">
               <p
                 style={{ cursor: 'pointer' }}
@@ -65,7 +65,7 @@ const MemberDetails = () => {
                 แก้ไขข้อมูลการชำระเงิน
               </p>
             </div>
-          </div>
+          </div> */}
         </div>}
         <Divider />
         <div className="row">
