@@ -14,8 +14,8 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
         <IndexPage3ContainerStyle className="bg-1" navHeight={props.navHeight} screenWidth={size.width} screenHeight={size.height}>
             <div className="app-container">
                 <div className="index-wrapper">
-                    <Grid direction="row" spacing="2" columnSpacing={3} justifyContent="center" justifyItems="center">
-                        <Grid item container xs={12} sm={12} md={8} lg={6} xl={6}>
+                    <Grid container spacing="2" justifyContent="center" justifyItems="center">
+                        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                             <div className="header">
                                 <div className="text-header-1">
                                     {constants.HEADER_TEXT_1}
@@ -37,7 +37,7 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                                 <br /> มีเวลาเพิ่มมากขึ้น ส่วนการบริการแอดมินน่ารักมากกกกก ถามเยอะแค่ไหน ก็ไม่บ่น
                             </div>
 
-                            <Grid container direction="row" style={{ marginTop: 20 }} alignItems="center" alignContent="center">
+                            <Grid item style={{ marginTop: 20 }} alignItems="center" alignContent="center">
                                 <div className="display-flex profile-wrapper">
                                     <div className="profile-icon"></div>
                                     <div className="profile-text">
@@ -50,13 +50,13 @@ const IndexPage3Container = React.forwardRef((props, ref) => {
                         </Grid>
 
                         <Grid
-                            // item
+                            item
                             alignContent="center"
                             alignItems="center"
                             container
                             xs={12}
                             sm={12}
-                            md={4}
+                            md={6}
                             lg={6}
                             xl={6}>
                             <div className="video-yt mx-auto">

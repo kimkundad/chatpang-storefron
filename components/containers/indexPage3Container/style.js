@@ -216,7 +216,7 @@ const IndexPage3ContainerStyle = styled.div`
     }
 
     & .header-icon {
-      height: 100px;
+      /* height: 100px; */
       width: 140px;
     }
 

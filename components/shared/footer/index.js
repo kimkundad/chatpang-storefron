@@ -128,9 +128,9 @@ const FooterComponent = React.forwardRef((props, ref) => {
                                         <div className="link">นโยบายความเป็นส่วนตัว</div>
                                     </Link>
 
-                                    <Link href="/article">
+                                    {/* <Link href="/article">
                                         <div className="link">บทความ</div>
-                                    </Link>
+                                    </Link> */}
                                     <div> </div>
                                 </Grid>
                             </Grid>
