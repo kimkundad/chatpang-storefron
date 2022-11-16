@@ -51,25 +51,31 @@ const NavbarStyle = styled.nav`
     }
 
     //xs mobile
-    @media screen and (max-width: 575px) {
+    @media screen and (max-width: 575px) and (-webkit-min-device-pixel-ratio: 3) {
         .image-logo {
             max-height: ${navbar.LOGO_HEIGHT_XS};
             width: ${navbar.LOGO_WIDTH_XS};
             max-width: 100%;
             object-fit: cover;
         }
+        .image-logo-2 {
+            max-height: 100%;
+            width: 60% !important;
+            object-fit: cover;
+            margin: auto !important;
+        }
     }
 
     //sm tablet
     @media screen and (min-width: 576px) and (max-width: 767px) {
-        & .image-logo {
+        .image-logo {
             max-height: ${navbar.LOGO_HEIGHT_SM};
             max-width: 100%;
             object-fit: cover;
         }
 
-        & .image-logo-2 {
-            max-height: 92px;
+        .image-logo-2 {
+            max-height: 100%;
             width: 60% !important;
             object-fit: cover;
             margin: auto !important;
