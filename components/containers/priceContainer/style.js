@@ -48,6 +48,7 @@ const PriceContainerStyle = styled.div`
     position: absolute;
     right: 5%;
     top: calc((100% - 38px) / 2);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
   }
 
   .card-add {
@@ -197,7 +198,7 @@ const PriceContainerStyle = styled.div`
     }
 
     & .card-add {
-      width: auto;
+      width: 90%;
     }
 
     & .chat-icon {
@@ -215,8 +216,9 @@ const PriceContainerStyle = styled.div`
     }
 
     & .best-sell {
-      position: unset;
-      display: flex;
+      /* position: unset; */
+      /* display: flex; */
+      right: 6%;
     }
 
     & .text-header {

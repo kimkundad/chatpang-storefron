@@ -220,7 +220,7 @@ const FooterComponentStyle = styled.div`
         background: ${color.PRIMARY};
 
         .container-footer {
-            padding: 1% 0;
+            padding: 1%;
             height: ${(props) => props.containHeight}px;
             //bottom: 10px;
         }

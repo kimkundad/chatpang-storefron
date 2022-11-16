@@ -1,5 +1,5 @@
 export const AGREEMENT_HEADER = `
-ข้อกำหนดและเงื่อนไขสำหรับการเป็นสมาชิกแบบชำระค่าบริการ (SUBSCRIPTION)
+ข้อตกลงและเงื่อนไข
 `;
 
 export const AGREEMENT_CONTENT = `1. บททั่วไป

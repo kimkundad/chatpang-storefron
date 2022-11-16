@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Typography } from '@mui/material';
-import React,{ useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
 import PriceContainerStyle from './style';
 import * as constants from '../../../constants/priceConstants';
@@ -18,7 +18,7 @@ const PriceContainer = React.forwardRef((props, ref) => {
     const contentRef = useRef({});
     const cardRef = useRef({});
 
-    const [packages, setPackages] = useState([])
+    const [packages, setPackages] = useState([]);
 
     const handleClick = (index) => {
         let openTemp = open;
@@ -27,12 +27,12 @@ const PriceContainer = React.forwardRef((props, ref) => {
     };
 
     async function getPackages() {
-      try {
-        const res = await axios('/public/packages')
-        setPackages(res.data.data.results)
-      } catch (error) {
-        console.log(error)
-      }
+        try {
+            const res = await axios('/public/packages');
+            setPackages(res.data.data.results);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -42,9 +42,9 @@ const PriceContainer = React.forwardRef((props, ref) => {
     }, [headerRef, contentRef, headerRef.current, contentRef.current, headerHeight, contentHeight]);
 
     useEffect(() => {
-      getPackages()
-    }, [])
-    
+        getPackages();
+    }, []);
+
     return (
         <PriceContainerStyle className="bg" ref={ref} navHeight={props.navHeight} cardHeight={cardHeight} headerHeight={headerHeight} contentHeight={contentHeight}>
             <div className="app-container">
@@ -60,43 +60,45 @@ const PriceContainer = React.forwardRef((props, ref) => {
                     </Grid>
                     <Container className="price-card-zone" maxWidth="xxl">
                         <Grid container direction="row" columnSpacing={{ sm: 2, md: 4 }} display="flex" textAlign="center" alignContent="center" alignItems="start">
-                        {packages.map((item, index)=>(
-                          <Grid container item xs={12} sm={4} md={4} lg={4} xl={4} key={index}>
-                                <div className="card-add">
-                                    <div className="card-header">
-                                        <div className="text-header">
-                                            <span>{item.name}</span>
-                                            <div style={{ display: `${item?.special_text?.length !== 0 ? 'block' : 'none'}` }} className="best-sell">ขายดี</div>
+                            {packages.map((item, index) => (
+                                <Grid container item xs={12} sm={4} md={4} lg={4} xl={4} key={index}>
+                                    <div className="card-add">
+                                        <div className="card-header">
+                                            <div className="text-header">
+                                                <span>{item.name}</span>
+                                                <div style={{ display: `${item?.special_text?.length !== 0 ? 'block' : 'none'}` }} className="best-sell">
+                                                    ขายดี
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="card-detail">
-                                        <div className="price">{item?.price} บาท</div>
-                                        {/* <span className="">
+                                        <div className="card-detail">
+                                            <div className="price">{item?.price} บาท</div>
+                                            {/* <span className="">
                                             (ปกติ <span className="old-price">{constants.LIST_DATA_PRICE[0].oldPrice}</span> บาท)
                                         </span> */}
 
-                                        {item.options.map((option, index) => (
-                                            <div className="list-text text-muted" key={`Description_${index}}`}>
-                                                <Typography variant="p" className="list-item">
-                                                    <Image src="/images/icon/check-mark (1).png" />
-                                                    {option}
-                                                </Typography>
-                                            </div>
-                                        ))}
-                                    </div>
+                                            {item.options.map((option, index) => (
+                                                <div className="list-text text-muted" key={`Description_${index}}`}>
+                                                    <Typography variant="p" className="list-item">
+                                                        <Image src="/images/icon/check-mark (1).png" />
+                                                        {option}
+                                                    </Typography>
+                                                </div>
+                                            ))}
+                                        </div>
 
-                                    <div className="card-footer">
-                                        <Link href="#">
-                                            <a target="_blank">
-                                                <Button variant="contained" size="small" className="btn-button">
-                                                    เลือกแพ็คเกจนี้
-                                                </Button>
-                                            </a>
-                                        </Link>
+                                        <div className="card-footer">
+                                            <Link href="/user">
+                                                {/* <a target="_blank"> */}
+                                                    <Button variant="contained" size="small" className="btn-button">
+                                                        เลือกแพ็คเกจนี้
+                                                    </Button>
+                                                {/* </a> */}
+                                            </Link>
+                                        </div>
                                     </div>
-                                </div>
-                            </Grid>
-                        ))}
+                                </Grid>
+                            ))}
                         </Grid>
                         {/* <div className="div-space"></div> */}
                     </Container>

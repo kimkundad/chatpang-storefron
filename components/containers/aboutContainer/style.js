@@ -22,7 +22,6 @@ const AboutContainerStyle = styled.div`
         /* width: 600px;
     height: 500px; */
         width: 90%;
-
         height: calc(100vh - ${(props) => props.navHeight}px) !important;
         object-fit: cover;
     }
@@ -82,7 +81,7 @@ const AboutContainerStyle = styled.div`
         }
 
         .image-cover-logo {
-            width: 100%;
+            width: 85%;
             height: 80px;
             margin-left: auto;
             margin-right: auto;

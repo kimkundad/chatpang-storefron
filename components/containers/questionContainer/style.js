@@ -140,7 +140,7 @@ const QuestionContainerStyle = styled.div`
       padding: 5px 15px;
     }
     & .quest-answer {
-      padding: 2px 15px 0px 0px;
+      padding: 0px 15px 0px 0px;
     }
 
     .question-zone {
@@ -161,7 +161,7 @@ const QuestionContainerStyle = styled.div`
       padding: 5px 15px;
     }
     & .quest-answer {
-      padding: 2px 15px 0px 0px;
+      padding: 0px 15px 0px 0px;
     }
 
     .question-zone {
