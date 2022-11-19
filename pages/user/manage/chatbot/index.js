@@ -14,7 +14,7 @@ const Chatbot = () => {
     const { user } = useUser();
     const [pageID, setPageID] = useState(user?.pages[0]?.id);
 
-    const [selectedItem, setSelectedItem] = useState();
+    // const [selectedItem, setSelectedItem] = useState();
     const [itemList, setItemList] = useState([]);
     const [data, setData] = useState([]);
     const [isCheckAll, setIsCheckAll] = useState(false);

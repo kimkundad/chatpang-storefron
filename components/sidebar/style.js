@@ -6,10 +6,7 @@ const SidebarStyle = styled.div`
     position: fixed;
     transition: all 0.2s ease-in-out 0.3s;
     width: 240px;
-    /* min-height: calc(100vh - ${(props) => props.navbarHeight}px); */
     min-height: calc(100vh);
-    /* top:${(props) => props.navbarHeight + 40}px; */
-    /* padding-top:${(props) => props.navbarHeight + 20}px; */
     z-index: 95;
     box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.2);
     overflow-y: hidden;
@@ -100,14 +97,21 @@ const SidebarStyle = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        font-size: min(1rem, 1.5vw);
+        font-size: min(1rem, 2vw);
         width: 90%;
     }
     //xs mobile
     @media screen and (max-width: 575px) {
         width: 160px;
         z-index:20;
-        top:${(props) => props.navbarHeight + 8}px;
+        /* top:${(props) => props.navbarHeight + 8}px; */
+        .sidePackageInfo {
+            padding-top:${(props) => props.navbarHeight + 20}px;
+            flex-direction:column;
+        }
+        .sidePackage-title{
+            margin-bottom:4px;
+        }
     }
     //sm tablet
     @media screen and (min-width: 576px) and (max-width: 767px) {}

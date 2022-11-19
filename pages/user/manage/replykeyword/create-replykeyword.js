@@ -124,6 +124,7 @@ const CreateReplyKeyword = () => {
         acc[index] = createRef();
         return acc;
     }, {});
+
     const onUpload = async (index, file) => {
         let temImg = URL.createObjectURL(file);
         let tempArr = [...previewImgs];
@@ -172,7 +173,6 @@ const CreateReplyKeyword = () => {
         setDetails(temp1);
     };
     const handleClickFileInput = (index) => {
-        // console.log(inputRef[index])
         imgsInputRef[index].current.click();
     };
     const onInputNext = (index) => {

@@ -235,6 +235,9 @@ const ManageStyle = styled.div`
         .ad-container {
             padding:0 20px;
         }
+        .vdo-container{
+            height:30vh;
+        }
     }
 
     //sm tablet
@@ -353,6 +356,9 @@ const ManageStyle = styled.div`
             width: auto;
             font-size: 20px;
         }
+        .vdo-container{
+            height:30vh;
+        }
     }
 
     //xxl extra tablet
@@ -417,6 +423,7 @@ const ManageStyle = styled.div`
             width: auto;
             font-size: 20px;
         }
+        
     }
 
     //xxl extra tablet

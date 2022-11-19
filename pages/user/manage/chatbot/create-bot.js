@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
-import { Divider, Input, Switch } from 'antd';
+import { Divider, Switch } from 'antd';
 import useUser from '../../../../Hooks/useUser';
 import axios from '../../../api/axios';
 import PageDropdown from '../../../../components/PageDropdown';
@@ -19,20 +19,11 @@ const Createbot = () => {
 
     const [pageID, setPageID] = useState(router.query.pageId);
 
-    const { TextArea } = Input;
-    // const hiddenfileInbox = useRef(null)
-    // const hiddenfileComment = useRef(null)
-    // const [img1, setImg1] = useState('')
-    // const [img2, setImg2] = useState('')
     const [campaignName, setCampaignName] = useState('');
     const [txtInboxComment, setTxtInboxComment] = useState('');
 
-    // const [fileInboxComment, setFileInboxComment] = useState('')
-
     const [isInboxComment, setIsInboxComment] = useState(false);
     const [txtComment, setTxtComment] = useState('');
-
-    // const [fileComment, setFileComment] = useState('')
 
     const [isComment, setIsComment] = useState(false);
     const [isLikeComment, setIsLikeComment] = useState(false);

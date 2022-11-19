@@ -49,6 +49,7 @@ const Sidebar = React.forwardRef((props, ref) => {
     // useEffect(()=>{
     //   latestOrderId && getOrderById()
     // },[user.user])
+    console.log(navbarHeight);
     return (
         <SidebarStyle ref={ref} navbarHeight={navbarHeight}>
                 <div className="sidebar-inner">

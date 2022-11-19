@@ -6,7 +6,7 @@ const UserLayoutStyle = styled.div`
     min-height: calc(100vh - ${(props) => props.navbarHeight}px);
     font-size: min(1.5rem, 3vw);
     .content {
-        padding-top:${(props) => props.navbarHeight}px;
+        padding:${(props) => props.navbarHeight}px 2em 0px 2em;
         margin-left: 240px;
         position: relative;
         transition: all 0.4s ease;
