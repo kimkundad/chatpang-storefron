@@ -167,7 +167,7 @@ const Replykeyword = () => {
 
     useEffect(() => {
         user?.user?.id && getKeywordsList();
-    }, []);
+    }, [user?.accessToken]);
     return (
         <UserLayout>
             <KeywordStyle>

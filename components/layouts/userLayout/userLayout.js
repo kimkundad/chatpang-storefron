@@ -43,6 +43,9 @@ const UserLayout = ({ children }) => {
                 const res = await axios.get(`/public/facebook-users/${userId}`)
                 const data = res.data.data
                 const resp = await axios.get(`public/packages/${data.order.package.id}`)
+                const res3 = await axios.get(`/public/facebook-pages/${userId}/facebook-user`, {
+                    headers: { Authorization: 'Bearer ' + token },
+                });
                   setUserData({
                       ...user,
                       user: data,
@@ -51,7 +54,8 @@ const UserLayout = ({ children }) => {
                       userId: userId,
                       package: resp.data.data,
                       isLogin: true,
-                      order:data.order
+                      order:data.order,
+                      pages: res3.data.data.results
                     })
                   }else{
                   router.replace('/')
