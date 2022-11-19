@@ -17,7 +17,7 @@ const FooterComponent = React.forwardRef((props, ref) => {
 
     useEffect(() => {
         setFooterHeight(containRef ? containRef.current.offsetHeight : 0);
-        console.log(containRef && containRef.current && containRef.current.offsetHeight ? containRef.current.offsetHeight : 668);
+        // console.log(containRef && containRef.current && containRef.current.offsetHeight ? containRef.current.offsetHeight : 668);
     }, [containRef.current, footerHeight, size]);
     return (
         <FooterComponentStyle screenWidth={size.width} containHeight={containRef && containRef.current && containRef.current.offsetHeight ? containRef.current.offsetHeight : 668}>
