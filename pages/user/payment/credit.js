@@ -24,15 +24,6 @@ const Credit = () => {
       phone: user?.user?.phoneNo,
       detail: user?.package?.name,
     }
-    //*fixed value
-    // year: '28',
-    // month: '05',
-    // name: 'Gftherd Therdsak Paradeewirai',
-    // number: '4535017710535741',
-    // code: '184',
-    // email: 'gftherd.p@gmail.com',
-    //*fixed value
-    // console.log(data)
     //!move to parent component
     try {
       const res = await axios.post('/payments', data, { headers: { 'Content-Type': 'application/json' } })

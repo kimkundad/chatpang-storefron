@@ -4,7 +4,10 @@ import MemberDetails from '../../../components/subUser/MemberDetails';
 import PaymentDetails from '../../../components/subUser/PaymentDetails';
 import useUser from '../../../Hooks/useUser';
 import axios from '../../api/axios';
-import moment from 'moment';
+
+import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
+import InfoStyle from './style';
+
 const Accountmanagement = () => {
   const { TabPane } = Tabs;
   const { user, setUserData } = useUser()
@@ -54,19 +57,19 @@ const Accountmanagement = () => {
   },[])
 
   return (
-    <div className='page-wrapper'>
-      <div className='content'>
+    <MainLayout>
+      <InfoStyle>
           <Tabs size='large' defaultActiveKey='1'>
               <TabPane tab="รายละเอียดสมาชิก" key="1">
                 <MemberDetails />
               </TabPane>
               <TabPane tab="รายละเอียดการชำระเงิน" key="2">
-                <strong className='fs-2'>สถานะสมาชิกของคุณ</strong>
+                <strong className='fs-4'>สถานะสมาชิกของคุณ</strong>
                 <PaymentDetails />
               </TabPane>
           </Tabs>
-      </div>
-    </div>
+      </InfoStyle>
+    </MainLayout>
   )
 }
 

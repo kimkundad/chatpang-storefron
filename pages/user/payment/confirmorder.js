@@ -1,70 +1,38 @@
 import { useRouter } from 'next/router'
-import Stepper from '../../../components/Stepper'
-import { Checkbox, Divider } from 'antd'
-import React, { useState, useEffect } from 'react'
+import Stepper from '../../../components/Stepper/Stepper';
+import Divider from '@mui/material/Divider';
+import React, { useState } from 'react'
 
-import sampleSlip from '../../../resources/imgs/slip.jpg'
 import useUser from '../../../Hooks/useUser'
-import axios from '../../api/axios'
+
+import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
+import PaymentStyle from './style';
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
-  //! did not use
-  // const [previewSlip, setPreviewSlip] = useState(false)
-
-  // function onChecked(e) {
-  //   console.log(`check = ${e.target.checked}`)
-  // }
-  //! did not use
-  // function handleCancel() {
-  //   setPreviewSlip(false)
-  // }
+  const [navHeight, setNavHeight] = useState(64);
 
   const onsubmit = async () => {
     router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
   }
   return (
-    <div className="page-wrapper">
-      <div className="container-fluid">
+    <MainLayout>
+      <PaymentStyle navHeight={navHeight}>
         <div className="row">
           <div className="col-lg-12 d-flex justify-content-center">
             <Stepper step="2" />
           </div>
         </div>
-        {/* <div style={{ width: '50%' }} className="row m-auto">
-          <div className="col-lg-12 d-flex justify-content-start">
-            <Checkbox className="fs-3" onChange={onChecked}>
-              รับสลิป
-            </Checkbox>
-          </div>
-        </div> */}
         <div className="row m-auto mt-4 invoice-item p-3">
           <div className="row">
             <div className="col-lg-8 col-8 text-start">
               <strong className="text-secondary">รายละเอียดการชำระเงิน</strong>
               <div className="ps-3">
                 <p className="mb-0">
-                  {/* {`${
-                  user?.payment?.type === 'card' ? 'ชำระด้วยบัตรเครดิต' : 
-                  'ชำระด้วย QR code'
-                }`} */}
                   ชำระด้วย QR code
                 </p>
-                {/* <span>หมายเลข:{`${user?.payment?.type}`}</span> */}
               </div>
             </div>
-            {/* <div className="col-lg-6 text-end">
-              <strong className="text-secondary">หลักฐานการชำระเงิน</strong>
-              <div>
-                <Image onClick={() => setPreviewSlip(true)} src={sampleSlip} alt="slip" width={120} height={150} />
-                <Modal visible={previewSlip} title="หลักฐานการโอนของคุณ" footer={null} onCancel={handleCancel}>
-                  <Image alt="example" style={{ width: '100%' }} src={sampleSlip} />
-                </Modal>
-              </div>
-              <span style={{ cursor: 'pointer' }} className="text-info" onClick={() => setPreviewSlip(true)}>
-                ดูสลิปการโอน
-              </span>
-            </div> */}
           </div>
           <Divider />
           <div className="row">
@@ -105,16 +73,9 @@ const Confirmorder = () => {
                     <th>ราคารวม:</th>
                     <td className="text-end p-0">{`${user?.order?.package?.price} บาท`}</td>
                   </tr>
-                  {/* <tr>
-                    <th>ภาษี (7%)</th>
-                    <td className="text-end p-0">{`${(user?.package?.price * 7) / 100} บาท`}</td>
-                  </tr> */}
                   <tr>
                     <th>ราคาสุทธิ:</th>
                     <td className="text-end p-0">{user?.order?.package?.price} บาท</td>
-                    {/* <td className="text-end p-0">{`${
-                      parseInt(user?.package?.price) + parseInt((user?.package?.price * 7) / 100)
-                    } บาท`}</td> */}
                   </tr>
                 </tbody>
               </table>
@@ -131,8 +92,8 @@ const Confirmorder = () => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </PaymentStyle>
+    </MainLayout>
   )
 }
 

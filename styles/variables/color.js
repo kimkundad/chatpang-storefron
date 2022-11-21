@@ -1,0 +1,21 @@
+export default {
+  PRIMARY: '#ff7157',
+  SECONDARY: '#ff3f33',
+  BLACK_COLOR: '#000000',
+  WHITE_COLOR: '#FFFFFF',
+
+  YELLOW_COLOR_1: '#ff7157',
+  YELLOW_COLOR_2: '#ff3f33',
+  YELLOW_COLOR_3: '#ec0015',
+
+  GRAY_COLOR_1: '#B0B0B0',
+  GRAY_COLOR_2: '#625E5D',
+  GRAY_COLOR_3: '#51514f',
+  GRAY_COLOR_4: '#51514f1f',
+
+  RED_COLOR_1: '#ec0015',
+
+  BLUE_COLOR_1: '#0074fb',
+
+  GOLD_COLOR_1: '#fced20'
+};

@@ -1,6 +1,7 @@
 {
-  "extends": "next/core-web-vitals",
+  "root": true,
+  "extends": ["next/core-web-vitals", "prettier"],
   "rules": {
-    "@next/next/no-img-element": "off"
+    "no-unused-vars": ["", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true, "varsIgnorePattern": "[iI]gnored"}]
   }
 }

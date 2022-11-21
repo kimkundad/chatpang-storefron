@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import useUser from '../../Hooks/useUser'
 import axios from '../api/axios'
 
+import LoginContainerStyle from './style'
+
 const Login = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
@@ -37,6 +39,11 @@ const Login = () => {
       if (!res.data.access_token) {
         router.replace('/')
       }
+      if (typeof window !== 'undefined') {
+        if (res.data.access_token) {
+          localStorage.setItem('token', res.data.access_token)
+        }
+      }
       // console.log(data.order)
       //*To check that user create order yet 
       if (data?.order !== null) {
@@ -44,7 +51,7 @@ const Login = () => {
         if (data.order?.state === 'paid') {
           //* to check user get auth pages by facebook yet
           if (data?.pages === 0) {
-            res.data.access_token && router.replace('/user/info/pagemanagement')
+            res.data.access_token && router.replace('/user/manage/pagemanagement')
           } else {
             res.data.access_token && router.replace('/user/manage')
           }
@@ -73,7 +80,7 @@ const Login = () => {
     userId !== undefined && userId !== null && getFacebookUserData(login)
   }, [userId])
 
-  return <div className="nosidebar-wrapper text-center">ระบบกำลัง redirect ไปที่หน้าการจัดการ</div>
+  return <LoginContainerStyle>ระบบกำลัง redirect ไปที่หน้าการจัดการ</LoginContainerStyle>
 }
 
 export default Login

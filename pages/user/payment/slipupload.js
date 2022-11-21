@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import Stepper from '../../../components/Stepper'
+import Stepper from '../../../components/Stepper/Stepper'
 import { DatePicker, TimePicker, Upload, Modal } from 'antd'
 
 const Slipupload = () => {
@@ -72,7 +72,6 @@ const Slipupload = () => {
           <div className="col-lg-12 d-flex justify-content-center">
             <div className="d-flex flex-column mx-3">
               <Upload
-                // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
                 fileList={fileList}
                 onChange={onChange}

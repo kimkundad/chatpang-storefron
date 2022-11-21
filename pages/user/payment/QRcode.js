@@ -1,9 +1,9 @@
-import { Divider } from 'antd'
+import Divider from '@mui/material/Divider';
 import React, { useState } from 'react'
 // import Image from 'next/image'
 import { useRouter } from 'next/dist/client/router'
 
-import QRCode from '../../../resources/imgs/qrcash.0a134114.png'
+// import QRCode from '../../../resources/imgs/qrcash.0a134114.png'
 import useUser from '../../../Hooks/useUser'
 import axios from '../../api/axios'
 import { useQRCode } from 'next-qrcode'
@@ -18,8 +18,6 @@ const QRcode = () => {
   const selectedPackage = user.package
 
   const onSubmit = async () => {
-    // console.log(user.order);
-
     try {
       const qrcode = await axios.get(`public/orders-payment/${user?.order?.id}/qrcode`)
       // console.log(qrcode.data);
@@ -51,7 +49,6 @@ const QRcode = () => {
     } catch (error) {
       console.log(error)
     }
-    // router.push('/user/payment/confirmorder')
   }
 
   const RenderQRCode = () => {
@@ -65,16 +62,13 @@ const QRcode = () => {
                 การจ่ายเงินของท่านยังไม่สมบูรณ์
                 <br /> กรุณาเช็คว่าท่านได้กดยืนยันการจ่ายเงินเรียบร้อยหรือยัง
               </span>
-              {/* <br /> */}
-              {/* <div className='w-md-50 w-75'> */}
               <span className="text-start  text-md-center text-danger mt-1 qrcode-details">
                 - ถ้ายังกรุณาทำการยืนยันการจ่ายเงินให้เรียบร้อยแล้ว กด <strong>ต่อไป</strong> อีกครั้ง <br />
                 - ถ้าเรียบร้อยเเล้วกรุณา ติดต่อ คนดูแลระบบ{' '}
               </span>
-              {/* </div> */}
             </>
           )}
-          <div className="col-md-4 d-flex qrcodeImg flex-column">
+          <div className="col-md-6 d-flex qrcodeImg flex-column">
             <Image
               text={qrcode}
               options={{
@@ -91,7 +85,7 @@ const QRcode = () => {
               }}
               alt="qrcode"
             />
-            <div className="text-end">
+            <div className="text-end qrcodeBtnContainer">
               <button onClick={() => router.back}>ย้อนกลับ</button>
               <button className="ms-2" onClick={() => onNext()}>
                 ต่อไป
@@ -121,9 +115,11 @@ const QRcode = () => {
             ) : (
               <>
               <button onClick={() => onSubmit()}>สร้าง QR CODE</button>
-              {/* <button onClick={() => router.replace('/user/info/pagemanagement')}>SKIP FOR TEST USER</button> */}
               </>
             )}
+            {/* <button onClick={() => router.replace('/user/info/pagemanagement')}>
+             SKIP FOR TEST USER
+            </button> */}
           </div>
         </div>
       )
