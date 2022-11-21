@@ -24,7 +24,8 @@ const Edit = () => {
     const id = router.query.id;
 
     const [pageID, setPageID] = useState(router.query.pageID);
-    // console.log(pageID);
+    console.log(router.query.pageID);
+    console.log(user);
     // const [img, setImg] = useState([])
     const [campaignName, setCampaignName] = useState('');
     const [details, setDetails] = useState(['']);
@@ -67,7 +68,9 @@ const Edit = () => {
                 text: 'แก้ไขแคมเปญสำเร็จ',
             });
            await handleNotify();
+           setTimeout(() => {
             router.back();
+        }, 1700);
         } catch (error) {
             console.log(error);
             setIsSuccess({
@@ -85,7 +88,7 @@ const Edit = () => {
                 isSuccess: false,
                 text: '',
             });
-        }, 2000);
+        }, 1500);
     };
     // const convertToImagePath = async () => {
     //   //check already a img link by check https
@@ -278,7 +281,6 @@ const Edit = () => {
             const res = await axios.get(`/greeting-messages/${id}`, {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
-            // console.log(res.data)
             const data = res.data.data;
             setCampaignName(data.name);
             setDetails(data.messages);

@@ -98,7 +98,9 @@ const Edit = () => {
                 text: 'แก้ไขแคมเปญสำเร็จ',
             });
            await handleNotify();
+           setTimeout(() => {
             router.back();
+        }, 1700);
             // console.log(res.data)
         } catch (error) {
             console.log(error);
@@ -119,7 +121,7 @@ const Edit = () => {
                 text: '',
             });
             
-        }, 2000);
+        }, 1500);
     };
     // const setImageInbox = (e) => {
     //   // console.log(e.target.files[0])
@@ -218,7 +220,7 @@ const Edit = () => {
                 <div className="row g-3">
                     {/* <div className='col-md-8 mx-auto chatComment'> */}
                     <div className="col-lg-3 commentHeader">
-                        <h5 className="ms-md-3 me-2">ข้อความตอบเข้าอินบ็อกซ์</h5>
+                        <h5 className="ms-md-3 me-2">ข้อความตอบ<br />เข้าอินบ็อกซ์</h5>
                         <Switch
                             style={{ width: 'fit-content' }}
                             size="small"

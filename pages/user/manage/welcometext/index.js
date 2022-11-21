@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 import { Add, Delete, ContentCopy } from '@mui/icons-material';
@@ -87,8 +87,12 @@ const Welcometext = () => {
         // console.log(id)
         setPageID(id);
     };
+    const campaignsList = useMemo (()=>{
+        return data.filter((campaign) => campaign.page === pageID)
+    },[pageID, data])
+
     const renderTable = () => {
-        return data.map((item, index) => {
+        return campaignsList.map((item, index) => {
             return (
                 <tr key={index}>
                     <td className='text-center'>

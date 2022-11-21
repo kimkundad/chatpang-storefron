@@ -61,7 +61,9 @@ const CreateWelcome = () => {
                 text: 'สร้างแคมเปญสำเร็จ',
             });
           await handleNotify();
-          router.back()
+          setTimeout(() => {
+            router.back();
+        }, 1700);
             setCampaignName('');
             setDetails(['']);
         } catch (error) {
@@ -81,7 +83,7 @@ const CreateWelcome = () => {
                 isSuccess: false,
                 text: '',
             });
-        }, 2000);
+        }, 1500);
     };
 
     const onSelect = (id) => {

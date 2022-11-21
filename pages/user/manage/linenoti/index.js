@@ -19,11 +19,12 @@ const Linenoti = () => {
     const { user } = useUser();
     const router = useRouter();
 
-    const [pageID, setPageID] = useState([...user?.pages.map((page) => page.page_id)]);
+    const [pageID, setPageID] = useState([user?.pages[0].page_id]);
     const [lineName, setLineName] = useState('');
     const [lineAccessToken, setLineAccessToken] = useState('');
     const [lineTimer, setLineTimer] = useState(0);
-
+    // console.log(user);
+    // console.log(pageID);
     const { Option } = Select;
     const [timeUnit, setTimeUnit] = useState('m');
     const [time, setTime] = useState();
@@ -192,7 +193,7 @@ const Linenoti = () => {
     //* select page by id
     const onSelect = (id) => {
         // console.log(id)
-        setPageID(id);
+        setPageID([id]);
     };
 
     //*get line list

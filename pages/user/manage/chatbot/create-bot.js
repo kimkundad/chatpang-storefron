@@ -83,7 +83,9 @@ const Createbot = () => {
             setWords([]);
             setTags([]);
             setHiddenWords([]);
-            router.back();
+            setTimeout(() => {
+                router.back();
+            }, 1700);
             // setImg1('')
             // setImg2('')
         } catch (error) {
@@ -104,7 +106,7 @@ const Createbot = () => {
                 text: '',
             });
            
-        }, 2000);
+        }, 1500);
     };
     // const setImageInbox = (e) => {
     //   setFileInboxComment(e.target.files[0])
@@ -175,7 +177,7 @@ const Createbot = () => {
                 <div className="row g-3">
                     {/* <div className='col-md-8 mx-auto chatComment'> */}
                     <div className="col-lg-3 commentHeader">
-                        <h5 className="ms-md-3 me-2">ข้อความตอบเข้าอินบ็อกซ์</h5>
+                        <h5 className="ms-md-3 me-2">ข้อความตอบ<br />เข้าอินบ็อกซ์</h5>
                         <Switch style={{ width: 'fit-content' }} size="small" value={isInboxComment} onChange={(e) => setIsInboxComment(!isInboxComment)} />
                     </div>
                     <div className="col-lg-7 commentInput">

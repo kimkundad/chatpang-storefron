@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { Add, Delete, ContentCopy } from '@mui/icons-material'
+import { Add, Delete, ContentCopy, Campaign } from '@mui/icons-material'
 import { Table, Form } from 'react-bootstrap';
 import axios from '../../../api/axios';
 import useUser from '../../../../Hooks/useUser';
@@ -152,8 +152,14 @@ const Chatbot = () => {
             console.log(error);
         }
     };
+
+
+    const campaignsList = useMemo (()=>{
+        return data.filter((campaign) => campaign.page === pageID)
+    },[pageID, data])
+
     const renderTable = () => {
-        return data.map((item, index) => {
+        return campaignsList.map((item, index) => {
             return (
                 <tr key={index}>
                     <td className='text-center' >

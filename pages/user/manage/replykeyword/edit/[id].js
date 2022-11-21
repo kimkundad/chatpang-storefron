@@ -51,6 +51,7 @@ const Edit = () => {
             messages: tempText,
             images: tempImgs,
             name: campaignName,
+            isDefault: !keywordName.length,
             facebookUser: user?.user?.id,
             page: pageID,
         };
@@ -58,14 +59,16 @@ const Edit = () => {
             const res = await axios.put(`/auto-replies/${id}`, data, {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
-            // console.log(res.data)
+            console.log(res.data)
             setIsSuccess({
                 show: true,
                 isSuccess: true,
                 text: 'แก้ไขแคมเปญสำเร็จ',
             });
             await handleNotify();
-            router.back();
+            setTimeout(() => {
+                router.back();
+            }, 1700);
         } catch (error) {
             console.log(error);
             setIsSuccess({
@@ -83,7 +86,7 @@ const Edit = () => {
                 isSuccess: false,
                 text: '',
             });
-        }, 2000);
+        }, 1500);
     };
     // const convertToImagePath = async () => {
     //     //check already a img link by check https

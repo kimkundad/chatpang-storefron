@@ -37,7 +37,7 @@ const CreateReplyKeyword = () => {
         text: '',
     });
 
-    const onSubmit = async (tempText,tempImgs) => {
+    const onSubmit = async (tempText, tempImgs) => {
         // e.preventDefault();
         // const arrImages = imgs.length === 0 ? [] : await convertToImagePath();
         // await prepImgAndText()
@@ -46,6 +46,7 @@ const CreateReplyKeyword = () => {
             messages: tempText,
             images: tempImgs,
             name: campaignName,
+            isDefault: !keywordName.length,
             facebookUser: user?.user?.id,
             page: pageID,
         };
@@ -58,7 +59,6 @@ const CreateReplyKeyword = () => {
                 isSuccess: true,
                 text: 'สร้างแคมเปญสำเร็จ',
             });
-            await handleNotify();
             setCampaignName('');
             setKeywordName([]);
             setImgAndImg([
@@ -67,7 +67,10 @@ const CreateReplyKeyword = () => {
             ]);
             // setDetails(['']);
             // setImgs(['']);
-            router.back();
+            await handleNotify();
+            setTimeout(() => {
+                router.back();
+            }, 1700);
         } catch (error) {
             console.log(error);
             setIsSuccess({
@@ -79,22 +82,22 @@ const CreateReplyKeyword = () => {
         }
     };
 
-    const prepImgAndText = async (e,cb) => {
+    const prepImgAndText = async (e, cb) => {
         e.preventDefault();
-        let tempImgs = []
-        let tempText = []
-           for (const data of imgAndImg) {
-                if (data.type === 'text') {
-                    tempText.push(data.content)
-                } else {
-                   let url = data?.content?.length !== 0 ? await getImagePath(data?.content) : ''
-                   tempImgs.push(url)
-                }
+        let tempImgs = [];
+        let tempText = [];
+        for (const data of imgAndImg) {
+            if (data.type === 'text') {
+                tempText.push(data.content);
+            } else {
+                let url = data?.content?.length !== 0 ? await getImagePath(data?.content) : '';
+                tempImgs.push(url);
             }
-            // setDetails(tempText)
-            // setImgs(tempImgs)
-            cb(tempText,tempImgs)
-    }
+        }
+        // setDetails(tempText)
+        // setImgs(tempImgs)
+        cb(tempText, tempImgs);
+    };
 
     const handleNotify = async () => {
         setTimeout(() => {
@@ -103,7 +106,7 @@ const CreateReplyKeyword = () => {
                 isSuccess: false,
                 text: '',
             });
-        }, 2000);
+        }, 1500);
     };
     // const convertToImagePath = async () => {
     //     let tmpArr = [];
@@ -490,10 +493,10 @@ const CreateReplyKeyword = () => {
                         <h4 className="me-3 text-md-end my-auto">ชื่อแคมเปญ</h4>
                     </div>
                     <div className="col-md-4 mx-auto chatNameInput">
-                        <input type="text" name="name" value={campaignName} onChange={(e) => setCampaignName(e.target.value)} autoFocus={true} required/>
+                        <input type="text" name="name" value={campaignName} onChange={(e) => setCampaignName(e.target.value)} autoFocus={true} required />
                     </div>
                     <div className="col-md-4 text-center order-md-0 order-3 chatButtonContainer">
-                        <button onClick={(e)=> prepImgAndText(e,onSubmit)} className="chatCustomBtn">
+                        <button onClick={(e) => prepImgAndText(e, onSubmit)} className="chatCustomBtn">
                             บันทึก
                         </button>
                         <button onClick={onClear} className="chatCustomBtn">

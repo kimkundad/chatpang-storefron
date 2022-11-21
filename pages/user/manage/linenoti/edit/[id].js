@@ -16,7 +16,7 @@ const Edit = () => {
     const router = useRouter();
     const { user } = useUser();
 
-    const [pageID, setPageID] = useState(user?.selectedPage[0]?.page_id);
+    const [pageID, setPageID] = useState([router.query.pageId]);
     const [lineName, setLineName] = useState('');
     const [lineAccessToken, setLineAccessToken] = useState('');
     const [lineTimer, setLineTimer] = useState(0);
@@ -24,7 +24,7 @@ const Edit = () => {
     const [timeUnit, setTimeUnit] = useState('m');
     const [time, setTime] = useState();
     const id = router.query.id;
-    // console.log(id);
+    // console.log(pageID);
 
     //*check status
     const [isSuccess, setIsSuccess] = useState({
@@ -109,7 +109,7 @@ const Edit = () => {
     //* select page by id
     const onSelect = (id) => {
         // console.log(id)
-        setPageID(id);
+        setPageID([id]);
     };
     const getLineList = async () => {
         try {
@@ -147,7 +147,7 @@ const Edit = () => {
                                 <span className="textBTN">ย้อนกลับ</span>
                             </span>
                             <span className="text-uppercase userDropdown">
-                                <PageDropdown onSelect={onSelect} />
+                                <PageDropdown defaultValue={pageID[0]} onSelect={onSelect} />
                             </span>
                         </div>
                     </div>
