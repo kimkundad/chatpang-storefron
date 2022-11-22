@@ -6,7 +6,7 @@ COPY package.json package-lock.json ./
 RUN npm ci --only=production
 
 # Rebuild the source code only when needed
-FROM node:14-alpine AS builder
+FROM node:16-alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
