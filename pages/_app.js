@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { store, wrapper } from '../redux/stores';
+// import { store, wrapper } from '../redux/stores';
 import GlobalStyle from '../styles/global';
 import Head from 'next/head';
 import { createTheme, ThemeProvider } from '@mui/material';
@@ -51,4 +51,4 @@ function MyApp({ Component, pageProps }) {
     );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;

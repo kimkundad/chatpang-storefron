@@ -110,7 +110,7 @@ const Pagemanagement = () => {
                             type="switch"
                             checked={item?.status === 'active'}
                             // label={item.status}
-                            onClick={() => onChangeStatus(index, item)}
+                            onChange={() => onChangeStatus(index, item)}
                         />
                     </td>
                     <td>{item?.name}</td>
