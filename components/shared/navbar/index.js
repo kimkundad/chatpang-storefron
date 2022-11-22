@@ -15,8 +15,8 @@ import MenuItem from '@mui/material/MenuItem';
 import color from '../../../styles/variables/color';
 import Image from 'react-bootstrap/Image';
 import font from '../../../styles/variables/font';
-import dimension from '../../../styles/variables/dimension';
-import navbar from '../../../styles/variables/navbar';
+// import dimension from '../../../styles/variables/dimension';
+// import navbar from '../../../styles/variables/navbar';
 import * as constants from '../../../constants/indexConstant';
 import { useRouter } from 'next/dist/client/router';
 import useUser from '../../../Hooks/useUser';
@@ -288,7 +288,7 @@ const NavBar = React.forwardRef((props, ref) => {
                                                 fontFamily: font.FONT_FAMILIES.PRIMARY,
                                                 background: pages[pages.length - 1].key === props.navKey ? color.BLACK_COLOR : 'transparent',
                                                 borderRadius: 20,
-                                                padding: '5px 25px',
+                                                padding: '5px 5px',
                                                 marginLeft: 'auto',
                                             }}>
                                             {pages[pages.length - 1].name}

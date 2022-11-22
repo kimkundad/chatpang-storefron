@@ -2,7 +2,6 @@ import { Button, Grid, Paper } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React, { useEffect, useRef, useState } from 'react';
-import Slider from 'react-slick';
 import Carousel from 'react-elastic-carousel';
 import ReviewCarouselStyle, { Item, ReviewCardStyle } from './style';
 import 'slick-carousel/slick/slick.css';
@@ -12,11 +11,9 @@ import * as constants from '../../../../constants/customerReviewConstant';
 import StarIcon from '@mui/icons-material/Star';
 import CustomCard from '../CustomCard';
 import useWindowSize from '../../../../modules/windowSize';
-import { useSelector } from 'react-redux';
 
 export default function ReviewCarousel({data}) {
     let carousel = useRef({});
-    const userReview = useSelector((state) => state.index.constants.userReview);
     const size = useWindowSize();
     const [show, setShow] = useState(3);
     useEffect(() => {
@@ -55,7 +52,7 @@ export default function ReviewCarousel({data}) {
         return (
             <Button
                 onClick={() => {
-                    console.log(isEdge);
+                    // console.log(isEdge);
                     if (isEdge && type === 'NEXT') {
                         carousel.current.goTo(0);
                     } else if (isEdge && type === 'PREV') {

@@ -2,11 +2,11 @@ import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import MainLayoutStyle from './style';
 import Navbar from '../../shared/navbar';
 import useWindowSize from '../../../modules/windowSize';
-import AlertModal from '../../shared/AlertModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearNavKey, closeAlert, setNavKey } from '../../../redux/globalRedux/action';
-import DialogLoading from '../../shared/loadingDialog';
-import { setLoadingOff, setLoadingOn } from '../../../redux/indexRedux/action';
+// import AlertModal from '../../shared/AlertModal';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { clearNavKey, closeAlert, setNavKey } from '../../../redux/globalRedux/action';
+// import DialogLoading from '../../shared/loadingDialog';
+// import { setLoadingOff, setLoadingOn } from '../../../redux/indexRedux/action';
 const MainLayout = React.forwardRef(
   (
     { children, scrollTo, componentRef, setNavHeight, setShowArticleDetail, isShowArticleDetail, isAgreement, setAgreement, isPolicy, setPolicy, routeToLanding, navKey, ...props },

@@ -6,8 +6,8 @@ import { Image } from 'react-bootstrap';
 // import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import classNames from 'classnames';
-import CoreService from '../../../services/coreService';
-import { callApiSuccess, closeAlert } from '../../../redux/globalRedux/action';
+// import CoreService from '../../../services/coreService';
+// import { callApiSuccess, closeAlert } from '../../../redux/globalRedux/action';
 import axios from 'axios';
 
 const ContactUsContainer = React.forwardRef((props, ref) => {

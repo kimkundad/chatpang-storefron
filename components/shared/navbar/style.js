@@ -5,7 +5,7 @@ import navbar from '../../../styles/variables/navbar';
 import windowSize from '../../../styles/variables/windowSize';
 
 const NavbarStyle = styled.nav`
-    background: ${color.PRIMARY};
+    /* background: ${color.PRIMARY}; */
     color: ${color.BLACK_COLOR};
     height: ${(props) => props.navbarHeight}px;
     position: fixed;
@@ -63,6 +63,9 @@ const NavbarStyle = styled.nav`
             width: 60% !important;
             object-fit: cover;
             margin: auto !important;
+        }
+        .font-set {
+            font-size:16px;
         }
     }
 

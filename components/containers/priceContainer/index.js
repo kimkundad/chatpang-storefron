@@ -38,7 +38,7 @@ const PriceContainer = React.forwardRef((props, ref) => {
     useEffect(() => {
         setHeaderHeight(headerRef.current.offsetHeight);
         setContentHeight(contentRef.current.offsetHeight);
-        console.log(contentRef);
+        // console.log(contentRef);
     }, [headerRef, contentRef, headerRef.current, contentRef.current, headerHeight, contentHeight]);
 
     useEffect(() => {
