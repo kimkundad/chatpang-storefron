@@ -19,7 +19,7 @@ const Linenoti = () => {
     const { user } = useUser();
     const router = useRouter();
 
-    const [pageID, setPageID] = useState([user?.pages[0].page_id]);
+    const [pageID, setPageID] = useState([user?.pages[0]?.page_id]);
     const [lineName, setLineName] = useState('');
     const [lineAccessToken, setLineAccessToken] = useState('');
     const [lineTimer, setLineTimer] = useState(0);
