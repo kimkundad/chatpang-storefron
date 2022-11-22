@@ -8,10 +8,18 @@ const PaymentStyle = styled.div`
     padding-top:${(props) => props.navHeight + 40}px;
     z-index: 1;
     .qrcodeDetail {
-        font-size: 2.5rem;
+        font-size: 2rem;
         border: 1px solid ${color.GRAY_COLOR_2};
         border-radius: 10px;
         padding: 16px;
+        width:90%;
+        max-width:750px;
+    }
+    .qrcodeDetail p{
+        margin-bottom:0;
+    }
+    .option{
+        font-size:1.3rem;
     }
     .qrcodeImg {
         width: 250px;

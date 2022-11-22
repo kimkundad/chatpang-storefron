@@ -128,7 +128,7 @@ const QRcode = () => {
   return (
     <>
       <div className="row justify-content-center">
-        <div className="col-md-6 col-10 text-center qrcodeDetail mx-auto">
+        <div className="col text-center qrcodeDetail mx-auto">
           <p>รายละเอียดการชำระเงิน</p>
           <Divider />
           <p>Package : {selectedPackage?.name}</p>

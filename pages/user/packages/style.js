@@ -178,7 +178,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: 90%;
+            width: 85%;
         }
 
         & .chat-icon {
@@ -241,7 +241,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: 80%;
+            width: 85%;
         }
 
         & .btn-button {
@@ -298,7 +298,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: 80%;
+            width: 85%;
         }
 
         & .card-header {
@@ -362,7 +362,7 @@ const SelectedPackagesStyle = styled.div`
         }
 
         & .card-add {
-            width: 80%;
+            width: 85%;
         }
 
         & .card-header {
