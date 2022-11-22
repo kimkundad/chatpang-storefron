@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { Divider, InputNumber, Select } from 'antd';
+
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import ErrorIcon from '@mui/icons-material/Error';
 
 import { Alert } from 'react-bootstrap';
 import PageDropdown from '../../../../../components/PageDropdown';
@@ -143,7 +144,7 @@ const Edit = () => {
                     <div className="row">
                         <div className="col d-flex justify-content-center">
                             <span onClick={() => router.back()} className="userBackButton">
-                                <FontAwesomeIcon className="me-2-md" icon={faChevronLeft} />
+                                <NavigateBeforeIcon className="me-2-md" />
                                 <span className="textBTN">ย้อนกลับ</span>
                             </span>
                             <span className="text-uppercase userDropdown">
@@ -179,7 +180,7 @@ const Edit = () => {
                     </div>
                     <div className="col-md-6 d-flex flex-xs-column lineTokenHeader">
                         <span className="text-secondary">
-                            <FontAwesomeIcon icon={faExclamationCircle} /> <i>คลิกเพื่อดูวิดีโอการขอ Token</i>{' '}
+                            <ErrorIcon /> <i>คลิกเพื่อดูวิดีโอการขอ Token</i>{' '}
                         </span>
                     </div>
                 </div>

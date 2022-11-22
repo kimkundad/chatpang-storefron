@@ -1,7 +1,5 @@
 import React, { useEffect, useState, createRef } from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faChevronLeft, faCircleChevronDown, faCircleChevronUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Divider } from 'antd';
 
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
