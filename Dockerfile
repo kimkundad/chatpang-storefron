@@ -27,6 +27,6 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/public ./public
 
 USER nextjs
-EXPOSE 3000
+EXPOSE 3005
 
 CMD ["npm", "start"]
