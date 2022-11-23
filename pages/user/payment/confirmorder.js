@@ -13,7 +13,8 @@ const Confirmorder = () => {
   const [navHeight, setNavHeight] = useState(64);
 
   const onsubmit = async () => {
-    router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+    // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+    router.replace('/user/manage/pagemanagement')
   }
   return (
     <MainLayout>
