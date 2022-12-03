@@ -124,7 +124,7 @@ const Replykeyword = () => {
         setPageID(id);
     };
     const campaignsList = useMemo (()=>{
-        return data.filter((campaign) => campaign.page === pageID)
+        return data.filter((campaign) => campaign.page === pageID && !campaign.keywords.includes("เริ่มต้น"))
     },[pageID, data])
     const renderTable = () => {
         return campaignsList.map((item, index) => {

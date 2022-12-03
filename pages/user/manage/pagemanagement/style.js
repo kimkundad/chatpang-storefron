@@ -33,7 +33,7 @@ const InfoStyle = styled.div`
     .numberComment {
         border: 1px solid #c4c4c4;
         padding: 14px;
-        width: 190px;
+        width: fit-content;
         height: 150px;
         font-size: 1.5rem;
         font-weight: 700;

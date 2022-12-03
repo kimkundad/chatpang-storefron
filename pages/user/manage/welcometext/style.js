@@ -169,6 +169,54 @@ const GreetingStyle = styled.div`
         display: flex;
         align-items: center;
     }
+    .uploadIMG {
+        position: relative;
+        border-radius: 10px;
+        border: 1px solid #888;
+        margin: 16px 0;
+        overflow: hidden;
+        height: auto;
+        display: grid;
+        place-items: center;
+    }
+    .uploadIMG img {
+        max-width: 90%;
+        max-height: 90%;
+        cursor: pointer;
+        opacity: 1;
+        position: relative;
+        z-index: 4;
+    }
+    .uploadIMG:hover img {
+        opacity: 0.5;
+    }
+    .uploadIMG span {
+        position: absolute;
+        bottom: 50%;
+        z-index: 20;
+        opacity: 0;
+    }
+    .uploadIMG:hover span {
+        opacity: 1;
+    }
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+    .inputfile + label {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: black;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        cursor: pointer; /* "hand" cursor */
+    }
     //xs mobile
     @media screen and (max-width: 575px) {
         .textBTN {

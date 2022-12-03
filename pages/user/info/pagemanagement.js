@@ -174,6 +174,13 @@ const Pagemanagement = () => {
         }
     };
 
+    const genQuantiy= (data) => {
+        if (data > 999999) {
+            return (data / 1000000)+"M"
+        } else if (data > 999) {
+            return (data / 1000)+"K"
+        } 
+    }
     useEffect(() => {
         let isCancel = false;
         if (!isCancel) {
@@ -197,7 +204,7 @@ const Pagemanagement = () => {
                                 {quotaInfo ? (
                                     <>
                                         <strong>
-                                            {quotaInfo.total_current_reply} / {quotaInfo.total_quota_limit}
+                                            {quotaInfo.total_current_reply} / {genQuantiy(quotaInfo.total_quota_limit)}
                                         </strong>
                                         <span>คอมเม้นต์วันนี้</span>
                                     </>

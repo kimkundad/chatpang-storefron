@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 import { Add, Delete, ContentCopy } from '@mui/icons-material';
-import { Table } from 'react-bootstrap';
+import { Table, Form } from 'react-bootstrap';
 import PageDropdown from '../../../../components/PageDropdown';
 import useUser from '../../../../Hooks/useUser';
 import axios from '../../../api/axios';
@@ -19,7 +19,7 @@ const Welcometext = () => {
     const [isCheckAll, setIsCheckAll] = useState(false);
 
     const onEdit = (id, page_id) => {
-        router.push({ pathname: `${router.pathname}/edit/${id}`, query: { id: id, pageID: page_id } }, `${router.pathname}/edit/${id}`);
+        router.push({ pathname: `${router.pathname}/edit/${id}`, query: { campaignId: id, pageID: page_id } }, `${router.pathname}/edit/${id}`);
     };
 
     const onChecked = async (e) => {
@@ -83,12 +83,48 @@ const Welcometext = () => {
             setIsCheckAll(true);
         }
     };
+    const onChangeStatus = async (index, item) => {
+        // console.log(id)
+        let temp = [...data];
+        temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
+        setData(temp);
+    };
+    const setStatusActive = async (id) => {
+        try {
+            const res = await axios.patch(
+                `/auto-replies/${id}/active`,
+                { id: id },
+                {
+                    headers: { Authorization: `Bearer ${user?.accessToken}` },
+                }
+            );
+            return res.data.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const setStatusInActive = async (id) => {
+        try {
+            const res = await axios.patch(
+                `/auto-replies/${id}/inactive`,
+                { id: id },
+                {
+                    headers: { Authorization: `Bearer ${user?.accessToken}` },
+                }
+            );
+            return res.data.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const onSelect = (id) => {
         // console.log(id)
         setPageID(id);
     };
     const campaignsList = useMemo (()=>{
-        return data.filter((campaign) => campaign.page === pageID)
+        return data.filter((campaign) => campaign.page === pageID && campaign.keywords.includes("เริ่มต้น"))
     },[pageID, data])
 
     const renderTable = () => {
@@ -97,6 +133,15 @@ const Welcometext = () => {
                 <tr key={index}>
                     <td className='text-center'>
                         <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onChange={(e) => onChecked(e)} />
+                    </td>
+                    <td>
+                        <span>{item?.status}</span>
+                        <Form.Check
+                            type="switch"
+                            checked={item?.status === 'active'}
+                            // label={item.status}
+                            onChange={() => onChangeStatus(index, item)}
+                        />
                     </td>
                     <td>{item.name}</td>
                     <td>
@@ -113,7 +158,7 @@ const Welcometext = () => {
     };
     const getReceptionList = async () => {
         try {
-            const res = await axios.get(`/greeting-messages/${user?.user?.id}/facebook-user`, {
+            const res = await axios.get(`/auto-replies/${user?.user?.id}/facebook-user`, {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
             // console.log(res.data)
@@ -170,8 +215,9 @@ const Welcometext = () => {
                                         <th className='text-center'>
                                             <input className='checkbox-customer' onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
                                         </th>
+                                        <th>สถานะ</th>
                                         <th>แคมเปญ</th>
-                                        <th></th>
+                                        <th>จัดการ</th>
                                     </tr>
                                 </thead>
                                 <tbody>{renderTable()}</tbody>
