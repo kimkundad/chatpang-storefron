@@ -58,10 +58,25 @@ const Welcometext = () => {
         }
     };
 
+    // const onDelete = async () => {
+    //     try {
+    //         for (const id of itemList) {
+    //             const res = await axios.delete(`/greeting-messages/${id}`, {
+    //                 headers: { Authorization: `Bearer ${user?.accessToken}` },
+    //             });
+    //             // console.log(res.data)
+    //             setData((prev) => prev.filter((item) => item.id !== id));
+    //         }
+    //         setItemList([]);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
     const onDelete = async () => {
         try {
             for (const id of itemList) {
-                const res = await axios.delete(`/greeting-messages/${id}`, {
+                const res = await axios.delete(`/auto-replies/${id}`, {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
                 });
                 // console.log(res.data)
@@ -84,8 +99,8 @@ const Welcometext = () => {
         }
     };
     const onChangeStatus = async (index, item) => {
-        // console.log(id)
         let temp = [...data];
+        console.log(index)
         temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
         setData(temp);
     };
@@ -97,39 +112,40 @@ const Welcometext = () => {
                 {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
                 }
-            );
-            return res.data.data;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const setStatusInActive = async (id) => {
-        try {
-            const res = await axios.patch(
-                `/auto-replies/${id}/inactive`,
-                { id: id },
+                );
+                return res.data.data;
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        
+        const setStatusInActive = async (id) => {
+            try {
+                const res = await axios.patch(
+                    `/auto-replies/${id}/inactive`,
+                    { id: id },
                 {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
                 }
-            );
-            return res.data.data;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const onSelect = (id) => {
-        // console.log(id)
-        setPageID(id);
-    };
-    const campaignsList = useMemo (()=>{
-        return data.filter((campaign) => campaign.page === pageID && campaign.keywords.includes("เริ่มต้น"))
-    },[pageID, data])
-
-    const renderTable = () => {
-        return campaignsList.map((item, index) => {
-            return (
+                );
+                return res.data.data;
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        
+        const onSelect = (id) => {
+            // console.log(id)
+            setPageID(id);
+        };
+        const campaignsList = useMemo (()=>{
+            return data.filter((campaign) => campaign.page === pageID && campaign.keywords.includes("เริ่มต้น"))
+        },[pageID, data])
+        
+        
+        const renderTable = () => {
+            return campaignsList.map((item, index) => {
+                return (
                 <tr key={index}>
                     <td className='text-center'>
                         <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onChange={(e) => onChecked(e)} />
@@ -162,7 +178,7 @@ const Welcometext = () => {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
             // console.log(res.data)
-            setData(res.data.data.results);
+            setData(res.data.data.results.filter(item => item.keywords.includes('เริ่มต้น')));
         } catch (error) {
             console.log(error);
         }

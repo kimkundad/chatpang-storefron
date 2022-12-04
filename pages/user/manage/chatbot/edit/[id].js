@@ -212,7 +212,7 @@ const Edit = () => {
                         <button onClick={(e) => onSubmit(e)} className="chatCustomBtn">
                             บันทึก
                         </button>
-                        <button className="chatCustomBtn">ยกเลิก</button>
+                        {/* <button className="chatCustomBtn">ยกเลิก</button> */}
                     </div>
                     {/* </div> */}
                 </div>

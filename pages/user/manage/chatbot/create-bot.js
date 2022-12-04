@@ -129,6 +129,21 @@ const Createbot = () => {
     //   }
     // }
 
+    const onClear = () => {
+        setCampaignName('');
+            setTxtInboxComment('');
+            // setFileInboxComment('')
+            setIsInboxComment(false);
+            setTxtComment('');
+            // setFileComment('')
+            setIsComment(false);
+            setIsLikeComment(false);
+            setIsDuplicateComment(false);
+            setIsHideComment(false);
+            setWords([]);
+            setTags([]);
+            setHiddenWords([]);
+    }
     const onSelect = (id) => {
         // console.log(id);
         setPageID(id);
@@ -169,7 +184,7 @@ const Createbot = () => {
                         <button onClick={(e) => onSubmit(e)} className="chatCustomBtn">
                             บันทึก
                         </button>
-                        <button className="chatCustomBtn">ยกเลิก</button>
+                        <button onClick={()=> onClear()} className="chatCustomBtn">ยกเลิก</button>
                     </div>
                     {/* </div> */}
                 </div>

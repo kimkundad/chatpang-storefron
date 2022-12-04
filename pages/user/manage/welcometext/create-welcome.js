@@ -199,27 +199,27 @@ const CreateReplyKeyword = () => {
     };
 
     //* function handle text and image
-    const moveContentUp = (index, type) => {
-        let tempArr = [...imgAndImg];
-        let tempPreviewImg = [...previewImgs];
-        if (index > 0) {
-            const current = imgAndImg.splice(index, 1);
-            const currentImg = previewImgs.splice(index, 1);
-            if (index === imgAndImg.length) {
-                tempArr.copyWithin(index, index - 1);
-                tempArr.splice(index - 1, 1, current[0]);
-                tempPreviewImg.copyWithin(index, index - 1);
-                tempPreviewImg.splice(index - 1, 1, currentImg[0]);
-            } else {
-                tempArr.copyWithin(index, index - 1, index);
-                tempArr.splice(index - 1, 1, current[0]);
-                tempPreviewImg.copyWithin(index, index - 1, index);
-                tempPreviewImg.splice(index - 1, 1, currentImg[0]);
-            }
-            setPreviewImgs(tempPreviewImg);
-            setImgAndImg(tempArr);
-        }
-    };
+    // const moveContentUp = (index, type) => {
+    //     let tempArr = [...imgAndImg];
+    //     let tempPreviewImg = [...previewImgs];
+    //     if (index > 0) {
+    //         const current = imgAndImg.splice(index, 1);
+    //         const currentImg = previewImgs.splice(index, 1);
+    //         if (index === imgAndImg.length) {
+    //             tempArr.copyWithin(index, index - 1);
+    //             tempArr.splice(index - 1, 1, current[0]);
+    //             tempPreviewImg.copyWithin(index, index - 1);
+    //             tempPreviewImg.splice(index - 1, 1, currentImg[0]);
+    //         } else {
+    //             tempArr.copyWithin(index, index - 1, index);
+    //             tempArr.splice(index - 1, 1, current[0]);
+    //             tempPreviewImg.copyWithin(index, index - 1, index);
+    //             tempPreviewImg.splice(index - 1, 1, currentImg[0]);
+    //         }
+    //         setPreviewImgs(tempPreviewImg);
+    //         setImgAndImg(tempArr);
+    //     }
+    // };
     // const moveContentDown = (index, type) => {
     //     let tempArr = [...imgAndImg];
     //     let tempPreviewImg = [...previewImgs];

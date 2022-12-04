@@ -84,9 +84,10 @@ const Replykeyword = () => {
     };
 
     const onChangeStatus = async (index, item) => {
-        // console.log(id)
+        // console.log(index)
         let temp = [...data];
         temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
+        // console.log(temp);
         setData(temp);
     };
 
@@ -162,7 +163,7 @@ const Replykeyword = () => {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
             // console.log(res.data)
-            setData(res.data.data.results);
+            setData(res.data.data.results.filter(item => !item.keywords.includes('เริ่มต้น')));
         } catch (error) {
             console.log(error);
         }

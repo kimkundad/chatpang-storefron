@@ -97,7 +97,7 @@ const Chatbot = () => {
     };
 
     const onCheckAll = () => {
-        const Ids = data.map((item) => item.item._id);
+        const Ids = data.map((item) => item.id);
         if (itemList.length !== 0) {
             setItemList([]);
             setIsCheckAll(false);
@@ -114,7 +114,6 @@ const Chatbot = () => {
 
     const onChangeStatus = async (index, item) => {
         let temp = [...data];
-        // console.log(item);
         temp[index] = item.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
         setData(temp);
     };
