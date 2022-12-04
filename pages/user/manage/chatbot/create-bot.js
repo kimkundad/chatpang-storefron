@@ -195,7 +195,7 @@ const Createbot = () => {
                         <h5 className="ms-md-3 me-2">ข้อความตอบ<br />เข้าอินบ็อกซ์</h5>
                         <Switch style={{ width: 'fit-content' }} size="small" value={isInboxComment} onChange={(e) => setIsInboxComment(!isInboxComment)} />
                     </div>
-                    <div className="col-lg-7 commentInput">
+                    <div className="col-lg-9 commentInput">
                         {/* <TextArea
                             showCount
                             value={txtInboxComment}
@@ -246,7 +246,7 @@ const Createbot = () => {
                         <h5 className="ms-md-3 me-2">คอมเม้นต์ใต้โพสต์</h5>
                         <Switch style={{ width: 'fit-content' }} size="small" value={isComment} onChange={() => setIsComment(!isComment)} />
                     </div>
-                    <div className="col-lg-7 commentInput">
+                    <div className="col-lg-9 commentInput">
                         {/* <TextArea
                             showCount
                             value={txtComment}

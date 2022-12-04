@@ -229,7 +229,7 @@ const Edit = () => {
                             checked={isInboxComment}
                         />
                     </div>
-                    <div className="col-lg-7 commentInput">
+                    <div className="col-lg-9 commentInput">
                         <textarea
                             value={txtInboxComment}
                             onChange={(e) => setTxtInboxComment(e.target.value)}
@@ -271,7 +271,7 @@ const Edit = () => {
                         <h5 className="ms-md-3 me-2">คอมเม้นต์ใต้โพสต์</h5>
                         <Switch style={{ width: 'fit-content' }} size="small" value={isComment} onChange={() => setIsComment(!isComment)} checked={isComment} />
                     </div>
-                    <div className="col-lg-7 commentInput">
+                    <div className="col-lg-9 commentInput">
                         {/* <TextArea
                             showCount
                             value={txtComment}
