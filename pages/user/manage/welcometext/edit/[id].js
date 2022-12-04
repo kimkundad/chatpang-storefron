@@ -540,9 +540,9 @@ const Edit = () => {
                         <button onClick={(e) => prepImgAndText(e,onSubmit)} className="chatCustomBtn">
                             บันทึก
                         </button>
-                        <button onClick={onClear} className="chatCustomBtn">
+                        {/* <button onClick={onClear} className="chatCustomBtn">
                             ยกเลิก
-                        </button>
+                        </button> */}
                     </div>
                     {/* <div className="col-md-4 text-md-end text-start">
                         <strong className="me-3">Keywords</strong>
