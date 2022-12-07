@@ -19,11 +19,11 @@ const Linenoti = () => {
     const { user } = useUser();
     const router = useRouter();
 
-    const [pageID, setPageID] = useState([user?.pages[0]?.page_id]);
+    const [pageID, setPageID] = useState([user?.pages[0]?.id]);
     const [lineName, setLineName] = useState('');
     const [lineAccessToken, setLineAccessToken] = useState('');
     const [lineTimer, setLineTimer] = useState(0);
-    // console.log(user);
+    // console.log(user?.pages);
     // console.log(pageID);
     const { Option } = Select;
     const [timeUnit, setTimeUnit] = useState('m');

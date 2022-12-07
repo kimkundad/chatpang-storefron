@@ -85,7 +85,7 @@ const Pagemanagement = () => {
             const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
                 headers: { Authorization: 'Bearer ' + user?.accessToken },
             });
-            // console.log(res4.data)
+            console.log(res4.data)
             await setUserData({
                 ...user,
                 order: res2.data.data,
@@ -131,11 +131,11 @@ const Pagemanagement = () => {
         // console.log(id)
         let temp = [...data];
         // temp[index].status = status ? 'inactive' : 'active'
-        temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
+        temp[index] = item?.status === 'active' ? await setStatusInActive(item.id, item) : await setStatusActive(item.id, item);
         setData(temp);
     };
 
-    const setStatusActive = async (id) => {
+    const setStatusActive = async (id,item) => {
         try {
             const res = await axios.patch(
                 `/public/facebook-pages/${id}/active`,
@@ -149,12 +149,17 @@ const Pagemanagement = () => {
             return res.data.data;
         } catch (error) {
             console.log(error);
-            setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' });
+            if (error.response.data.message === "Pages amount is exceeded") {
+                setToastData({ type: 'Danger', text: "จำนวนเพจที่ active เต็มเเล้ว ไม่สามารถ active เพิ่มได้" });
+            } else {
+                setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' });
+            }
             toggleShow();
+            return item
         }
     };
 
-    const setStatusInActive = async (id) => {
+    const setStatusInActive = async (id, item) => {
         try {
             const res = await axios.patch(
                 `/public/facebook-pages/${id}/inactive`,
@@ -168,8 +173,13 @@ const Pagemanagement = () => {
             return res.data.data;
         } catch (error) {
             console.log(error);
-            setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' });
+            if (error.response.data.message === "Pages amount is exceeded") {
+                setToastData({ type: 'Danger', text: "จำนวนเพจที่ active เต็มเเล้ว ไม่สามารถ active เพิ่มได้" });
+            } else {
+                setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' });
+            }
             toggleShow();
+            return item
         }
     };
 
