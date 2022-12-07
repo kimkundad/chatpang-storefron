@@ -398,7 +398,8 @@ const Edit = () => {
                     <div key={index} className="row g-md-3 createContainer">
                         {/* <> */}
                         <div className="col-md-3 col-xs-12 commentHeader">
-                            <strong className="ms-md-3 me-auto me-md-0">ข้อความ ({index + 1})</strong>
+                            {/* <strong className="ms-md-3 me-auto me-md-0">ข้อความ ({index + 1})</strong> */}
+                            <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
                         </div>
                         <div className="col-md-6 col-9 commentInput">
                             <textarea
@@ -411,7 +412,8 @@ const Edit = () => {
                             />
                             <div className="text-secondary text-end">{content?.content?.length}/200</div>
                         </div>
-                        <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+                        {/* เอาออกเพื่อยืนยันกับลูกค้าก่อนว่าโอเคมั้ย */}
+                        {/* <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                             <div className="h-auto d-flex flex-column me-4">
                                 <span>
                                     <KeyboardArrowUpIcon onClick={() => moveContentUp(index, content.type)} />
@@ -425,7 +427,7 @@ const Edit = () => {
                                     <DeleteIcon onClick={() => onDeleteContent(index)} />
                                 </span>
                             </div>
-                        </div>
+                        </div> */}
                         {/* </> */}
                     </div>
                 );
@@ -433,7 +435,8 @@ const Edit = () => {
                 return (
                     <div key={index} className="row g-md-3 createContainer">
                         <div className="col-md-3 col-xs-12 commentHeader">
-                            <strong className="ms-md-3 me-auto me-md-0">รูป ({index + 1})</strong>
+                            {/* <strong className="ms-md-3 me-auto me-md-0">รูป ({index + 1})</strong> */}
+                            <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
                         </div>
                         <div className="col-md-6 col-9 commentInput">
                             {content.content !== '' ? (
@@ -450,7 +453,8 @@ const Edit = () => {
                                 </>
                             )}
                         </div>
-                        <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+                        {/* เอาออกเพื่อยืนยันกับลูกค้าก่อนว่าโอเคมั้ย */}
+                        {/* <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                             <div className="d-flex flex-column me-4">
                                 <span>
                                     <KeyboardArrowUpIcon onClick={() => moveContentUp(index, content.type)} />
@@ -464,7 +468,7 @@ const Edit = () => {
                                     <DeleteIcon onClick={() => onDeleteContent(index)} />
                                 </span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 );
             }
@@ -556,7 +560,8 @@ const Edit = () => {
                 <Divider />
                 {renderImageInput()} */}
                 {renderAllContent()}
-                <Divider />
+                {/* เอาออกเพื่อยืนยันกับลูกค้าก่อนว่าโอเคมั้ย */}
+                {/* <Divider />
                 <div className="row g-3 justify-content-center">
                     <div className="col-md-4 replyButtonContainer">
                         <button onClick={addTextContent} className="replyCustomBtn">
@@ -570,7 +575,7 @@ const Edit = () => {
                             <span>เพิ่มรูปภาพ</span>
                         </button>
                     </div>
-                </div>
+                </div> */}
             </KeywordStyle>
         </UserLayout>
     );
