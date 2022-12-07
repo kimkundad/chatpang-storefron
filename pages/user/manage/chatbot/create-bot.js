@@ -166,7 +166,7 @@ const Createbot = () => {
                             <span className="text-uppercase userDropdown">
                                 {/* <Avatar className="me-2" icon={<FontAwesomeIcon icon={faUser} />} />
                   Board pang */}
-                                <PageDropdown onSelect={onSelect} />
+                                <PageDropdown defaultValue={pageID} onSelect={onSelect} />
                             </span>
                         </div>
                     </div>

@@ -486,7 +486,7 @@ const CreateReplyKeyword = () => {
                                 <span className="textBTN">ย้อนกลับ</span>
                             </span>
                             <span className="text-uppercase userDropdown">
-                                <PageDropdown onSelect={onSelect} />
+                                <PageDropdown defaultValue={pageID} onSelect={onSelect} />
                             </span>
                         </div>
                     </div>

@@ -66,7 +66,7 @@ const Pagemanagement = () => {
         console.log('add pages');
         router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages');
     };
-    // console.log(user);
+    console.log(user);
 
     const getPurchaseData = async () => {
         try {
@@ -85,7 +85,7 @@ const Pagemanagement = () => {
             const res4 = await axios.get(`/public/facebook-pages/${user.userId}/facebook-user`, {
                 headers: { Authorization: 'Bearer ' + user?.accessToken },
             });
-            console.log(res4.data)
+            // console.log(res4.data)
             await setUserData({
                 ...user,
                 order: res2.data.data,
@@ -101,30 +101,59 @@ const Pagemanagement = () => {
         }
     };
     const renderTable = () => {
-        return data.map((item, index) => {
-            return (
-                <tr key={index}>
-                    <td className="text-center">
-                        <span>{item?.status}</span>
-                        <Form.Check
-                            type="switch"
-                            checked={item?.status === 'active'}
-                            // label={item.status}
-                            onChange={() => onChangeStatus(index, item)}
-                        />
-                    </td>
-                    <td>{item?.name}</td>
-                    {/* <td>{item?.name}</td> */}
-                    <td>
-                        <div>
-                            {/* <span onClick={() => onDeletePage(item.id)} className="userEditButton"> */}
-                            <DeleteIcon onClick={() => onDeletePage(item.id)} style={{ cursor: 'pointer' }} className="text-danger" />
-                            {/* </span> */}
-                        </div>
-                    </td>
-                </tr>
-            );
-        });
+        // if (user?.user?.pages === user?.user?.order?.package?.page_limit) {
+        //     return data.map((item, index) => {
+        //         return (
+        //             item?.status === 'active' && (
+        //                 <tr key={index}>
+        //                     <td className="text-center">
+        //                         <span>{item?.status}</span>
+        //                         <Form.Check
+        //                             type="switch"
+        //                             checked={item?.status === 'active'}
+        //                             // label={item.status}
+        //                             onChange={() => onChangeStatus(index, item)}
+        //                         />
+        //                     </td>
+        //                     <td>{item?.name}</td>
+        //                     {/* <td>{item?.name}</td> */}
+        //                     <td>
+        //                         <div>
+        //                             {/* <span onClick={() => onDeletePage(item.id)} className="userEditButton"> */}
+        //                             <DeleteIcon onClick={() => onDeletePage(item.id)} style={{ cursor: 'pointer' }} className="text-danger" />
+        //                             {/* </span> */}
+        //                         </div>
+        //                     </td>
+        //                 </tr>
+        //             )
+        //         );
+        //     });
+        // } else {
+            return data.map((item, index) => {
+                return (
+                    <tr key={index}>
+                        <td className="text-center">
+                            <span>{item?.status}</span>
+                            <Form.Check
+                                type="switch"
+                                checked={item?.status === 'active'}
+                                // label={item.status}
+                                onChange={() => onChangeStatus(index, item)}
+                            />
+                        </td>
+                        <td>{item?.name}</td>
+                        {/* <td>{item?.name}</td> */}
+                        <td>
+                            <div>
+                                {/* <span onClick={() => onDeletePage(item.id)} className="userEditButton"> */}
+                                <DeleteIcon onClick={() => onDeletePage(item.id)} style={{ cursor: 'pointer' }} className="text-danger" />
+                                {/* </span> */}
+                            </div>
+                        </td>
+                    </tr>
+                );
+            });
+        // }
     };
 
     const onChangeStatus = async (index, item) => {
@@ -135,7 +164,7 @@ const Pagemanagement = () => {
         setData(temp);
     };
 
-    const setStatusActive = async (id,item) => {
+    const setStatusActive = async (id, item) => {
         try {
             const res = await axios.patch(
                 `/public/facebook-pages/${id}/active`,
@@ -149,13 +178,13 @@ const Pagemanagement = () => {
             return res.data.data;
         } catch (error) {
             console.log(error);
-            if (error.response.data.message === "Pages amount is exceeded") {
-                setToastData({ type: 'Danger', text: "จำนวนเพจที่ active เต็มเเล้ว ไม่สามารถ active เพิ่มได้" });
+            if (error.response.data.message === 'Pages amount is exceeded') {
+                setToastData({ type: 'Danger', text: 'จำนวนเพจที่ active เต็มเเล้ว ไม่สามารถ active เพิ่มได้' });
             } else {
                 setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' });
             }
             toggleShow();
-            return item
+            return item;
         }
     };
 
@@ -173,25 +202,25 @@ const Pagemanagement = () => {
             return res.data.data;
         } catch (error) {
             console.log(error);
-            if (error.response.data.message === "Pages amount is exceeded") {
-                setToastData({ type: 'Danger', text: "จำนวนเพจที่ active เต็มเเล้ว ไม่สามารถ active เพิ่มได้" });
+            if (error.response.data.message === 'Pages amount is exceeded') {
+                setToastData({ type: 'Danger', text: 'จำนวนเพจที่ active เต็มเเล้ว ไม่สามารถ active เพิ่มได้' });
             } else {
                 setToastData({ type: 'Danger', text: 'ไม่สามารถอัพเดตสถานะได้' });
             }
             toggleShow();
-            return item
+            return item;
         }
     };
 
-    const genQuantiy= (data) => {
+    const genQuantiy = (data) => {
         if (data > 999999) {
-            return (data / 1000000)+"M"
+            return data / 1000000 + 'M';
         } else if (data > 999) {
-            return (data / 1000)+"K"
+            return data / 1000 + 'K';
         } else {
-            return data
+            return data;
         }
-    }
+    };
 
     useEffect(() => {
         let isCancel = false;
@@ -207,37 +236,37 @@ const Pagemanagement = () => {
         <UserLayout>
             <InfoStyle>
                 {/* <div className="content"> */}
-                    <div className="row">
-                        <div className="col-12">
-                            <ToastContainer position="top-end" className="toast-container">
-                                <CusToasts show={show} toggleShow={toggleShow} type={toastData.type} text={toastData.text} />
-                            </ToastContainer>
-                            <div className="numberComment d-flex flex-column justify-content-center align-items-center">
-                                {quotaInfo ? (
-                                    <>
-                                        <strong>
-                                            {genQuantiy(quotaInfo.total_current_reply)} / {genQuantiy(quotaInfo.total_quota_limit)}
-                                        </strong>
-                                        <span>จำนวนการทำงานของ BOT</span>
-                                    </>
-                                ) : (
-                                    <span>ไม่มีข้อมูล</span>
-                                )}
-                            </div>
+                <div className="row">
+                    <div className="col-12">
+                        <ToastContainer position="top-end" className="toast-container">
+                            <CusToasts show={show} toggleShow={toggleShow} type={toastData.type} text={toastData.text} />
+                        </ToastContainer>
+                        <div className="numberComment d-flex flex-column justify-content-center align-items-center">
+                            {quotaInfo ? (
+                                <>
+                                    <strong>
+                                        {genQuantiy(quotaInfo.total_current_reply)} / {genQuantiy(quotaInfo.total_quota_limit)}
+                                    </strong>
+                                    <span>จำนวนการทำงานของ BOT</span>
+                                </>
+                            ) : (
+                                <span>ไม่มีข้อมูล</span>
+                            )}
                         </div>
-                        <div className="col-12">
-                            {/* {user?.user?.pages !== 0 ? ( */}
-                            <Button
-                                style={{ fontSize: '1rem', height: 'fit-content', width: '190px' }}
-                                className="my-4 d-flex justify-content-center align-items-center"
-                                type="primary"
-                                icon={<SettingOutlined />}
-                                onClick={() => onAddPage()}
-                                // disabled={isAddAble}
-                            >
-                                เพิ่มหรือลบเพจ
-                            </Button>
-                            {/* ) : (
+                    </div>
+                    <div className="col-12">
+                        {/* {user?.user?.pages !== 0 ? ( */}
+                        <Button
+                            style={{ fontSize: '1rem', height: 'fit-content', width: '190px' }}
+                            className="my-4 d-flex justify-content-center align-items-center"
+                            type="primary"
+                            icon={<SettingOutlined />}
+                            onClick={() => onAddPage()}
+                            // disabled={isAddAble}
+                        >
+                            เพิ่มหรือลบเพจ
+                        </Button>
+                        {/* ) : (
               <Button
                 style={{ fontSize: '1.5rem', height: 'fit-content', width: 'auto' }}
                 className="my-4 d-flex justify-content-center align-items-center"
@@ -248,25 +277,26 @@ const Pagemanagement = () => {
                 ขออนุญาตเข้าถึงเพจจาก Facebook
               </Button>
             )} */}
-                        </div>
-                        <span className="text-secondary fs-5">กดเลือกเพจทำการตั้งค่าการตอบคอมเม้นต์ และดึงคอมเม้นต์เข้า inbox</span>
                     </div>
-                    <div className="row">
-                        <div className="table-responsive">
-                            {/* <Table dataSource={data} columns={column} bordered /> */}
-                            <Table bordered>
-                                <thead>
-                                    <tr>
-                                        <th className="text-center">สถานะ</th>
-                                        <th>เพจของคุณ ({data?.length})</th>
-                                        {/* <th>คอมเม้นต์</th> */}
-                                        <th>จัดการ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>{renderTable()}</tbody>
-                            </Table>
-                        </div>
+                    {/* <span>คุณได้เลือก {user?.user?.pages} / {user?.user?.order?.package?.page_limit} เพจ</span> */}
+                    <span className="text-secondary fs-5">กดเลือกเพจทำการตั้งค่าการตอบคอมเม้นต์ และดึงคอมเม้นต์เข้า inbox</span>
+                </div>
+                <div className="row">
+                    <div className="table-responsive">
+                        {/* <Table dataSource={data} columns={column} bordered /> */}
+                        <Table bordered>
+                            <thead>
+                                <tr>
+                                    <th className="text-center">สถานะ</th>
+                                    <th>เพจของคุณ ({data?.length})</th>
+                                    {/* <th>คอมเม้นต์</th> */}
+                                    <th>จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>{renderTable()}</tbody>
+                        </Table>
                     </div>
+                </div>
                 {/* </div> */}
             </InfoStyle>
         </UserLayout>
