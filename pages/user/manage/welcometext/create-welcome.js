@@ -16,7 +16,7 @@ import TagsInput from '../../../../components/tagsinput/TagsInput';
 import UserLayout from '../../../../components/layouts/userLayout/userLayout';
 import KeywordStyle from './style';
 
-const CreateReplyKeyword = () => {
+const CreateWelcome = () => {
     const router = useRouter();
     const { user } = useUser();
     const [pageID, setPageID] = useState(router.query.pageId);
@@ -52,7 +52,7 @@ const CreateReplyKeyword = () => {
         };
         // console.log(data)
         try {
-            const res = await axios.post('/auto-replies', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } });
+            const res = await axios.post('/greeting-messages', data, { headers: { Authorization: `Bearer ${user?.accessToken}` } });
             // console.log(res.data)
             setIsSuccess({
                 show: true,
@@ -199,70 +199,70 @@ const CreateReplyKeyword = () => {
     };
 
     //* function handle text and image
-    // const moveContentUp = (index, type) => {
-    //     let tempArr = [...imgAndImg];
-    //     let tempPreviewImg = [...previewImgs];
-    //     if (index > 0) {
-    //         const current = imgAndImg.splice(index, 1);
-    //         const currentImg = previewImgs.splice(index, 1);
-    //         if (index === imgAndImg.length) {
-    //             tempArr.copyWithin(index, index - 1);
-    //             tempArr.splice(index - 1, 1, current[0]);
-    //             tempPreviewImg.copyWithin(index, index - 1);
-    //             tempPreviewImg.splice(index - 1, 1, currentImg[0]);
-    //         } else {
-    //             tempArr.copyWithin(index, index - 1, index);
-    //             tempArr.splice(index - 1, 1, current[0]);
-    //             tempPreviewImg.copyWithin(index, index - 1, index);
-    //             tempPreviewImg.splice(index - 1, 1, currentImg[0]);
-    //         }
-    //         setPreviewImgs(tempPreviewImg);
-    //         setImgAndImg(tempArr);
-    //     }
-    // };
-    // const moveContentDown = (index, type) => {
-    //     let tempArr = [...imgAndImg];
-    //     let tempPreviewImg = [...previewImgs];
-    //     if (index !== imgAndImg.length - 1) {
-    //         const current = imgAndImg.splice(index, 1);
-    //         const currentImg = previewImgs.splice(index, 1);
-    //         if (index !== 0) {
-    //             tempArr.copyWithin(index, index + 1);
-    //             tempArr.splice(index + 1, 1, current[0]);
-    //             tempPreviewImg.copyWithin(index, index + 1);
-    //             tempPreviewImg.splice(index + 1, 1, currentImg[0]);
-    //         } else {
-    //             tempArr.copyWithin(index, index + 1, 2);
-    //             tempArr.splice(index + 1, 1, current[0]);
-    //             tempPreviewImg.copyWithin(index, index + 1, 2);
-    //             tempPreviewImg.splice(index + 1, 1, currentImg[0]);
-    //         }
-    //         setPreviewImgs(tempPreviewImg);
-    //         setImgAndImg(tempArr);
-    //     }
-    // };
+    const moveContentUp = (index, type) => {
+        let tempArr = [...imgAndImg];
+        let tempPreviewImg = [...previewImgs];
+        if (index > 0) {
+            const current = imgAndImg.splice(index, 1);
+            const currentImg = previewImgs.splice(index, 1);
+            if (index === imgAndImg.length) {
+                tempArr.copyWithin(index, index - 1);
+                tempArr.splice(index - 1, 1, current[0]);
+                tempPreviewImg.copyWithin(index, index - 1);
+                tempPreviewImg.splice(index - 1, 1, currentImg[0]);
+            } else {
+                tempArr.copyWithin(index, index - 1, index);
+                tempArr.splice(index - 1, 1, current[0]);
+                tempPreviewImg.copyWithin(index, index - 1, index);
+                tempPreviewImg.splice(index - 1, 1, currentImg[0]);
+            }
+            setPreviewImgs(tempPreviewImg);
+            setImgAndImg(tempArr);
+        }
+    };
+    const moveContentDown = (index, type) => {
+        let tempArr = [...imgAndImg];
+        let tempPreviewImg = [...previewImgs];
+        if (index !== imgAndImg.length - 1) {
+            const current = imgAndImg.splice(index, 1);
+            const currentImg = previewImgs.splice(index, 1);
+            if (index !== 0) {
+                tempArr.copyWithin(index, index + 1);
+                tempArr.splice(index + 1, 1, current[0]);
+                tempPreviewImg.copyWithin(index, index + 1);
+                tempPreviewImg.splice(index + 1, 1, currentImg[0]);
+            } else {
+                tempArr.copyWithin(index, index + 1, 2);
+                tempArr.splice(index + 1, 1, current[0]);
+                tempPreviewImg.copyWithin(index, index + 1, 2);
+                tempPreviewImg.splice(index + 1, 1, currentImg[0]);
+            }
+            setPreviewImgs(tempPreviewImg);
+            setImgAndImg(tempArr);
+        }
+    };
 
-    // const onDeleteContent = (index) => {
-    //     let temp1 = [...imgAndImg];
-    //     temp1.splice(index, 1);
-    //     setImgAndImg(temp1);
+    const onDeleteContent = (index) => {
+        let temp1 = [...imgAndImg];
+        temp1.splice(index, 1);
+        setImgAndImg(temp1);
 
-    //     let temp2 = [...previewImgs];
-    //     temp2.splice(index, 1);
-    //     setPreviewImgs(temp2);
-    // };
-    // const addTextContent = () => {
-    //     let tempArr = [...imgAndImg];
-    //     tempArr.push({ type: 'text', content: '' });
-    //     setImgAndImg(tempArr);
-    //     setPreviewImgs([...previewImgs, '']);
-    // };
-    // const addImgContent = () => {
-    //     let tempArr = [...imgAndImg];
-    //     tempArr.push({ type: 'img', content: '' });
-    //     setImgAndImg(tempArr);
-    //     setPreviewImgs([...previewImgs, '']);
-    // };
+        let temp2 = [...previewImgs];
+        temp2.splice(index, 1);
+        setPreviewImgs(temp2);
+    };
+    const addTextContent = () => {
+        let tempArr = [...imgAndImg];
+        tempArr.push({ type: 'text', content: '' });
+        setImgAndImg(tempArr);
+        setPreviewImgs([...previewImgs, '']);
+    };
+    const addImgContent = () => {
+        let tempArr = [...imgAndImg];
+        tempArr.push({ type: 'img', content: '' });
+        setImgAndImg(tempArr);
+        setPreviewImgs([...previewImgs, '']);
+    };
     // * new table
     const renderAllContent = () => {
         return imgAndImg.map((content, index) => {
@@ -270,9 +270,9 @@ const CreateReplyKeyword = () => {
                 return (
                     <div key={index} className="row g-md-3 createContainer">
                         <div className="col-md-3 col-xs-12 commentHeader">
-                            <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
+                            <strong className="ms-md-3 me-auto me-md-0">ข้อความ ({index + 1})</strong>
                         </div>
-                        <div className="col-md-8 col-9 commentInput">
+                        <div className="col-md-6 col-6 commentInput">
                             <textarea
                                 value={content.content}
                                 onChange={(e) => onHandleChangeDetail(e, index)}
@@ -283,7 +283,7 @@ const CreateReplyKeyword = () => {
                             />
                             <div className="text-secondary text-end">{content?.content?.length}/200</div>
                         </div>
-                        {/* <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+                        <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                             <div className="h-auto d-flex flex-column me-4">
                                 <span>
                                     <KeyboardArrowUpIcon onClick={() => moveContentUp(index, content.type)} />
@@ -297,16 +297,16 @@ const CreateReplyKeyword = () => {
                                     <DeleteIcon onClick={() => onDeleteContent(index)} />
                                 </span>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 );
             } else {
                 return (
                     <div key={index} className="row g-md-3 createContainer">
                         <div className="col-md-3 col-xs-12 commentHeader">
-                            <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
+                            <strong className="ms-md-3 me-auto me-md-0">รูป ({index + 1})</strong>
                         </div>
-                        <div className="col-md-8 col-9 commentInput">
+                        <div className="col-md-6 col-6 commentInput">
                             {content.content !== '' ? (
                                 <div onClick={() => onClearImg(index)} className="uploadIMG">
                                     <img src={previewImgs[index]} alt="img" />
@@ -321,7 +321,7 @@ const CreateReplyKeyword = () => {
                                 </>
                             )}
                         </div>
-                        {/* <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+                        <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                             <div className="d-flex flex-column me-4">
                                 <span>
                                     <KeyboardArrowUpIcon onClick={() => moveContentUp(index, content.type)} />
@@ -335,7 +335,7 @@ const CreateReplyKeyword = () => {
                                     <DeleteIcon onClick={() => onDeleteContent(index)} />
                                 </span>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 );
             }
@@ -390,7 +390,7 @@ const CreateReplyKeyword = () => {
                 <Divider />
                 {renderImageInput()} */}
                 {renderAllContent()}
-                {/* <Divider />
+                <Divider />
                 <div className="row g-3 justify-content-center">
                     <div className="col-6 replyButtonContainer">
                         <button onClick={addTextContent} className="replyCustomBtn">
@@ -404,10 +404,10 @@ const CreateReplyKeyword = () => {
                             <span>เพิ่มรูปภาพ</span>
                         </button>
                     </div>
-                </div> */}
+                </div>
             </KeywordStyle>
         </UserLayout>
     );
 };
 
-export default CreateReplyKeyword;
+export default CreateWelcome;

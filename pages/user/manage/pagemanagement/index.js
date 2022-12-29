@@ -66,7 +66,6 @@ const Pagemanagement = () => {
         console.log('add pages');
         router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages');
     };
-    console.log(user);
 
     const getPurchaseData = async () => {
         try {
@@ -264,7 +263,7 @@ const Pagemanagement = () => {
                             onClick={() => onAddPage()}
                             // disabled={isAddAble}
                         >
-                            เพิ่มหรือลบเพจ
+                            เพิ่มเพจ
                         </Button>
                         {/* ) : (
               <Button

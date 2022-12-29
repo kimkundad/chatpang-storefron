@@ -58,25 +58,10 @@ const Welcometext = () => {
         }
     };
 
-    // const onDelete = async () => {
-    //     try {
-    //         for (const id of itemList) {
-    //             const res = await axios.delete(`/greeting-messages/${id}`, {
-    //                 headers: { Authorization: `Bearer ${user?.accessToken}` },
-    //             });
-    //             // console.log(res.data)
-    //             setData((prev) => prev.filter((item) => item.id !== id));
-    //         }
-    //         setItemList([]);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
     const onDelete = async () => {
         try {
             for (const id of itemList) {
-                const res = await axios.delete(`/auto-replies/${id}`, {
+                const res = await axios.delete(`/greeting-messages/${id}`, {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
                 });
                 // console.log(res.data)
@@ -100,14 +85,13 @@ const Welcometext = () => {
     };
     const onChangeStatus = async (index, item) => {
         let temp = [...data];
-        console.log(index)
         temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
         setData(temp);
     };
     const setStatusActive = async (id) => {
         try {
             const res = await axios.patch(
-                `/auto-replies/${id}/active`,
+                `/greeting-messages/${id}/active`,
                 { id: id },
                 {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
@@ -122,7 +106,7 @@ const Welcometext = () => {
         const setStatusInActive = async (id) => {
             try {
                 const res = await axios.patch(
-                    `/auto-replies/${id}/inactive`,
+                    `/greeting-messages/${id}/inactive`,
                     { id: id },
                 {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
@@ -139,7 +123,7 @@ const Welcometext = () => {
             setPageID(id);
         };
         const campaignsList = useMemo (()=>{
-            return data.filter((campaign) => campaign.page === pageID && campaign.keywords.includes("เริ่มต้น"))
+            return data.filter((campaign) => campaign.page === pageID)
         },[pageID, data])
         
         
@@ -174,11 +158,10 @@ const Welcometext = () => {
     };
     const getReceptionList = async () => {
         try {
-            const res = await axios.get(`/auto-replies/${user?.user?.id}/facebook-user`, {
+            const res = await axios.get(`/greeting-messages/${user?.user?.id}/facebook-user`, {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
-            });
-            // console.log(res.data)
-            setData(res.data.data.results.filter(item => item.keywords.includes('เริ่มต้น')));
+            });           
+            setData(res.data.data.results);
         } catch (error) {
             console.log(error);
         }
