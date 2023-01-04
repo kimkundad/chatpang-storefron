@@ -165,7 +165,7 @@ const Credit = () => {
             console.log(res.data);
             // let user = {user:{id:"634ea0182a1c12b1c62ee778"}}
             const { card, resultCode } = res.data;
-            const token = card.toekn
+            const token = card.token
             let referenceNo = user.order.id
             const date = new Date()
             // let referenceNo = date.toLocaleDateString().split("/").join("")
