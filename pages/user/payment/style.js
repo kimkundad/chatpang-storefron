@@ -83,6 +83,26 @@ const PaymentStyle = styled.div`
     .customBTN:focus {
         background-color: ${color.RED_COLOR_1};
     }
+
+    //xs mobile
+  @media screen and (max-width: 575px) {
+    .invoice-item{
+        width:90%;
+    }
+    .customBTN {}
+  }
+
+  //sm tablet
+  @media screen and (min-width: 576px) and (max-width: 767px) {
+  }
+
+  //md extra tablet
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+  }
+
+  //xl notebook
+  @media screen and (min-width: 992px) and (max-width: 1200px) {
+  }
 `;
 
 export default PaymentStyle;

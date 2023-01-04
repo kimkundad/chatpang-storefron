@@ -9,6 +9,7 @@ import axios from '../../api/axios';
 
 import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
 import PaymentStyle from './style';
+import { Divider } from '@mui/material';
 
 const Paymentoptions = () => {
     // const router = useRouter()
@@ -30,7 +31,7 @@ const Paymentoptions = () => {
         }
     };
     useEffect(() => {
-        getOrderData();
+        user.order.id && getOrderData();
     }, []);
     return (
         <MainLayout navHeight={navHeight}>
@@ -43,21 +44,22 @@ const Paymentoptions = () => {
                 </div>
                 <div className="row justify-content-center">
                     {/* เอาออกเพื่อยืนยันกับลูกค้าก่อนว่าโอเคมั้ย */}
-                    {/* <div style={{ fontSize: '1.2rem' }} className="col-md-3 col-12 text-center">
-                        <input type="checkbox" id="method1" name="card" onChange={(e) => onChangeMethod(e)} checked={!method} disabled={true} />
+                    <div style={{ fontSize: '1.2rem' }} className="col-md-4 col-12 text-md-center">
+                        <input type="checkbox" id="method1" name="card" onChange={(e) => onChangeMethod(e)} checked={!method} />
                         <label className="ms-2" htmlFor="method1">
                             Credit card / Debit card
                         </label>
-                    </div> */}
-                    <div style={{ fontSize: '1.2rem' }} className="col-md-3 col-12 text-center">
+                    </div>
+                    <div style={{ fontSize: '1.2rem' }} className="col-md-3 col-12 text-md-center">
                         <input type="checkbox" id="method2" name="method" onChange={() => onChangeMethod()} checked={method} />
                         <label className="ms-2" htmlFor="method2">
                             QR CODE
                         </label>
                     </div>
                 </div>
-                {/* {method ? <QRcode /> : <Credit />} */}
-                <QRcode />
+                <Divider />
+                {method ? <QRcode /> : <Credit />}
+                {/* <QRcode /> */}
                 {/* </div> */}
             </PaymentStyle>
         </MainLayout>

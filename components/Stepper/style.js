@@ -61,11 +61,13 @@ const StepperStyle = styled.div`
             padding-left:14px;
         }
         li.breadcrumb-item div {
-            padding: 10px  4px 10px 0px;
+            padding: 10px  6px 10px 0px;
+            margin-left:6px;
         }
         li.breadcrumb-item div .icon {
         margin:0 5px;
         /* font-size:0.8rem; */
+        display:none;
     }
     }
     //sm tablet

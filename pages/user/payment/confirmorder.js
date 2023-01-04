@@ -7,6 +7,7 @@ import useUser from '../../../Hooks/useUser'
 
 import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
 import PaymentStyle from './style';
+import { Box } from '@mui/material';
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
@@ -16,6 +17,7 @@ const Confirmorder = () => {
     // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
     router.replace('/user/manage/pagemanagement')
   }
+
   return (
     <MainLayout>
       <PaymentStyle navHeight={navHeight}>
@@ -83,16 +85,16 @@ const Confirmorder = () => {
             </div>
           </div>
         </div>
-        <div className="row justify-content-center">
-          <div style={{ width: '50%' }} className="col-12 d-flex justify-content-end mt-3">
+        {/* <div className="row justify-content-center"> */}
+          <Box display="flex" justifyContent="end" sx={{ width:{xs:'90%', md:'50%'}, margin:"0px auto"}} className="d-flex justify-content-end mt-3">
             <span onClick={() => router.back()} className="btn text-secondary">
               ย้อนกลับ
             </span>
             <button onClick={() => onsubmit()} className="customBTN">
               ต่อไป
             </button>
-          </div>
-        </div>
+          </Box>
+        {/* </div> */}
       </PaymentStyle>
     </MainLayout>
   )
