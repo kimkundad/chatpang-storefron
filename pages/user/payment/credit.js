@@ -5,6 +5,7 @@ import useUser from '../../../Hooks/useUser';
 import { Form } from 'react-bootstrap';
 import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
 import axios from 'axios';
+import qs from 'querystring'
 const Credit = () => {
     const router = useRouter();
     const { user, setUserData } = useUser();
@@ -188,7 +189,7 @@ const Credit = () => {
                 const { gbpReferenceNo, resultCode, resultMessage } = gbRes.data;
                 console.log(gbRes);
                 if (resultCode === '00') {
-                    const req3DData = JSON.stringify({
+                    const req3DData = qs.stringify({
                         publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y',
                         gbpReferenceNo: gbpReferenceNo,
                     });
