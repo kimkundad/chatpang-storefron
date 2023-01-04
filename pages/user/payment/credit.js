@@ -9,7 +9,6 @@ import qs from 'querystring'
 const Credit = () => {
     const router = useRouter();
     const { user, setUserData } = useUser();
-    var doc = new DOMParser()
     const [html, sethtml] = useState('')
     const [open, setOpen] = useState(false);
     const [done, setDone] = useState({ isDone: false, text: '', isError: false });
@@ -200,7 +199,7 @@ const Credit = () => {
                         },
                     });
                     const { resultCode } = res3D.data;
-                    console.log(res3D.data);
+                    // console.log(res3D.data);
                     var myWindow = window.open("", "");
                     myWindow.document.write(res3D.data)
                     // if (resultCode === '00') {
