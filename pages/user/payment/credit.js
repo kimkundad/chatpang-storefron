@@ -163,48 +163,46 @@ const Credit = () => {
                 },
             });
             console.log(res.data);
-            // let user = {user:{id:"634ea0182a1c12b1c62ee778"}}
             const { card, resultCode } = res.data;
-            const token = card.token
-            let referenceNo = user.order.id
-            const date = new Date()
-            // let referenceNo = date.toLocaleDateString().split("/").join("")
-            // if (referenceNo.length === 7) {
-            //     referenceNo = referenceNo + user.user?.id.substring(user.user?.id.length - 9 , user.user?.id.length -1)
-            // }else{
-            //     referenceNo = referenceNo + user.user?.id.substring(user.user?.id.length - 10 , user.user?.id.length -1)
-            // }
+            const token = card.token;
+            let referenceNo = user.order.id;
             // 00 = สำเร็จ, 02 = ข้อมูลไม่ถูกต้อง, 54 = บัตรหมดอายุ
             // amount = user.order.net
             if (resultCode === '00') {
                 const paymentData = JSON.stringify({
                     amount: user.order.net,
-                    referenceNo:referenceNo,
-                    otp:'Y',
-                    backgroundUrl:'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',
-                    responseUrl:'https://chatpang.com/user/payment/confirmorder',
-                    card:{
-                        token: token
-                    }
+                    referenceNo: referenceNo,
+                    otp: 'Y',
+                    backgroundUrl: 'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',
+                    responseUrl: 'https://chatpang.com/user/payment/confirmorder',
+                    card: {
+                        token: token,
+                    },
                 });
-                // const paymentData = {
-                //     amount: 1.00,
-                //     referenceNo:referenceNo,
-                //     otp:'Y',
-                //     backgroundUrl:'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',
-                //     responseUrl:'https://chatpang.com/user/payment/confirmorder'
-                // };
                 const gbRes = await axios.post('https://api.gbprimepay.com/v2/tokens/charge', paymentData, {
                     headers: {
                         Authorization: 'Basic ' + btoa('EoKpVnUv9z4Q1eQdqadondcgXDFFVOHR' + ':'),
                         'Content-Type': 'application/json',
                     },
                 });
-                const { card, resultCode,resultMessage } = gbRes.data;
+                const { gbpReferenceNo, resultCode, resultMessage } = gbRes.data;
                 console.log(gbRes);
-                // console.log(resultMessage);
-                if (resultCode === "00") {
-                    setDone({ ...done, isDone: true, text: 'เรียบร้อย',isError: false });
+                if (resultCode === '00') {
+                    const req3DData = JSON.stringify({
+                        publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y',
+                        gbpReferenceNo: gbpReferenceNo,
+                    });
+                    const res3D = await axios.post('https://api.gbprimepay.com/v2/tokens/3d_secured', req3DData, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                    });
+                    const { resultCode } = res3D.data;
+                    if (resultCode === '00') {
+                        setDone({ ...done, isDone: true, text: 'เรียบร้อย', isError: false });
+                    } else {
+                        setDone({ isDone: true, text: 'เกิดข้อผิดพลาด', isError: true });
+                    }
                 } else {
                     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
                 }
