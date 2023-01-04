@@ -9,6 +9,8 @@ import qs from 'querystring'
 const Credit = () => {
     const router = useRouter();
     const { user, setUserData } = useUser();
+    var doc = new DOMParser()
+    const [html, sethtml] = useState('')
     const [open, setOpen] = useState(false);
     const [done, setDone] = useState({ isDone: false, text: '', isError: false });
     const [contact, setContact] = useState({
@@ -187,7 +189,6 @@ const Credit = () => {
                     },
                 });
                 const { gbpReferenceNo, resultCode, resultMessage } = gbRes.data;
-                console.log(gbRes);
                 if (resultCode === '00') {
                     const req3DData = qs.stringify({
                         publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y',
@@ -199,11 +200,15 @@ const Credit = () => {
                         },
                     });
                     const { resultCode } = res3D.data;
-                    if (resultCode === '00') {
+                    console.log(res3D.data);
+                    var myWindow = window.open("", "");
+                    myWindow.document.write(res3D.data)
+                    // if (resultCode === '00') {
+                        // sethtml(res3D.data)
                         setDone({ ...done, isDone: true, text: 'เรียบร้อย', isError: false });
-                    } else {
-                        setDone({ isDone: true, text: 'เกิดข้อผิดพลาด', isError: true });
-                    }
+                    // } else {
+                        // setDone({ isDone: true, text: 'เกิดข้อผิดพลาด', isError: true });
+                    // }
                 } else {
                     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
                 }
@@ -232,7 +237,7 @@ const Credit = () => {
         <>
             <Form onSubmit={handleSubmit}>
                 <div className="row justify-content-center">
-                    <div className="creditInput col-md-3 col-9 d-flex flex-column">
+                    <div className="creditInput col-lg-3 col-md-6 col-9 d-flex flex-column">
                         <label>
                             Cardholder name <span className="text-center text-danger">{contact.errors.name}</span>
                         </label>
@@ -240,7 +245,7 @@ const Credit = () => {
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <div className="creditInput col-md-3 col-9 d-flex flex-column">
+                    <div className="creditInput col-lg-3 col-md-6 col-9 d-flex flex-column">
                         <label>
                             Card Number{' '}
                             <span className="text-center text-danger">
@@ -259,7 +264,7 @@ const Credit = () => {
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <div className="creditInput col-md-1 col-4">
+                    <div className="creditInput col-lg-1 col-md-2 col-4">
                         <label>
                             MM <span className="text-center text-danger">{contact.errors.expiryMM}</span>
                         </label>
@@ -275,7 +280,7 @@ const Credit = () => {
                             error={contact.errors.expiryMM}
                         />
                     </div>
-                    <div className="creditInput col-md-1 col-4">
+                    <div className="creditInput col-lg-1 col-md-2 col-4">
                         <label>
                             YY <span className="text-center text-danger">{contact.errors.expiryYY}</span>
                         </label>
@@ -291,7 +296,7 @@ const Credit = () => {
                             error={contact.errors.expiryYY}
                         />
                     </div>
-                    <div className="creditInput col-md-1 col-4">
+                    <div className="creditInput col-lg-1 col-md-2 col-4">
                         <label>
                             CVV <span className="text-center text-danger">{contact.errors.securityCode}</span>
                         </label>

@@ -98,6 +98,7 @@ const PaymentStyle = styled.div`
 
   //md extra tablet
   @media screen and (min-width: 768px) and (max-width: 991px) {
+    padding-top:${(props) => props.navHeight + 80}px;
   }
 
   //xl notebook
