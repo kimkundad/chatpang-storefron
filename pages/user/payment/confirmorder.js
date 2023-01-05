@@ -1,23 +1,53 @@
 import { useRouter } from 'next/router'
 import Stepper from '../../../components/Stepper/Stepper';
 import Divider from '@mui/material/Divider';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import useUser from '../../../Hooks/useUser'
 
 import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
 import PaymentStyle from './style';
 import { Box } from '@mui/material';
+import axios from '../../api/axios';
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()
   const [navHeight, setNavHeight] = useState(64);
-
+  let userId = ''
+  let token = ''
   const onsubmit = async () => {
     // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
     router.replace('/user/manage/pagemanagement')
   }
-
+  useEffect(async ()=>{
+    if (!user.isLogin) {
+        if (typeof window !== 'undefined') {
+            userId = localStorage.getItem('userId')
+            token = localStorage.getItem('token')
+            if (token) {
+            const res = await axios.get(`/public/facebook-users/${userId}`)
+            const data = res.data.data
+            const resp = await axios.get(`public/packages/${data.order.package.id}`)
+            const res3 = await axios.get(`/public/facebook-pages/${userId}/facebook-user`, {
+                headers: { Authorization: 'Bearer ' + token },
+            });
+              setUserData({
+                  ...user,
+                  user: data,
+                  facebookUserId: data.facebook_id,
+                  accessToken: token,
+                  userId: userId,
+                  package: resp.data.data,
+                  isLogin: true,
+                  order:data.order,
+                  pages: res3.data.data.results
+                })
+              }else{
+              router.replace('/')
+            }
+        }
+    }
+},[user.isLogin])
   return (
     <MainLayout>
       <PaymentStyle navHeight={navHeight}>
