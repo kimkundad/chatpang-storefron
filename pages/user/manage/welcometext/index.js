@@ -83,40 +83,41 @@ const Welcometext = () => {
             setIsCheckAll(true);
         }
     };
-    const onChangeStatus = async (index, item) => {
-        let temp = [...data];
-        temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
-        setData(temp);
-    };
-    const setStatusActive = async (id) => {
-        try {
-            const res = await axios.patch(
-                `/greeting-messages/${id}/active`,
-                { id: id },
-                {
-                    headers: { Authorization: `Bearer ${user?.accessToken}` },
-                }
-                );
-                return res.data.data;
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    // const onChangeStatus = async (index, item) => {
+    //     let temp = [...data];
+    //     temp[index] = item?.status === 'active' ? await setStatusInActive(item.id) : await setStatusActive(item.id);
+    //     setData(temp);
+    // };
+    // const setStatusActive = async (id) => {
+    //     try {
+    //         const res = await axios.patch(
+    //             `/greeting-messages/${id}/active`,
+    //             { id: id },
+    //             {
+    //                 headers: { Authorization: `Bearer ${user?.accessToken}` },
+    //             }
+    //             );
+    //             return res.data.data;
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
         
-        const setStatusInActive = async (id) => {
-            try {
-                const res = await axios.patch(
-                    `/greeting-messages/${id}/inactive`,
-                    { id: id },
-                {
-                    headers: { Authorization: `Bearer ${user?.accessToken}` },
-                }
-                );
-                return res.data.data;
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    //     const setStatusInActive = async (id) => {
+    //         try {
+    //             const res = await axios.patch(
+    //                 `/greeting-messages/${id}/inactive`,
+    //                 { id: id },
+    //             {
+    //                 headers: { Authorization: `Bearer ${user?.accessToken}` },
+    //             }
+    //             );
+    //             console.log(res.data.data);
+    //             return res.data.data;
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
         
         const onSelect = (id) => {
             // console.log(id)
@@ -124,7 +125,7 @@ const Welcometext = () => {
             setUserData({...user,selectedPage:id})
         };
         const campaignsList = useMemo (()=>{
-            return data.filter((campaign) => campaign.page === pageID)
+            return data.filter((campaign) => campaign?.page === pageID)
         },[pageID, data])
         
         
@@ -135,7 +136,7 @@ const Welcometext = () => {
                     <td className='text-center'>
                         <input className='checkbox-customer' type="checkbox" name={item?.id} checked={itemList.includes(item?.id)} onChange={(e) => onChecked(e)} />
                     </td>
-                    <td>
+                    {/* <td>
                         <span>{item?.status}</span>
                         <Form.Check
                             type="switch"
@@ -143,7 +144,7 @@ const Welcometext = () => {
                             // label={item.status}
                             onChange={() => onChangeStatus(index, item)}
                         />
-                    </td>
+                    </td> */}
                     <td>{item.name}</td>
                     <td>
                         <div>
@@ -215,7 +216,7 @@ const Welcometext = () => {
                                         <th className='text-center'>
                                             <input className='checkbox-customer' onChange={onCheckAll} type="checkbox" name="checkAll" checked={isCheckAll} />
                                         </th>
-                                        <th>สถานะ</th>
+                                        {/* <th>สถานะ</th> */}
                                         <th>แคมเปญ</th>
                                         <th>จัดการ</th>
                                     </tr>

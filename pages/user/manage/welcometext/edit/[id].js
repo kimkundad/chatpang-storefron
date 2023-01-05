@@ -51,7 +51,6 @@ const Edit = () => {
             messages: tempText,
             images: tempImgs,
             name: campaignName,
-            isDefault: !keywordName.length,
             facebookUser: user?.user?.id,
             page: pageID,
         };

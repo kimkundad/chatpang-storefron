@@ -184,7 +184,7 @@ const Createbot = () => {
                         <button onClick={(e) => onSubmit(e)} className="chatCustomBtn">
                             บันทึก
                         </button>
-                        <button onClick={()=> onClear()} className="chatCustomBtn">ยกเลิก</button>
+                        {/* <button onClick={()=> onClear()} className="chatCustomBtn">ยกเลิก</button> */}
                     </div>
                     {/* </div> */}
                 </div>

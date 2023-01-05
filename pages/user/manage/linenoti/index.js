@@ -18,8 +18,8 @@ import LineNotiStyle from './style';
 const Linenoti = () => {
     const { user, setUserData } = useUser();
     const router = useRouter();
-
-    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.id);
+    console.log(user?.pages);
+    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.page_id);
     const [lineName, setLineName] = useState('');
     const [lineAccessToken, setLineAccessToken] = useState('');
     const [lineTimer, setLineTimer] = useState(0);
@@ -65,7 +65,7 @@ const Linenoti = () => {
             });
             onClearData();
         } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error);
             setIsSuccess({
                 show: true,
                 isSuccess: false,
