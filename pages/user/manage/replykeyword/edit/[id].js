@@ -413,7 +413,7 @@ const Edit = () => {
                             <div className="text-secondary text-end">{content?.content?.length}/200</div>
                         </div>
                         {/* เอาออกเพื่อยืนยันกับลูกค้าก่อนว่าโอเคมั้ย */}
-                        {/* <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+                        <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                             <div className="h-auto d-flex flex-column me-4">
                                 <span>
                                     <KeyboardArrowUpIcon onClick={() => moveContentUp(index, content.type)} />
@@ -427,7 +427,7 @@ const Edit = () => {
                                     <DeleteIcon onClick={() => onDeleteContent(index)} />
                                 </span>
                             </div>
-                        </div> */}
+                        </div>
                         {/* </> */}
                     </div>
                 );
@@ -454,7 +454,7 @@ const Edit = () => {
                             )}
                         </div>
                         {/* เอาออกเพื่อยืนยันกับลูกค้าก่อนว่าโอเคมั้ย */}
-                        {/* <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
+                        <div className="col-md-2 col-2 d-flex justify-content-center align-items-center replyKeywordBtn">
                             <div className="d-flex flex-column me-4">
                                 <span>
                                     <KeyboardArrowUpIcon onClick={() => moveContentUp(index, content.type)} />
@@ -468,7 +468,7 @@ const Edit = () => {
                                     <DeleteIcon onClick={() => onDeleteContent(index)} />
                                 </span>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 );
             }
@@ -561,7 +561,7 @@ const Edit = () => {
                 {renderImageInput()} */}
                 {renderAllContent()}
                 {/* เอาออกเพื่อยืนยันกับลูกค้าก่อนว่าโอเคมั้ย */}
-                {/* <Divider />
+                <Divider />
                 <div className="row g-3 justify-content-center">
                     <div className="col-md-4 replyButtonContainer">
                         <button onClick={addTextContent} className="replyCustomBtn">
@@ -575,7 +575,7 @@ const Edit = () => {
                             <span>เพิ่มรูปภาพ</span>
                         </button>
                     </div>
-                </div> */}
+                </div>
             </KeywordStyle>
         </UserLayout>
     );

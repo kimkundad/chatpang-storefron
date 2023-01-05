@@ -200,8 +200,9 @@ const Credit = () => {
                     });
                     const { resultCode } = res3D.data;
                     // console.log(res3D.data);
-                    var myWindow = window.open("", "");
-                    myWindow.document.write(res3D.data)
+                    // var myWindow = window.open("", "");
+                    // myWindow.document.write(res3D.data)
+                    document.write(res3D.data)
                     // if (resultCode === '00') {
                         // sethtml(res3D.data)
                         setDone({ ...done, isDone: true, text: 'เรียบร้อย', isError: false });
