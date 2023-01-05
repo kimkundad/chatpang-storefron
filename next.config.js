@@ -21,11 +21,6 @@ module.exports = {
                 destination: `/login/?fb=${id}`,
                 permanent: true,
             },
-            {
-                source: '/user/payment/confirmorder',
-                destination: `/user/payment/confirmorder`,
-                permanent: true,
-            },
         ];
     },
 };
