@@ -5,11 +5,11 @@ import useUser from '../../../Hooks/useUser';
 import { Form } from 'react-bootstrap';
 import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
 import axios from 'axios';
-import qs from 'querystring'
+import qs from 'querystring';
 const Credit = () => {
     const router = useRouter();
     const { user, setUserData } = useUser();
-    const [html, sethtml] = useState('')
+    const [pay, setPay] = useState({ publicKey: null, gbpReferenceNo: null });
     const [open, setOpen] = useState(false);
     const [done, setDone] = useState({ isDone: false, text: '', isError: false });
     const [contact, setContact] = useState({
@@ -176,7 +176,7 @@ const Credit = () => {
                     referenceNo: referenceNo,
                     otp: 'Y',
                     backgroundUrl: 'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',
-                    responseUrl: 'https://chatpang.com/user/payment/confirmorder',
+                    responseUrl: 'https://chatpang.com/user/payment/confirmorder'
                     card: {
                         token: token,
                     },
@@ -193,21 +193,21 @@ const Credit = () => {
                         publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y',
                         gbpReferenceNo: gbpReferenceNo,
                     });
-                    const res3D = await axios.post('https://api.gbprimepay.com/v2/tokens/3d_secured', req3DData, {
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                    });
-                    const { resultCode } = res3D.data;
+                    // const res3D = await axios.post('https://api.gbprimepay.com/v2/tokens/3d_secured', req3DData, {
+                    //     headers: {
+                    //         'Content-Type': 'application/x-www-form-urlencoded',
+                    //     },
+                    // });
+                    // const { resultCode } = res3D.data;
                     // console.log(res3D.data);
                     // var myWindow = window.open("", "");
                     // myWindow.document.write(res3D.data)
-                    document.write(res3D.data)
+                    // document.write(res3D.data)
                     // if (resultCode === '00') {
-                        // sethtml(res3D.data)
-                        setDone({ ...done, isDone: true, text: 'เรียบร้อย', isError: false });
+                    setPay({ publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y', gbpReferenceNo: gbpReferenceNo });
+                    setDone({ ...done, isDone: true, text: 'กรุณากด จ่าย เพื่อไปหน้าการชำระเงิน', isError: false });
                     // } else {
-                        // setDone({ isDone: true, text: 'เกิดข้อผิดพลาด', isError: true });
+                    // setDone({ isDone: true, text: 'เกิดข้อผิดพลาด', isError: true });
                     // }
                 } else {
                     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
@@ -233,6 +233,11 @@ const Credit = () => {
         boxShadow: 24,
         p: 4,
     };
+
+    const onFormSubmit = (e) => {
+        const form = new FormData(e.target)
+        console.log(form.getAll);
+    }
     return (
         <>
             <Form onSubmit={handleSubmit}>
@@ -339,9 +344,16 @@ const Credit = () => {
                                         ปิด
                                     </Button>
                                 ) : (
-                                    <Button onClick={() => router.push(`/user/payment/confirmorder`)} variant="contained" sx={{ marginLeft: 'auto', color: 'black' }}>
-                                        ต่อไป
-                                    </Button>
+                                    <form name='form' action='https://api.gbprimepay.com/v2/tokens/3d_secured' method='POST'>
+                                        <input hidden type="text" name="publicKey" value={pay.publicKey} />
+                                        <input hidden type="text" name="gbpReferenceNo" value={pay.gbpReferenceNo} />
+                                        <Button type="submit" fullWidth variant="contained" sx={{ color: 'black' }}>
+                                            จ่าย
+                                        </Button>
+                                    </form>
+                                    // <Button onClick={() => router.push(`/user/payment/confirmorder`)} variant="contained" sx={{ marginLeft: 'auto', color: 'black' }}>
+                                    //     ต่อไป
+                                    // </Button>
                                 )}
                             </Box>
                         </>
