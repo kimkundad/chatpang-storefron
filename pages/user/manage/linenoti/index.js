@@ -18,7 +18,7 @@ import LineNotiStyle from './style';
 const Linenoti = () => {
     const { user, setUserData } = useUser();
     const router = useRouter();
-    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.page_id);
+    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.id);
     const [lineName, setLineName] = useState('');
     const [lineAccessToken, setLineAccessToken] = useState('');
     const [lineTimer, setLineTimer] = useState(0);
