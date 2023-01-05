@@ -11,8 +11,8 @@ import GreetingStyle from './style';
 
 const Welcometext = () => {
     const router = useRouter();
-    const { user } = useUser();
-    const [pageID, setPageID] = useState(user?.pages[0]?.id);
+    const { user, setUserData } = useUser();
+    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.id);
 
     const [itemList, setItemList] = useState([]);
     const [data, setData] = useState([]);
@@ -121,6 +121,7 @@ const Welcometext = () => {
         const onSelect = (id) => {
             // console.log(id)
             setPageID(id);
+            setUserData({...user,selectedPage:id})
         };
         const campaignsList = useMemo (()=>{
             return data.filter((campaign) => campaign.page === pageID)

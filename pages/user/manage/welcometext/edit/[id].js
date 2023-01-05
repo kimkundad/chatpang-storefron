@@ -56,7 +56,7 @@ const Edit = () => {
             page: pageID,
         };
         try {
-            const res = await axios.put(`/auto-replies/${id}`, data, {
+            const res = await axios.put(`/greeting-messages/${id}`, data, {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
             console.log(res.data)
@@ -398,7 +398,7 @@ const Edit = () => {
                     <div key={index} className="row g-md-3 createContainer">
                         {/* <> */}
                         <div className="col-md-3 col-xs-12 commentHeader">
-                            <strong className="ms-md-3 me-auto me-md-0">ข้อความ</strong>
+                            <strong className="ms-md-3 me-auto me-md-0">ข้อความ ({index + 1})</strong>
                         </div>
                         <div className="col-md-6 col-6 commentInput">
                             <textarea
@@ -433,7 +433,7 @@ const Edit = () => {
                 return (
                     <div key={index} className="row g-md-3 createContainer">
                         <div className="col-md-3 col-xs-12 commentHeader">
-                            <strong className="ms-md-3 me-auto me-md-0">รูป</strong>
+                            <strong className="ms-md-3 me-auto me-md-0">รูป ({index + 1})</strong>
                         </div>
                         <div className="col-md-6 col-6 commentInput">
                             {content.content !== '' ? (
@@ -472,7 +472,7 @@ const Edit = () => {
     };
     const getKeywordSettingById = async () => {
         try {
-            const res = await axios.get(`/auto-replies/${id}`, {
+            const res = await axios.get(`/greeting-messages/${id}`, {
                 headers: { Authorization: `Bearer ${user?.accessToken}` },
             });
             const data = res.data.data;

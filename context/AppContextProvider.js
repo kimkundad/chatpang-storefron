@@ -14,7 +14,7 @@ export const AppContextProvider = ({children}) => {
         package:[],
         purchases:[],
         pages:[],
-        selectedPage:[],
+        selectedPage:null,
         userId: ''
     })
     return (

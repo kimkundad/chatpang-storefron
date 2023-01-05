@@ -16,10 +16,10 @@ import UserLayout from '../../../../components/layouts/userLayout/userLayout';
 import LineNotiStyle from './style';
 
 const Linenoti = () => {
-    const { user } = useUser();
+    const { user, setUserData } = useUser();
     const router = useRouter();
 
-    const [pageID, setPageID] = useState([user?.pages[0]?.id]);
+    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.id);
     const [lineName, setLineName] = useState('');
     const [lineAccessToken, setLineAccessToken] = useState('');
     const [lineTimer, setLineTimer] = useState(0);
@@ -48,7 +48,7 @@ const Linenoti = () => {
             token: lineAccessToken,
             name: lineName,
             duration: lineTimer,
-            pages: pageID,
+            pages: [pageID],
             status: 'active',
         };
         // console.log(newData)
@@ -193,7 +193,8 @@ const Linenoti = () => {
     //* select page by id
     const onSelect = (id) => {
         // console.log(id)
-        setPageID([id]);
+        setPageID(id);
+        setUserData({...user,selectedPage:id})
     };
 
     //*get line list

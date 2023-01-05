@@ -11,8 +11,8 @@ import ChatBotStyle from './style';
 
 const Chatbot = () => {
     const router = useRouter();
-    const { user } = useUser();
-    const [pageID, setPageID] = useState(user?.pages[0]?.id);
+    const { user, setUserData } = useUser();
+    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.id);
 
     // const [selectedItem, setSelectedItem] = useState();
     const [itemList, setItemList] = useState([]);
@@ -110,6 +110,7 @@ const Chatbot = () => {
     const onSelect = (id) => {
         // console.log(id)
         setPageID(id);
+        setUserData({...user,selectedPage:id})
     };
 
     const onChangeStatus = async (index, item) => {

@@ -12,7 +12,7 @@ import KeywordStyle from './style';
 const Replykeyword = () => {
     const router = useRouter();
     const { user, setUserData } = useUser();
-    const [pageID, setPageID] = useState(user?.pages[0]?.id);
+    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.id);
     const [itemList, setItemList] = useState([]);
     const [data, setData] = useState([]);
     const [isCheckAll, setIsCheckAll] = useState(false);
@@ -123,6 +123,7 @@ const Replykeyword = () => {
     const onSelect = (id) => {
         // console.log(id)
         setPageID(id);
+        setUserData({...user,selectedPage:id})
     };
     const campaignsList = useMemo (()=>{
         return data.filter((campaign) => campaign.page === pageID && !campaign.keywords.includes("เริ่มต้น"))

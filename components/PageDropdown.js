@@ -19,7 +19,7 @@ const PageDropdown = ({ onSelect, defaultValue }) => {
     }
   }
   return (
-    <Form.Select defaultValue={defaultValue} onChange={(e) => onSelect(e.target.value)} disabled={user?.pages.length === 0}>
+    <Form.Select defaultValue={defaultValue || user?.selectedPage} onChange={(e) => onSelect(e.target.value)} disabled={user?.pages.length === 0}>
       {/* <Image src={user?.selectedPage[0].pageImageUrl} alt="pageLogo" /> */}
       {renderPageOption()}
     </Form.Select>

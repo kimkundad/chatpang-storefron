@@ -193,22 +193,9 @@ const Credit = () => {
                         publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y',
                         gbpReferenceNo: gbpReferenceNo,
                     });
-                    // const res3D = await axios.post('https://api.gbprimepay.com/v2/tokens/3d_secured', req3DData, {
-                    //     headers: {
-                    //         'Content-Type': 'application/x-www-form-urlencoded',
-                    //     },
-                    // });
-                    // const { resultCode } = res3D.data;
-                    // console.log(res3D.data);
-                    // var myWindow = window.open("", "");
-                    // myWindow.document.write(res3D.data)
-                    // document.write(res3D.data)
-                    // if (resultCode === '00') {
+                    // submit for 3d secure by form
                     setPay({ publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y', gbpReferenceNo: gbpReferenceNo });
                     setDone({ ...done, isDone: true, text: 'กรุณากด จ่าย เพื่อไปหน้าการชำระเงิน', isError: false });
-                    // } else {
-                    // setDone({ isDone: true, text: 'เกิดข้อผิดพลาด', isError: true });
-                    // }
                 } else {
                     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
                 }
@@ -234,10 +221,6 @@ const Credit = () => {
         p: 4,
     };
 
-    const onFormSubmit = (e) => {
-        const form = new FormData(e.target)
-        console.log(form.getAll);
-    }
     return (
         <>
             <Form onSubmit={handleSubmit}>
