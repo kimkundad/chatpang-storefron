@@ -24,7 +24,7 @@ module.exports = {
             {
                 source: '/paymentsuccess',
                 destination: `/user/payment/confirmorder`,
-                permanent: true,
+                permanent: false,
             },
         ];
     },
