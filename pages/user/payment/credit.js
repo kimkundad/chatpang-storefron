@@ -176,7 +176,7 @@ const Credit = () => {
                     referenceNo: referenceNo,
                     otp: 'Y',
                     backgroundUrl: 'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',
-                    responseUrl: 'https://chatpang.com/user/payment/confirmorder',
+                    responseUrl: 'https://chatpang.com/paymentsuccess',
                     card: {
                         token: token,
                     },
@@ -327,7 +327,7 @@ const Credit = () => {
                                         ปิด
                                     </Button>
                                 ) : (
-                                    <form name='form' action='https://api.gbprimepay.com/v2/tokens/3d_secured' method='POST'>
+                                    <form target='_blank' name='form' action='https://api.gbprimepay.com/v2/tokens/3d_secured' method='POST'>
                                         <input hidden type="text" name="publicKey" value={pay.publicKey} />
                                         <input hidden type="text" name="gbpReferenceNo" value={pay.gbpReferenceNo} />
                                         <Button type="submit" fullWidth variant="contained" sx={{ color: 'black' }}>
