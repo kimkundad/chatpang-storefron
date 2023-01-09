@@ -194,8 +194,23 @@ const Credit = () => {
                         gbpReferenceNo: gbpReferenceNo,
                     });
                     // submit for 3d secure by form
+                    // const form = new FormData()
+                    // form.append('publicKey','5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y')
+                    // form.append('gbpReferenceNo',gbpReferenceNo)
                     setPay({ publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y', gbpReferenceNo: gbpReferenceNo });
-                    setDone({ ...done, isDone: true, text: 'กรุณากด จ่าย เพื่อไปหน้าการชำระเงิน', isError: false });
+                    // const res3D = await axios.post('https://api.gbprimepay.com/v2/tokens/3d_secured',form,{
+                    //     headers: {
+                    //         'Content-Type': 'application/x-www-form-urlencoded',
+                    //     },
+                    // })
+                    // console.log(res3D.data);
+                    // const { resultCode } = res3D.data;
+                    // if (resultCode === '00') {
+
+                        setDone({ ...done, isDone: true, text: 'กรุณากด จ่าย เพื่อไปหน้าการชำระเงิน', isError: false });
+                    // }else{
+                    //     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
+                    // }
                 } else {
                     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
                 }
@@ -327,7 +342,7 @@ const Credit = () => {
                                         ปิด
                                     </Button>
                                 ) : (
-                                    <form target='_blank' name='form' action='https://api.gbprimepay.com/v2/tokens/3d_secured' method='POST'>
+                                    <form name='form' action='https://api.gbprimepay.com/v2/tokens/3d_secured' method='POST'>
                                         <input hidden type="text" name="publicKey" value={pay.publicKey} />
                                         <input hidden type="text" name="gbpReferenceNo" value={pay.gbpReferenceNo} />
                                         <Button type="submit" fullWidth variant="contained" sx={{ color: 'black' }}>

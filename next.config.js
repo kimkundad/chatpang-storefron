@@ -2,9 +2,9 @@ const path = require('path');
 
 require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` });
 
-let id = ''
+let id = '';
 if (typeof window !== 'undefined') {
- id = localStorage.getItem('userId')
+    id = localStorage.getItem('userId');
 }
 
 module.exports = {
@@ -21,10 +21,13 @@ module.exports = {
                 destination: `/login/?fb=${id}`,
                 permanent: true,
             },
+        ];
+    },
+    async rewrites() {
+        return [
             {
                 source: '/paymentsuccess',
                 destination: `/user/payment/confirmorder`,
-                permanent: false,
             },
         ];
     },
