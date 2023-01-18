@@ -204,7 +204,7 @@ const Replykeyword = () => {
                 </div>
                 <div className="row">
                     <div className="col-md-8 mx-auto d-flex mt-3">
-                        {data?.length === 0 ? (
+                        {campaignsList?.length === 0 ? (
                             <p className="mx-auto noData">ไม่มีข้อมูล กรุณาสร้าง แคมเปญ</p>
                         ) : (
                             <Table bordered>

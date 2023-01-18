@@ -92,6 +92,7 @@ const Pagemanagement = () => {
                 purchases: res3.data.data,
                 orderHistory: res1.data.data.results,
                 pages: res4.data.data.results,
+                pagesActive: res4.data.data.results?.filter((item) => item?.status === 'active'),
             });
             setData(res4.data.data.results);
             checkAddPage();
@@ -161,6 +162,13 @@ const Pagemanagement = () => {
         // temp[index].status = status ? 'inactive' : 'active'
         temp[index] = item?.status === 'active' ? await setStatusInActive(item.id, item) : await setStatusActive(item.id, item);
         setData(temp);
+        //set active to dropdown 
+        let tempActive = await temp.filter((item) => item?.status === 'active')
+        await setUserData({
+            ...user,
+            pagesActive: tempActive,
+            selectedPage:tempActive[0]?.id
+        });
     };
 
     const setStatusActive = async (id, item) => {

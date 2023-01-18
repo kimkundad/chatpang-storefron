@@ -14,14 +14,15 @@ const Index = () => {
     const [checkList, setCheckList] = useState(user?.pages?.map((item) => item.page_id));
     const [data, setData] = useState([]);
 
-    const onCheckAll = async () => {
-        setCheckList(!checkAll ? data?.map((item) => item.page_id) : []);
-        setCheckAll(!checkAll);
-        await setUserData({
-            ...user,
-            selectedPage: !checkAll ? [...data] : [],
-        });
-    };
+
+    // const onCheckAll = async () => {
+    //     setCheckList(!checkAll ? data?.map((item) => item.page_id) : []);
+    //     setCheckAll(!checkAll);
+    //     await setUserData({
+    //         ...user,
+    //         selectedPage: !checkAll ? [...data] : [],
+    //     });
+    // };
 
     const onCheck = async (e) => {
         const id = e.target.name;

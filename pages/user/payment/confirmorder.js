@@ -9,6 +9,16 @@ import MainLayout from '../../../components/layouts/mainLayout/mainLayout';
 import PaymentStyle from './style';
 import { Box } from '@mui/material';
 import axios from '../../api/axios';
+
+export async function getServerSideProps({ req, res }) {
+console.log("get props");
+  return {
+    props: {
+      message: "Payment success",
+    }
+  };
+}
+
 const Confirmorder = () => {
   const router = useRouter()
   const { user, setUserData } = useUser()

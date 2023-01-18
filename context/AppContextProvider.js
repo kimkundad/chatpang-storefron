@@ -12,8 +12,10 @@ export const AppContextProvider = ({children}) => {
         orders:{},
         orderHistory:[],
         package:[],
+        selectedpackage:null,
         purchases:[],
         pages:[],
+        pagesActive:[],
         selectedPage:null,
         userId: ''
     })

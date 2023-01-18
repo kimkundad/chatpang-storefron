@@ -52,7 +52,7 @@ const MemberDetails = () => {
             <strong className="text-secondary fs-4">การชำระเงิน</strong>
             <div className="ps-3 fs-5">
               {/* <p className="mb-0 fs-5">{user?.payment?.type === 'card' ? 'ชำระด้วยบัตรเครดิต / เดบิต' : 'ชำระด้วยการแสกน QR code'}</p> */}
-              ชำระด้วยการแสกน QR code
+              {user?.purchases[user?.purchases.length - 1]?.order?.payment.channel === "credit" ? "ชำระด้วย credit card / debit card" : "ชำระด้วยการแสกน QR code"}
             </div>
           </div>
           {/* <div className="col-lg-6 text-end">

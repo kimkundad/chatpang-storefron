@@ -5,12 +5,12 @@ import useUser from '../Hooks/useUser'
 const PageDropdown = ({ onSelect, defaultValue }) => {
   const { user } = useUser()
   const renderPageOption = () => {
-    if (user?.pages.length === 0) {
+    if (user?.pagesActive.length === 0) {
       return <option>คุณยังไม่ได้เลือกเพจ</option>
     } else {
-      return user?.pages.map((item, index) => {
+      return user?.pagesActive.map((item, index) => {
         return (
-          item?.status ==="active"&&
+          // item?.status ==="active"&&
           <option key={index} value={item?.id}>
             {item?.name}
           </option>

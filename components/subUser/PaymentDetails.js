@@ -4,6 +4,7 @@ import useUser from '../../Hooks/useUser'
 import moment from 'moment'
 const PaymentDetails = () => {
   const { user } = useUser()
+  console.log(user);
   const [paymentHistory, setPaymentHistory] = useState(user?.purchases.length !== 0 ? user?.purchases : [])
   const column = [
     {
@@ -34,9 +35,9 @@ const PaymentDetails = () => {
     },
     {
       title: <strong className="fs-5">วิธีชำระเงิน</strong>,
-      dataIndex: 'type',
-      key: 'type',
-      render: (text) => <span className="fs-6">{text === 'card' ? 'บัตรเครดิต' : 'QR CODE'}</span>,
+      dataIndex: 'order',
+      key: 'order',
+      render: (item) => <span className="fs-6">{item?.payment.channel === 'credit' ? 'credit / debit card' : 'QR CODE'}</span>,
     },
     {
       title: <strong className="fs-5">จำนวนเงิน</strong>,

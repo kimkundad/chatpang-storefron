@@ -11,76 +11,73 @@ const UserLayout = ({ children }) => {
     const navRef = useRef({});
     const sidebarRef = useRef({});
 
-    const router = useRouter()
+    const router = useRouter();
 
-    const { user, setUserData } = useUser()
+    const { user, setUserData } = useUser();
 
     const [navbarHeight, setNavbarHeight] = useState(64);
-    const [sideBarWidth, setSideBarWidth] = useState(0)
+    const [sideBarWidth, setSideBarWidth] = useState(0);
 
     const size = useWindowSize();
 
-    let userId = ''
-    let token = ''
-
-    
+    let userId = '';
+    let token = '';
 
     const ToggleSidebar = () => {
-        const display = sidebarRef.current.style.display
-        if (display === "block") {
-            sidebarRef.current.style.display ="none"
+        const display = sidebarRef.current.style.display;
+        if (display === 'block') {
+            sidebarRef.current.style.display = 'none';
         } else {
-            sidebarRef.current.style.display ="block"
+            sidebarRef.current.style.display = 'block';
         }
-    }
+    };
     //persist login
-    useEffect(async ()=>{
+    useEffect(async () => {
         if (!user.isLogin) {
             if (typeof window !== 'undefined') {
-                userId = localStorage.getItem('userId')
-                token = localStorage.getItem('token')
+                userId = localStorage.getItem('userId');
+                token = localStorage.getItem('token');
                 if (token) {
-                const res = await axios.get(`/public/facebook-users/${userId}`)
-                const data = res.data.data
-                const resp = await axios.get(`public/packages/${data.order.package.id}`)
-                const res3 = await axios.get(`/public/facebook-pages/${userId}/facebook-user`, {
-                    headers: { Authorization: 'Bearer ' + token },
-                });
-                  setUserData({
-                      ...user,
-                      user: data,
-                      facebookUserId: data.facebook_id,
-                      accessToken: token,
-                      userId: userId,
-                      package: resp.data.data,
-                      isLogin: true,
-                      order:data.order,
-                      pages: res3.data.data.results
-                    })
-                  }else{
-                  router.replace('/')
+                    const res = await axios.get(`/public/facebook-users/${userId}`);
+                    const data = res.data.data;
+                    const resp = await axios.get(`public/packages/${data.order.package.id}`);
+                    const res3 = await axios.get(`/public/facebook-pages/${userId}/facebook-user`, {
+                        headers: { Authorization: 'Bearer ' + token },
+                    });
+                    setUserData({
+                        ...user,
+                        user: data,
+                        facebookUserId: data.facebook_id,
+                        accessToken: token,
+                        userId: userId,
+                        package: resp.data.data,
+                        isLogin: true,
+                        order: data.order,
+                        pages: res3.data.data.results,
+                        pagesActive: res3.data.data.results?.filter((item) => item?.status === 'active'),
+                    });
+                } else {
+                    router.replace('/');
                 }
             }
         }
-    },[user.isLogin])
+    }, [user.isLogin]);
     useEffect(() => {
         setNavbarHeight(navRef.current.offsetHeight);
     }, [navRef, navRef.current.offsetHeight, size]);
 
     useEffect(() => {
         if (size.width >= 991) {
-            sidebarRef.current.style.display ="block"
-        }else {
-            sidebarRef.current.style.display ="none"
+            sidebarRef.current.style.display = 'block';
+        } else {
+            sidebarRef.current.style.display = 'none';
         }
     }, [size.width]);
     return (
         <UserLayoutStyle navbarHeight={navbarHeight} sidebarWidth={sidebarRef.current.offsetWidth}>
-            <NavBar ref={navRef} screenWidth={size.width} toggleSide={()=>ToggleSidebar()}/>
+            <NavBar ref={navRef} screenWidth={size.width} toggleSide={() => ToggleSidebar()} />
             <Sidebar ref={sidebarRef} />
-            <div className="content">
-                {children}
-            </div>
+            <div className="content">{children}</div>
         </UserLayoutStyle>
     );
 };

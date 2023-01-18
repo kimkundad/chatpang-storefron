@@ -5,10 +5,12 @@ import useUser from '../../../Hooks/useUser';
 import { Form } from 'react-bootstrap';
 import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
 import axios from 'axios';
-import qs from 'querystring';
+import userAxios from '../../api/axios'
+import moment from 'moment';
 const Credit = () => {
     const router = useRouter();
     const { user, setUserData } = useUser();
+    // console.log(user);
     const [pay, setPay] = useState({ publicKey: null, gbpReferenceNo: null });
     const [open, setOpen] = useState(false);
     const [done, setDone] = useState({ isDone: false, text: '', isError: false });
@@ -96,6 +98,7 @@ const Credit = () => {
             const jbcReg = new RegExp('^35(2[89]|[3-8][0-9])');
             const masterReg = new RegExp('^5[1-5][0-9]');
             const visaReg = new RegExp('^4');
+            const unionpay = new RegExp('^62');
 
             if (number.toString().match(amexReg)) {
                 return 'amex';
@@ -105,6 +108,8 @@ const Credit = () => {
                 return 'mastercard';
             } else if (number.toString().match(visaReg)) {
                 return 'visa';
+            } else if (number.toString().match(unionpay)) {
+                return 'union pay';
             } else {
                 return 'invalid';
             }
@@ -134,10 +139,20 @@ const Credit = () => {
         }
     };
     const handleSubmit = async (e) => {
-        console.log('submit');
+        // console.log('submit');
         e.preventDefault();
         const { name, number, expiryMM, expiryYY, securityCode } = contact;
-
+        const userOrder = {
+            facebookUser: user.user.id,
+            payment: {
+                amount: user?.selectedpackage.price,
+                paidDate: moment(),
+                channel: 'GBPrimePay',
+            },
+            package: user?.selectedpackage,
+            discount: 0,
+            net: user?.selectedpackage.price,
+        };
         if (handleValidation()) {
             setContact({ ...contact, errors: {} });
             console.log({
@@ -158,21 +173,25 @@ const Credit = () => {
             card: { name: name, number: number, expirationMonth: expiryMM, expirationYear: expiryYY, securityCode: securityCode },
         });
         try {
+            const resOrder = await userAxios.post(`/public/orders`, userOrder, {
+                headers: { Authorization: `Bearer ${user.accessToken}` },
+            });
+
             const res = await axios.post('https://api.gbprimepay.com/v2/tokens', data, {
                 headers: {
                     Authorization: 'Basic ' + btoa('5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y' + ':'),
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(res.data);
+            // console.log(res.data);
             const { card, resultCode } = res.data;
             const token = card.token;
-            let referenceNo = user.order.id;
+            let referenceNo = resOrder.data.data.id;
             // 00 = สำเร็จ, 02 = ข้อมูลไม่ถูกต้อง, 54 = บัตรหมดอายุ
             // amount = user.order.net
             if (resultCode === '00') {
                 const paymentData = JSON.stringify({
-                    amount: user.order.net,
+                    amount:user?.selectedpackage.price,
                     referenceNo: referenceNo,
                     otp: 'Y',
                     backgroundUrl: 'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',
@@ -189,28 +208,10 @@ const Credit = () => {
                 });
                 const { gbpReferenceNo, resultCode, resultMessage } = gbRes.data;
                 if (resultCode === '00') {
-                    const req3DData = qs.stringify({
-                        publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y',
-                        gbpReferenceNo: gbpReferenceNo,
-                    });
                     // submit for 3d secure by form
-                    // const form = new FormData()
-                    // form.append('publicKey','5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y')
-                    // form.append('gbpReferenceNo',gbpReferenceNo)
                     setPay({ publicKey: '5nuOY0TnsoyDls8oEZ76a3Y8gpGJmz2Y', gbpReferenceNo: gbpReferenceNo });
-                    // const res3D = await axios.post('https://api.gbprimepay.com/v2/tokens/3d_secured',form,{
-                    //     headers: {
-                    //         'Content-Type': 'application/x-www-form-urlencoded',
-                    //     },
-                    // })
-                    // console.log(res3D.data);
-                    // const { resultCode } = res3D.data;
-                    // if (resultCode === '00') {
-
-                        setDone({ ...done, isDone: true, text: 'กรุณากด จ่าย เพื่อไปหน้าการชำระเงิน', isError: false });
-                    // }else{
-                    //     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
-                    // }
+                    setDone({ ...done, isDone: true, text: 'กรุณากด จ่าย เพื่อไปหน้าการชำระเงิน', isError: false });
+                    // setDone({ ...done, isDone: true, text: 'เรียบร้อย', isError: false });
                 } else {
                     setDone({ isDone: true, text: `เกิดข้อผิดพลาด\n${resultMessage}`, isError: true });
                 }
@@ -342,7 +343,7 @@ const Credit = () => {
                                         ปิด
                                     </Button>
                                 ) : (
-                                    <form name='form' action='https://api.gbprimepay.com/v2/tokens/3d_secured' method='POST'>
+                                    <form name="form" action="https://api.gbprimepay.com/v2/tokens/3d_secured" method="POST">
                                         <input hidden type="text" name="publicKey" value={pay.publicKey} />
                                         <input hidden type="text" name="gbpReferenceNo" value={pay.gbpReferenceNo} />
                                         <Button type="submit" fullWidth variant="contained" sx={{ color: 'black' }}>

@@ -5,7 +5,7 @@ import Stepper from '../../../components/Stepper/Stepper';
 // import CardPrice from '../../components/CardPrice'
 import axios from '../../api/axios';
 import useUser from '../../../Hooks/useUser';
-import moment from 'moment';
+// import moment from 'moment';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { Image } from 'react-bootstrap';
 
@@ -38,48 +38,48 @@ const Packages = () => {
             console.log(error);
         }
     }
-    // function setSelectedPackage(id) {
-    //     setIsError(false);
-    //     if (selected === id) {
-    //         setSelected(null);
-    //     } else {
-    //         setSelected(id);
-    //     }
-    // }
 
     const onNext = async (id) => {
         const pack = packages.filter((item) => item.id === id);
-        const userOrder = {
-            facebookUser: user.user.id,
-            payment: {
-                amount: pack[0].price,
-                paidDate: moment(),
-                channel: 'GBPrimePay',
-            },
-            package: {
-                _id: pack[0].id,
-                name: pack[0].name,
-                price: pack[0].price,
-                quotaLimit: pack[0].quota_limit,
-                pageLimit: pack[0].page_limit,
-                lineNotificationLimit: pack[0].line_notification_limit,
-                days: pack[0].days,
-            },
-            discount: 0,
-            net: pack[0].price,
-        };
-        // console.log(userOrder);
-        try {
-            const res = await axios.post(`/public/orders`, userOrder, {
-                headers: { Authorization: `Bearer ${user.accessToken}` },
-            });
-            // console.log(res.data)
-            await setUserData({ ...user, package: pack[0], order: res.data.data });
-            router.push('/user/payment/paymentoptions');
-        } catch (error) {
-            setIsError(true);
-            console.log(error);
-        }
+        // const userOrder = {
+        //     facebookUser: user.user.id,
+        //     payment: {
+        //         amount: pack[0].price,
+        //         paidDate: moment(),
+        //         channel: 'GBPrimePay',
+        //     },
+        //     package: {
+        //         _id: pack[0].id,
+        //         name: pack[0].name,
+        //         price: pack[0].price,
+        //         quotaLimit: pack[0].quota_limit,
+        //         pageLimit: pack[0].page_limit,
+        //         lineNotificationLimit: pack[0].line_notification_limit,
+        //         days: pack[0].days,
+        //     },
+        //     discount: 0,
+        //     net: pack[0].price,
+        // };
+        // try {
+        //     const res = await axios.post(`/public/orders`, userOrder, {
+        //         headers: { Authorization: `Bearer ${user.accessToken}` },
+        //     });
+        //     await setUserData({ ...user, package: pack[0], order: res.data.data });
+        //     router.push('/user/payment/paymentoptions');
+        // } catch (error) {
+        //     setIsError(true);
+        //     console.log(error);
+        // }
+        await setUserData({ ...user, package: pack[0], selectedpackage:{
+            _id: pack[0].id,
+            name: pack[0].name,
+            price: pack[0].price,
+            quotaLimit: pack[0].quota_limit,
+            pageLimit: pack[0].page_limit,
+            lineNotificationLimit: pack[0].line_notification_limit,
+            days: pack[0].days,
+        } });
+        router.push('/user/payment/paymentoptions');
     };
     const getFacebookUserData = async () => {
         try {
