@@ -71,7 +71,7 @@ const Packages = () => {
         //     console.log(error);
         // }
         await setUserData({ ...user, package: pack[0], selectedpackage:{
-            _id: pack[0].id,
+            id: pack[0].id,
             name: pack[0].name,
             price: pack[0].price,
             quotaLimit: pack[0].quota_limit,
