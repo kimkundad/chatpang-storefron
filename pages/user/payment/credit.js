@@ -184,6 +184,7 @@ const Credit = () => {
                 },
             });
             // console.log(res.data);
+            setUserData({ ...user, order: res.data.data });
             const { card, resultCode } = res.data;
             const token = card.token;
             let referenceNo = resOrder.data.data.id;

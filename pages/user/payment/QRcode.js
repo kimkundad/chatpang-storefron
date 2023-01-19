@@ -51,7 +51,7 @@ const QRcode = () => {
             const res = await axios.post(`/public/orders`, userOrder, {
                 headers: { Authorization: `Bearer ${user.accessToken}` },
             });
-
+            setUserData({ ...user, order: res.data.data });
             const qrcode = await axios.get(`public/orders-payment/${res.data.data.id}/qrcode`);
             // console.log(qrcode.data);
             //* check that qr code for this order has been created

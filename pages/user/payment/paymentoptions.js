@@ -22,17 +22,17 @@ const Paymentoptions = () => {
         // console.log(e.target.name)
     };
 
-    const getOrderData = async () => {
-        try {
-            const res = await axios.get(`/public/orders/${user.order.id}`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
-            setUserData({ ...user, order: res.data.data });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    useEffect(() => {
-        user.order.id && getOrderData();
-    }, []);
+    // const getOrderData = async () => {
+    //     try {
+    //         const res = await axios.get(`/public/orders/${user.order.id}`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
+    //         setUserData({ ...user, order: res.data.data });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+    // useEffect(() => {
+    //     user.order.id && getOrderData();
+    // }, []);
     return (
         <MainLayout navHeight={navHeight}>
             <PaymentStyle navHeight={navHeight}>
