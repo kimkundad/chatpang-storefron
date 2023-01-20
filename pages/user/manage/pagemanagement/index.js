@@ -24,7 +24,7 @@ const Pagemanagement = () => {
     const toggleShow = () => setShow(!show);
 
     // const facebookUserId = router.query.fb
-    // console.log(user)
+    // console.log(user.user.id)
     const getQuotaInfo = async () => {
         try {
             const res = await axios.get(`/public/purchases/${user?.user?.id}/quota`, {
@@ -232,13 +232,13 @@ const Pagemanagement = () => {
     useEffect(() => {
         let isCancel = false;
         if (!isCancel) {
-            getQuotaInfo();
-            getPurchaseData();
+            user.user.id && getQuotaInfo();
+            user.user.id && getPurchaseData();
         }
         return () => {
             isCancel = true;
         };
-    }, []);
+    }, [user.user.id]);
     return (
         <UserLayout>
             <InfoStyle>
