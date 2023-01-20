@@ -5,7 +5,7 @@ import useUser from '../../../Hooks/useUser';
 import { Form } from 'react-bootstrap';
 import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
 import axios from 'axios';
-import userAxios from '../../api/axios'
+import userAxios from '../../api/axios';
 import moment from 'moment';
 const Credit = () => {
     const router = useRouter();
@@ -22,7 +22,7 @@ const Credit = () => {
         securityCode: '',
         errors: {},
     });
-
+    const selectedPackage = user.package;
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false);
@@ -145,13 +145,21 @@ const Credit = () => {
         const userOrder = {
             facebookUser: user.user.id,
             payment: {
-                amount: user?.selectedpackage.price,
+                amount: user?.selectedpackage?.price || selectedPackage.price,
                 paidDate: moment(),
                 channel: 'GBPrimePay',
             },
-            package: user?.selectedpackage,
+            package: {
+                _id: user?.selectedpackage?.id || selectedPackage.id,
+                name: user?.selectedpackage?.name || selectedPackage.name,
+                price: user?.selectedpackage?.price || selectedPackage.price,
+                quotaLimit: user?.selectedpackage?.quota_limit || selectedPackage.quota_limit,
+                pageLimit: user?.selectedpackage?.page_limit || selectedPackage.page_limit,
+                lineNotificationLimit: user?.selectedpackage?.line_notification_limit || selectedPackage.line_notification_limit,
+                days: user?.selectedpackage?.days || selectedPackage.days,
+            },
             discount: 0,
-            net: user?.selectedpackage.price,
+            net: user?.selectedpackage?.price || selectedPackage.price,
         };
         if (handleValidation()) {
             setContact({ ...contact, errors: {} });
@@ -192,7 +200,7 @@ const Credit = () => {
             // amount = user.order.net
             if (resultCode === '00') {
                 const paymentData = JSON.stringify({
-                    amount:user?.selectedpackage.price,
+                    amount: user?.selectedpackage.price,
                     referenceNo: referenceNo,
                     otp: 'Y',
                     backgroundUrl: 'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',

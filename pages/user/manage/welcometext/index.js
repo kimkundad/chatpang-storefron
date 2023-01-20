@@ -12,7 +12,7 @@ import GreetingStyle from './style';
 const Welcometext = () => {
     const router = useRouter();
     const { user, setUserData } = useUser();
-    const [pageID, setPageID] = useState(user?.selectedPage || user?.pages[0]?.id);
+    const [pageID, setPageID] = useState(user?.selectedPage || user?.pagesActive[0]?.id);
 
     const [itemList, setItemList] = useState([]);
     const [data, setData] = useState([]);
