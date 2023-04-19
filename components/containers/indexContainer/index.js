@@ -45,7 +45,7 @@ const IndexContainer = React.forwardRef((props, ref) => {
                                 marginBottom: 'auto',
                             }}>
                             <div className="index-text">
-                                ผู้ช่วยตอบแชทคนเก่ง! <br /> สำหรับแม่ค้าออนไลน์
+                                ผู้ช่วยตอบแชทคนเก่ง! <br /> สำหรับแม่ค้าออนไลน์.
                             </div>
 
                             {/* <div className="index-text"></div> */}
