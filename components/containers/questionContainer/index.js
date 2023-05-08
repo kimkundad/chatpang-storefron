@@ -23,7 +23,7 @@ const QuestionContainer = React.forwardRef((props, ref) => {
 
   async function getQuestions() {
     try {
-      const res = await axios('https://chat-pang-api-fy5xytbcca-as.a.run.app//public/questions')
+      const res = await axios('https://app.chatpang.co/public/questions')
       setQuestions(res.data.data.results)
     } catch (error) {
       console.log(error)

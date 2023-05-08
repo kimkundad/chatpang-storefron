@@ -4,3 +4,11 @@ services:
     ports:
       - "3005:3005"
     build: .
+    image: zonepangcloud/chatpang-storefront:v3
+
+
+
+
+
+
+    

@@ -26,7 +26,7 @@ const Confirmorder = () => {
   let userId = ''
   let token = ''
   const onsubmit = async () => {
-    // router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages')
+    // router.replace('https://app.chatpang.co/facebook/pages')
     router.replace('/user/manage/pagemanagement')
   }
   useEffect(async ()=>{

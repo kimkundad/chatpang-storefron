@@ -12,7 +12,7 @@ const CustomerReview = React.forwardRef((props, ref) => {
 
     async function getReviews() {
         try {
-          const res = await axios('https://chat-pang-api-fy5xytbcca-as.a.run.app/public/reviews')
+          const res = await axios('https://app.chatpang.co/public/reviews')
           setReviews(res.data.data.results)
         } catch (error) {
           console.log(error)

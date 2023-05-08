@@ -64,7 +64,7 @@ const Pagemanagement = () => {
 
     const onAddPage = () => {
         console.log('add pages');
-        router.replace('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/pages');
+        router.replace('https://app.chatpang.co/facebook/pages');
     };
 
     const getPurchaseData = async () => {

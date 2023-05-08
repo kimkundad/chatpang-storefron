@@ -203,8 +203,8 @@ const Credit = () => {
                     amount: user?.selectedpackage.price,
                     referenceNo: referenceNo,
                     otp: 'Y',
-                    backgroundUrl: 'https://chat-pang-api-fy5xytbcca-as.a.run.app/public/orders-payment',
-                    responseUrl: 'https://chatpang.com/paymentsuccess',
+                    backgroundUrl: 'https://app.chatpang.co/public/orders-payment',
+                    responseUrl: 'https://chatpang.co/paymentsuccess',
                     card: {
                         token: token,
                     },

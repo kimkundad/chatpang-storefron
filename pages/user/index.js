@@ -7,9 +7,10 @@ const UserLogin = (props) => {
 
     const onLogin = async (props) => {
         //*got ot new tap
-        window.open('https://chat-pang-api-fy5xytbcca-as.a.run.app/facebook/auth');
+        window.open('https://app.chatpang.co/facebook/auth');
     };
 
+    
     return (
         <MainLayout  setNavHeight={setNavHeight}>
             <UserLoginStyle navHeight={navHeight}>
