@@ -80,7 +80,7 @@ const Login = () => {
     userId !== undefined && userId !== null && getFacebookUserData(login)
   }, [userId])
 
-  return <LoginContainerStyle>ระบบกำลัง redirect ไปที่หน้าการจัดการ</LoginContainerStyle>
+  return <LoginContainerStyle>ระบบกำลัง redirect ไปที่หน้าการจัดการ.</LoginContainerStyle>
 }
 
 export default Login
